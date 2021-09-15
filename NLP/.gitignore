@@ -139,3 +139,7 @@ cython_debug/
 
 # FASTAPI TUTORIAL
 fastapi/
+
+# models
+*.bin
+config.json
