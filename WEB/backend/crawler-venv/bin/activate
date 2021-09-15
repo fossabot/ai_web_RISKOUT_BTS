@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/workspaces/ai_web_RISKOUT_BTS/WEB/backend/django/django-venv"
+VIRTUAL_ENV="/workspaces/ai_web_RISKOUT_BTS/WEB/backend/crawler-venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -54,8 +54,8 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    if [ "x(django-venv) " != x ] ; then
-	PS1="(django-venv) ${PS1:-}"
+    if [ "x(crawler-venv) " != x ] ; then
+	PS1="(crawler-venv) ${PS1:-}"
     else
     if [ "`basename \"$VIRTUAL_ENV\"`" = "__" ] ; then
         # special case for Aspen magic directories
