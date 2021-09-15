@@ -2,7 +2,7 @@ FROM python:3.7.4-stretch
 
 WORKDIR /home/user
 
-RUN api-get update && apt-get install -y curl git pkg-config cmake
+RUN apt-get update && apt-get install -y curl git pkg-config cmake
 RUN apt-get install -y wget build-essential autotools-dev automake libmecab2 libmecab-dev
 
 
@@ -14,7 +14,7 @@ COPY setup.py requirements.txt /home/user/
 RUN pip install -r requirements.txt
 
 # install mecab
-RUN apt-get install g++ openjdk-8-jdk python3-dev python3-pip curl
+RUN apt-get install -y g++ openjdk-8-jdk python3-dev python3-pip curl
 RUN bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
 
 # copy saved models
