@@ -14,8 +14,9 @@ COPY setup.py requirements.txt /home/user/
 RUN pip install -r requirements.txt
 
 # install mecab
+COPY mecab.sh /home/user/
 RUN apt-get install -y g++ openjdk-8-jdk python3-dev python3-pip curl
-RUN bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
+RUN bash mecab.sh
 
 # copy saved models
 COPY models* /home/user/models/
