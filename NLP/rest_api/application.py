@@ -38,6 +38,7 @@ async def summarize(docs: Optional[str] = None):
     results = {"summairzed": ""}
     if docs:
         summarized = kobartsum.predict(docs)
+        results["summairzed"] = summarized
 
     return results
 
