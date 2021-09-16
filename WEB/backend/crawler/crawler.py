@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
+import time
 
 # 앞으로는 date와 page를 for 문으로 돌면서 검색하는 함수 만들면 될듯
 TARGET_URL = "https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid2=268&sid1=100&date=20210916&page=1"
@@ -40,6 +41,7 @@ def get_request(url):
 
 
 def main():
+    cur_time = time.time()
     response = get_request(TARGET_URL)
 
     newslist_html = response.text
@@ -49,6 +51,8 @@ def main():
     
     for tmp in news_contents:
         print("title: " + tmp['title'] + "\nhref: " + tmp['href'] + "\nimage: " + tmp['img'] + '\ncontent:\n' + tmp['body_contents'] + '\n\n')
+
+    print("\n\n\n" + str(time.time() - cur_time))
 
 if __name__ == '__main__':
     main()
