@@ -4,6 +4,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 # from ./user/serializers import UserSerializer
 
+from django.shortcuts import render
+
+def main_html(requests):
+    return render(requests, 'index.html')
+    
+
 @api_view(['GET'])
 def validate_jwt_token(request):
 
