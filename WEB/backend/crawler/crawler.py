@@ -11,18 +11,23 @@ def crawling(soup):
     
     result = div.get_text()
 
-    print(result)
-    return None
+    # print(result)
+    return result
 
 def get_href(soup):
-    result = []
+    href = []
+    img = []
+    title = []
 
     div = soup.find("div", class_ = 'list_body newsflash_body')
 
+    
     for dt in div.find_all("dt", class_="photo"):
-        result.append(dt.find('a')['href'])
+        href.append(dt.find('a')['href'])
+        img.append(dt.find('img')['src'])
+        title.append(dt.find('img')['alt']) # 일단은 테스트로 제목을 img의 alt로 가져왔지만 수정이 필요함. crawling함수 안에서 처리할 수도 있을 듯
 
-    return result
+    return zip(href, img, title)
 
 def get_request(url):
     response = requests.get(url, headers = custom_header)
@@ -37,18 +42,25 @@ def main():
     html= response.text
     soup = bs(html, 'html.parser')
 
-    href_list = get_href(soup)
+    href_img_list = get_href(soup)
 
-    print(href_list)
+    # print(href_img_list)
 
     result = []
 
-    for href in href_list:
+    for href, img, title in href_img_list:
         href_req = requests.get(href, headers = custom_header)
         href_soup = bs(href_req.text, "html.parser")
-        result.append(crawling(href_soup))
+        temp = []
+        temp.append(str.strip(crawling(href_soup)))
+        
+        temp.append(img)
+        temp.append(title)
+        temp.append(href)
+        result.append(temp)
     
-    print(result)
+    for tmp in result:
+        print("title: " + tmp[2] + "\nhref: " + tmp[3] + "\nimage: " + tmp[1] + '\ncontent:\n' + tmp[0] + '\n\n')
 
 if __name__ == '__main__':
     main()
