@@ -11,21 +11,26 @@ COPY riskout /home/user/riskout
 
 # install as a package
 COPY setup.py requirements.txt /home/user/
-RUN pip install -r requirements.txt
-RUN pip install -e .
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install -e .
 
 # install mecab
 COPY mecab.sh /home/user/
-RUN apt-get install -y g++ openjdk-8-jdk python3-dev python3-pip curl
+RUN apt-get install -y g++ openjdk-8-jdk curl
 RUN bash mecab.sh
+
+# add user-dic
+COPY user-dic.csv /tmp/mecab-ko-dic-2.1.1-20180720/user-dic/
+RUN bash /tmp/mecab-ko-dic-2.1.1-20180720/tools/add-userdic.sh
 
 # copy saved models
 # COPY models* /home/user/models/
 
 # download google drive
-RUN pip install gdown
-RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc
-RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI
+RUN pip3 install gdown
+COPY models/kobart_summary /home/user/models/kobart_summary
+RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc -O /home/user/models/kobart_summary/pytorch_model.bin
+RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI -O /home/user/models/kobart_summary/config.json
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
