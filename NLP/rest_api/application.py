@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Text
 from rest_api.config import ROOT_PATH, MODEL_PATH
 
 from riskout.summarization import KorbartSummarizer
@@ -39,25 +39,29 @@ logger.info(
     """
 )
 
-class Doc(BaseModel):
-    document: Optional[str]
-
+class SummarizeRequest(BaseModel):
+    document: Optional[str] = None
 
 @app.post("/summarize")
-async def summarize(docs: Doc):
+async def summarize(doc: SummarizeRequest):
     results = {"summairzed": ""}
-    if not docs:
-        return {"detail": "Need docs"}    
+    if not doc:
+        return {"detail": "Need doc"}    
     start_time = time.time()
-    summarized = kobartsum.predict(docs.document)
+    summarized = kobartsum.predict(doc.document)
     results["summairzed"] = summarized
     results.update({"time": time.time() - start_time})
 
     return results
 
 
+class TextRankRequest(BaseModel):
+    query: str
+    docs: Optional[List[str]] = None
+
 @app.post("/textrank")
-async def textrank(query: str, docs: List[Doc]):
+async def textrank(req: TextRankRequest):
+    query, docs = req.query, req.docs
     results = {}
     if not docs: 
         return {"detail": "Need docs"}
@@ -68,14 +72,14 @@ async def textrank(query: str, docs: List[Doc]):
             window=-1,
             verbose=False
         )
-        results["keywords"] =  keyword_extractor.summarize(docs.document, topk=30)
+        results["keywords"] =  keyword_extractor.summarize(docs, topk=10)
     elif query == "keysentences":
         summarizer = KeysentenceSummarizer(
             tokenize=tokenize,
             min_sim=0.3,
             verbose=False
         )
-        results["keysentences"] = summarizer.summarize(docs.document, topk=30)
+        results["keysentences"] = summarizer.summarize(docs, topk=10)
     results.update({"time": time.time() - start_time})
     return results
 
