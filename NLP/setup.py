@@ -56,7 +56,6 @@ setup(
     version=about['__version__'],
     author=about['__author__'],
     author_email='elmo.hwan@gmail.com',
-    long_description=open("README.md", "r", encoding="utf-8").read(),
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     dependency_links=dependency_links,
     install_requires=parsed_requirements,
