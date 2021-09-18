@@ -2,7 +2,7 @@ FROM python:3.7.4-stretch
 
 WORKDIR /home/user
 
-RUN apt-get update && apt-get install -y curl git pkg-config cmake
+RUN apt-get update && apt-get install -y curl git pkg-config cmake apt-utils
 RUN apt-get install -y wget build-essential autotools-dev automake libmecab2 libmecab-dev
 
 
@@ -12,6 +12,7 @@ COPY riskout /home/user/riskout
 # install as a package
 COPY setup.py requirements.txt /home/user/
 RUN pip install -r requirements.txt
+RUN pip install -e .
 
 # install mecab
 COPY mecab.sh /home/user/
