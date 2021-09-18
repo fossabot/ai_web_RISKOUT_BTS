@@ -52,7 +52,7 @@ function Update(){
         form_data.append('language', sendData.language);
         form_data.append('updateCount', sendData.updateCount)
 
-        fetch('http://localhost:8000/api/Todos/' + pgN + "/update/", {
+        fetch('api/Todos/' + pgN + "/update/", {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -67,7 +67,7 @@ function Update(){
     };
 
     useEffect(()=>{
-        fetch('http://localhost:8000/user/current/', {
+        fetch('user/current/', {
           headers: {
             Authorization: `JWT ${localStorage.getItem('token')}`
           }
@@ -85,7 +85,7 @@ function Update(){
     let pgN = document.location.href.split('/')[4]
 
     useEffect(()=>{
-        fetch('http://localhost:8000/api/Todos/' + pgN + "/")
+        fetch('api/Todos/' + pgN + "/")
         .then((res)=>res.json())
             .then((posts)=>{
                 setTitle(posts.title)

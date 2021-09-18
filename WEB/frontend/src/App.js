@@ -47,13 +47,13 @@ function App() {
     if (isAuthenticated) {
       // 현재 JWT 토큰 값이 타당한지 GET /validate 요청을 통해 확인하고
       // 상태 코드가 200이라면 현재 GET /user/current 요청을 통해 user정보를 받아옴
-      fetch('http://localhost:8000/validate/', {
+      fetch('validate/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
       })
       .then(res => {
-        fetch('http://localhost:8000/user/current/', {
+        fetch('user/current/', {
           headers: {
             Authorization: `JWT ${localStorage.getItem('token')}`
           }
@@ -69,7 +69,7 @@ function App() {
             setisAuthenticated(false)
           }
           // Refresh Token 발급 받아 token의 만료 시간 연장
-          fetch('http://localhost:8000/refresh/', {
+          fetch('refresh/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -98,6 +98,43 @@ function App() {
     }
   },[isAuthenticated])
 
+  return (
+    <>
+      <div className="App">
+        <div className="auto-margin">
+          <Route exact path="/">
+            <Header modal={modal} handleLogout={handleLogout}/>
+            <Navi/>
+            <Board/>
+          </Route>
+
+          <Route exact path="/login">
+            <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated}/>
+          </Route>
+
+          <Route exact path="/profile">
+            <Header modal={modal} handleLogout={handleLogout}/>
+            <Profile handleLogout={handleLogout}/>
+          </Route>
+
+          <Route exact path="/write">
+            <Write user={user}/>
+          </Route>
+
+          <Route path="/detail">
+            <Header modal={modal} handleLogout={handleLogout}/>
+            <Detail user={user}/>
+          </Route>
+
+          <Route path="/update">
+            <Update/>
+          </Route>
+      </div>
+    </div>
+    </>
+  );
+
+  /*
   return (
     <>
       <div className="App">
@@ -144,6 +181,7 @@ function App() {
     </div>
     </>
   );
+  */
 }
 
 export default App;

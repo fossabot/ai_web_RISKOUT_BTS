@@ -17,7 +17,7 @@ function Mysite(){
     let [todolist, setTodoList] = useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:8000/user/auth/profile/' + pgN + '/')
+        fetch('user/auth/profile/' + pgN + '/')
         .then((res)=>res.json())
         .then((info)=>{
             setUserSitePhoto(info.photo)
@@ -28,7 +28,7 @@ function Mysite(){
     },[])
 
     useEffect(()=>{
-        fetch('http://localhost:8000/api/Todos/')
+        fetch('api/Todos/')
         .then((res)=>res.json())
         .then((posts)=>{
             setTodoList(posts)

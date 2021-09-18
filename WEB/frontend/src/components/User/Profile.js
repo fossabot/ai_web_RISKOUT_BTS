@@ -17,7 +17,7 @@ function Profile(props){
     let [usermyInfo, setUserMyInfo] = useState("")
 
     useEffect(()=>{
-        fetch('http://localhost:8000/user/current/', {
+        fetch('user/current/', {
           headers: {
             Authorization: `JWT ${localStorage.getItem('token')}`
           }
@@ -28,7 +28,7 @@ function Profile(props){
           if (json.id) {
             setUserId(json.id)
             //유저정보를 받아왔으면 해당 user의 프로필을 받아온다.
-        }fetch('http://localhost:8000/user/auth/profile/' + json.id + '/update/',{
+        }fetch('user/auth/profile/' + json.id + '/update/',{
                 method : 'PATCH',
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
@@ -67,7 +67,7 @@ function Profile(props){
         form_data.append('mygit', sendData.mygit);
         form_data.append('nickname', sendData.nickname);
         form_data.append('myInfo', sendData.myInfo);
-        fetch('http://localhost:8000/user/auth/profile/' + userId + '/update/', {
+        fetch('user/auth/profile/' + userId + '/update/', {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -84,7 +84,7 @@ function Profile(props){
         let fileField = document.querySelector('input[type="file"]');
         form_data.append('photo', fileField.files[0])
 
-        fetch('http://localhost:8000/user/auth/profile/' + userId + '/update/', {
+        fetch('user/auth/profile/' + userId + '/update/', {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -98,14 +98,14 @@ function Profile(props){
 
     const DeleteUser = ()=>{
         if(window.confirm('정말 삭제하시겠습니까 ?')===true){
-            fetch('http://localhost:8000/user/current/', {
+            fetch('user/current/', {
                 headers: {
                 Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
             .then(res => res.json())
             .then(json => {
-                fetch('http://localhost:8000/user/auth/profile/' + json.id + '/delete/',{
+                fetch('user/auth/profile/' + json.id + '/delete/',{
                     method : 'DELETE',
                     headers: {
                         Authorization: `JWT ${localStorage.getItem('token')}`,

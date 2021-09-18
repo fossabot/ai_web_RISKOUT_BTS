@@ -16,14 +16,14 @@ function Board(){
     useEffect(()=>{
         pgN === "like"
         ?(
-            fetch('http://localhost:8000/api/Todos/like/')
+            fetch('api/Todos/like/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setTodoList(posts)
             })
         )
         :(
-            fetch('http://localhost:8000/api/Todos/')
+            fetch('api/Todos/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setTodoList(posts)
@@ -32,7 +32,7 @@ function Board(){
     },[pgN])
     
     useEffect(()=>{
-        fetch('http://localhost:8000/api/CommentTodos/')
+        fetch('api/CommentTodos/')
         .then((res)=>res.json())
         .then((posts)=>{
             let arr = [...commentCount]
@@ -45,7 +45,7 @@ function Board(){
     },[])
     
     useEffect(()=>{
-        fetch('http://localhost:8000/api/ReCommentTodos/')
+        fetch('api/ReCommentTodos/')
         .then((res)=>res.json())
         .then((posts)=>{
             let arr = [...reCommentCount]
@@ -108,7 +108,7 @@ function Board(){
                                                 :(
                                                     <Link to={"/detail/" + a.id}>
                                                         <div className="arcticle-img">
-                                                            <img src={"http://localhost:8000" + a.image} alt=""></img>
+                                                            <img src={a.image} alt=""></img>
                                                         </div>
                                                     </Link>
                                                 )
@@ -156,7 +156,7 @@ function Board(){
                                             :(
                                                 <Link to={"/detail/" + a.id}>
                                                     <div className="arcticle-img">
-                                                        <img src={"http://localhost:8000" + a.image} alt=""></img>
+                                                        <img src={a.image} alt=""></img>
                                                     </div>
                                                 </Link>
                                             )

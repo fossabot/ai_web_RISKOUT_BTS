@@ -18,7 +18,7 @@ function LoginModal(props){
       provider: 'google'
     }
 
-    fetch('http://localhost:8000/user/', {
+    fetch('user/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ function LoginModal(props){
       }else{
         // 서버에 Google 계정 이미 저장돼 있다면 Login 작업 수행
         // 로그인을 시도하기 전에 서버에 접근하기 위한 access token을 발급 받음
-        fetch('http://localhost:8000/login/', {  
+        fetch('login/', {  
         method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -94,15 +94,12 @@ function LoginModal(props){
                 <input type="password" placeholder="비밀번호를 입력하세요" id="password" onChange={handlePasswordChange}/>
                 <button className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault();
-                  // fetch('https://simonseo-osamhack2021-ai-web-riskout-bts-7v5g7qxw2p974-8000.githubpreview.dev/login/', {
-                  fetch('https://simonseo-osamhack2021-ai-web-riskout-bts-7v5g7qxw2p974-3000.githubpreview.dev/login/', {
+                  fetch('login/', {
                   method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                      //'Access-Control-Allow-Origin': '*',
                     },
                     body: JSON.stringify(data),
-                    redirect: 'follow',
                   })
                   .then(res => res.json())
                   .then(json => {
@@ -126,7 +123,7 @@ function LoginModal(props){
                 <input type="password" placeholder="비밀번호를 입력하세요" onChange={handlePasswordChange}/>
                 <button className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
-                  fetch('http://localhost:8000/user/', {
+                  fetch('user/', {
                     method: 'POST',
                     headers:{
                       'Content-Type': 'application/json'

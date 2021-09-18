@@ -67,7 +67,7 @@ function Write(props){
         form_data.append('profileImage', sendData.profileImage)
         form_data.append('user_pk', sendData.user_pk);
 
-        fetch("http://localhost:8000/api/Todos/", {
+        fetch("api/Todos/", {
             method : 'POST',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -82,7 +82,7 @@ function Write(props){
     };
 
     useEffect(()=>{
-        fetch('http://localhost:8000/user/current/', {
+        fetch('user/current/', {
           headers: {
             Authorization: `JWT ${localStorage.getItem('token')}`
           }
@@ -92,7 +92,7 @@ function Write(props){
           if (json.id === null || json.id === undefined) {
             alert("로그인이 필요합니다.")
             history.push('/')
-        }fetch('http://localhost:8000/user/auth/profile/' + json.id + '/update/',{
+        }fetch('user/auth/profile/' + json.id + '/update/',{
                 method : 'PATCH',
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`

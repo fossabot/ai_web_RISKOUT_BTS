@@ -35,7 +35,7 @@ function Detail(props){
     }
 
     useEffect(()=>{
-        fetch('http://localhost:8000/api/Todos/' + pgN + "/")
+        fetch('api/Todos/' + pgN + "/")
         .then((res)=>res.json())
             .then((posts)=>{
                 setDetailList(posts)
@@ -46,14 +46,14 @@ function Detail(props){
                 setDetailLang(posts.language.split(','))
                 setDetailLikedUser(posts.likedUser.split(','))
                 
-                fetch('http://localhost:8000/user/current/', {
+                fetch('user/current/', {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
                 })
                 .then(res => res.json())
                 .then(json => {
-                fetch('http://localhost:8000/user/auth/profile/' + json.id + '/update/',{
+                fetch('user/auth/profile/' + json.id + '/update/',{
                         method : 'PATCH',
                         headers: {
                             Authorization: `JWT ${localStorage.getItem('token')}`
@@ -69,7 +69,7 @@ function Detail(props){
                         }
                     })
                 })  
-                fetch('http://localhost:8000/user/auth/profile/' + posts.user_pk + '/')
+                fetch('user/auth/profile/' + posts.user_pk + '/')
                 .then((res)=>res.json())
                 .then((info)=>{
                     setDetailUserInfo(info)
@@ -80,7 +80,7 @@ function Detail(props){
     const DelBoard = ()=>{
         if(currnetUser.user_pk === detailList.user_pk){
             if(window.confirm('정말 삭제하시겠습니까 ?')===true){
-                fetch('http://localhost:8000/api/Todos/' + pgN + "/delete/", {
+                fetch('api/Todos/' + pgN + "/delete/", {
                 method : 'DELETE',
                 headers: {
                     Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -138,7 +138,7 @@ function Detail(props){
         form_data.append('like', sendData.like);
         form_data.append('likedUser', sendData.likedUser);
 
-        fetch('http://localhost:8000/api/Todos/' + pgN + "/update/", {
+        fetch('api/Todos/' + pgN + "/update/", {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -148,7 +148,7 @@ function Detail(props){
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(()=>{
-            fetch('http://localhost:8000/api/Todos/' + pgN + "/")
+            fetch('api/Todos/' + pgN + "/")
             .then((res)=>res.json())
             .then((posts)=>{
                 setDetailList(posts)
@@ -186,7 +186,7 @@ function Detail(props){
         form_data.append('user_pk', commentData.user_pk);
         form_data.append('todo_pk', commentData.todo_pk);
 
-        fetch("http://localhost:8000/api/CommentTodos/", {
+        fetch("api/CommentTodos/", {
             method : 'POST',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -197,7 +197,7 @@ function Detail(props){
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', JSON.stringify(response)))
         .then(()=>{
-            fetch('http://localhost:8000/api/CommentTodos/')
+            fetch('api/CommentTodos/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setCommentList(posts)
@@ -208,7 +208,7 @@ function Detail(props){
     };
 
     useEffect(()=>{
-        fetch('http://localhost:8000/api/CommentTodos/')
+        fetch('api/CommentTodos/')
         .then((res)=>res.json())
         .then((posts)=>{
             let result = posts.filter( x => {
@@ -221,7 +221,7 @@ function Detail(props){
     const DelComment = (writeUser_pk, comment_id)=>{
         if(currnetUser.user_pk === writeUser_pk){
             if(window.confirm('정말 삭제하시겠습니까 ?')===true){
-                fetch('http://localhost:8000/api/CommentTodos/' + comment_id + "/delete/", {
+                fetch('api/CommentTodos/' + comment_id + "/delete/", {
                 method : 'DELETE',
                 headers: {
                     Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -231,7 +231,7 @@ function Detail(props){
                 .catch(error => console.error('Error:', error))
                 .then(response => console.log('Success:', JSON.stringify(response)))
                 .then(()=>{
-                    fetch('http://localhost:8000/api/CommentTodos/')
+                    fetch('api/CommentTodos/')
                     .then((res)=>res.json())
                     .then((posts)=>{
                         setCommentList(posts)
@@ -258,7 +258,7 @@ function Detail(props){
         form_data.append('content', commentUpdateData.content);
         form_data.append('updateCount', commentUpdateData.updateCount);
 
-        fetch('http://localhost:8000/api/CommentTodos/' + commnet_id + "/update/", {
+        fetch('api/CommentTodos/' + commnet_id + "/update/", {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -272,7 +272,7 @@ function Detail(props){
             arr.splice(arr.indexOf(commnet_id), 1)
             setUpdateModal(arr)
 
-            fetch('http://localhost:8000/api/CommentTodos/')
+            fetch('api/CommentTodos/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setCommentList(posts)
@@ -310,7 +310,7 @@ function Detail(props){
         form_data.append('todo_pk', RecommentData.todo_pk);
         form_data.append('commentTodo_pk', RecommentData.commentTodo_pk);
 
-        fetch("http://localhost:8000/api/ReCommentTodos/", {
+        fetch("api/ReCommentTodos/", {
             method : 'POST',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -321,7 +321,7 @@ function Detail(props){
         .catch(error => console.error('Error:', error))
         .then(response => console.log('Success:', JSON.stringify(response)))
         .then(()=>{
-            fetch('http://localhost:8000/api/ReCommentTodos/')
+            fetch('api/ReCommentTodos/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setReCommentList(posts)
@@ -334,7 +334,7 @@ function Detail(props){
     let [reCommentCount, setReCommentCount] = useState([]);
 
     useEffect(()=>{
-        fetch('http://localhost:8000/api/ReCommentTodos/')
+        fetch('api/ReCommentTodos/')
         .then((res)=>res.json())
         .then((posts)=>{
             let result = posts.filter( x => {
@@ -353,7 +353,7 @@ function Detail(props){
     const DelReComment = (writeUser_pk, Recomment_id)=>{
         if(currnetUser.user_pk === writeUser_pk){
             if(window.confirm('정말 삭제하시겠습니까 ?')===true){
-                fetch('http://localhost:8000/api/ReCommentTodos/' + Recomment_id + "/delete/", {
+                fetch('api/ReCommentTodos/' + Recomment_id + "/delete/", {
                 method : 'DELETE',
                 headers: {
                     Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -363,7 +363,7 @@ function Detail(props){
                 .catch(error => console.error('Error:', error))
                 .then(response => console.log('Success:', JSON.stringify(response)))
                 .then(()=>{
-                    fetch('http://localhost:8000/api/ReCommentTodos/')
+                    fetch('api/ReCommentTodos/')
                     .then((res)=>res.json())
                     .then((posts)=>{
                         setReCommentList(posts)
@@ -390,7 +390,7 @@ function Detail(props){
         form_data.append('content', RecommentUpdateData.content);
         form_data.append('updateCount', RecommentUpdateData.updateCount);
 
-        fetch('http://localhost:8000/api/ReCommentTodos/' + Recommnet_id + "/update/", {
+        fetch('api/ReCommentTodos/' + Recommnet_id + "/update/", {
             method : 'PATCH',
             headers: {
                 Authorization : `JWT ${localStorage.getItem('token')}`,
@@ -404,7 +404,7 @@ function Detail(props){
             arr.splice(arr.indexOf(Recommnet_id), 1)
             setReCommentUpdateModal(arr)
 
-            fetch('http://localhost:8000/api/ReCommentTodos/')
+            fetch('api/ReCommentTodos/')
             .then((res)=>res.json())
             .then((posts)=>{
                 setReCommentList(posts)
