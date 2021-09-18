@@ -39,12 +39,12 @@ logger.info(
     """
 )
 
-class Docs(BaseModel):
+class Doc(BaseModel):
     document: Optional[str]
 
 
 @app.post("/summarize")
-async def summarize(docs: Docs):
+async def summarize(docs: Doc):
     results = {"summairzed": ""}
     if not docs:
         return {"detail": "Need docs"}    
@@ -57,7 +57,7 @@ async def summarize(docs: Docs):
 
 
 @app.post("/textrank")
-async def textrank(query: str, docs: Docs):
+async def textrank(query: str, docs: List[Doc]):
     results = {}
     if not docs: 
         return {"detail": "Need docs"}
