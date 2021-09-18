@@ -7,7 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from typing import List, Dict, Optional, Text
-from rest_api.config import ROOT_PATH, MODEL_PATH
+from rest_api.config import MODEL_PATH
 
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
@@ -42,6 +42,11 @@ logger.info(
 class SummarizeRequest(BaseModel):
     document: Optional[str] = None
 
+
+class TextRankRequest(BaseModel):
+    documents: Optional[List[str]] = None
+
+
 @app.post("/summarize")
 async def summarize(doc: SummarizeRequest):
     results = {"summairzed": ""}
@@ -55,31 +60,36 @@ async def summarize(doc: SummarizeRequest):
     return results
 
 
-class TextRankRequest(BaseModel):
-    query: str
-    docs: Optional[List[str]] = None
-
-@app.post("/textrank")
-async def textrank(req: TextRankRequest):
-    query, docs = req.query, req.docs
+@app.post("/keywords")
+async def keywords(req: TextRankRequest):
     results = {}
-    if not docs: 
+    docs = req.documents
+    if not docs:
         return {"detail": "Need docs"}
     start_time = time.time()
-    if query == "keywords":
-        keyword_extractor = KeywordSummarizer(
-            tokenize=tokenize,
-            window=-1,
-            verbose=False
-        )
-        results["keywords"] =  keyword_extractor.summarize(docs, topk=10)
-    elif query == "keysentences":
-        summarizer = KeysentenceSummarizer(
-            tokenize=tokenize,
-            min_sim=0.3,
-            verbose=False
-        )
-        results["keysentences"] = summarizer.summarize(docs, topk=10)
+    keyword_extractor = KeywordSummarizer(
+        tokenize=tokenize,
+        window=-1,
+        verbose=False
+    )
+    results["keywords"] =  keyword_extractor.summarize(docs, topk=10)
+    results.update({"time": time.time() - start_time})
+    return results
+
+
+@app.post("/keysentences")
+async def keysentences(req: TextRankRequest):
+    results = {}
+    docs = req.documents
+    if not docs:
+        return {"detail": "Need docs"}
+    start_time = time.time()
+    summarizer = KeysentenceSummarizer(
+        tokenize=tokenize,
+        min_sim=0.3,
+        verbose=False
+    )
+    results.update({"keysentences": summarizer.summarize(docs, topk=10)})
     results.update({"time": time.time() - start_time})
     return results
 

@@ -53,11 +53,7 @@ def get_tokenizer(tokenizer_name):
 
 # 모델 부르는데 병목 있으니 만들어놓고 global로 사용
 tokenizer = get_tokenizer("mecab")
-
-
-def tokenize(sent):
-    words = tokenizer.nouns(sent)
-    return words
+tokenize = lambda x: tokenizer.nouns(x)
 
 
 keyword_extractor = KeywordSummarizer(
@@ -76,7 +72,11 @@ keywords = keyword_extractor.summarize(sents, topk=30)
 keysents = summarizer.summarize(sents, topk=3)
 
 pprint.pprint(keywords)
+# print(type(keywords))
+
 pprint.pprint(keysents)
+# print(type(keysents))
+
 
 """Mecab
 [('핵', 1.6977389593581211),
