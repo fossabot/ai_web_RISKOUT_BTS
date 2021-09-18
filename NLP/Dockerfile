@@ -31,5 +31,5 @@ COPY rest_api /home/user/rest_api
 EXPOSE 8000
 
 # cmd for running the API
-# gunicorn application:app -k uvicorn.workers.UvicornWorker --workers 1
+# gunicorn rest_api.application:app -k uvicorn.workers.UvicornWorker --workers 1
 CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "180"]

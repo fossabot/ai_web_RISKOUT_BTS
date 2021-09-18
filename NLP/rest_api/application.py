@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
 kobartsum = KorbartSummarizer(model_path=MODEL_PATH)
 tokenizer = get_tokenizer("mecab")
+tokenize = lambda x: tokenizer.nouns(x)
 
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_credentials=True,
@@ -45,16 +46,38 @@ class Docs(BaseModel):
 @app.post("/summarize")
 async def summarize(docs: Docs):
     results = {"summairzed": ""}
-    if docs:
-        start_time = time.time()
-        summarized = kobartsum.predict(docs.document)
-        results["summairzed"] = summarized
-        results.update({"time": time.time() - start_time})
-    else:
-        return {"detail": "Need docs"}
+    if not docs:
+        return {"detail": "Need docs"}    
+    start_time = time.time()
+    summarized = kobartsum.predict(docs.document)
+    results["summairzed"] = summarized
+    results.update({"time": time.time() - start_time})
 
     return results
 
+
+@app.post("/textrank")
+async def textrank(query: str, docs: Docs):
+    results = {}
+    if not docs: 
+        return {"detail": "Need docs"}
+    start_time = time.time()
+    if query == "keywords":
+        keyword_extractor = KeywordSummarizer(
+            tokenize=tokenize,
+            window=-1,
+            verbose=False
+        )
+        results["keywords"] =  keyword_extractor.summarize(docs.document, topk=30)
+    elif query == "keysentences":
+        summarizer = KeysentenceSummarizer(
+            tokenize=tokenize,
+            min_sim=0.3,
+            verbose=False
+        )
+        results["keysentences"] = summarizer.summarize(docs.document, topk=30)
+    results.update({"time": time.time() - start_time})
+    return results
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

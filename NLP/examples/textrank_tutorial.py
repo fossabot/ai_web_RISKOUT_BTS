@@ -57,7 +57,6 @@ tokenizer = get_tokenizer("mecab")
 
 def tokenize(sent):
     words = tokenizer.nouns(sent)
-    words = [w for w in words]
     return words
 
 
