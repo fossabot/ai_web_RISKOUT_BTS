@@ -22,11 +22,15 @@ RUN bash mecab.sh
 # add user-dic
 COPY user-dic.csv /tmp/mecab-ko-dic-2.1.1-20180720/user-dic/
 RUN bash /tmp/mecab-ko-dic-2.1.1-20180720/tools/add-userdic.sh
+WORKDIR /tmp/mecab-ko-dic-2.1.1-20180720
+RUN make clean
+RUN make install
 
 # copy saved models
 # COPY models* /home/user/models/
 
 # download google drive
+WORKDIR /home/user
 RUN pip3 install gdown
 COPY models/kobart_summary /home/user/models/kobart_summary
 RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc -O /home/user/models/kobart_summary/pytorch_model.bin
