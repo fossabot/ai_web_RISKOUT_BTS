@@ -20,7 +20,12 @@ RUN apt-get install -y g++ openjdk-8-jdk python3-dev python3-pip curl
 RUN bash mecab.sh
 
 # copy saved models
-COPY models* /home/user/models/
+# COPY models* /home/user/models/
+
+# download google drive
+RUN pip install gdown
+RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc
+RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
