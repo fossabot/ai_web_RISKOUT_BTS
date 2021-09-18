@@ -93,13 +93,16 @@ function LoginModal(props){
                 <input type="text" placeholder="아이디를 입력하세요" onChange={handleNameChange}/>
                 <input type="password" placeholder="비밀번호를 입력하세요" id="password" onChange={handlePasswordChange}/>
                 <button className="JoinLoign-button" onClick={(e)=>{
-                  e.preventDefault()
-                  fetch('http://localhost:8000/login/', {  
+                  e.preventDefault();
+                  // fetch('https://simonseo-osamhack2021-ai-web-riskout-bts-7v5g7qxw2p974-8000.githubpreview.dev/login/', {
+                  fetch('https://simonseo-osamhack2021-ai-web-riskout-bts-7v5g7qxw2p974-3000.githubpreview.dev/login/', {
                   method: 'POST',
                     headers: {
-                      'Content-Type': 'application/json'
+                      'Content-Type': 'application/json',
+                      //'Access-Control-Allow-Origin': '*',
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(data),
+                    redirect: 'follow',
                   })
                   .then(res => res.json())
                   .then(json => {
