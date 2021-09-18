@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/django,python,react
-# Edit at https://www.toptal.com/developers/gitignore?templates=django,python,react
+# Created by https://www.toptal.com/developers/gitignore/api/django,python,venv
+# Edit at https://www.toptal.com/developers/gitignore?templates=django,python,venv
 
 ### Django ###
 *.log
@@ -8,6 +8,9 @@
 *.pyc
 __pycache__/
 local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -211,19 +214,16 @@ cython_debug/
 
 # Cython debug symbols
 
-### react ###
-.DS_*
-logs
-**/*.backup.*
-**/*.back.*
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
 
-node_modules
-bower_components
-
-*.sublime*
-
-psd
-thumb
-sketch
-
-# End of https://www.toptal.com/developers/gitignore/api/django,python,react
+# End of https://www.toptal.com/developers/gitignore/api/django,python,venv
