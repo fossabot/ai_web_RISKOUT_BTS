@@ -9,13 +9,6 @@
 __pycache__/
 local_settings.py
 
-# 나중에 env 따로 분리하면 해제할 예정
-settings.py
-
-db.sqlite3
-db.sqlite3-journal
-media
-
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
 # <django-project-name>/staticfiles/
