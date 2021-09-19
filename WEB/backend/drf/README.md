@@ -26,4 +26,5 @@ https://github.com/James1345/django-rest-knox
 * pip install -r requirements.txt
 * python manage.py makemigrations
 * python manage.py migrate
+* python manage.py createsuperuser
 * python manage.py runserver
