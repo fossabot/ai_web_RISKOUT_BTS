@@ -46,7 +46,7 @@ class UserAPI(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
-
+# Change Password
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     model = User
@@ -82,4 +82,30 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Withdrawal
+class WithdrawalView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        # Log the user out of all sessions
+        self.object.auth_token_set.all().delete()
+
+        # Inactive user
+        self.object.is_active = False
+        self.object.save()
+        response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'You have been successfully withdrawn.',
+                'data': []
+        }
         
+        return Response(response)
