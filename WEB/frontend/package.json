@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "description": "Client React app for Riskout",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -34,5 +35,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osamhack2021/ai_web_RISKOUT_BTS.git"
+  },
+  "author": "@simonseo, @Seo-Faper, @liboto00",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/osamhack2021/ai_web_RISKOUT_BTS/issues"
+  },
+  "homepage": "https://github.com/osamhack2021/ai_web_RISKOUT_BTS#readme"
 }
