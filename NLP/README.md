@@ -216,3 +216,13 @@ docker run --rm -p 8000:8000 nlptools:1.0
   "time": 0.006654500961303711
 }
 ```
+
+## References
+
+- [lovit/textrank](https://github.com/lovit/textrank)
+
+  - ^1 : Mihalcea, R., & Tarau, P. (2004). Textrank: Bringing order into text. In Proceedings of the 2004 conference on empirical methods in natural language processing
+
+- [SKT-AI/kobart](https://github.com/SKT-AI/KoBART)
+
+  - [seujung/KoBART-summarizationseujung/](https://github.com/seujung/KoBART-summarization)
