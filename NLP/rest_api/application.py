@@ -89,7 +89,9 @@ async def keysentences(req: TextRankRequest):
         min_sim=0.3,
         verbose=False
     )
-    results.update({"keysentences": summarizer.summarize(docs, topk=10)})
+    _keysentences = [(int(idx), float(r), str(sents))
+                     for idx, r, sents in summarizer.summarize(docs, topk=10)]
+    results.update({"keysentences": _keysentences})
     results.update({"time": time.time() - start_time})
     return results
 
