@@ -46,7 +46,6 @@ class UserAPI(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
-from rest_framework import generics, permissions
 
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
