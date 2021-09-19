@@ -18,7 +18,10 @@ https://github.com/James1345/django-rest-knox
 * cd ~{project dir}/WEB/backend
 * python3 -m venv django-venv
 * source ./django-venv/bin/activate
-
+#
+* cp secrets.example.json secrets.json
+* edit secrets.json with your own credentials
+#
 * cd ~{project dir}/WEB/backend/drf
 * pip install -r requirements.txt
 * python manage.py makemigrations
