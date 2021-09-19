@@ -32,7 +32,7 @@ RUN make install
 # download google drive
 WORKDIR /home/user
 RUN pip3 install gdown
-COPY models/kobart_summary /home/user/models/kobart_summary
+RUN mkdir -p /home/user/models/kobart_summary
 RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc -O /home/user/models/kobart_summary/pytorch_model.bin
 RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI -O /home/user/models/kobart_summary/config.json
 
