@@ -24,7 +24,7 @@ function template() {
 					</div>
 
 					<div class="content clfix">
-						<div class="img"><img src="images/sub/graph_img.jpg" alt=""></div>
+						<div class="img"><img src="images/sub/graph_img.jpg" alt=""/></div>
 						<div class="text">
 							<h4>랜섬웨어 역사</h4>
 							<p>1989년 12월 Joseph L.Popp를 통해 작성 배포된 첫 번째 랜섬웨어 공격을 시작으로 2021년 현재 랜섬웨어 공격은 점차 증가하고 있으며 그 피해규모 또한 날로 커지고 있다. 글로벌 랜섬웨어 감염 피해 금액은 2021년 말 23조 6천억원에 이를 것으로 예상이 되며, 지금으로부터 10년 후인 2031년에는 약 312조 7천억으로 피해금액이 천문학적 규모로 늘어날 것으로 예측된다.</p>
