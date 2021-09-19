@@ -2,6 +2,7 @@ class Content:
     """
     페이지의 내용에 대한 모델
     url, 제목, 내용, 대표 이미지가 있다.
+    Website 모델을 토대로 얻은 정보들을 담고 있다.
     """
     def __init__(self, url, title, body, img_url):
         self.url = url
@@ -37,17 +38,3 @@ def contents_factory(news_url, soup):
 
     print(content)
     return content
-
-
-class Website:
-    """
-    일단은 미래를 위해 추가했다. 네이버 뉴스에 국한되지 않으려면 필요할 것 같은데 아직은 잘 모르겠수
-    """
-    def __init__(self, name, url, titleTag, bodyTag, imgTag):
-        self.name = name
-        self.url = url
-        self.titleTag = titleTag
-        self.bodyTag = bodyTag
-        self.imgTag = imgTag
-
-
