@@ -143,3 +143,6 @@ fastapi/
 # models
 *.bin
 config.json
+
+# vscode
+.vscode
