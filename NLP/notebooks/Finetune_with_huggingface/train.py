@@ -1,4 +1,3 @@
-from NLP.notebooks.Finetune_with_huggingface.model.net import SentenceClassifier
 import argparse
 import pickle
 import torch
