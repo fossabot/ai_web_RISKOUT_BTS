@@ -12,13 +12,13 @@ import time
 # for build-up naver news url
 from datetime import datetime, timedelta
 
-from model import *
+from model import Content, ListPage, NewsPage
 from const import *
-
+from db import DB
 
 def get_news_urls(soup):
     """
-    page 안에서 세부 뉴스들의 url을 찾아 리스트 형태로 리턴하는 함수
+    page 안에서 뉴스들의 url을 찾아 리스트 형태로 리턴하는 함수
     """
     ret = []
     div = soup.find("div", class_ = 'list_body newsflash_body')
@@ -45,7 +45,7 @@ def get_request(url):
 
     return response
 
-async def get_contents(news_url):
+async def get_contents(news_url, db):
     """
     news_url에서 contents 객체를 만들어 리턴하는 함수
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
@@ -59,10 +59,13 @@ async def get_contents(news_url):
             content_soup = bs(text, 'html.parser')
             news_content = contents_factory(news_url, content_soup)
             # TODO news_content를 쿼리로 쏘는 코드 작성
+            db.put_content(news_content)
 
     print(f"Received request to {news_url}")
 
 async def main():
+    db = DB()
+
     date = datetime.today()
     date_format = date.strftime("%Y%m%d")
     # 맨 뒤에 페이지 번호 숫자(1~9999등)을 붙여 페이지를 이동하기 위함.
@@ -84,7 +87,7 @@ async def main():
 
             news_urls= get_news_urls(newslist_soup)
 
-            futures = [asyncio.ensure_future(get_contents(news_url)) for news_url in news_urls]
+            futures = [asyncio.ensure_future(get_contents(news_url, db)) for news_url in news_urls]
 
             await asyncio.gather(*futures)
 
