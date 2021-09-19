@@ -18,7 +18,6 @@ html {
 
 * {
     -webkit-text-size-adjust: none;
-    -webkit-text-size-adjust: auto | none | N% (default auto)
 }
 
 body {
@@ -151,8 +150,6 @@ legend,
 hr {
     width: 0;
     height: 0;
-    font-size: ;
-    line-height: ;
     overflow: hidden;
     visibility: hidden;
     border: none;
@@ -348,7 +345,7 @@ button {
     display: block;
     width: 100%;
     height: 100%;
-    background: url(%PUBLIC_URL%/images/sub/menu_arrow.png) no-repeat right center;
+    background: url(../images/sub/menu_arrow.png) no-repeat right center;
 }
 
 #sub_header .sub_menu li:hover {
@@ -361,7 +358,7 @@ button {
     display: block;
     width: 100%;
     height: 100%;
-    background: url(%PUBLIC_URL%/images/sub/menu_arrow.png) no-repeat right center;
+    background: url(../images/sub/menu_arrow.png) no-repeat right center;
 }
 
 #sub_header p.copyright {

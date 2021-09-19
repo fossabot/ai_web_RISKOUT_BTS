@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import App from './pages/App';
+import ThreatReportPage from './pages/ThreatReportPage';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      {/* <App/> should be used as main page, but for now we direct users straight to threatreportpage */}
+      {/* <App /> */}
+      <ThreatReportPage />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
