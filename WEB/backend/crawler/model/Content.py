@@ -18,20 +18,26 @@ class Content:
         result += f"Img_url: {self.img_url}\n"
         return result
 
-def contents_factory(news_url, soup):
+def contents_factory(news_url, soup, news_page):
     """
     페이지 soup을 이용해 Content 객체를 리턴하는 함수
     news_url은 그저 Content를 생성하기 위해 전달받았다.
+
+    url이 없는 경우는 일단 NULL을 리턴하도록 설계하였다.
+
     """
-    title_div = soup.find("div", class_="article_info")
-    body_div = soup.find("div", class_="_article_body_contents")
-    img_div = soup.find("span", class_="end_photo_org")
+    title_div = soup.find(news_page.title_div, class_=news_page.title_div_class)
+    body_div = soup.find(news_page.body_div, class_=news_page.body_div_class)
+    img_div = soup.find(news_page.img_div, class_=news_page.img_div_class)
     
     try:
-        title = title_div.find('h3').get_text()
+        title = title_div.find(news_page.title_tag).get_text()
     except:
-        title = "No Title"
-    img_url = img_div.find('img')['src']
+        title = "제목이 없는 기사입니다."
+    try:
+        img_url = img_div.find('img')['src']
+    except:
+        img_url = None
     body = str.strip(body_div.get_text())
 
     content = Content(news_url, title, body, img_url)
