@@ -38,8 +38,8 @@ async def get_contents(news_url, news_page, db):
             text = await res.text()
             content_soup = bs(text, 'html.parser')
             news_content = ct.contents_factory(news_url, content_soup, news_page)
-            # TODO news_content를 쿼리로 쏘는 코드 작성
-            # db.put_content(news_content)
+            # news_content를 쿼리로 쏘는 코드
+            db.put_content(news_content)
 
     print(f"Received request to {news_url}")
 
@@ -58,10 +58,9 @@ async def main():
 
         prev_page = 0
         now_page = 1
-        # for i in range(1, MAX_LISTPAGE_CRAWL):
-        # 아직 now_page를 읽어오는 함수가 검증되지 않았으므로, 테스트를 끝내기 위한 조건 추가
+
         test_breaker = 0
-        while prev_page != now_page or test_breaker < 5:
+        while prev_page != now_page and test_breaker < 1:
             response = get_request(urlbase + str(now_page))
             print('\nlisturl: ' + urlbase + str(now_page) + '\n')
 
@@ -80,13 +79,15 @@ async def main():
             await asyncio.gather(*futures)
 
             print("nowpage: " + str(now_page) + '\n')
-            time.sleep(2)
+            time.sleep(const.CRAWLING_INTERVAL)
 
             test_breaker += 1
 
             prev_page = now_page
             now_page += 1
 
+    db.select_all()
+    db.close()
 
 if __name__ == '__main__':
     start = time.time()
