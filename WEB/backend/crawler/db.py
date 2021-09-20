@@ -20,5 +20,5 @@ class DB:
         return self.dbcursor
 
     def put_content(self, content):
-        self.dbcursor.execute(f'INSERT INTO NaverNewsContent VALUES({content.title}, {content.url}, {content.img_url}, {content.body})')
+        self.dbcursor.execute(f'INSERT INTO NaverNewsContents VALUES({content.title}, {content.url}, {content.img_url}, {content.body})')
         self.dbcursor.commit()
