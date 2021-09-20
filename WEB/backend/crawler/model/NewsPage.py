@@ -4,7 +4,9 @@ import json
 # 따라서 가급적 메소드 추가하지 않는 방향으로 갈 것
 class NewsPage:
     def __init__(self, jsonfile):
-        config = json.load(jsonfile)
+        with open(jsonfile, 'r') as f:
+            config = json.load(f)
+        
         self.name = config['name']
 
         # title
@@ -23,6 +25,3 @@ class NewsPage:
         self.img_div_class = config['img']['div_class']
 
 
-class NaverNewsPage(NewsPage):
-    def __init__(self, jsonfile):
-        NewsPage.__init__(self, jsonfile)
