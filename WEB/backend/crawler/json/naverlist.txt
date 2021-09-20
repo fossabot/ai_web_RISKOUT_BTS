@@ -1,9 +1,0 @@
-{
-    "name": "naverlist",
-    "list": [
-        {
-            "div": "div",
-            "div_class": "list_body newsflash_body"
-        }
-    ]
-}

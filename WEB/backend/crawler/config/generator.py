@@ -10,29 +10,30 @@ import os
 
 def make_file(config, name):
     path= os.path.dirname(os.path.abspath(__file__))
-    sys.stdout = open(path + f'/{name}.txt','w')
+    sys.stdout = open(path + f'/{name}.json','w')
     print(json.dumps(config, indent=4))
     sys.stdout.close()
 
 def navernews_generator():
     naver = {
         'name': 'naver', \
-        'title' : [{'div': 'div', 'div_class': 'article_info', 'tag': 'h3'}],\
-        'body' : [{'div': 'div', 'div_class': '_article_body_contents'}],\
-        'img' : [{'div': 'span', 'div_class': 'end_photo_org'}]
+        'title' : {'div': 'div', 'div_class': 'article_info', 'tag': 'h3'},\
+        'body' : {'div': 'div', 'div_class': '_article_body_contents'},\
+        'img' : {'div': 'span', 'div_class': 'end_photo_org'}
     }
     
-    make_file(naver, 'naver')
+    make_file(naver, 'navernews')
 
 def naverlist_generator():
     naver = {
         'name': 'naverlist',\
-        'list': [{'div': 'div', 'div_class': 'list_body newsflash_body'}]
+        'list': {'div': 'div', 'div_class': 'list_body newsflash_body'},
+        'paging': {'div': 'div', 'div_class': 'paging', 'tag': 'strong'}
     }
 
     make_file(naver, 'naverlist')
 
 
 
-# navernews_generator()
-# naverlist_generator()
+navernews_generator()
+naverlist_generator()
