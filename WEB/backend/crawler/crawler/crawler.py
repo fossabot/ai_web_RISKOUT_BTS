@@ -17,6 +17,16 @@ from model import NaverNewsPage as nnp
 import const as const
 import db as database
 
+def site_selector(site):
+    pass
+
+async def crawl(site):
+    start_time = time.time()
+    site_selector(site)
+    end_time = time.time()
+    print(f'time taken crawling "{site}": {end_time - start_time}')
+
+
 def get_request(url):
     """
     url에서 response 받아 리턴하는 간단한 함수
