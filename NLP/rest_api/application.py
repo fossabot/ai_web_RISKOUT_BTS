@@ -7,8 +7,9 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from typing import List, Dict, Optional, Text
-from rest_api.config import KOBARTSUM_MODEL_PATH
+from rest_api.config import KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH
 
+from riskout.sentiment import SentimentClassifier
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
@@ -20,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 """ Initialization """
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
-kobartsum = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
-# sentiment = 
+kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
+sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
 tokenizer = get_tokenizer("mecab")
 tokenize = lambda x: tokenizer.nouns(x)
 
@@ -42,6 +43,10 @@ logger.info(
     """
 )
 
+class SentimentRequest(BaseModel):
+    document: Optional[str] = None
+
+
 class SummarizeRequest(BaseModel):
     document: Optional[str] = None
 
@@ -50,13 +55,26 @@ class TextRankRequest(BaseModel):
     documents: Optional[List[str]] = None
 
 
+@app.post("/sentiment")
+async def sentiment(doc: SentimentRequest):
+    results = {"score": []}
+    if not doc:
+        return {"detail": "Need doc"}  
+    start_time = time.time()
+    score = sentiment_classifier.predict(doc.document)
+    results["score"] = score
+    results.update({"time": time.time() - start_time})
+
+    return results
+
+
 @app.post("/summarize")
 async def summarize(doc: SummarizeRequest):
     results = {"summairzed": ""}
     if not doc:
         return {"detail": "Need doc"}    
     start_time = time.time()
-    summarized = kobartsum.predict(doc.document)
+    summarized = kobart_summarizer.predict(doc.document)
     results["summairzed"] = summarized
     results.update({"time": time.time() - start_time})
 

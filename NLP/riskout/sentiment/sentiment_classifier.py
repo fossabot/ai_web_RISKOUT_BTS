@@ -20,6 +20,6 @@ class SentimentClassifier:
             input_ids = torch.tensor(encodings['input_ids'])
             attention_mask = torch.tensor(encodings['attention_mask'])        
             output = self.model(input_ids, attention_mask=attention_mask)[0]
-            softmax = F.softmax(output, dim=1).numpy()
+            softmax = F.softmax(output, dim=1).tolist()
 
         return softmax
