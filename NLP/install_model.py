@@ -1,4 +1,3 @@
-import os
 import argparse
 import gdown
 from pathlib import Path
