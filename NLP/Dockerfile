@@ -5,14 +5,12 @@ WORKDIR /home/user
 RUN apt-get update && apt-get install -y curl git pkg-config cmake apt-utils
 RUN apt-get install -y wget build-essential autotools-dev automake libmecab2 libmecab-dev
 
-
 # copy code
 COPY riskout /home/user/riskout
 
 # install as a package
 COPY setup.py requirements.txt /home/user/
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install -e .
 
 # install mecab
 COPY mecab.sh /home/user/
