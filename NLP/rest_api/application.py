@@ -7,7 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from typing import List, Dict, Optional, Text
-from rest_api.config import MODEL_PATH
+from rest_api.config import KOBARTSUM_MODEL_PATH
 
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
@@ -18,10 +18,13 @@ logging.basicConfig(format="%(asctime)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
 
+""" Initialization """
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
-kobartsum = KorbartSummarizer(model_path=MODEL_PATH)
+kobartsum = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
+# sentiment = 
 tokenizer = get_tokenizer("mecab")
 tokenize = lambda x: tokenizer.nouns(x)
+
 
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_credentials=True,
