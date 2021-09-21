@@ -31,10 +31,8 @@ RUN make install
 
 # download google drive
 WORKDIR /home/user
-RUN pip3 install gdown
-RUN mkdir -p /home/user/models/kobart_summary
-RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc -O /home/user/models/kobart_summary/pytorch_model.bin
-RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI -O /home/user/models/kobart_summary/config.json
+RUN pip3 install --no-cache-dir gdown
+RUN python3 /home/user/riskout/NLP/install_model.py
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
