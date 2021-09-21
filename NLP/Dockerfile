@@ -31,8 +31,9 @@ RUN make install
 
 # download google drive
 WORKDIR /home/user
+COPY install_model.py /home/user/
 RUN pip3 install --no-cache-dir gdown
-RUN python3 /home/user/NLP/install_model.py
+RUN python3 install_model.py
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
