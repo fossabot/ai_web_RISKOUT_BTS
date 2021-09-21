@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from .tokenization_kobert import KoBertTokenizer
+from riskout.tokenization_kobert import KoBertTokenizer
 from transformers import AutoModelForSequenceClassification
 from typing import List, Union, Optional, Callable
 

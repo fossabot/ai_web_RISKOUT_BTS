@@ -1,5 +1,5 @@
 import torch
-from .tokenization_kobert import KoBertTokenizer
+from riskout.tokenization_kobert import KoBertTokenizer
 from transformers.models.bart import BartForConditionalGeneration
 
 
