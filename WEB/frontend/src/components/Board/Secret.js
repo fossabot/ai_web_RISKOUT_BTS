@@ -1,14 +1,14 @@
 import React from 'react';
 import '../../css/Header.css';
 
-const Board = () => {
+const Secret = () => {
     return (
         <section id="sub_contents">
 		<div class="sub01_wrap">
-            Main page
+            기밀 유출 현황
 		</div>
 	</section>
     );
 };
 
-export default Board;
+export default Secret;

@@ -47,8 +47,9 @@ function LoginModal(props){
                 <input type="text" placeholder="아이디를 입력하세요" onChange={handleNameChange}/>
                 <input type="password" placeholder="비밀번호를 입력하세요" id="password" onChange={handlePasswordChange}/>
                 <button className="JoinLoign-button" onClick={(e)=>{
+                  alert(JSON.stringify(data))
                   e.preventDefault()
-                  fetch('http://localhost:8000/login/', {  
+                  fetch('/api/login/', {
                   method: 'POST',
                     headers: {
                       'Content-Type': 'application/json'
@@ -57,7 +58,6 @@ function LoginModal(props){
                   })
                   .then(res => res.json())
                   .then(json => {
-                    // user data와 token정보가 일치하면 로그인 성공
                     if (json.user && json.user.username && json.token) {
                       props.userHasAuthenticated(true, json.user.username, json.token);
                       history.push("/");
@@ -81,16 +81,18 @@ function LoginModal(props){
                 <input type="text" placeholder="이메일을 입력하세요." onChange={handleEmailChange}/>
                 
                 <button className="JoinLoign-button" onClick={(e)=>{
+                  alert(JSON.stringify(data))
                   e.preventDefault()
                   if(userpassword !=userpasswordCheck){
                     alert("비밀번호를 확인해 주세요.")
                   }else{
-                    fetch('http://localhost:8000/register/', {
+                    fetch('/api/register/', {
                       method: 'POST',
                       headers:{
                         'Content-Type': 'application/json'
                       },
                       body: JSON.stringify(data)
+                      
                     }).then(res => res.json())
                     .then(json => {
                       if (json.username && json.token) {
@@ -101,6 +103,7 @@ function LoginModal(props){
                         alert("사용불가능한 아이디입니다.")
                       }
                     })
+                    
                     .catch(error => alert(error));
                   }
                   }

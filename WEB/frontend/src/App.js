@@ -3,6 +3,9 @@ import Header from './components/Modal/Header';
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
 import Board from './components/Board/Board';
+import RiskReport from './components/Board/RiskReport';
+import Secret from './components/Board/Secret';
+import FakeNews from './components/Board/FakeNews';
 import { Route } from 'react-router-dom';
 import './App.css';
 
@@ -105,17 +108,17 @@ function App() {
 
           <Route exact path="/riskreport">
             <Header modal={modal} handleLogout={handleLogout}/>
-            <Board/>
+            <RiskReport/>
           </Route>
 
           <Route exact path="/secret">
             <Header modal={modal} handleLogout={handleLogout}/>
-            <Board/>
+            <Secret/>
           </Route>
 
           <Route exact path="/fakenews">
             <Header modal={modal} handleLogout={handleLogout}/>
-            <Board/>
+            <FakeNews/>
           </Route>
 
           <Route exact path="/login">
@@ -124,6 +127,7 @@ function App() {
           </Route>
 
           <Route exact path="/init">
+          <Header modal={modal} handleLogout={handleLogout}/>
             <InitInfo/>
           </Route>
 
