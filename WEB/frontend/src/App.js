@@ -1,15 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Header from './components/Modal/Header';
-import Navi from './components/Modal/Navi'
 import LoginModal from './components/Modal/LoginModal';
-import Profile from './components/User/Profile';
+import InitInfo from './components/Modal/InitInfo';
+import Board from './components/Board/Board';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Write from './components/Board/Write';
-import Detail from './components/Board/Detail';
-import Update from './components/Board/Update';
-import Mysite from './components/User/Mysite';
-import Board from './components/Board/Board';
+
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -30,7 +26,7 @@ function App() {
       setModal(false)
   }//로그아웃
 
-  //회원가입이나 로그인이 성공했을 때 modal을 변경해 로그인 버튼을 없애고 글쓰기 버튼과 정보버튼을 나오게하는 setModal
+  //회원가입이나 로그인이 성공했을 때 modal을 변경해 로그인 버튼을 없애고 정보 수정과 회원 탈퇴 버튼 나오게하는 setModal
   //useEffect의 두번째 인자는 모든 렌더링 후 두번째 인자가 변경될때에만 실행되라는 내용 
   useEffect(()=>{
     if(isAuthenticated){
@@ -104,42 +100,33 @@ function App() {
         <div className="auto-margin">
           <Route exact path="/">
             <Header modal={modal} handleLogout={handleLogout}/>
-            <Navi/>
             <Board/>
           </Route>
 
-          <Route exact path="/like">
+          <Route exact path="/riskreport">
             <Header modal={modal} handleLogout={handleLogout}/>
-            <Navi/>
+            <Board/>
+          </Route>
+
+          <Route exact path="/secret">
+            <Header modal={modal} handleLogout={handleLogout}/>
+            <Board/>
+          </Route>
+
+          <Route exact path="/fakenews">
+            <Header modal={modal} handleLogout={handleLogout}/>
             <Board/>
           </Route>
 
           <Route exact path="/login">
+            <Header modal={modal} handleLogout={handleLogout}/>
             <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated}/>
           </Route>
 
-          <Route exact path="/profile">
-            <Header modal={modal} handleLogout={handleLogout}/>
-            <Profile handleLogout={handleLogout}/>
+          <Route exact path="/init">
+            <InitInfo/>
           </Route>
 
-          <Route exact path="/write">
-            <Write user={user}/>
-          </Route>
-
-          <Route path="/detail">
-            <Header modal={modal} handleLogout={handleLogout}/>
-            <Detail user={user}/>
-          </Route>
-
-          <Route path="/update">
-            <Update/>
-          </Route>
-
-          <Route path="/mysite">
-            <Header modal={modal} handleLogout={handleLogout}/>
-            <Mysite/>
-          </Route>
       </div>
     </div>
     </>
