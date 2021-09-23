@@ -49,9 +49,9 @@ function Header(props) {
         <button onClick={() => { history.goBack() }} class="prev_btn">
           <img src={logo_btn} alt="/" /></button>
         <ul class="sub_menu">
-          <li><Link to="/riskreport">위협 보고</Link></li>
-          <li ><Link to="/secret">기밀 유출 현황</Link></li>
-          <li><Link to="/fakenews">허위 정보 검사</Link></li>
+          <li ><Link to="/secret">언론 동향</Link></li>
+          <li><Link to="/fakenews">탐지 현황</Link></li>
+          <li><Link to="/riskreport">리포트</Link></li>
           {
             props.modal === false // not logged in
               ? <li><Link to="/login">로그인</Link></li>
