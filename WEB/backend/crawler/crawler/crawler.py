@@ -1,46 +1,11 @@
-# for scrapping
-import requests
-from bs4 import BeautifulSoup as bs
+from crawler.model.siteInstanceServer import get_siteInstance_list
 
-# for multiprocess
+import time
+
 import asyncio
 import aiohttp
 
-# for checking elapesed time
-import time
-
-"""
-일단 이 방법은 코드 복붙에 준하나, 지금 더 fancy한 방법을 연구하기엔 시간이 없으므로...
-프로그램의 크기가 커지면 필연적으로 이곳을 수정할 것이고
-그때는 무조건 해결해내야 한다.
-"""
-if __name__ == '__main__':
-    # for unit test
-    # from config import jsonServer as js
-
-    # from model import Content as ct
-    # from model import NaverListPage as nlp
-    # from model import NaverNewsPage as nnp
-
-    # import const as const
-    # import db as database
-    pass
-else:
-    # for run at main.py
-    from crawler.config import jsonServer as js
-
-    from crawler.model import Content as ct
-    # from crawler.model import NaverListPage as nlp
-    # from crawler.model import NaverNewsPage as nnp
-    # from crawler.model.NaverNewsSite import NaverNewsListPage as navernews_listpage
-    # from crawler.model.NaverNewsSite import NaverNewsContentsPage as navernews_contentspage
-    from crawler.model.NaverNewsSite import NaverNewsSite as naver
-
-    from crawler.model.siteInstanceServer import get_siteInstance_list
-
-
-    import crawler.const as const
-    import crawler.db as database
+import crawler.const as const
 
 def site_instance_selector(site):
     return get_siteInstance_list()[site]
