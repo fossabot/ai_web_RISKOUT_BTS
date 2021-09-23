@@ -83,7 +83,7 @@ function LoginModal(props){
                 <button className="JoinLoign-button" onClick={(e)=>{
                   alert(JSON.stringify(data))
                   e.preventDefault()
-                  if(userpassword !=userpasswordCheck){
+                  if(userpassword !== userpasswordCheck){
                     alert("비밀번호를 확인해 주세요.")
                   }else{
                     fetch('/api/register/', {
