@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Modal/Header';
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
-import Board from './components/Board/Board';
-import RiskReport from './components/Board/RiskReport';
-import Secret from './components/Board/Secret';
-import FakeNews from './components/Board/FakeNews';
+import Board from './pages/Board';
+import RiskReport from './pages/RiskReport';
+import Secret from './pages/Secret';
+import FakeNews from './pages/FakeNews';
 import { Route } from 'react-router-dom';
 import './App.css';
 
