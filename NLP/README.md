@@ -12,6 +12,9 @@ docker build --tag nlptools:1.0 .
 
 # Run image and bash
 docker run --rm -p 8000:8000 nlptools:1.0
+
+# (Optional) 만약, 이 nlptool를 단독으로 쓰고 싶다면
+docker compose up -d
 ```
 
 2. Go to {your_domain_or_ip_address}/docs and see API Docs
