@@ -80,7 +80,7 @@ async def summarize(doc: SummarizeRequest):
 
     return results
 
-# 헤어저야해 ~~ 
+
 @app.post("/keywords")
 async def keywords(req: TextRankRequest):
     results = {}
