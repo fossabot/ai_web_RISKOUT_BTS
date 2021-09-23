@@ -16,32 +16,38 @@ import time
 """
 if __name__ == '__main__':
     # for unit test
-    from config import jsonServer as js
+    # from config import jsonServer as js
 
-    from model import Content as ct
-    from model import NaverListPage as nlp
-    from model import NaverNewsPage as nnp
+    # from model import Content as ct
+    # from model import NaverListPage as nlp
+    # from model import NaverNewsPage as nnp
 
-    import const as const
-    import db as database
+    # import const as const
+    # import db as database
+    pass
 else:
     # for run at main.py
     from crawler.config import jsonServer as js
 
     from crawler.model import Content as ct
-    from crawler.model import NaverListPage as nlp
-    from crawler.model import NaverNewsPage as nnp
+    # from crawler.model import NaverListPage as nlp
+    # from crawler.model import NaverNewsPage as nnp
+    # from crawler.model.NaverNewsSite import NaverNewsListPage as navernews_listpage
+    # from crawler.model.NaverNewsSite import NaverNewsContentsPage as navernews_contentspage
+    from crawler.model.NaverNewsSite import NaverNewsSite as naver
+
+    from crawler.model.siteInstanceServer import get_siteInstance_list
+
 
     import crawler.const as const
     import crawler.db as database
 
 def site_instance_selector(site):
-    # return model.siteInstanceServer.get_instance_list[site]
-    return None
+    return get_siteInstance_list()[site]
 
 async def crawl_manager(site):
     start_time = time.time()
-    site_instance_selector(site).crawl()
+    await asyncio.gather(site_instance_selector(site).crawl())
     end_time = time.time()
     print(f'time taken crawling "{site}": {end_time - start_time}')
 
@@ -77,82 +83,3 @@ config 내부에 generator.py에
 사이트 구조 및 url이 변경된다면 model을 수정
 html 및 class 이름이 변경된다면 config.generator를 통해 수정
 """
-
-def get_request(url):
-    """
-    url에서 response 받아 리턴하는 간단한 함수
-    """
-    response = requests.get(url, headers = const.NAVER_CUSTOM_HEADER)
-
-    return response
-
-async def get_contents(news_url, news_page, db):
-    """
-    news_url에서 contents 객체를 만들어 리턴하는 함수
-    페이지 각각에서 스크래핑하는 기능을 담당하고 있다
-    """
-    print(f"Send request to {news_url}")
-
-    # aiohttp 이용
-    async with aiohttp.ClientSession() as sess:
-        async with sess.get(news_url, headers = const.NAVER_CUSTOM_HEADER) as res:
-            text = await res.text()
-            content_soup = bs(text, 'html.parser')
-            news_content = ct.contents_factory(news_url, content_soup, news_page)
-            # news_content를 쿼리로 쏘는 코드
-            db.put_content(news_content)
-
-    print(f"Received request to {news_url}")
-
-async def main():
-    db = database.DB()
-
-    # NaverListPage 객체 생성 및 기본 URL 얻기
-    naver_list_page = nlp.NaverListPage(js.get_naverlist())
-    eachday_urlbases = naver_list_page.get_eachday_urlbases()
-
-    # NaverNewsPage 객체 생성
-    naver_news_page = nnp.NaverNewsPage(js.get_navernews())
-    
-    for urlbase in eachday_urlbases:
-        print("urlbase: " + urlbase)
-
-        prev_page = 0
-        now_page = 1
-
-        test_breaker = 0
-        while prev_page != now_page and test_breaker < 1:
-            response = get_request(urlbase + str(now_page))
-            print('\nlisturl: ' + urlbase + str(now_page) + '\n')
-
-            newslist_html = response.text
-            newslist_soup = bs(newslist_html, 'html.parser')
-
-            now_page = naver_list_page.get_nowpage(newslist_soup)
-            # 일단 마음에 안 들지만 이렇게 해 두었습니다.
-            if(now_page == prev_page):
-                break
-
-            news_urls= naver_list_page.get_news_urls(newslist_soup)
-
-            futures = [asyncio.ensure_future(get_contents(news_url, naver_news_page, db)) for news_url in news_urls]
-
-            await asyncio.gather(*futures)
-
-            print("nowpage: " + str(now_page) + '\n')
-            time.sleep(const.CRAWLING_INTERVAL)
-
-            test_breaker += 1
-
-            prev_page = now_page
-            now_page += 1
-
-    db.select_all()
-    db.close()
-
-if __name__ == '__main__':
-    start = time.time()
-    asyncio.run(main())
-    end = time.time()
-
-    print(f'time taken: {end - start}')
