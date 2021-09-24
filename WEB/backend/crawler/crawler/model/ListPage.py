@@ -12,17 +12,20 @@ class ListPage:
         self.name = config['name']
 
         self.list_div = config['list']['div']
-        self.list_div_class = config['list']['div_class']
+        try:
+            self.list_div_class = config['list']['div_class']
+        except KeyError:
+            self.list_div_class = None
 
         self.paging_div = config['paging']['div']
         self.paging_div_class = config['paging']['div_class']
         self.paging_tag = config['paging']['tag']
 
-    def get_eachday_urlbases(self):
+    def get_day_urlbases(self):
         pass
 
     def get_nowpage(self, soup):
         pass
 
-    def get_news_urls(self, soup):
+    def get_contents_urls(self, soup):
         pass

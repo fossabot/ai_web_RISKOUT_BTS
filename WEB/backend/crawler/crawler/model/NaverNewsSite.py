@@ -1,6 +1,4 @@
 from crawler.model.Site import *
-from crawler.model.ListPage import ListPage as listpage
-from crawler.model.ContentsPage import ContentsPage as contentspage
 
 #네이버 뉴스 하드코딩
 POLITICS = 100
@@ -18,18 +16,18 @@ class NaverNewsListPage(listpage):
         listpage.__init__(self, jsonfile)
 
     # override
-    def get_eachday_urlbases(self):
+    def get_each_urlbases(self):
         date = datetime.today()
         date_format = date.strftime("%Y%m%d")
         # 맨 뒤에 페이지 번호 숫자(1~9999등)을 붙여 페이지를 이동하기 위함.
-        eachday_urlbases = [NAVER_BASE] * const.CRAWL_DATEAMOUNT
+        each_urlbases = [NAVER_BASE] * const.CRAWL_DATEAMOUNT
 
         for i in range(const.CRAWL_DATEAMOUNT):
-            eachday_urlbases[i] += f"&date={date_format}&page="
+            each_urlbases[i] += f"&date={date_format}&page="
             date -= timedelta(days=1)
             date_format = date.strftime("%Y%m%d")
 
-        return eachday_urlbases
+        return each_urlbases
 
     # override
     def get_nowpage(self, soup):
@@ -39,7 +37,7 @@ class NaverNewsListPage(listpage):
 
         return nowpage
 
-    def get_news_urls(self, soup):
+    def get_contents_urls(self, soup):
         """
         page 안에서 뉴스들의 url을 찾아 리스트 형태로 리턴하는 함수
         """
@@ -66,7 +64,6 @@ class NaverNewsContentsPage(contentspage):
 
 class NaverNewsSite(Site):
     def __init__(self, listjson, contentsjson):
-        # Site.__init__(self, listjson, contentsjson)
         self.listpage = NaverNewsListPage(listjson)
         self.contentspage = NaverNewsContentsPage(contentsjson)
 

@@ -15,13 +15,31 @@ class ContentsPage:
         self.title_div = config['title']['div']
         self.title_div_class = config['title']['div_class']
         self.title_tag = config['title']['tag']
+        try:
+            self.title_tag_class = config['title']['tag_class']
+        except KeyError:
+            self.title_tag_class = None
 
         # body
         self.body_div = config['body']['div']
         self.body_div_class = config['body']['div_class']
+        try:
+            self.body_tag = config['body']['tag']
+        except KeyError:
+            self.body_tag = None
+        try:
+            self.body_tag_class = config['body']['tag_class']
+        except KeyError:
+            self.body_tag_class = None
 
         # img
-        self.img_div = config['img']['div']
-        self.img_div_class = config['img']['div_class']
+        try:
+            self.img_div = config['img']['div']
+        except KeyError:
+            self.img_div = None
+        try:
+            self.img_div_class = config['img']['div_class']
+        except KeyError:
+            self.img_div_class = None
 
 
