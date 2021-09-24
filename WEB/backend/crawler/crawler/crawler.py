@@ -3,9 +3,6 @@ from crawler.model.siteInstanceServer import get_siteInstance_list
 import time
 
 import asyncio
-import aiohttp
-
-import crawler.const as const
 
 def site_instance_selector(site):
     return get_siteInstance_list()[site]
