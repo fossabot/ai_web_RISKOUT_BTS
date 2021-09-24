@@ -1,10 +1,11 @@
 import json
+import os
 
 # 특정 뉴스 페이지를 읽기 위한 방법(태그, 클래스 등)을 명시하는 클래스임
 # 따라서 가급적 메소드 추가하지 않는 방향으로 갈 것
 class ContentsPage:
-    def __init__(self, jsonfile):
-        with open(jsonfile, 'r') as f:
+    def __init__(self, site_name):
+        with open(self.get_contents_json(site_name), 'r') as f:
             config = json.load(f)
         
         self.name = config['name']
@@ -42,4 +43,6 @@ class ContentsPage:
         except KeyError:
             self.img_div_class = None
 
-
+    def get_contents_json(self, site_name):
+        path= os.path.dirname(os.path.realpath(__file__))
+        return path + site_name + "/contents.json"
