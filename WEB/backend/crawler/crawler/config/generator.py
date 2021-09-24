@@ -16,9 +16,9 @@ def make_file(config, name):
 
 def navernews_generator():
     naver = {
-        'name': 'naver', \
-        'title' : {'div': 'div', 'div_class': 'article_info', 'tag': 'h3'},\
-        'body' : {'div': 'div', 'div_class': '_article_body_contents'},\
+        'name': 'naver',
+        'title' : {'div': 'div', 'div_class': 'article_info', 'tag': 'h3'},
+        'body' : {'div': 'div', 'div_class': '_article_body_contents'},
         'img' : {'div': 'span', 'div_class': 'end_photo_org'}
     }
     
@@ -26,14 +26,33 @@ def navernews_generator():
 
 def naverlist_generator():
     naver = {
-        'name': 'naverlist',\
+        'name': 'naverlist',
         'list': {'div': 'div', 'div_class': 'list_body newsflash_body'},
         'paging': {'div': 'div', 'div_class': 'paging', 'tag': 'strong'}
     }
 
     make_file(naver, 'naverlist')
 
+def DCcontents_generator():
+    dc = {
+        'name': 'dccontents', 
+        'title': {'div': 'h3', 'div_class': 'title ub-word', 'tag': 'span', 'tag_class': 'title_subject'},
+        'body': {'div': 'div', 'div_class': 'write_div'}
+    }
+    make_file(dc, 'dccontents')
 
+def DClist_generator():
+    dc = {
+        'name': 'dclist',
+        'list': {'div': 'tbody'},
+        'paging': {'div': 'div', 'div_class': 'bottom_paging_box', 'tag': 'em'}
+    }
+    make_file(dc, 'dclist')
 
-navernews_generator()
-naverlist_generator()
+# Naver
+# navernews_generator()
+# naverlist_generator()
+
+# DC
+# DCcontents_generator()
+# DClist_generator()
