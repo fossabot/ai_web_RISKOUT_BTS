@@ -1,12 +1,12 @@
 import collections
 
-def tokenize(texts, tokenizer,
+def tokenize(texts, tokenizer, split_by,
              max_seq_len = 512,
              pad_token_label_id = -100,
              cls_token_segment_id = 0,
              pad_token_segment_id = 0,
              sequence_a_segment_id = 0,
-             mask_padding_with_zero = True, 
+             mask_padding_with_zero = True,              
              verbose = False):
     # texts (List[List[str]]): e.g. [['나는', '창원대학교에서', ... ]]
     # Extract the Features for BERT-NER
@@ -20,7 +20,7 @@ def tokenize(texts, tokenizer,
         # Tokenize word by word (for NER)
         tokens = []
         slot_label_mask = []
-        for word in words.split():
+        for word in split_by(words):
             # print(word)
             word_tokens = tokenizer.tokenize(word)
             if not word_tokens:

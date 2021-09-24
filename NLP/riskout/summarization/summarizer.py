@@ -1,12 +1,12 @@
 import torch
-from riskout.tokenization_kobert import KoBertTokenizer
+from kobart import get_kobart_tokenizer
 from transformers.models.bart import BartForConditionalGeneration
 
 
 class KorbartSummarizer:
     def __init__(self, model_path, tokenizer=None, max_length=2048, num_beams=10):
         self.model = BartForConditionalGeneration.from_pretrained(model_path)
-        self.tokenizer = tokenizer or KoBertTokenizer.from_pretrained('monologg/kobert')
+        self.tokenizer = tokenizer if tokenizer else get_kobart_tokenizer()
         self.max_length = max_length
         self.num_beams = num_beams
 
