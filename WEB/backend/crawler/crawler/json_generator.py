@@ -8,46 +8,46 @@ import json
 import sys
 import os
 
-def make_file(config, name):
+def make_file(config, dir, name):
     path= os.path.dirname(os.path.abspath(__file__))
-    sys.stdout = open(path + f'/{name}.json','w')
+    sys.stdout = open(path + f'/{dir}/{name}.json','w')
     print(json.dumps(config, indent=4))
     sys.stdout.close()
 
-def navernews_generator():
+def navercontents_generator():
     naver = {
-        'name': 'naver',
+        'name': 'contents',
         'title' : {'div': 'div', 'div_class': 'article_info', 'tag': 'h3'},
         'body' : {'div': 'div', 'div_class': '_article_body_contents'},
         'img' : {'div': 'span', 'div_class': 'end_photo_org'}
     }
     
-    make_file(naver, 'navernews')
+    make_file(naver, 'naver', 'navernews')
 
 def naverlist_generator():
     naver = {
-        'name': 'naverlist',
+        'name': 'list',
         'list': {'div': 'div', 'div_class': 'list_body newsflash_body'},
         'paging': {'div': 'div', 'div_class': 'paging', 'tag': 'strong'}
     }
 
-    make_file(naver, 'naverlist')
+    make_file(naver, 'naver', 'naverlist')
 
 def DCcontents_generator():
     dc = {
-        'name': 'dccontents', 
+        'name': 'contents', 
         'title': {'div': 'h3', 'div_class': 'title ub-word', 'tag': 'span', 'tag_class': 'title_subject'},
         'body': {'div': 'div', 'div_class': 'write_div'}
     }
-    make_file(dc, 'dccontents')
+    make_file(dc, 'dcinside', 'dccontents')
 
 def DClist_generator():
     dc = {
-        'name': 'dclist',
+        'name': 'list',
         'list': {'div': 'tbody'},
         'paging': {'div': 'div', 'div_class': 'bottom_paging_box', 'tag': 'em'}
     }
-    make_file(dc, 'dclist')
+    make_file(dc, 'dcinside', 'dclist')
 
 # Naver
 # navernews_generator()
