@@ -1,4 +1,5 @@
 from crawler.model.Site import *
+from crawler.model.dcinside.const import *
 
 # BASEURL 하드코딩
 NAVY = "navy"
@@ -10,45 +11,49 @@ DC_CUSTOM_HEADER = {
 }
 
 class DCListPage(listpage):
-    def __init__(self, jsonfile):
-        listpage.__init__(self, jsonfile)
+    def __init__(self):
+        listpage.__init__(self, '/dcinside')
 
     # override
     def get_each_urlbases(self):
         # + "&page="
         return [DC_BASE + "&page="]
 
-    # override
-    def get_nowpage(self, soup):
-        page_div = soup.find(self.paging_div, class_ = self.paging_div_class)
-
-        nowpage = int(page_div.find(self.paging_tag).get_text())
-        
-        return nowpage
-
     #override
     def get_contents_urls(self, soup):
+        """
+        컨텐츠 페이지의 url들을 리스트에 담아 리턴하는 함수,
+        실패할 경우 -1을 리턴한다.
+        """
         ret = []
-
+        
         list_div = soup.find(self.list_div)
+        if(list_div is None):
+            if(DEBUG):
+                print("can't find list div")
+            return -1
 
         for tr in list_div.find_all("tr", class_ = "ub-content us-post"):
             if(tr.find("td", class_="gall_num").get_text() != "공지"):
                 href = tr.find('a')['href']
                 ret.append('https://gall.dcinside.com' + href)
 
+        if ret:
+            if(DEBUG):
+                print("can't find list div")
+            return -1
+
         return ret
 
-
-
 class DCContentsPage(contentspage):
-    def __init__(self, jsonfile):
-        contentspage.__init__(self, jsonfile)
+    def __init__(self):
+        contentspage.__init__(self, '/dcinside')
 
 class DCSite(Site):
-    def __init__(self, listjson, contentjson):
-        self.listpage = DCListPage(listjson)
-        self.contentspage = DCContentsPage(contentjson)
+    def __init__(self):
+        self.name = 'dcinside'
+        self.listpage = DCListPage()
+        self.contentspage = DCContentsPage()
 
     async def crawl(self):
         await Site.crawl(self, DC_CUSTOM_HEADER)

@@ -1,19 +1,9 @@
 from crawler.model.Site import *
-
-#네이버 뉴스 하드코딩
-POLITICS = 100
-NORTH_KOREA = 268
-
-NAVER_BASE = f"https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid2={NORTH_KOREA}&sid1={POLITICS}"
-
-NAVER_CUSTOM_HEADER = {
-    'referer' : "https://www.naver.com/",
-    'user-agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
-}
+from crawler.model.naver.const import *
 
 class NaverNewsListPage(listpage):
-    def __init__(self, jsonfile):
-        listpage.__init__(self, jsonfile)
+    def __init__(self):
+        listpage.__init__(self, '/naver')
 
     # override
     def get_each_urlbases(self):
@@ -29,21 +19,12 @@ class NaverNewsListPage(listpage):
 
         return each_urlbases
 
-    # override
-    def get_nowpage(self, soup):
-        page_div = soup.find(self.paging_div, class_ = self.paging_div_class)
-
-        nowpage = int(page_div.find(self.paging_tag).get_text())
-
-        return nowpage
-
     def get_contents_urls(self, soup):
         """
         page 안에서 뉴스들의 url을 찾아 리스트 형태로 리턴하는 함수
         """
         ret = []
         div = soup.find(self.list_div, class_ = self.list_div_class)
-
         """
         일단은 사진에 붙어있는 링크를 이용하는 방법.
         즉, 사진이 없으면 링크가 없음.
@@ -58,14 +39,13 @@ class NaverNewsListPage(listpage):
 
 
 class NaverNewsContentsPage(contentspage):
-    def __init__(self, jsonfile):
-        contentspage.__init__(self, jsonfile)
+    def __init__(self):
+        contentspage.__init__(self, '/naver')
 
 
 class NaverNewsSite(Site):
-    def __init__(self, listjson, contentsjson):
-        self.listpage = NaverNewsListPage(listjson)
-        self.contentspage = NaverNewsContentsPage(contentsjson)
-
-    async def crawl(self):
-        await Site.crawl(self, NAVER_CUSTOM_HEADER)
+    def __init__(self):
+        self.name = 'naver_news'
+        self.listpage = NaverNewsListPage()
+        self.contentspage = NaverNewsContentsPage()
+        self.header = NAVER_CUSTOM_HEADER
