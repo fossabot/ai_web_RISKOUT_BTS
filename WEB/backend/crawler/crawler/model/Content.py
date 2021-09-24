@@ -1,27 +1,30 @@
+from os import close
+from crawler.setting import DEBUG
+
 class Content:
     """
     페이지의 내용에 대한 모델
     url, 제목, 내용, 대표 이미지가 있다.
     Website 모델을 토대로 얻은 정보들을 담고 있다.
     """
-    def __init__(self, url, title, body, img_url, site, subject, id):
+    def __init__(self, url, title, body, img_url, site_domain, subject, contents_id):
         self.url = url
         self.title = title
         self.body = body
         self.img_url = img_url
-        self.site = site
+        self.site_domain = site_domain
         self.subject = subject
-        self.id = id
+        self.contents_id = contents_id
 
     def __str__(self):
         result = ""
         result += f"URL: {self.url}\n"
         result += f"Title: {self.title}\n"
-        result += f"Body: {self.body[:25]}\n"
+        result += f"Body: {self.body[25]}\n"
         result += f"Img_url: {self.img_url}\n"
         return result
 
-def contents_factory(contents_page_url, soup, contents_page):
+def contents_factory(site, contents_page_url, soup):
     """
     페이지 soup을 이용해 Content 객체를 리턴하는 함수
     news_url은 그저 Content를 생성하기 위해 전달받았다.
@@ -29,6 +32,7 @@ def contents_factory(contents_page_url, soup, contents_page):
     url이 없는 경우는 일단 NULL을 리턴하도록 설계하였다.
 
     """
+    contents_page = site.contentspage
     # title
     try:
         title_div = soup.find(contents_page.title_div, class_=contents_page.title_div_class)
@@ -44,6 +48,9 @@ def contents_factory(contents_page_url, soup, contents_page):
     try:
         body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class)
         body = str.strip(body_div.get_text())
+        # f = open('output.txt','a')
+        # f.write(body + '\n')
+        # f.close()
     except AttributeError:
         body = "내용이 없습니다."
     
@@ -54,8 +61,18 @@ def contents_factory(contents_page_url, soup, contents_page):
     except:
         img_url = None
     
+    # site_domain
+    site_domain = site.name
 
-    content = Content(contents_page_url, title, body, img_url)
+    # subject
+    subject = None
 
-    print(content)
+    # contents_id
+    contents_id = None
+
+    content = Content(contents_page_url, title, body, img_url, site_domain, subject, contents_id)
+
+    if(DEBUG):
+        print(content)
+    
     return content

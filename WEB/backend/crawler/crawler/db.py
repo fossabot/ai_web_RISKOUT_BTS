@@ -38,9 +38,9 @@ class DB:
             :img_url,\
             :body)",\
                 {
-                'domain':content.site,\
+                'domain':content.site_domain,\
                 'subject_': content.subject,\
-                'id': content.id,\
+                'id': content.contents_id,\
                 'title':content.title,\
                 'href': content.url,\
                 'img_url': content.img_url,\
