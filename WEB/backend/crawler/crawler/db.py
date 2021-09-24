@@ -15,7 +15,10 @@ class DB:
             pass
 
     def create_db(self):
-        self.dbcursor.execute("CREATE TABLE NaverNewsContents(\
+        self.dbcursor.execute("CREATE TABLE CrawlContents(\
+            domain TEXT,\
+            subject_ TEXT,\
+            id TEXT,\
             title TEXT,\
             href TEXT,\
             img TEXT,\
@@ -26,23 +29,25 @@ class DB:
         return self.dbcursor
 
     def put_content(self, content):
-        self.dbcursor.execute(f"INSERT INTO NaverNewsContents VALUES(\
+        self.dbcursor.execute(f"INSERT INTO CrawlContents VALUES(\
+            :domain,\
+            :subject_, \
+            :id, \
             :title,\
             :href,\
             :img_url,\
             :body)",\
-                {'title':content.title,\
+                {
+                'domain':content.site,\
+                'subject_': content.subject,\
+                'id': content.id,\
+                'title':content.title,\
                 'href': content.url,\
                 'img_url': content.img_url,\
                 'body': content.body\
                 }\
             )
         self.dbfile.commit()
-
-        # print(f'INSERT INTO NaverNewsContents VALUES({content.title}, \
-        #     {content.url},\
-        #     {content.img_url},\
-        #     {content.body}')
 
     def select_all(self):
         self.dbcursor.execute("SELECT * FROM NaverNewsContents")
