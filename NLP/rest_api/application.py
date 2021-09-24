@@ -22,8 +22,10 @@ logger = logging.getLogger(__name__)
 
 """ Initialization """
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
+
 tokenizer = get_tokenizer("mecab")
 tokenize = lambda x: tokenizer.nouns(x)
+
 kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
 sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
 named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=tokenize)
@@ -88,14 +90,12 @@ async def summarize(doc: DocumentRequest):
     if not doc:
         return {"detail": "Need doc"}    
 
-    results = {"summairzed": ""}
+    results = {}
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    summarized = [kobart_summarizer.predict(d) for d in doc.document]
-    results["summairzed"] = summarized
-    results.update({"time": time.time() - start_time})
-
+    results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+    results["time"] = time.time() - start_time
     return results
 
 
@@ -105,6 +105,8 @@ async def keywords(doc: DocumentRequest):
         return {"detail": "Need docs"}
 
     results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
     start_time = time.time()
     keyword_extractor = KeywordSummarizer(
         tokenize=tokenize,
@@ -122,6 +124,8 @@ async def keysentences(doc: DocumentRequest):
         return {"detail": "Need docs"}
 
     results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
     start_time = time.time()
     summarizer = KeysentenceSummarizer(
         tokenize=tokenize,
@@ -135,4 +139,4 @@ async def keysentences(doc: DocumentRequest):
     return results
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
