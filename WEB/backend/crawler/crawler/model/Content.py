@@ -7,11 +7,12 @@ class Content:
     url, 제목, 내용, 대표 이미지가 있다.
     Website 모델을 토대로 얻은 정보들을 담고 있다.
     """
-    def __init__(self, url, title, body, img_url, site_domain, subject, contents_id):
+    def __init__(self, url, title, body, img_url, category, site_domain, subject, contents_id):
         self.url = url
         self.title = title
         self.body = body
         self.img_url = img_url
+        self.category = category
         self.site_domain = site_domain
         self.subject = subject
         self.contents_id = contents_id
@@ -24,7 +25,7 @@ class Content:
         result += f"Img_url: {self.img_url}\n"
         return result
 
-def contents_factory(site, contents_page_url, soup):
+def contents_factory(site, contents_page_url, urlinfo, soup):
     """
     페이지 soup을 이용해 Content 객체를 리턴하는 함수
     news_url은 그저 Content를 생성하기 위해 전달받았다.
@@ -58,19 +59,24 @@ def contents_factory(site, contents_page_url, soup):
     try:
         img_div = soup.find(contents_page.img_div, class_=contents_page.img_div_class)
         img_url = img_div.find('img')['src']
-    except:
+    except AttributeError:
+        img_url = None
+    except KeyError:
         img_url = None
     
+    # category
+    category = site.category
+
     # site_domain
-    site_domain = site.name
+    site_domain = urlinfo.domain
 
     # subject
-    subject = None
+    subject = urlinfo.subject
 
     # contents_id
-    contents_id = None
+    contents_id = site.get_articleID(contents_page_url)
 
-    content = Content(contents_page_url, title, body, img_url, site_domain, subject, contents_id)
+    content = Content(contents_page_url, title, body, img_url, category, site_domain, subject, contents_id)
 
     if(DEBUG):
         print(content)
