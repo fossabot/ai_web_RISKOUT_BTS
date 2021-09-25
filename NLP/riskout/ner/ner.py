@@ -48,6 +48,7 @@ class NER:
             for words, preds in zip(corpus, preds_list):
                 for word, pred in zip(words, preds):
                     if pred != 'O':
+                        pred, _ = pred.split('-')
                         res[pred].append(word)
         
         return res

@@ -22,4 +22,4 @@ class SentimentClassifier:
             output = self.model(input_ids, attention_mask=attention_mask)[0]
             softmax = F.softmax(output, dim=1).tolist()
 
-        return softmax
+        return softmax[0] if len(softmax) == 1 else softmax

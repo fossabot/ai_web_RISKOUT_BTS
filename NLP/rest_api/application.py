@@ -78,7 +78,7 @@ async def sentiment(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    scores = [sentiment_classifier.predict(d) for d in doc.document]
+    scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
     results["score"] = scores
     results.update({"time": time.time() - start_time})
 
