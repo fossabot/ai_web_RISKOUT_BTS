@@ -20,7 +20,7 @@ class Content:
         result = ""
         result += f"URL: {self.url}\n"
         result += f"Title: {self.title}\n"
-        result += f"Body: {self.body[25]}\n"
+        result += f"Body: {self.body}\n"
         result += f"Img_url: {self.img_url}\n"
         return result
 
@@ -46,7 +46,7 @@ def contents_factory(site, contents_page_url, soup):
 
     # body
     try:
-        body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class)
+        body_div = soup.find_all(contents_page.body_div, class_=contents_page.body_div_class)
         body = str.strip(body_div.get_text())
         # f = open('output.txt','a')
         # f.write(body + '\n')

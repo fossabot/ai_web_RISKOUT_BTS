@@ -1,5 +1,4 @@
 import asyncio
-import json
 from crawler.crawler import crawl_manager
 from crawler.setting import site_list
 
