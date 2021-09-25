@@ -17,7 +17,9 @@ class NaverNewsListPage(listpage):
             date -= timedelta(days=1)
             date_format = date.strftime("%Y%m%d")
 
-        return each_urlbases
+        urlinfo = URLInfo(DOMAIN, NK, None)
+
+        return each_urlbases, urlinfo
 
     def get_contents_urls(self, soup):
         """
@@ -37,15 +39,17 @@ class NaverNewsListPage(listpage):
 
         return ret
 
-
 class NaverNewsContentsPage(contentspage):
     def __init__(self):
         contentspage.__init__(self, '/naver')
 
-
 class NaverNewsSite(Site):
     def __init__(self):
         self.name = 'naver_news'
+        self.category = 'news'
         self.listpage = NaverNewsListPage()
         self.contentspage = NaverNewsContentsPage()
         self.header = NAVER_CUSTOM_HEADER
+
+    def get_articleID(self, contents_url):
+        return int(contents_url[-10:])

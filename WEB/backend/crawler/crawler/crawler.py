@@ -70,7 +70,7 @@ def get_request(url, header):
 
     return response
 
-async def get_contents(site, contents_url, db):
+async def get_contents(site, contents_url, urlinfo, db):
     """
     news_url에서 contents 객체를 만들어 리턴하는 함수
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
@@ -82,16 +82,18 @@ async def get_contents(site, contents_url, db):
         async with sess.get(contents_url, headers = site.header) as res:
             text = await res.text()
             content_soup = bs(text, 'html.parser')
-            news_content = Content.contents_factory(site, contents_url, content_soup)
+            news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
             # news_content를 쿼리로 쏘는 코드
-            # db.put_content(news_content)
+            db.put_content(news_content)
 
     print(f"Received request to {contents_url}")
 
+# 나중에는 site뿐만 아니라 subject 역시 매개변수에 넣어서 전달,
+# 이후 각 Site 페이지에서 받은 subject 매개변수를 토대로 baseurl을 제작하면 됨
 async def crawl(site):
         db = database.DB()
 
-        each_urlbases = site.listpage.get_each_urlbases()
+        each_urlbases, urlinfo = site.listpage.get_each_urlbases()
 
         for urlbase in each_urlbases:
             prev_page = 0
@@ -113,7 +115,7 @@ async def crawl(site):
 
                 contents_urls= site.listpage.get_contents_urls(list_soup)
 
-                futures = [asyncio.ensure_future(get_contents(site, contents_url, db)) for contents_url in contents_urls]
+                futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
 
                 await asyncio.gather(*futures)
 
@@ -125,5 +127,5 @@ async def crawl(site):
                 prev_page = now_page
                 now_page += 1
 
-        # db.select_all()
+        db.select_all()
         db.close()

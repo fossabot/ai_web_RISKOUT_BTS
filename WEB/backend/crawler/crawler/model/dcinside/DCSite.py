@@ -1,15 +1,6 @@
 from crawler.model.Site import *
 from crawler.model.dcinside.const import *
 
-# BASEURL 하드코딩
-NAVY = "navy"
-DC_BASE = f"https://gall.dcinside.com/board/lists/?id={NAVY}"
-
-DC_CUSTOM_HEADER = {
-    'referer' : "https://gall.dcinside.com/",
-    'user-agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
-}
-
 class DCListPage(listpage):
     def __init__(self):
         listpage.__init__(self, '/dcinside')
@@ -17,7 +8,8 @@ class DCListPage(listpage):
     # override
     def get_each_urlbases(self):
         # + "&page="
-        return [DC_BASE + "&page="]
+        urlinfo = (DOMAIN, NAVY, None)
+        return [DC_BASE + "&page="], urlinfo
 
     #override
     def get_contents_urls(self, soup):
@@ -52,8 +44,10 @@ class DCContentsPage(contentspage):
 class DCSite(Site):
     def __init__(self):
         self.name = 'dcinside'
+        self.category = 'social'
         self.listpage = DCListPage()
         self.contentspage = DCContentsPage()
+        self.header = DC_CUSTOM_HEADER
 
-    async def crawl(self):
-        await Site.crawl(self, DC_CUSTOM_HEADER)
+    def get_articleID(self, contents_url):
+        return 1
