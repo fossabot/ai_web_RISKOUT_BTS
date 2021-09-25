@@ -46,11 +46,11 @@ def contents_factory(site, contents_page_url, soup):
 
     # body
     try:
-        body_div = soup.find_all(contents_page.body_div, class_=contents_page.body_div_class)
+        body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class)
         body = str.strip(body_div.get_text())
-        # f = open('output.txt','a')
-        # f.write(body + '\n')
-        # f.close()
+    # f = open('output.txt','a')
+    # f.write(body + '\n')
+    # f.close()
     except AttributeError:
         body = "내용이 없습니다."
     
