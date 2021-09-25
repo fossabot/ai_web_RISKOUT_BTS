@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import Header from './components/Modal/Header';
+
+import Layout from './layout';
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
 import Board from './pages/Board';
 import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 import FakeNews from './pages/FakeNews';
-import { Route } from 'react-router-dom';
-import './App.css';
 
 
 function App() {
@@ -98,7 +99,7 @@ function App() {
   }, [isAuthenticated])
 
   return (
-    <>
+    <Layout>
       <div className="App">
         <div className="auto-margin">
           <Header modal={modal} handleLogout={handleLogout} />
@@ -128,7 +129,7 @@ function App() {
 
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 

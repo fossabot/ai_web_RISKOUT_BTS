@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function filterCheckbox(props) {
-    const { count, hashtag } = props;
+    const { count, hashtag, onToggleHashtag } = props;
     return (
         <li>
             <label>

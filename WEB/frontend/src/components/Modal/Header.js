@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom';
-import '../../css/Header.css';
+// import '../../css/Header.css';
 import logo from '../../images/sub/logo_w.png'
 import logo_btn from '../../images/sub/prev_btn.png'
 
@@ -49,8 +49,8 @@ function Header(props) {
         <button onClick={() => { history.goBack() }} class="prev_btn">
           <img src={logo_btn} alt="/" /></button>
         <ul class="sub_menu">
-          <li ><Link to="/secret">언론 동향</Link></li>
-          <li><Link to="/fakenews">탐지 현황</Link></li>
+          <li ><Link to="/">언론 동향</Link></li>
+          <li><Link to="/secret">탐지 현황</Link></li>
           <li><Link to="/riskreport">리포트</Link></li>
           {
             props.modal === false // not logged in

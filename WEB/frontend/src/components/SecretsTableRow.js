@@ -1,10 +1,11 @@
 import React from 'react';
+import fileIcon from '../images/sub/file.png';
 
 export default function tableRow(props) {
     const { title, preview, author } = props;
     return (
         <tr>
-            <td><img src="images/sub/file.png" alt="" /></td>
+            <td><img src={fileIcon} alt="" /></td>
             <td>
                 <h3>{title}</h3>
                 <p>{preview}</p>
@@ -15,3 +16,4 @@ export default function tableRow(props) {
     )
 
 }
+
