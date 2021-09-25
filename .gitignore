@@ -1,11 +1,11 @@
-# Created by https://www.toptal.com/developers/gitignore/api/django,python,venv
-# Edit at https://www.toptal.com/developers/gitignore?templates=django,python,venv
-
 # django secrets
 secrets.json
 
 # database
 db.sqlite3
+
+# Created by https://www.toptal.com/developers/gitignore/api/django,react,python,venv
+# Edit at https://www.toptal.com/developers/gitignore?templates=django,react,python,venv
 
 ### Django ###
 *.log
@@ -219,27 +219,8 @@ cython_debug/
 
 # Cython debug symbols
 
-### venv ###
-# Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-[Bb]in
-[Ii]nclude
-[Ll]ib
-[Ll]ib64
-[Ll]ocal
-[Ss]cripts
-pyvenv.cfg
-pip-selfcheck.json
-
-# End of https://www.toptal.com/developers/gitignore/api/django,python,venv
-
-
-# Created by https://www.toptal.com/developers/gitignore/api/react
-# Edit at https://www.toptal.com/developers/gitignore?templates=react
-
 ### react ###
 .DS_*
-*.log
 logs
 **/*.backup.*
 **/*.back.*
@@ -253,5 +234,16 @@ psd
 thumb
 sketch
 
-# End of https://www.toptal.com/developers/gitignore/api/react
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
 
+# End of https://www.toptal.com/developers/gitignore/api/django,react,python,venv

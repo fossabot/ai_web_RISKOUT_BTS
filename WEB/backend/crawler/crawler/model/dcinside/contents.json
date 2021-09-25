@@ -1,0 +1,13 @@
+{
+    "name": "dccontents",
+    "title": {
+        "div": "h3",
+        "div_class": "title ub-word",
+        "tag": "span",
+        "tag_class": "title_subject"
+    },
+    "body": {
+        "div": "div",
+        "div_class": "write_div"
+    }
+}
