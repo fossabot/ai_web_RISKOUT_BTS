@@ -4,6 +4,9 @@ secrets.json
 # database
 db.sqlite3
 
+# vscode
+.vscode
+
 # Created by https://www.toptal.com/developers/gitignore/api/django,react,python,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,react,python,venv
 
@@ -234,7 +237,6 @@ psd
 thumb
 sketch
 
-### venv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 [Bb]in

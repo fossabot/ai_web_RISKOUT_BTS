@@ -6,9 +6,11 @@ from fastapi import FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from typing import List, Dict, Optional, Text
-from rest_api.config import MODEL_PATH
+from typing import List, Dict, Optional, Union
+from rest_api.config import KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH, NER_MODEL_PATH
 
+from riskout.ner import NER
+from riskout.sentiment import SentimentClassifier
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
@@ -18,10 +20,17 @@ logging.basicConfig(format="%(asctime)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
 
+""" Initialization """
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
-kobartsum = KorbartSummarizer(model_path=MODEL_PATH)
+
 tokenizer = get_tokenizer("mecab")
 tokenize = lambda x: tokenizer.nouns(x)
+
+kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
+sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
+named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=tokenize)
+
+
 
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_credentials=True,
@@ -39,50 +48,84 @@ logger.info(
     """
 )
 
-class SummarizeRequest(BaseModel):
-    document: Optional[str] = None
 
 
-class TextRankRequest(BaseModel):
-    documents: Optional[List[str]] = None
+class DocumentRequest(BaseModel):
+    document: Optional[Union[List[str],str]] = None
 
 
-@app.post("/summarize")
-async def summarize(doc: SummarizeRequest):
-    results = {"summairzed": ""}
+@app.post("/ner")
+async def ner(doc: DocumentRequest):
     if not doc:
-        return {"detail": "Need doc"}    
+        return {"detail": "Need doe"}
+
+    results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
     start_time = time.time()
-    summarized = kobartsum.predict(doc.document)
-    results["summairzed"] = summarized
+    results["ner"] = [named_entity_recognition.predict(d) for d in doc.document]
+    results["time"] = time.time() - start_time
+
+    return results
+    
+
+@app.post("/sentiment")
+async def sentiment(doc: DocumentRequest):
+    if not doc:
+        return {"detail": "Need doc"}  
+
+    results = {"score": []}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
+    start_time = time.time()
+    scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
+    results["score"] = scores
     results.update({"time": time.time() - start_time})
 
     return results
 
 
-@app.post("/keywords")
-async def keywords(req: TextRankRequest):
+@app.post("/summarize")
+async def summarize(doc: DocumentRequest):
+    if not doc:
+        return {"detail": "Need doc"}    
+
     results = {}
-    docs = req.documents
-    if not docs:
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
+    start_time = time.time()
+    results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+    results["time"] = time.time() - start_time
+    return results
+
+
+@app.post("/keywords")
+async def keywords(doc: DocumentRequest):
+    if not doc:
         return {"detail": "Need docs"}
+
+    results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
     start_time = time.time()
     keyword_extractor = KeywordSummarizer(
         tokenize=tokenize,
         window=-1,
         verbose=False
     )
-    results["keywords"] =  keyword_extractor.summarize(docs, topk=10)
+    results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
     results.update({"time": time.time() - start_time})
     return results
 
 
 @app.post("/keysentences")
-async def keysentences(req: TextRankRequest):
-    results = {}
-    docs = req.documents
-    if not docs:
+async def keysentences(doc: DocumentRequest):
+    if not doc:
         return {"detail": "Need docs"}
+
+    results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
     start_time = time.time()
     summarizer = KeysentenceSummarizer(
         tokenize=tokenize,
@@ -90,10 +133,10 @@ async def keysentences(req: TextRankRequest):
         verbose=False
     )
     _keysentences = [(int(idx), float(r), str(sents))
-                     for idx, r, sents in summarizer.summarize(docs, topk=10)]
+                     for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
     results.update({"keysentences": _keysentences})
     results.update({"time": time.time() - start_time})
     return results
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

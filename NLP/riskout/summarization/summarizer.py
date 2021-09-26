@@ -10,14 +10,13 @@ class KorbartSummarizer:
         self.max_length = max_length
         self.num_beams = num_beams
 
-    def _preprocess(self, text):
+    def _preprocess(self, text: str):
         sents = text.replace('\n', '')
         input_ids = self.tokenizer.encode(sents)
-        input_ids = torch.tensor(input_ids)
-        input_ids = input_ids.unsqueeze(0)
+        input_ids = torch.tensor(input_ids).unsqueeze(0)
         return input_ids
 
-    def predict(self, text):
+    def predict(self, text: str):
         input_ids = self._preprocess(text)
         output = self.model.generate(input_ids, eos_token_id=1,
                                      max_length=self.max_length, num_beams=self.num_beams)
