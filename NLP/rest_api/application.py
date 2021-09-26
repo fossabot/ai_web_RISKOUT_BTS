@@ -63,7 +63,8 @@ async def ner(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    results["ner"] = [named_entity_recognition.predict(d) for d in doc.document]
+    entity = [named_entity_recognition.predict(d) for d in doc.document]
+    results["ner"] = [{k: list(set(v)) for k, v in d.items()} for d in entity] # remove duplicated
     results["time"] = time.time() - start_time
 
     return results
@@ -103,6 +104,8 @@ async def summarize(doc: DocumentRequest):
 async def keywords(doc: DocumentRequest):
     if not doc:
         return {"detail": "Need docs"}
+    elif len(doc.document) <= 1:
+        return {"detail": "Need more docs"}
 
     results = {}
     if isinstance(doc.document, str):
@@ -122,6 +125,8 @@ async def keywords(doc: DocumentRequest):
 async def keysentences(doc: DocumentRequest):
     if not doc:
         return {"detail": "Need docs"}
+    elif len(doc.document) <= 1:
+        return {"detail": "Need more docs"}
 
     results = {}
     if isinstance(doc.document, str):
