@@ -20,31 +20,27 @@ function Secret() {
             "TIM": {}
         }
     });
-    
-    const createFilterObj = val => ({key: val, filter: val});
 
     const toggleFilter = hashtag => {
-        console.log(`toggle ${hashtag}`, appliedFilters);
-        // hashtag = createFilterObj(hashtag);
+        // console.log(`toggle ${hashtag}`, appliedFilters);
         if (appliedFilters.includes(hashtag)) {
             setAppliedFilters(appliedFilters.filter(val => val != hashtag));
         }
         else {
             appliedFilters.push(hashtag);
-            setAppliedFilters(appliedFilters);
+            setAppliedFilters([...appliedFilters]);
         }
-        search();
     };
 
     const search = () => {
-        console.log(`search options: `);
+        // console.log(`search options: `);
         fetch('SecretData.example.json').then(res => res.json()).then((data) => {
-            console.log(data);
+            // console.log(data);
             setSearchResults(data);
         });
     };
 
-    useEffect(search, [appliedFilters]);
+    useEffect(search, [appliedFilters]); // changing filters automatically triggers search
 
     return (
         <section id="sub_contents2">
@@ -60,14 +56,11 @@ function Secret() {
 
 
 
-                    <h3>20 결과, 3 필터 적용중</h3>
+                    <h3>{searchResults.contentsLength}개 결과, {appliedFilters.length}개 필터 적용중</h3>
                     <ul className="filter_keyword clfix">
                         {
                             appliedFilters.map((filter, i) => <AppliedFilter hashtag={filter} onRemoveHashtag={toggleFilter} key={filter + i} />)
                         }
-                        {/* <AppliedFilter hashtag="전추세부시행규칙" onRemoveHashtag={toggleFilter} key="전추세부시행규칙" />
-                        <AppliedFilter hashtag="KJCCS" onRemoveHashtag={toggleFilter} key="KJCCS" />
-                        <AppliedFilter hashtag="GP/GOP" onRemoveHashtag={toggleFilter} key="GP/GOP" /> */}
                     </ul>
 
 
