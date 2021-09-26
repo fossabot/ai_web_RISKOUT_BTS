@@ -20,10 +20,12 @@ function Secret() {
             "TIM": {}
         }
     });
-
+    
+    const createFilterObj = val => ({key: val, filter: val});
 
     const toggleFilter = hashtag => {
-        console.log(`toggle ${hashtag}`);
+        console.log(`toggle ${hashtag}`, appliedFilters);
+        // hashtag = createFilterObj(hashtag);
         if (appliedFilters.includes(hashtag)) {
             setAppliedFilters(appliedFilters.filter(val => val != hashtag));
         }
@@ -69,7 +71,7 @@ function Secret() {
                     </ul>
 
 
-                    <div>{JSON.stringify(searchResults)}</div>
+                    {/* <div>{JSON.stringify(searchResults)}</div> */}
 
                     <table border="0" cellPadding="0" cellSpacing="0" className="tbl_type01">
                         <colgroup>
@@ -86,10 +88,11 @@ function Secret() {
                         </thead>
                         <tbody>
                             {
-                                searchResults.contents.map((val, i) =>
+                                searchResults.contents.map((article, i) =>
                                     <TableRow
-                                        title={val.title}
-                                        preview={val.summarized}
+                                        title={article.title}
+                                        preview={article.summarized}
+                                        authoer={article.author}
                                     />)
                             }
                             <TableRow
@@ -108,43 +111,36 @@ function Secret() {
                     <h4>Filters</h4>
                     <button><img src={filtersCloseIcon} alt="" className="close_btn" /></button>
 
+                    {/* example
+                    글에서 찾은 인물 
+                    - [ ] 피해자
+                    - [ ] 문재인
+                    - [ ] 조정환
+                    */}
+                    {
+                        [['단체', 'ORG'], ['인물', 'CVL'], ['시간대', 'TIM']].map(([filterLabel, filterCode]) => {
 
-                    <div className="filter_con">
-                        <h5>글에서 찾은 단체</h5>
-                        <span>{Object.entries(searchResults.filterTags.ORG).length}</span>
-                        <ul className="keyword">
-                            {
-                                Object.entries(searchResults.filterTags.ORG).map(function ([hashtag, freq], i) {
-                                    return <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} />;
-                                })
-                            }
-                        </ul>
-                        <button className="more_btn">더보기</button>
-                    </div>
-                    <div className="filter_con">
-                        <h5>글에서 찾은 인물</h5>
-                        <span>{Object.entries(searchResults.filterTags.CVL).length}</span>
-                        <ul className="keyword">
-                            {
-                                Object.entries(searchResults.filterTags.CVL).map(function ([hashtag, freq], i) {
-                                    return <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} />;
-                                })
-                            }
-                        </ul>
-                        <button className="more_btn">더보기</button>
-                    </div>
-                    <div className="filter_con">
-                        <h5>글에서 찾은 시간대</h5>
-                        <span>{Object.entries(searchResults.filterTags.TIM).length}</span>
-                        <ul className="keyword">
-                            {
-                                Object.entries(searchResults.filterTags.TIM).map(function ([hashtag, freq], i) {
-                                    return <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} />;
-                                })
-                            }
-                        </ul>
-                        <button className="more_btn">더보기</button>
-                    </div>
+                            const filterTags = Object.entries(searchResults.filterTags[filterCode]);
+                            return (
+
+                                <div className="filter_con">
+                                    <h5>글에서 찾은 {filterLabel}</h5>
+                                    <span>{filterTags.length}</span>
+                                    <ul className="keyword">
+                                        {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
+                                        {
+                                            filterTags.map(([hashtag, freq], i) =>
+                                                <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} checked={appliedFilters.includes(hashtag)} />
+                                            )
+                                        }
+                                    </ul>
+                                    <button className="more_btn">더보기</button>
+                                </div>
+
+                            );
+                        })
+                    }
+
                 </div>
             </div>
         </section>
