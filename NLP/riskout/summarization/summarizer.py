@@ -17,6 +17,9 @@ class KorbartSummarizer:
         return input_ids
 
     def predict(self, text: str):
+        # max_length 넘으면 slice
+        if len(text) > self.max_length:
+            text = text[:self.max_length - 1]
         input_ids = self._preprocess(text)
         output = self.model.generate(input_ids, eos_token_id=1,
                                      max_length=self.max_length, num_beams=self.num_beams)
