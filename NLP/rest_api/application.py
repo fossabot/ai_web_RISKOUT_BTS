@@ -137,7 +137,7 @@ async def keysentences(doc: DocumentRequest):
         min_sim=0.3,
         verbose=False
     )
-    _keysentences = [(int(idx), float(r), str(sents))
+    _keysentences = [{ "id": int(idx), "score": float(r), "sentence": str(sents)}
                      for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
     results.update({"keysentences": _keysentences})
     results.update({"time": time.time() - start_time})
