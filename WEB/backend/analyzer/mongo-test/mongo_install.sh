@@ -16,7 +16,7 @@ sudo apt install mongodb-org -y
 # Make workspace dir for mongodb
 sudo mkdir /data
 sudo mkdir /data/db
-sudo chown -R $(id -u -n):$(id -g -n)
+sudo chown -R $(id -u -n):$(id -g -n) /data/db
 
 # Echo guide
 echo "Start mongoDB server daemon : mongod"
