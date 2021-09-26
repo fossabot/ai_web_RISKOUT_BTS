@@ -5,14 +5,12 @@ WORKDIR /home/user
 RUN apt-get update && apt-get install -y curl git pkg-config cmake apt-utils
 RUN apt-get install -y wget build-essential autotools-dev automake libmecab2 libmecab-dev
 
-
 # copy code
 COPY riskout /home/user/riskout
 
 # install as a package
 COPY setup.py requirements.txt /home/user/
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install -e .
 
 # install mecab
 COPY mecab.sh /home/user/
@@ -31,10 +29,9 @@ RUN make install
 
 # download google drive
 WORKDIR /home/user
-RUN pip3 install gdown
-RUN mkdir -p /home/user/models/kobart_summary
-RUN gdown --id 12Q1e6nZxPUeVGR6-BgFAgeJKTZXI4Wpc -O /home/user/models/kobart_summary/pytorch_model.bin
-RUN gdown --id 10fEMNw9cuTdA_kuv7AwQZqj2Bilb5vjI -O /home/user/models/kobart_summary/config.json
+COPY install_model.py /home/user/
+RUN pip3 install --no-cache-dir gdown
+RUN python3 install_model.py
 
 # Copy REST API code
 COPY rest_api /home/user/rest_api
@@ -46,4 +43,4 @@ EXPOSE 8000
 
 # cmd for running the API
 # gunicorn rest_api.application:app -k uvicorn.workers.UvicornWorker --workers 1
-CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "180"]
+CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "2", "--timeout", "180"]
