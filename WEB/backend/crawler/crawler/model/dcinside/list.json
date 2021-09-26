@@ -1,0 +1,11 @@
+{
+    "name": "dclist",
+    "list": {
+        "div": "tbody"
+    },
+    "paging": {
+        "div": "div",
+        "div_class": "bottom_paging_box",
+        "tag": "em"
+    }
+}
