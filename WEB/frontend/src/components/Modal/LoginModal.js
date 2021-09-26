@@ -58,8 +58,8 @@ function LoginModal(props){
                   })
                   .then(res => res.json())
                   .then(json => {
-                    if (json.user && json.user.username && json.token) {
-                      props.userHasAuthenticated(true, json.user.username, json.token);
+                    if (json.token) {
+                      props.userHasAuthenticated(true, data.username, json.token);
                       history.push("/");
                       props.setModal(true)
                       console.log(json)
@@ -95,8 +95,9 @@ function LoginModal(props){
                       
                     }).then(res => res.json())
                     .then(json => {
-                      if (json.username && json.token) {
-                        props.userHasAuthenticated(true, json.username, json.token);
+                      console.log(json)
+                      if (json.token) {
+                        props.userHasAuthenticated(true, data.username, json.token);
                         history.push("/");
                         props.setModal(true)
                       }else{
@@ -111,8 +112,6 @@ function LoginModal(props){
                 >가입</button>
                 </>
               )
-              
-              
             }
             
           </form>
