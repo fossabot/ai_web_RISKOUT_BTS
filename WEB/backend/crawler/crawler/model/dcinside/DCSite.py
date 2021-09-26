@@ -32,7 +32,7 @@ class DCListPage(listpage):
 
         if ret:
             if(DEBUG):
-                print("can't find list div")
+                print("can't find contents on list div")
             return -1
 
         return ret
