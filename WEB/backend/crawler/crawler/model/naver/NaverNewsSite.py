@@ -41,7 +41,7 @@ class NaverNewsListPage(listpage):
             href = dt.find('a')['href']
             ret.append(href)
 
-        if ret:
+        if not ret:
             if(DEBUG):
                 print("can't find contents on list div")
             return -1
@@ -61,4 +61,8 @@ class NaverNewsSite(Site):
         self.header = NAVER_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return int(contents_url[-10:])
+        return contents_url[-10:]
+
+
+
+
