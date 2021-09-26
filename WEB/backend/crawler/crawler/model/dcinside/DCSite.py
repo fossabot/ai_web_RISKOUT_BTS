@@ -8,7 +8,7 @@ class DCListPage(listpage):
     # override
     def get_each_urlbases(self):
         # + "&page="
-        urlinfo = (DOMAIN, NAVY, None)
+        urlinfo = URLInfo(DOMAIN, NAVY, None)
         return [DC_BASE + "&page="], urlinfo
 
     #override
@@ -30,7 +30,7 @@ class DCListPage(listpage):
                 href = tr.find('a')['href']
                 ret.append('https://gall.dcinside.com' + href)
 
-        if ret:
+        if not ret:
             if(DEBUG):
                 print("can't find contents on list div")
             return -1
@@ -50,4 +50,9 @@ class DCSite(Site):
         self.header = DC_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return 1
+        return "1"
+
+
+
+
+
