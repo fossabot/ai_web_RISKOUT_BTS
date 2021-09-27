@@ -7,10 +7,11 @@ import AppliedFilter from '../components/AppliedFilter';
 import searchIcon from "../images/sub/search_icon.png";
 import filtersCloseIcon from "../images/sub/filters_close.png";
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
-// import exampleData from "./SecretData.example.json";
 
 function Secret() {
 
+    const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
+    const [detailModalData, setDetailModalData] = React.useState({});
     const [appliedFilters, setAppliedFilters] = useState(['전투시행세부규칙', 'GP/GOP']);
     const [searchResults, setSearchResults] = useState({
         "contentsLength": 0,
@@ -21,8 +22,6 @@ function Secret() {
             "TIM": {}
         }
     });
-    const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
-    const [detailModalData, setDetailModalData] = React.useState({});
 
 
     const toggleFilter = hashtag => {
@@ -51,12 +50,12 @@ function Secret() {
         console.log(data, searchResults.contents.filter(x => x.id == id), searchResults);
         setDetailModalData(data);
         setDetailModalOpen(true);
-
-        console.log('TODO: show modal for ', id);
     };
+
     const scrapArticle = (id) => {
         console.log('TODO: scrap article ', id);
     };
+
 
     return (
         <section id="sub_contents2">

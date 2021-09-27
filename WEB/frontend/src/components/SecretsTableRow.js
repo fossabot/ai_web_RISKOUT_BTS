@@ -7,7 +7,7 @@ export default function tableRow(props) {
     return (
         <tr>
             <td><a href={href} title="외부링크"><img src={fileIcon} alt="filetype" /></a></td>
-            <td onClick={() => showDetailModal(id)} style={{cursor: "pointer"}}>
+            <td onClick={() => showDetailModal(id)} style={{ cursor: "pointer" }}>
                 <h3>{title}</h3>
                 <p>{preview}</p>
             </td>

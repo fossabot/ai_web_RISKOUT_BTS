@@ -8,7 +8,7 @@ export default function filterCheckbox(props) {
     return (
         <li>
             <label>
-                <input type="checkbox" onChange={onChange} checked={checked}/>
+                <input type="checkbox" onChange={onChange} checked={checked} />
                 <p>{hashtag}</p>
             </label>
             <em>{count > 10 ? '10+' : count}</em>

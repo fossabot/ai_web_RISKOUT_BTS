@@ -19,7 +19,7 @@ const style = {
 
 export default function secretsDetailModal(props) {
     const { isOpen, setOpen, data, scrapArticle } = props;
-    
+
     const handleClose = () => setOpen(false);
     return (
         <div>
