@@ -115,7 +115,7 @@ async def crawl(site):
 
         test_breaker = 0
 
-        while prev_page != now_page and test_breaker < 1:
+        while prev_page != now_page and test_breaker < 3:
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
             response = get_request(urlbase + str(now_page), site.header)
@@ -140,23 +140,20 @@ async def crawl(site):
             if(now_page == prev_page):
                 break
             
+            # 예외처리 해야함
             contents_urls= site.listpage.get_contents_urls(list_soup)
-
-            if(contents_urls == -1):
-                flag = False
             
-            if flag:
-                futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
+            futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
 
-                # for future in futures:
-                #     await asyncio.sleep(random.uniform(1, 2))
-                #     await asyncio.gather(future)
-                await asyncio.gather(*futures)
+            # for future in futures:
+            #     await asyncio.sleep(random.uniform(1, 2))
+            #     await asyncio.gather(future)
+            await asyncio.gather(*futures)
 
-                if(DEBUG):
-                    print("nowpage: " + str(now_page) + '\n')
+            if(DEBUG):
+                print("nowpage: " + str(now_page) + '\n')
 
-                await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
+            await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
 
             test_breaker += 1
             prev_page = now_page
@@ -164,13 +161,3 @@ async def crawl(site):
 
     # db.select_all()
     db.close()
-
-
-
-
-
-
-
-
-
-
