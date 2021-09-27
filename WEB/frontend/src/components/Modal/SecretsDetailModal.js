@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Link from '@mui/material/Link';
+import { getHighlightedText } from '../../js/util';
 
 const style = {
     position: 'absolute',
@@ -19,6 +20,8 @@ const style = {
 
 export default function secretsDetailModal(props) {
     const { isOpen, setOpen, data, scrapArticle } = props;
+    const entityNames = Object.entries(data.entities).flatMap(x => x[1]);
+    console.log(entityNames, getHighlightedText);
 
     const handleClose = () => setOpen(false);
     return (
@@ -34,7 +37,12 @@ export default function secretsDetailModal(props) {
                         {data.title}
                     </Typography>
                     <Typography id="secrets-modal-description" sx={{ mt: 2 }}>
+                        <hr />
+                        {getHighlightedText(data.contentBody, entityNames.length ? entityNames[0] : "")}
                         {data.summarized}
+                        <pre>
+                        {JSON.stringify(data, null, 4)}
+                        </pre>
                     </Typography>
                     <Link href={data.site_url} color="inherit" underline="hover" target="_blank">Source</Link>
                     <Link href="#" color="inherit" underline="hover">Page Analysis</Link>

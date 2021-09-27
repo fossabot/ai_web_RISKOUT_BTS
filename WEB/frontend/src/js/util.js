@@ -15,3 +15,7 @@ function getHighlightedText(text, highlight) {
         } </span>
     );
 }
+
+export {
+    getHighlightedText,
+};

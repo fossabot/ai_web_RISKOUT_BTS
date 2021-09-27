@@ -11,7 +11,18 @@ import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 function Secret() {
 
     const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
-    const [detailModalData, setDetailModalData] = React.useState({});
+    const [detailModalData, setDetailModalData] = React.useState({
+        "id": 0,
+        "created_at": "",
+        "site_url": "",
+        "thumbnail_url": "",
+        "category": "",
+        "title": "",
+        "contentBody": "",
+        "summarized": "",
+        "positivity": 0,
+        "entities": {}
+    });
     const [appliedFilters, setAppliedFilters] = useState(['전투시행세부규칙', 'GP/GOP']);
     const [searchResults, setSearchResults] = useState({
         "contentsLength": 0,
