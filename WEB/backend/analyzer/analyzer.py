@@ -4,7 +4,7 @@ import sqlite3
 import requests
 import json
 
-SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-wrgp5r7p4cgrvq-8000.githubpreview.dev/'
+SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.githubpreview.dev/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = current_abs_path + "/database.db"
@@ -31,6 +31,7 @@ class Content:
         self.getSummarized()
         self.getPositivity()
         self.getEntities()
+        self.content_dict['isAnalyzed'] = True
     
 
     def getSummarized(self):
@@ -40,7 +41,7 @@ class Content:
         summarized = requests.post(url, data=document)
 
         if summarized.status_code == 200:
-            self.content_dict['summarized'] = summarized.text
+            self.content_dict['summarized'] = json.loads(summarized.text)['summarized']
         else:    
             self.content_dict['summarized'] = None
 
@@ -52,7 +53,7 @@ class Content:
         positivity = requests.post(url, data=document)
 
         if positivity.status_code == 200:
-            self.content_dict['positivity'] = positivity.text
+            self.content_dict['positivity'] = json.loads(positivity.text)['score']
         else:    
             self.content_dict['positivity'] = None
 
@@ -64,7 +65,7 @@ class Content:
         entities = requests.post(url, data=document)
 
         if entities.status_code == 200:
-            self.content_dict['entities'] = entities.text
+            self.content_dict['entities'] = json.loads(entities.text)['ner']
         else:    
             self.content_dict['entities'] = None
 
