@@ -2,7 +2,7 @@ import json
 import os
 
 from crawler.error import PageDivNotFoundError as pdiv_error
-from crawler.error.import PagingTagNotFoundError as ptag_error
+from crawler.error import PagingTagNotFoundError as ptag_error
 
 """
 특정 목록 페이지를 읽기 위한 방법(태그, 클래스 등)을 명시하는 클래스임
