@@ -85,7 +85,8 @@ function Secret() {
                                     <TableRow
                                         title={article.title}
                                         preview={article.summarized}
-                                        authoer={article.author}
+                                        author={article.author}
+                                        href={article.site_url}
                                     />)
                             }
                             <TableRow
@@ -122,7 +123,7 @@ function Secret() {
                                     <ul className="keyword">
                                         {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
                                         {
-                                            filterTags.map(([hashtag, freq], i) =>
+                                            filterTags.sort( ([_, a], [__, b]) => a < b ? 1 : -1).map(([hashtag, freq], i) =>
                                                 <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} checked={appliedFilters.includes(hashtag)} />
                                             )
                                         }
