@@ -64,7 +64,10 @@ async def ner(doc: DocumentRequest):
         doc.document = [doc.document]
     start_time = time.time()
     entity = [named_entity_recognition.predict(d) for d in doc.document]
-    results["ner"] = [{k: list(set(v)) for k, v in d.items()} for d in entity] # remove duplicated
+    try:
+        results["ner"] = [{k: list(set(v)) for k, v in d.items()} for d in entity] # remove duplicated
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results["time"] = time.time() - start_time
 
     return results
@@ -79,8 +82,12 @@ async def sentiment(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
-    results["score"] = scores
+    try:
+        scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
+        results["score"] = scores
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
+   
     results.update({"time": time.time() - start_time})
 
     return results
@@ -95,7 +102,11 @@ async def summarize(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+    try:
+        results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+    except Exception as e:
+        results["detail"] = "[Error] {}".format(e)
+
     results["time"] = time.time() - start_time
     return results
 
@@ -116,7 +127,10 @@ async def keywords(doc: DocumentRequest):
         window=-1,
         verbose=False
     )
-    results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
+    try:
+        results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results.update({"time": time.time() - start_time})
     return results
 
@@ -137,9 +151,12 @@ async def keysentences(doc: DocumentRequest):
         min_sim=0.3,
         verbose=False
     )
-    _keysentences = [{ "id": int(idx), "score": float(r), "sentence": str(sents)}
-                     for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
-    results.update({"keysentences": _keysentences})
+    try:
+        _keysentences = [{ "id": int(idx), "score": float(r), "sentence": str(sents)}
+                         for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
+        results.update({"keysentences": _keysentences})
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results.update({"time": time.time() - start_time})
     return results
 
