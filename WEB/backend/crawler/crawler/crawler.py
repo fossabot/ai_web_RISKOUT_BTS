@@ -92,7 +92,7 @@ async def get_contents(site, contents_url, urlinfo, db):
             content_soup = bs(text, 'html.parser')
             news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
             # news_content를 쿼리로 쏘는 코드
-            # db.put_content(news_content)
+            db.put_content(news_content)
 
     if(DEBUG):
         print(f"Received request to {contents_url}")
@@ -152,7 +152,7 @@ async def crawl(site):
             prev_page = now_page
             now_page += 1
 
-    # db.select_all()
+    db.select_all()
     db.close()
 
 
