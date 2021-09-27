@@ -21,9 +21,9 @@ function Secret() {
             "TIM": {}
         }
     });
-    const [ isDetailModalOpen, setDetailModalOpen ] = React.useState(false);
-    const [ detailModalData, setDetailModalData ] = React.useState({});
-    // <SecretsDetailModal isOpen={isDetailModalOpen} setOpen={setDetailModalOpen} title={} preview={} url={} id={} />
+    const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
+    const [detailModalData, setDetailModalData] = React.useState({});
+
 
     const toggleFilter = hashtag => {
         // console.log(`toggle ${hashtag}`, appliedFilters);
@@ -47,6 +47,11 @@ function Secret() {
     useEffect(search, [appliedFilters]); // changing filters automatically triggers search
 
     const showDetailModal = (id) => {
+        const data = searchResults.contents.filter(x => x.id == id).pop();
+        console.log(data, searchResults.contents.filter(x => x.id == id), searchResults);
+        setDetailModalData(data);
+        setDetailModalOpen(true);
+
         console.log('TODO: show modal for ', id);
     };
     const scrapArticle = (id) => {
@@ -96,10 +101,13 @@ function Secret() {
                             {
                                 searchResults.contents.map((article, i) =>
                                     <TableRow
+                                        id={article.id}
                                         title={article.title}
                                         preview={article.summarized}
                                         author={article.author}
                                         href={article.site_url}
+                                        showDetailModal={showDetailModal}
+                                        scrapArticle={scrapArticle}
                                     />)
                             }
                             <TableRow
@@ -136,7 +144,7 @@ function Secret() {
                                     <ul className="keyword">
                                         {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
                                         {
-                                            filterTags.sort( ([_, a], [__, b]) => a < b ? 1 : -1).map(([hashtag, freq], i) =>
+                                            filterTags.sort(([_, a], [__, b]) => a < b ? 1 : -1).map(([hashtag, freq], i) =>
                                                 <FilterCheckbox count={freq} hashtag={hashtag} key={hashtag} onToggle={toggleFilter} checked={appliedFilters.includes(hashtag)} />
                                             )
                                         }
@@ -150,7 +158,12 @@ function Secret() {
 
                 </div>
             </div>
-            
+            <SecretsDetailModal
+                isOpen={isDetailModalOpen}
+                setOpen={setDetailModalOpen}
+                scrapArticle={scrapArticle}
+                data={detailModalData}
+            />
         </section>
     );
 };

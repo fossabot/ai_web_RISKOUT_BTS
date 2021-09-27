@@ -3,13 +3,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Link from '@mui/material/Link';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '50vw',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -17,14 +18,11 @@ const style = {
 };
 
 export default function secretsDetailModal(props) {
-    const { isOpen, setOpen, title, preview, url, id } = props;
+    const { isOpen, setOpen, data, scrapArticle } = props;
     
-    const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return (
         <div>
-            {/* <Button onClick={handleOpen}>Open modal</Button>   */}
             <Modal
                 open={isOpen}
                 onClose={handleClose}
@@ -33,13 +31,14 @@ export default function secretsDetailModal(props) {
             >
                 <Box sx={style}>
                     <Typography id="secrets-modal-title" variant="h6" component="h2">
-                        {title}
+                        {data.title}
                     </Typography>
                     <Typography id="secrets-modal-description" sx={{ mt: 2 }}>
-                        {preview}
+                        {data.summarized}
                     </Typography>
-                    <a href={url} />
-                    <button>scrap {id}</button>
+                    <Link href={data.site_url} color="inherit" underline="hover" target="_blank">Source</Link>
+                    <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
+                    <Button onClick={scrapArticle}>Save article</Button>
                 </Box>
             </Modal>
         </div>
