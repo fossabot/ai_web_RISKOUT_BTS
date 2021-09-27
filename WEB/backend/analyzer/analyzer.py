@@ -3,6 +3,12 @@ import unicodedata
 import sqlite3
 import requests
 import json
+from time import time
+from datetime import datetime
+from pymongo import MongoClient
+from pymongo.collection import ReturnDocument
+from pymongo.cursor import CursorType
+
 
 SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.githubpreview.dev/'
 
@@ -41,7 +47,7 @@ class Content:
         summarized = requests.post(url, data=document)
 
         if summarized.status_code == 200:
-            self.content_dict['summarized'] = json.loads(summarized.text)['summarized']
+            self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
         else:    
             self.content_dict['summarized'] = None
 
@@ -53,7 +59,7 @@ class Content:
         positivity = requests.post(url, data=document)
 
         if positivity.status_code == 200:
-            self.content_dict['positivity'] = json.loads(positivity.text)['score']
+            self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
         else:    
             self.content_dict['positivity'] = None
 
@@ -70,31 +76,103 @@ class Content:
             self.content_dict['entities'] = None
 
 
+class DBHandler:
+    def __init__(self):
+        host = "localhost"
+        port = "27017"
+        self.client = MongoClient(host, int(port))
+
+    def insert_item_one(self, data, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].insert_one(data).inserted_id
+        return result
+
+    def insert_item_many(self, datas, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].insert_many(datas).inserted_ids
+        return result
+
+    def find_item_one(self, condition=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].find_one(condition)
+        return result
+
+    def find_item(self, condition=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].find(condition, no_cursor_timeout=True, cursor_type=CursorType.EXHAUST)
+        return result
+
+    def delete_item_one(self, condition=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].delete_one(condition)
+        return result
+
+    def delete_item_many(self, condition=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].delete_many(condition)
+        return result
+
+    def update_item_one(self, condition=None, update_value=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].update_one(filter=condition, update=update_value)
+        return result
+
+    def update_item_many(self, condition=None, update_value=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].update_many(filter=condition, update=update_value)
+        return result
+
+    def text_search(self, text=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].find({"$text": {"$search": text}})
+        return result
+
+    def get_next_sequence(self, counter_name=None, db_name=None, collection_name=None):
+        result = self.client[db_name][collection_name].find_one_and_update({'_id': counter_name}, {'$inc': {'seq': 1}}, return_document=ReturnDocument.AFTER)
+        result = int(result['seq'])
+        return result
+
+
 def extractor(data):
+    print('\n[*] Extractor Started!\n')
+
     contents = []
 
-    # for tup in data:
-    tup = data
-    extracted = {}
-    extracted['title'] = tup[0]
-    extracted['site_url'] = tup[1]
-    extracted['thumbnail_url'] = tup[2]
-    extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
-    extracted['category'] = tup[4]
+    for idx, tup in enumerate(data):
+        extracted = {}
+        extracted['title'] = tup[0]
+        extracted['site_url'] = tup[1]
+        extracted['thumbnail_url'] = tup[2]
+        extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
+        extracted['category'] = tup[4]
 
-    content = Content(extracted)
-    contents.append(content)
+        content = Content(extracted)
+        contents.append(content.content_dict)
+
+        print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
     return contents
 
 
+def dbInserter(contents):
+    mongo = DBHandler()
+    for i in range(len(contents)):
+        contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
+        contents[i]['created_at'] = datetime.utcnow().strftime('%y-%m-%d %H:%M:%S')
+    
+    try:
+        mongo.insert_item_many(contents, "riskout", "analyzed")
+        print('DB insertion success')
+        return True
+
+    except Exception as e:
+        print("DB insert error occured :", e)
+        return False
+
+
 def main():
+    start_time = time()
+
     cur = conn.cursor()
     cur.execute("SELECT * FROM CrawlContents")
     raw_data = cur.fetchall()
-    contents = extractor(raw_data[0])
-    # contents = extractor(raw_data)
-    print(contents[0].content_dict)
+    contents = extractor(raw_data)
+    dbInserter(contents)
+
+    end_time = time()
+    elasped_time = round((end_time - start_time), 3)
+    print(f"\n\nelasped_time : {elasped_time}\n\n")
 
 
 if __name__ == '__main__':

@@ -21,11 +21,10 @@ class DBHandler:
 
     def find_item_one(self, condition=None, db_name=None, collection_name=None):
         result = self.client[db_name][collection_name].find_one(condition)
-        #result = self.client[db_name][collection_name].find_one(condition, {"_id": False})
         return result
 
     def find_item(self, condition=None, db_name=None, collection_name=None):
-        result = self.client[db_name][collection_name].find(condition, {"_id": False}, no_cursor_timeout=True, cursor_type=CursorType.EXHAUST)
+        result = self.client[db_name][collection_name].find(condition, no_cursor_timeout=True, cursor_type=CursorType.EXHAUST)
         return result
 
     def delete_item_one(self, condition=None, db_name=None, collection_name=None):
