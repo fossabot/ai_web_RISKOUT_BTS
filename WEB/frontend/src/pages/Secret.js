@@ -6,6 +6,7 @@ import AppliedFilter from '../components/AppliedFilter';
 
 import searchIcon from "../images/sub/search_icon.png";
 import filtersCloseIcon from "../images/sub/filters_close.png";
+import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 // import exampleData from "./SecretData.example.json";
 
 function Secret() {
@@ -20,6 +21,9 @@ function Secret() {
             "TIM": {}
         }
     });
+    const [ isDetailModalOpen, setDetailModalOpen ] = React.useState(false);
+    const [ detailModalData, setDetailModalData ] = React.useState({});
+    // <SecretsDetailModal isOpen={isDetailModalOpen} setOpen={setDetailModalOpen} title={} preview={} url={} id={} />
 
     const toggleFilter = hashtag => {
         // console.log(`toggle ${hashtag}`, appliedFilters);
@@ -41,6 +45,13 @@ function Secret() {
     };
 
     useEffect(search, [appliedFilters]); // changing filters automatically triggers search
+
+    const showDetailModal = (id) => {
+        console.log('TODO: show modal for ', id);
+    };
+    const scrapArticle = (id) => {
+        console.log('TODO: scrap article ', id);
+    };
 
     return (
         <section id="sub_contents2">
@@ -68,15 +79,17 @@ function Secret() {
 
                     <table border="0" cellPadding="0" cellSpacing="0" className="tbl_type01">
                         <colgroup>
-                            <col width="15%" />
+                            <col width="7%" />
                             <col width="65%" />
                             <col width="20%" />
+                            <col width="8%" />
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>유형</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
+                                <th>스크랩</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,6 +150,7 @@ function Secret() {
 
                 </div>
             </div>
+            
         </section>
     );
 };
