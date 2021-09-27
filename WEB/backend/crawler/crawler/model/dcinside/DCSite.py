@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from crawler.model.Site import *
 from crawler.model.dcinside.const import *
 
@@ -50,7 +52,9 @@ class DCSite(Site):
         self.header = DC_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return "1"
+        parts = urlparse(contents_url)
+        article_id = parts.path.split('/')[3]
+        return article_id
 
 
 
