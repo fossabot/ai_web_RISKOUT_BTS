@@ -63,7 +63,7 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
         img_url = None
     except KeyError:
         img_url = None
-    
+
     # category
     category = site.category
 
@@ -82,3 +82,8 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
         print(content)
     
     return content
+
+
+
+
+

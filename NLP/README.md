@@ -259,3 +259,7 @@ The REST API to the example are all below.
 - [SKT-AI/kobart](https://github.com/SKT-AI/KoBART)
 
   - [seujung/KoBART-summarizationseujung/](https://github.com/seujung/KoBART-summarization)
+
+- [mologg/KoBERT-NER](https://github.com/monologg/KoBERT-NER)
+
+  - [NAVER/nlp-challenges](https://github.com/naver/nlp-challenge)

@@ -27,6 +27,10 @@ class NaverNewsListPage(listpage):
         """
         ret = []
         div = soup.find(self.list_div, class_ = self.list_div_class)
+        if(div is None):
+            if(DEBUG):
+                print("can't find list div)")
+            print -1
         """
         일단은 사진에 붙어있는 링크를 이용하는 방법.
         즉, 사진이 없으면 링크가 없음.
@@ -36,6 +40,11 @@ class NaverNewsListPage(listpage):
         for dt in div.find_all("dt", class_="photo"):
             href = dt.find('a')['href']
             ret.append(href)
+
+        if not ret:
+            if(DEBUG):
+                print("can't find contents on list div")
+            return -1
 
         return ret
 
@@ -52,4 +61,8 @@ class NaverNewsSite(Site):
         self.header = NAVER_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return int(contents_url[-10:])
+        return contents_url[-10:]
+
+
+
+

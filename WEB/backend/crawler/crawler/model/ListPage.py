@@ -39,16 +39,19 @@ class ListPage:
         page_div = soup.find(self.paging_div, class_ = self.paging_div_class)
         if(page_div is None):
             if(DEBUG):
-                print("can't find paging div")
+                print("in ListPage.py/get_nowpage: can't find paging div")
             return -1
         
         nowpage = int(page_div.find(self.paging_tag).get_text())
         if(nowpage is None):
             if(DEBUG):
-                print("can't find paging tag")
+                print("in ListPage.py/get_nowpage: can't find paging tag")
             return -1
 
         return nowpage
 
     def get_contents_urls(self, soup):
         pass
+
+
+
