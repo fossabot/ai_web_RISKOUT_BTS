@@ -39,9 +39,9 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
         title_div = soup.find(contents_page.title_div, class_=contents_page.title_div_class)
 
         try:
-            title = title_div.find(contents_page.title_tag)[contents_page.title_tag_class].get_text()
+            title = str.strip(title_div.find(contents_page.title_tag)[contents_page.title_tag_class].get_text())
         except KeyError:
-            title = title_div.find(contents_page.title_tag).get_text()
+            title = str.strip(title_div.find(contents_page.title_tag).get_text())
     except AttributeError:
         title = "제목이 없습니다."
 
@@ -62,6 +62,8 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
     except AttributeError:
         img_url = None
     except KeyError:
+        img_url = None
+    except TypeError:
         img_url = None
 
     # category

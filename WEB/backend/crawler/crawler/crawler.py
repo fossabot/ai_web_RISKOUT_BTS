@@ -11,6 +11,8 @@ import time
 
 import random
 
+from os import close
+
 # import class
 from crawler.model.ListPage import ListPage as listpage
 from crawler.model.ContentsPage import ContentsPage as contentspage
@@ -19,6 +21,9 @@ from crawler.model import const as const
 
 # database
 import crawler.db as database
+
+# exception
+from crawler.error import CrawlerError as crawler_error
 
 # import setting values
 from crawler.setting import DEBUG, TIME_CHECK
@@ -92,7 +97,7 @@ async def get_contents(site, contents_url, urlinfo, db):
             content_soup = bs(text, 'html.parser')
             news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
             # news_content를 쿼리로 쏘는 코드
-            db.put_content(news_content)
+            # db.put_content(news_content)
 
     if(DEBUG):
         print(f"Received request to {contents_url}")
@@ -111,48 +116,53 @@ async def crawl(site):
         test_breaker = 0
 
         while prev_page != now_page and test_breaker < 1:
-            flag = True
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
             response = get_request(urlbase + str(now_page), site.header)
+            # response = get_request('https://m.dcinside.com/board/navy', site.header)
 
             list_html = response.text
             list_soup = bs(list_html, 'html.parser')
+            # f = open('output.html', 'w')
+            # f.write(list_soup.prettify())
+            # f.close()
+            # print(list_soup.prettify())
 
-            now_page = site.listpage.get_nowpage(list_soup)
-            if(now_page == -1):
-                if DEBUG:
-                    print("in crawler/crawler.py: now_page not found")
-                flag = False
+            try:
+                now_page = site.listpage.get_nowpage(list_soup)
+            except crawler_error as e:
+                if(DEBUG):
+                    print("in crawler/crawler.py: now_page not found by following exception")
+                    print(e)
+                    break
 
             # 일단 마음에 안 들지만 이렇게 해 두었습니다.
             if(now_page == prev_page):
                 break
             
+            contents_urls= site.listpage.get_contents_urls(list_soup)
+
+            if(contents_urls == -1):
+                flag = False
+            
             if flag:
-                contents_urls= site.listpage.get_contents_urls(list_soup)
+                futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
 
-                if(contents_urls == -1):
-                    flag = False
-                
-                if flag:
-                    futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
+                # for future in futures:
+                #     await asyncio.sleep(random.uniform(1, 2))
+                #     await asyncio.gather(future)
+                await asyncio.gather(*futures)
 
-                    # for future in futures:
-                    #     await asyncio.sleep(random.uniform(1, 2))
-                    #     await asyncio.gather(future)
-                    await asyncio.gather(*futures)
+                if(DEBUG):
+                    print("nowpage: " + str(now_page) + '\n')
 
-                    if(DEBUG):
-                        print("nowpage: " + str(now_page) + '\n')
-
-                    await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
+                await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
 
             test_breaker += 1
             prev_page = now_page
             now_page += 1
 
-    db.select_all()
+    # db.select_all()
     db.close()
 
 
