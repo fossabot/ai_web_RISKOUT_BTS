@@ -19,20 +19,20 @@ class DCListPage(listpage):
         """
         ret = []
         
-        list_div = soup.find(self.list_div)
+        list_div = soup.find(self.list_div, class_=self.list_div_class)
+        # print(list_div.prettify())
         if(list_div is None):
             if(DEBUG):
-                print("can't find list div")
+                print("in DCSite.py/DCSitePage/get_contents_urls: can't find list div")
             return -1
 
-        for tr in list_div.find_all("tr", class_ = "ub-content us-post"):
-            if(tr.find("td", class_="gall_num").get_text() != "공지"):
-                href = tr.find('a')['href']
-                ret.append('https://gall.dcinside.com' + href)
+        for li in list_div.find_all("div", class_="gall-detail-lnktb"):
+            href = li.find('a', class_='lt')['href']
+            ret.append(href)
 
         if not ret:
             if(DEBUG):
-                print("can't find contents on list div")
+                print("in DCSite.py/DCSitePage/get_contents_urls: can't find contents on list div")
             return -1
 
         return ret
