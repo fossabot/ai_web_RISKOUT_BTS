@@ -9,15 +9,21 @@ from bs4 import BeautifulSoup as bs
 # for checking elapsed time
 import time
 
+import random
+
+# import class
 from crawler.model.ListPage import ListPage as listpage
 from crawler.model.ContentsPage import ContentsPage as contentspage
 from crawler.model import Content
 from crawler.model import const as const
 
+# database
 import crawler.db as database
 
-from datetime import datetime, timedelta
+# import setting values
+from crawler.setting import DEBUG, TIME_CHECK
 
+# for matching site name to site class instance
 from crawler.model.siteInstanceServer import get_siteInstance_list
 
 """
@@ -60,7 +66,8 @@ async def crawl_manager(site):
     start_time = time.time()
     await asyncio.gather(crawl(site_instance_selector(site)))
     end_time = time.time()
-    print(f'time taken crawling "{site}": {end_time - start_time}')
+    if(TIME_CHECK):
+        print(f'time taken crawling "{site}": {end_time - start_time}')
 
 def get_request(url, header):
     """
@@ -75,7 +82,8 @@ async def get_contents(site, contents_url, urlinfo, db):
     news_url에서 contents 객체를 만들어 리턴하는 함수
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
     """
-    print(f"Send request to {contents_url}")
+    if(DEBUG):
+        print(f"Send request to {contents_url}")
 
     # aiohttp 이용
     async with aiohttp.ClientSession() as sess:
@@ -86,46 +94,73 @@ async def get_contents(site, contents_url, urlinfo, db):
             # news_content를 쿼리로 쏘는 코드
             db.put_content(news_content)
 
-    print(f"Received request to {contents_url}")
+    if(DEBUG):
+        print(f"Received request to {contents_url}")
 
 # 나중에는 site뿐만 아니라 subject 역시 매개변수에 넣어서 전달,
 # 이후 각 Site 페이지에서 받은 subject 매개변수를 토대로 baseurl을 제작하면 됨
 async def crawl(site):
-        db = database.DB()
+    db = database.DB()
 
-        each_urlbases, urlinfo = site.listpage.get_each_urlbases()
+    each_urlbases, urlinfo = site.listpage.get_each_urlbases()
 
-        for urlbase in each_urlbases:
-            prev_page = 0
-            now_page = 1
+    for urlbase in each_urlbases:
+        prev_page = 0
+        now_page = 1
 
-            test_breaker = 0
+        test_breaker = 0
 
-            while prev_page != now_page and test_breaker < 1:
+        while prev_page != now_page and test_breaker < 1:
+            flag = True
+            if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
-                response = get_request(urlbase + str(now_page), site.header)
-                
-                list_html = response.text
-                list_soup = bs(list_html, 'html.parser')
+            response = get_request(urlbase + str(now_page), site.header)
 
-                now_page = site.listpage.get_nowpage(list_soup)
-                # 일단 마음에 안 들지만 이렇게 해 두었습니다.
-                if(now_page == prev_page):
-                    break
+            list_html = response.text
+            list_soup = bs(list_html, 'html.parser')
 
+            now_page = site.listpage.get_nowpage(list_soup)
+            if(now_page == -1):
+                if DEBUG:
+                    print("in crawler/crawler.py: now_page not found")
+                flag = False
+
+            # 일단 마음에 안 들지만 이렇게 해 두었습니다.
+            if(now_page == prev_page):
+                break
+            
+            if flag:
                 contents_urls= site.listpage.get_contents_urls(list_soup)
 
-                futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
+                if(contents_urls == -1):
+                    flag = False
+                
+                if flag:
+                    futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
 
-                await asyncio.gather(*futures)
+                    # for future in futures:
+                    #     await asyncio.sleep(random.uniform(1, 2))
+                    #     await asyncio.gather(future)
+                    await asyncio.gather(*futures)
 
-                print("nowpage: " + str(now_page) + '\n')
-                time.sleep(const.CRAWLING_INTERVAL)
+                    if(DEBUG):
+                        print("nowpage: " + str(now_page) + '\n')
 
-                test_breaker += 1
+                    await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
 
-                prev_page = now_page
-                now_page += 1
+            test_breaker += 1
+            prev_page = now_page
+            now_page += 1
 
-        db.select_all()
-        db.close()
+    db.select_all()
+    db.close()
+
+
+
+
+
+
+
+
+
+
