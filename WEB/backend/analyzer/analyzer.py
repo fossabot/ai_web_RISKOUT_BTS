@@ -25,10 +25,11 @@ class Content:
 
         site_url, thumbnail_url, category, title, contentBody: extracted 에서 추출
 
-        summarized, entities: analyze 호출 이후 할당
+        summarized, positivity, entities: analyze 호출 이후 할당
         """
         
         self.getSummarized()
+        self.getPositivity()
         self.getEntities()
     
 
@@ -36,30 +37,36 @@ class Content:
         url = SERVER_URL + 'summarize'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        print("\n\ngetSum" + document + '\n\n')
-        """
         summarized = requests.post(url, data=document)
 
         if summarized.status_code == 200:
             self.content_dict['summarized'] = summarized.text
         else:    
             self.content_dict['summarized'] = None
-        """
+
+
+    def getPositivity(self):
+        url = SERVER_URL + 'sentiment'
+        document = {"document": self.content_dict['contentBody']}
+        document = json.dumps(document)
+        positivity = requests.post(url, data=document)
+
+        if positivity.status_code == 200:
+            self.content_dict['positivity'] = positivity.text
+        else:    
+            self.content_dict['positivity'] = None
 
 
     def getEntities(self):
         url = SERVER_URL + 'ner'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        print("\n\ngetEnt" + document + '\n\n')
-        """
         entities = requests.post(url, data=document)
 
         if entities.status_code == 200:
             self.content_dict['entities'] = entities.text
         else:    
             self.content_dict['entities'] = None
-        """
 
 
 def extractor(data):
@@ -86,7 +93,7 @@ def main():
     raw_data = cur.fetchall()
     contents = extractor(raw_data[0])
     # contents = extractor(raw_data)
-    # print(contents[0].content_dict)
+    print(contents[0].content_dict)
 
 
 if __name__ == '__main__':
