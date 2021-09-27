@@ -103,7 +103,7 @@ async def summarize(doc: DocumentRequest):
         doc.document = [doc.document]
     start_time = time.time()
     try:
-        results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+        results["summarized"] = [kobart_summarizer.predict(d) for d in doc.document]
     except Exception as e:
         results["detail"] = "[Error] {}".format(e)
 
