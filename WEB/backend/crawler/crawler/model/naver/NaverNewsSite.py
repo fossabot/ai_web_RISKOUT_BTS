@@ -59,9 +59,9 @@ class NaverNewsSite(Site):
         self.header = NAVER_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        parts = urlparse("https://news.naver.com/main/read.naver?mode=LS2D&mid=shm&sid1=100&sid2=268&oid=003&aid=0010741307")
+        parts = urlparse(contents_url)
         article_id = parts.query.split('&')[5][4:]
-        
+
         return article_id
 
         # return contents_url[-10:]

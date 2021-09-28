@@ -5,7 +5,7 @@ NORTH_KOREA = 268
 DOMAIN = 'naver'
 NK = 'north_korea'
 
-NAVER_BASE = f"https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid2={NORTH_KOREA}&sid1={POLITICS}"
+NAVER_BASE = f"https://news.bnaver.com/main/list.naver?mode=LS2D&mid=shm&sid2={NORTH_KOREA}&sid1={POLITICS}"
 
 NAVER_CUSTOM_HEADER = {
     'referer' : "https://www.naver.com/",
