@@ -39,13 +39,12 @@ class ListPage:
         """
         page_div = soup.find(self.paging_div, class_ = self.paging_div_class)
         
-
         if(page_div is None):
-            raise pdiv_error("in ListPage.py/get_nowpage: can't find paging div")
+            raise pdiv_error("in ListPage.py/get_nowpage PageDivNotFoundError: can't find paging div")
         
         nowpage = int(page_div.find(self.paging_tag).get_text())
         if(nowpage is None):
-            raise ptag_error("in ListPage.py/get_nowpage: can't find paging tag")
+            raise ptag_error("in ListPage.py/get_nowpage PagingTagNotFoundError: can't find paging tag")
 
         return nowpage
 

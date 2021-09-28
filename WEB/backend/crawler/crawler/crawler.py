@@ -11,7 +11,7 @@ import time
 
 import random
 
-from os import close
+from os import CLD_EXITED, close
 
 # import class
 from crawler.model.ListPage import ListPage as listpage
@@ -21,9 +21,6 @@ from crawler.model import const as const
 
 # database
 import crawler.db as database
-
-# exception
-from crawler.error import CrawlerError as crawler_error
 
 # import setting values
 from crawler.setting import DEBUG, TIME_CHECK
@@ -115,7 +112,7 @@ async def crawl(site):
 
         test_breaker = 0
 
-        while prev_page != now_page and test_breaker < 3:
+        while prev_page != now_page and test_breaker < 1:
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
             response = get_request(urlbase + str(now_page), site.header)
@@ -130,10 +127,10 @@ async def crawl(site):
 
             try:
                 now_page = site.listpage.get_nowpage(list_soup)
-            except crawler_error as e:
+            except Exception as detail:
                 if(DEBUG):
                     print("in crawler/crawler.py: now_page not found by following exception")
-                    print(e)
+                    print(detail)
                     break
 
             # 일단 마음에 안 들지만 이렇게 해 두었습니다.
