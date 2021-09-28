@@ -1,5 +1,9 @@
+from urllib.parse import urlparse
+
 from crawler.model.Site import *
 from crawler.model.naver.const import *
+
+from crawler.error import HTMLElementsNotFoundError as notfound_error
 
 
 class NaverNewsListPage(listpage):
@@ -25,27 +29,20 @@ class NaverNewsListPage(listpage):
     def get_contents_urls(self, soup):
         """
         page 안에서 뉴스들의 url을 찾아 리스트 형태로 리턴하는 함수
+        실패할 경우 에러 발생
         """
         ret = []
         div = soup.find(self.list_div, class_ = self.list_div_class)
         if(div is None):
-            if(DEBUG):
-                print("can't find list div)")
-            print -1
-        """
-        일단은 사진에 붙어있는 링크를 이용하는 방법.
-        즉, 사진이 없으면 링크가 없음.
-        근데 사진이 없는 경우에 대한 예외처리가 있음 ㅋㅋ
-        사진 없으면 작동을 안한다는건데, 모르겠다 아직
-        """
+            raise notfound_error("NaverNewsSite.py/get_contents_urls", "list_div")
+
+        # 사진이 없으면 작동을 안해버림
         for dt in div.find_all("dt", class_="photo"):
             href = dt.find('a')['href']
             ret.append(href)
 
         if not ret:
-            if(DEBUG):
-                print("can't find contents on list div")
-            return -1
+            raise notfound_error("NaverNewsSite.py/get_contents_urls", "contents on list div")
 
         return ret
 
@@ -62,8 +59,9 @@ class NaverNewsSite(Site):
         self.header = NAVER_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return contents_url[-10:]
+        parts = urlparse("https://news.naver.com/main/read.naver?mode=LS2D&mid=shm&sid1=100&sid2=268&oid=003&aid=0010741307")
+        article_id = parts.query.split('&')[5][4:]
+        
+        return article_id
 
-
-
-
+        # return contents_url[-10:]
