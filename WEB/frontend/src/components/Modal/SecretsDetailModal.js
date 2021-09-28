@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,6 +7,11 @@ import Modal from '@mui/material/Modal';
 import Link from '@mui/material/Link';
 import { getHighlightedText, getLineBreakText, getNodeText, replaceNewline } from '../../js/util';
 import '../../css/SecretsDetailModal.css';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import AnalyzeIcon from '@mui/icons-material/Analytics';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Link';
 
 const style = {
     position: 'absolute',
@@ -21,8 +27,10 @@ const style = {
     p: 4,
 };
 
-export default function secretsDetailModal(props) {
+
+export default function SecretsDetailModal(props) {
     const { isOpen, setOpen, data, scrapArticle } = props;
+    const { isSaved, setSaved } = useState(false);
     const entityNames = Object.entries(data.entities).flatMap(x => x[1]);
     console.log(entityNames, getHighlightedText);
 
@@ -37,23 +45,41 @@ export default function secretsDetailModal(props) {
             >
                 <Box sx={style}>
                     <Typography id="secrets-modal-title" variant="h6" component="h2">
+                    <Link href={data.site_url} color="inherit" underline="hover" target="_blank" title="원본 페이지 보기">
+                        <NavigationIcon sx={{ mr: 1,  }} />
+                    </Link>
                         {data.title}
+                        <hr align="left" />
                     </Typography>
+
+                    <Fab variant="extended" color="primary" size="small" aria-label="add to scrap">
+                        <AddIcon />
+                        Save Article
+                    </Fab>
+                    <Fab variant="extended" size="small" aria-label="Detailed Analysis">
+                        <AnalyzeIcon />
+                        Page Analysis
+                    </Fab>
+                    <Fab variant="extended" size="small" onClick={()=>{window.open(data.site_url, '_blank').focus()}}>
+                        <NavigationIcon sx={{ mr: 1 }} />
+                        Source
+                    </Fab>
+
+                    
+                    <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
+                    <Button onClick={scrapArticle}>Save article</Button>
+
                     <Typography id="secrets-modal-description" sx={{ mt: 2 }} className="line-break">
-                        <hr />
                         {/* Insert highlighted version */}
-                        {getHighlightedText(replaceNewline(data.contentBody), entityNames.length ? entityNames[0] : "")} 
-                        
+                        {getHighlightedText(replaceNewline(data.contentBody, 2), entityNames.length ? entityNames[0] : "")}
+
                         {/* {data.summarized} */}
-                        
+
                         {/* <pre>
                         {JSON.stringify(data, null, 4)}
                         </pre> */}
 
                     </Typography>
-                    <Link href={data.site_url} color="inherit" underline="hover" target="_blank">Source</Link>
-                    <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
-                    <Button onClick={scrapArticle}>Save article</Button>
                 </Box>
             </Modal>
         </div>

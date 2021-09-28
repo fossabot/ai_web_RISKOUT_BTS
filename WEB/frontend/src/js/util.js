@@ -11,12 +11,9 @@ function getHighlightedText(text, highlight) {
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
     return (
         <span> {parts.map((part, i) =>
-            <span key={i}
-                style={part.toLowerCase() === highlight.toLowerCase() ? { fontWeight: 'bold' } : {}}
-                className={part.toLowerCase() === highlight.toLowerCase() ? "highlighted-text" : ""}
-            >
-                {part}
-            </span>)
+            part.toLowerCase() === highlight.toLowerCase() ?
+                <mark key={i}>{part}</mark> :
+                <span key={i}>{part}</span>)
         } </span>
     );
 }
@@ -38,8 +35,8 @@ function getNodeText(node) {
     if (typeof node === 'object' && node) return getNodeText(node.props.children)
 }
 
-function decodeNewline(text) {
-    return text.replace(/\\n/g, '\n');
+function decodeNewline(text, multiplier) {
+    return text.replace(/\\n/g, '\n'.repeat(multiplier));
 }
 
 export {
