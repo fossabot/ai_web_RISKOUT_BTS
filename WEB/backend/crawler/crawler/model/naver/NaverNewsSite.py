@@ -1,6 +1,7 @@
 from crawler.model.Site import *
 from crawler.model.naver.const import *
 
+
 class NaverNewsListPage(listpage):
     def __init__(self):
         listpage.__init__(self, '/naver')

@@ -1,8 +1,7 @@
 import json
 import os
 
-from crawler.error import PageDivNotFoundError as pdiv_error
-from crawler.error import PagingTagNotFoundError as ptag_error
+from crawler.error import HTMLElementsNotFoundError as notfound_error
 
 """
 특정 목록 페이지를 읽기 위한 방법(태그, 클래스 등)을 명시하는 클래스임
@@ -40,11 +39,11 @@ class ListPage:
         page_div = soup.find(self.paging_div, class_ = self.paging_div_class)
         
         if(page_div is None):
-            raise pdiv_error("in ListPage.py/get_nowpage PageDivNotFoundError: can't find paging div")
+            raise notfound_error("ListPage.py/get_nowpage", "paging div")
         
         nowpage = int(page_div.find(self.paging_tag).get_text())
         if(nowpage is None):
-            raise ptag_error("in ListPage.py/get_nowpage PagingTagNotFoundError: can't find paging tag")
+            raise notfound_error("ListPage.py/get_nowpage", "paging tag")
 
         return nowpage
 
