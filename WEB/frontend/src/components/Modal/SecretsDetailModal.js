@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Link from '@mui/material/Link';
-import { getHighlightedText } from '../../js/util';
+import { getHighlightedText, getLineBreakText, getNodeText, replaceNewline } from '../../js/util';
+import '../../css/SecretsDetailModal.css';
 
 const style = {
     position: 'absolute',
@@ -12,6 +13,8 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '50vw',
+    maxHeight: '70vh',
+    overflowY: 'auto',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -36,13 +39,17 @@ export default function secretsDetailModal(props) {
                     <Typography id="secrets-modal-title" variant="h6" component="h2">
                         {data.title}
                     </Typography>
-                    <Typography id="secrets-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="secrets-modal-description" sx={{ mt: 2 }} className="line-break">
                         <hr />
-                        {getHighlightedText(data.contentBody, entityNames.length ? entityNames[0] : "")}
-                        {data.summarized}
-                        <pre>
+                        {/* Insert highlighted version */}
+                        {getHighlightedText(replaceNewline(data.contentBody), entityNames.length ? entityNames[0] : "")} 
+                        
+                        {/* {data.summarized} */}
+                        
+                        {/* <pre>
                         {JSON.stringify(data, null, 4)}
-                        </pre>
+                        </pre> */}
+
                     </Typography>
                     <Link href={data.site_url} color="inherit" underline="hover" target="_blank">Source</Link>
                     <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
