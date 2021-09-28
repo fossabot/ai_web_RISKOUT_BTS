@@ -13,6 +13,8 @@ import random
 
 from os import CLD_EXITED, close
 
+from requests.models import HTTPError
+
 # import class
 from crawler.model.ListPage import ListPage as listpage
 from crawler.model.ContentsPage import ContentsPage as contentspage
@@ -121,12 +123,22 @@ async def crawl(site):
             # 추가 예외처리 필요
             try:
                 response = get_request(urlbase + str(now_page), site.header)
-            except ConnectionError as detail:
+            except requestConnectionError as detail:
                 if(DEBUG):
                     print("in crawler/crawler.py/crawl: failed connection by following exception")
                     print(detail)
                 break
-  
+            except TimeoutError as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py/crawl: server timeout occured")
+                    print(detail)
+                break
+            except HTTPError as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py.crawl: unsuccessful respond occured")
+                    print(detail)
+                break
+
             list_html = response.text
             list_soup = bs(list_html, 'html.parser')
             # f = open('output.html', 'w')
