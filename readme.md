@@ -85,7 +85,11 @@
 
 **5 가지 차트**는 다음과 같습니다.
 
-* [**`여론 현황`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 가장 많이 언급된 단어들을 보여주는 [워드 클라우드](https://riskout.ithosting.repl.co) 입니다.
+* [**`여론 현황`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 가장 많이 언급된 단어들을 보여주는 [워드 클라우드](https://riskout.ithosting.repl.co)입니다.
+* [**`출처별 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 SNS 및 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 분석하여 positive, neutral, negative로 나누어서 표현한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`통합 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 요약하여 보여주는 [파이 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`기사 변화량`**](https://riskout.ithosting.repl.co) : 오늘과 근 3일간의 기사량을 비교하여 시각화한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`나라별 이벤트`**](https://riskout.ithosting.repl.co) : 100+ 기사 및 전자 신문들을 기반으로 나라별 사건 발생도를 시각화 시킨 [맵 ](https://riskout.ithosting.repl.co)입니다.
 
 **안보 위협 탐색 + 보고서화**
 
