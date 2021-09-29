@@ -91,9 +91,19 @@
 * [**`기사 변화량`**](https://riskout.ithosting.repl.co) : 오늘과 근 3일간의 기사량을 비교하여 시각화한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
 * [**`나라별 이벤트`**](https://riskout.ithosting.repl.co) : 100개 이상의 기사 및 전자 신문들을 기반으로 나라별 사건 발생도를 시각화 시킨 [맵 ](https://riskout.ithosting.repl.co)입니다.
 
-**안보 위협 탐색 + 보고서화**
-
 <h3 id="feature2">위협 탐지</h3>
+
+<p align="center">
+  <img src="https://gdurl.com/YNdz" />
+</p>
+
+**CommonMark + GFM Specifications**
+
+Today *CommonMark* is the de-facto *Markdown* standard. *GFM (GitHub Flavored Markdown)* is another popular specification based on *CommonMark* - maintained by *GitHub*, which is the *Markdown* mostly used. TOAST UI Editor follows both [*CommonMark*](http://commonmark.org/) and [*GFM*](https://github.github.com/gfm/) specifications. Write documents with ease using productive tools provided by TOAST UI Editor and you can easily open the produced document wherever the specifications are supported.
+
+* **Live Preview** : Edit Markdown while keeping an eye on the rendered HTML. Your edits will be applied immediately.
+* **Scroll Sync** : Synchronous scrolling between Markdown and Preview. You don't need to scroll through each one separately.
+* **Syntax Highlight** : You can check broken Markdown syntax immediately.
 
 <h3 id="feature3">맞춤형 보고서 생성</h3>
 
