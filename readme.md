@@ -97,9 +97,11 @@
   <img src="https://gdurl.com/YNdz" />
 </p>
 
-**CommonMark + GFM Specifications**
+**기밀 유출 탐지 + 허위 기사 탐지**
 
 Today *CommonMark* is the de-facto *Markdown* standard. *GFM (GitHub Flavored Markdown)* is another popular specification based on *CommonMark* - maintained by *GitHub*, which is the *Markdown* mostly used. TOAST UI Editor follows both [*CommonMark*](http://commonmark.org/) and [*GFM*](https://github.github.com/gfm/) specifications. Write documents with ease using productive tools provided by TOAST UI Editor and you can easily open the produced document wherever the specifications are supported.
+
+*기밀 유출 현황* 및 *허위 기사*를 인공지능을 통해 분석하여 탐지해내는 페이지입니다. 인공지능은 탐지한 글들을 기반으로 2차적 탐색을 실시하여 기밀 단어, 인물, 장소를 추출해냅니다. 추출한 항목들은 세부 분석을 위해 필터로 제공됩니다.
 
 * **Live Preview** : Edit Markdown while keeping an eye on the rendered HTML. Your edits will be applied immediately.
 * **Scroll Sync** : Synchronous scrolling between Markdown and Preview. You don't need to scroll through each one separately.
