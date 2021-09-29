@@ -1,5 +1,6 @@
 # for multiprocess
 import asyncio
+from json.encoder import py_encode_basestring
 import aiohttp
 
 # for crawl
@@ -13,8 +14,6 @@ import random
 
 from os import CLD_EXITED, close
 
-from requests.models import HTTPError
-
 # import class
 from crawler.model.ListPage import ListPage as listpage
 from crawler.model.ContentsPage import ContentsPage as contentspage
@@ -26,6 +25,7 @@ import crawler.db as database
 
 # error
 from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import englishContentError
 
 # import setting values
 from crawler.setting import DEBUG, TIME_CHECK
@@ -96,11 +96,21 @@ async def get_contents(site, contents_url, urlinfo, db):
         async with sess.get(contents_url, headers = site.header) as res:
             text = await res.text()
             content_soup = bs(text, 'html.parser')
-            news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
-            # news_content를 쿼리로 쏘는 코드
-            # db.put_content(news_content)
-
-    if(DEBUG):
+            try:
+                news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
+            except englishContentError as detail:
+                if(DEBUG):
+                    print("english contents")
+                    print(detail)
+            else:
+                # news_content를 쿼리로 쏘는 코드
+                # db.dbcursor.execute("SELECT id FROM CrawlContents")
+                # stored_data = db.dbcursor.fetchall()
+                if news_content.contents_id not in db.select_id():
+                    db.put_content(news_content)
+                print(db.select_id())
+                
+    if (DEBUG):
         print(f"Received request to {contents_url}")
 
 # 나중에는 site뿐만 아니라 subject 역시 매개변수에 넣어서 전달,
@@ -123,17 +133,17 @@ async def crawl(site):
             # 추가 예외처리 필요
             try:
                 response = get_request(urlbase + str(now_page), site.header)
-            except requestConnectionError as detail:
+            except requests.exceptions.ConnectionError as detail:
                 if(DEBUG):
                     print("in crawler/crawler.py/crawl: failed connection by following exception")
                     print(detail)
                 break
-            except TimeoutError as detail:
+            except requests.exceptions.Timeout as detail:
                 if(DEBUG):
                     print("in crawler/crawler.py/crawl: server timeout occured")
                     print(detail)
                 break
-            except HTTPError as detail:
+            except requests.exceptions.HTTPError as detail:
                 if(DEBUG):
                     print("in crawler/crawler.py.crawl: unsuccessful respond occured")
                     print(detail)

@@ -4,3 +4,10 @@ class HTMLElementsNotFoundError(Exception):
 
     def __str__(self):
         return self.msg
+
+class englishContentError(Exception):
+    def __init__(self):
+        self.msg = "english content discovered"
+
+    def __str__(self):
+        return self.msg
