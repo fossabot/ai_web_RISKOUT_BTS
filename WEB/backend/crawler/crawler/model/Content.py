@@ -1,5 +1,3 @@
-from os import close
-
 import re
 
 from crawler.setting import DEBUG
@@ -49,6 +47,7 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
     except AttributeError:
         title = "제목이 없습니다."
 
+    # 영어 기사인데 제목이 없는 경우는??
     if re.search("[가-힣]", title) is None:
         raise englishContentError
 
@@ -56,9 +55,6 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
     try:
         body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class)
         body = str.strip(body_div.get_text())
-    # f = open('output.txt','a')
-    # f.write(body + '\n')
-    # f.close()
     except AttributeError:
         body = "내용이 없습니다."
     
