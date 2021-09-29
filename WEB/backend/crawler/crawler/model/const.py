@@ -9,11 +9,4 @@ CRAWLING_PAGE_INTERVAL = 5
 CRAWL_DATEAMOUNT = 1
 
 # 테스트용으로 크롤링할 페이지 수 제한
-MAX_LISTPAGE_CRAWL = 2
-
-
-
-
-
-
-
+MAX_LISTPAGE_CRAWL = 3

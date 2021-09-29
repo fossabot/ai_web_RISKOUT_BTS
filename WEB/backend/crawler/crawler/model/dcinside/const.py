@@ -1,9 +1,9 @@
 # BASEURL 하드코딩
 DOMAIN = 'dcinside'
 NAVY = "navy"
-DC_BASE = f"https://gall.dcinside.com/board/lists/?id={NAVY}"
+DC_BASE = f"https://m.dcinside.com/board/{NAVY}?" # "https://gall.dcinside.com/board/lists/?id={NAVY}"
 
 DC_CUSTOM_HEADER = {
-    'referer' : "https://gall.dcinside.com/",
-    'user-agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
+    'referer' : "https://m.dcinside.com/",
+    'user-agent' : 'Monika (Android) Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
