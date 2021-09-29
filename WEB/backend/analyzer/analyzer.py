@@ -15,6 +15,7 @@ SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.github
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
 conn = sqlite3.connect(db_path)
+cur = conn.cursor()
 
 
 class Content:
@@ -139,6 +140,9 @@ def extractor(data):
 
         content = Content(extracted)
         contents.append(content.content_dict)
+        
+        cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
+        conn.commit()
 
         print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
@@ -164,11 +168,13 @@ def dbInserter(contents):
 def main():
     start_time = time()
 
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM CrawlContents")
+    cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0")
     raw_data = cur.fetchall()
     contents = extractor(raw_data)
     dbInserter(contents)
+
+    cur.close()
+    conn.close()
 
     end_time = time()
     elasped_time = round((end_time - start_time), 3)
