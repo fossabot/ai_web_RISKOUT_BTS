@@ -13,7 +13,7 @@ from pymongo.cursor import CursorType
 SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.githubpreview.dev/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
-db_path = current_abs_path + "/database.db"
+db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
 conn = sqlite3.connect(db_path)
 
 

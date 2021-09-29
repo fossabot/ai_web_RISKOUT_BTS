@@ -8,6 +8,8 @@ RUN : \
     && add-apt-repository -y ppa:deadsnakes \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         python3.8-venv \
+        wget \
+        gpg-agent \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && :
@@ -18,20 +20,15 @@ ENV PATH=/venv/bin:$PATH
 
 # copy files
 WORKDIR /home/user
-COPY ../analyzer /home/user/analyzer
-COPY ../crawler /home/user/crawler
+COPY ./analyzer /home/user/analyzer
+COPY ./crawler /home/user/crawler
 COPY ./requirements.txt /home/user/requirements.txt
+COPY ./analyzer.sh /home/user/analyzer.sh
+COPY ./database.db /home/user/database.db
 
 # install requirements
-RUN pip install --no-cache-dir -r requirements.txt
-RUN bash ./analyzer/mongo-test/mongo_install.sh
+RUN pip install --no-cache-dir -r ./requirements.txt
+RUN bash ./analyzer/mongo-test/mongo_install_docker.sh
 
-# run mongo server daemon and mongo client
-RUN mongod
-RUN mongo
-
-# import riskout mongoDB init collection
-RUN mongoimport --db=riskout --collection=counter --jsonArray --file=riskout_db.json
-
-# Run crawler
-CMD ["python", "./crawler/main.py"]
+# execute analyzer
+ENTRYPOINT ["bash", "./analyzer.sh"]
