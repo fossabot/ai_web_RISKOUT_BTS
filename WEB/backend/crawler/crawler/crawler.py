@@ -1,5 +1,6 @@
 # for multiprocess
 import asyncio
+from json.encoder import py_encode_basestring
 import aiohttp
 
 # for crawl
@@ -11,6 +12,8 @@ import time
 
 import random
 
+from os import CLD_EXITED, close
+
 # import class
 from crawler.model.ListPage import ListPage as listpage
 from crawler.model.ContentsPage import ContentsPage as contentspage
@@ -19,6 +22,10 @@ from crawler.model import const as const
 
 # database
 import crawler.db as database
+
+# error
+from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import englishContentError
 
 # import setting values
 from crawler.setting import DEBUG, TIME_CHECK
@@ -30,7 +37,7 @@ from crawler.model.siteInstanceServer import get_siteInstance_list
 현재 생각하는 flow
 'Naver'같은 이름으로 site_instance_selector이용
 get_instance_list에서 받아온 'Naver': NaverClass 와 같은 딕셔너리를 통해
-직접 클래스 인스턴스(NaverClass) 에 crawl()명령을 내림
+crawler에서 직접 클래스 인스턴스(NaverClass)를 크롤링한다.
 
 각각 사이트별 클래스에는
 목록 사이트
@@ -46,17 +53,16 @@ get_instance_list에서 받아온 'Naver': NaverClass 와 같은 딕셔너리를
 
 새로운 사이트를 만든다면
 1.
-model 내부에 Naver.py 같은 파일을 만들고
-그 안에 목록 사이트, 컨텐츠 사이트에 대한 것을 ListPage.py, NewsPage.py를 상속하여
+model 내부에 Naver와 같은 모듈을 만들고
+그 안에 목록 사이트, 컨텐츠 사이트에 대한 것을 ListPage.py, ContentsPage.py를 상속하여
 구현 (이름은 뉴스에 국한되지 않을 것이므로 변경할 예정)
 
 2.
-config 내부에 generator.py에
-태그/클래스를 기술하여 generator실행
+모듈 내부에 해당 사이트 리스트와 컨텐츠를 읽어오기 위한 json파일 작성
 
 3.
 사이트 구조 및 url이 변경된다면 model을 수정
-html 및 class 이름이 변경된다면 config.generator를 통해 수정
+html 및 class 이름이 변경된다면 json을 수정
 """
 
 def site_instance_selector(site):
@@ -90,11 +96,21 @@ async def get_contents(site, contents_url, urlinfo, db):
         async with sess.get(contents_url, headers = site.header) as res:
             text = await res.text()
             content_soup = bs(text, 'html.parser')
-            news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
-            # news_content를 쿼리로 쏘는 코드
-            db.put_content(news_content)
-
-    if(DEBUG):
+            try:
+                news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
+            except englishContentError as detail:
+                if(DEBUG):
+                    print("english contents")
+                    print(detail)
+            else:
+                # news_content를 쿼리로 쏘는 코드
+                # db.dbcursor.execute("SELECT id FROM CrawlContents")
+                # stored_data = db.dbcursor.fetchall()
+                if news_content.contents_id not in db.select_id():
+                    db.put_content(news_content)
+                print(db.select_id())
+                
+    if (DEBUG):
         print(f"Received request to {contents_url}")
 
 # 나중에는 site뿐만 아니라 subject 역시 매개변수에 넣어서 전달,
@@ -111,56 +127,67 @@ async def crawl(site):
         test_breaker = 0
 
         while prev_page != now_page and test_breaker < 1:
-            flag = True
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
-            response = get_request(urlbase + str(now_page), site.header)
+
+            # 추가 예외처리 필요
+            try:
+                response = get_request(urlbase + str(now_page), site.header)
+            except requests.exceptions.ConnectionError as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py/crawl: failed connection by following exception")
+                    print(detail)
+                break
+            except requests.exceptions.Timeout as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py/crawl: server timeout occured")
+                    print(detail)
+                break
+            except requests.exceptions.HTTPError as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py.crawl: unsuccessful respond occured")
+                    print(detail)
+                break
 
             list_html = response.text
             list_soup = bs(list_html, 'html.parser')
+            # f = open('output.html', 'w')
+            # f.write(list_soup.prettify())
+            # f.close()
+            # print(list_soup.prettify())
 
-            now_page = site.listpage.get_nowpage(list_soup)
-            if(now_page == -1):
-                if DEBUG:
-                    print("in crawler/crawler.py: now_page not found")
-                flag = False
+            try:
+                now_page = site.listpage.get_nowpage(list_soup)
+            except notfound_error as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py: now_page not found by following exception")
+                    print(detail)
+                break
 
             # 일단 마음에 안 들지만 이렇게 해 두었습니다.
             if(now_page == prev_page):
                 break
             
-            if flag:
+            try:
                 contents_urls= site.listpage.get_contents_urls(list_soup)
+            except notfound_error as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py: can't found contents url by following exception")
+                    print(detail)
+                break
 
-                if(contents_urls == -1):
-                    flag = False
-                
-                if flag:
-                    futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
+            futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
 
-                    # for future in futures:
-                    #     await asyncio.sleep(random.uniform(1, 2))
-                    #     await asyncio.gather(future)
-                    await asyncio.gather(*futures)
+            await asyncio.gather(*futures)
 
-                    if(DEBUG):
-                        print("nowpage: " + str(now_page) + '\n')
+            if(DEBUG):
+                print("nowpage: " + str(now_page) + '\n')
 
-                    await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
+            await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
 
             test_breaker += 1
             prev_page = now_page
             now_page += 1
 
-    db.select_all()
+    # db.select_all()
     db.close()
-
-
-
-
-
-
-
-
-
-

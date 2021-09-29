@@ -1,11 +1,12 @@
 {
     "name": "dclist",
     "list": {
-        "div": "tbody"
+        "div": "ul",
+        "div_class": "gall-detail-lst"
     },
     "paging": {
-        "div": "div",
-        "div_class": "bottom_paging_box",
-        "tag": "em"
+        "div": "span",
+        "div_class": "paging-inner",
+        "tag": "strong"
     }
 }
