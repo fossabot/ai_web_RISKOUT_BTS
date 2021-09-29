@@ -43,7 +43,7 @@
     <li><a href="#about-the-project"> ➤ 프로젝트 소개 (Intro)</a></li>
     <li><a href="#features"> ➤ 기능 설명 (Features)</a></li>
       <ul>
-        <li><a href="### `여론 현황 대시보드`">여론 현황 대시보드</a></li>
+        <li><a href="#여론 현황 대시보드">여론 현황 대시보드</a></li>
         <li><a href="#feature2">위협 탐지</a></li>
         <li><a href="#feature3">맞춤형 보고서 생성</a></li>
       </ul>
