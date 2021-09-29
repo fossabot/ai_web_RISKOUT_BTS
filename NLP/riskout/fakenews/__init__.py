@@ -1,1 +1,1 @@
-from .fakenews import FakeNewFakeNewsClassifiers
+from .fakenews_classifier import FakeNewsClassifier

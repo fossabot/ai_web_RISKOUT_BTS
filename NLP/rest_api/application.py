@@ -1,4 +1,4 @@
-from NLP.riskout.fakenews import fakenews_classifier
+from riskout.fakenews import fakenews_classifier
 import logging
 import time
 
