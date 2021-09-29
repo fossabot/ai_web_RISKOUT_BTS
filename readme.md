@@ -43,9 +43,9 @@
     <li><a href="#about-the-project"> ➤ 프로젝트 소개 (Intro)</a></li>
     <li><a href="#features"> ➤ 기능 설명 (Features)</a></li>
       <ul>
-        <li><a href="#">여론 현황 대시보드</a></li>
-        <li><a href="#-feature">위협 탐지</a></li>
-        <li><a href="#-feature">맞춤형 보고서 생성</a></li>
+        <li><a href="#feature1">여론 현황 대시보드</a></li>
+        <li><a href="#feature2">위협 탐지</a></li>
+        <li><a href="#feature3">맞춤형 보고서 생성</a></li>
       </ul>
     <li><a href="#prerequisites"> ➤ 컴퓨터 구성 / 필수 조건 안내 (Prequisites)</a></li>
     <li><a href="#techniques"> ➤ 기술 스택 (Techniques Used)</a></li>
@@ -75,7 +75,6 @@
 * [**`📰 맞춤형 보고서 생성`**](https://riskout.ithosting.repl.co/) : 클릭 몇번으로 [보고서](https://namu.wiki/w/%EB%B3%B4%EA%B3%A0%EC%84%9C)를 커스텀 및 생성할 수 있습니다.
 
 <h3 id="feature1"> 여론 현황 대시보드</h3>
-### 여론 현황 대시보드
 
 <p align="center">
   <img src="https://gdurl.com/YNdz" />
@@ -83,6 +82,9 @@
 
 **안보 위협 탐색 + 보고서화**
 
+<h3 id="feature2">위협 탐지</h3>
+
+<h3 id="feature3">맞춤형 보고서 생성</h3>
 
 <h2 id="prerequisites"> :fork_and_knife: 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</h2>
 <h3> :earth_asia: Browser</h3>
