@@ -9,15 +9,13 @@ class DB:
         self.filename = path + "/database.db"
         self.dbfile = sqlite3.connect(self.filename)
         self.dbcursor = self.dbfile.cursor()
-        try:
-            self.create_db()
-        except OperationalError:
-            pass
+
+        self.create_db()
 
     def create_db(self):
         try:
             self.dbcursor.execute("SELECT * FROM CrawlContents")
-        except:
+        except Exception:
             self.dbcursor.execute("CREATE TABLE CrawlContents(\
                 title TEXT,\
                 href TEXT,\
@@ -93,3 +91,4 @@ class DB:
 
 if __name__ == "__main__":
     db = DB()
+    print(db.un_analyzed_amount())
