@@ -1,7 +1,8 @@
 from os import close
-from crawler.setting import DEBUG
+
 import re
 
+from crawler.setting import DEBUG
 from crawler.error import englishContentError
 
 class Content:
@@ -90,8 +91,3 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
         print(content)
     
     return content
-
-
-
-
-
