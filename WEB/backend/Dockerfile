@@ -24,7 +24,6 @@ COPY ./analyzer /home/user/analyzer
 COPY ./crawler /home/user/crawler
 COPY ./requirements.txt /home/user/requirements.txt
 COPY ./analyzer.sh /home/user/analyzer.sh
-COPY ./database.db /home/user/database.db
 
 # install requirements
 RUN pip install --no-cache-dir -r ./requirements.txt
