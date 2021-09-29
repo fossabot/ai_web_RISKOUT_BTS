@@ -15,16 +15,20 @@ class DB:
             pass
 
     def create_db(self):
-        self.dbcursor.execute("CREATE TABLE CrawlContents(\
-            title TEXT,\
-            href TEXT,\
-            img TEXT,\
-            content TEXT,\
-            category TEXT,\
-            domain TEXT,\
-            subject_ TEXT,\
-            id TEXT)"\
-            )
+        try:
+            self.dbcursor.execute("SELECT * FROM CrawlContents")
+        except:
+            self.dbcursor.execute("CREATE TABLE CrawlContents(\
+                title TEXT,\
+                href TEXT,\
+                img TEXT,\
+                content TEXT,\
+                category TEXT,\
+                domain TEXT,\
+                subject_ TEXT,\
+                id TEXT,\
+                isAnalyzed INTEGER)"\
+                )
 
     def get_cursor(self):
         return self.dbcursor
@@ -38,7 +42,8 @@ class DB:
             :category,\
             :domain,\
             :subject_,\
-            :id)",\
+            :id,\
+            :isAnalyzed)",\
                 {
                 'title':content.title,
                 'href': content.url,
@@ -47,7 +52,8 @@ class DB:
                 'category':content.category,
                 'domain':content.site_domain,
                 'subject_': content.subject,
-                'id': content.contents_id
+                'id': content.contents_id,
+                'isAnalyzed': 0
                 }
             )
         self.dbfile.commit()
@@ -57,9 +63,18 @@ class DB:
         for row in self.dbcursor:
             print(row)
 
+    def select_id(self):
+        self.dbcursor.execute("SELECT id FROM CrawlContents")
+        data = self.dbcursor.fetchall()
+        id_list = []
+
+        for dat in data:
+            id_list.append(dat[0])
+
+        return id_list
+
     def close(self):
         self.dbcursor.close()
 
 if __name__ == "__main__":
     db = DB()
-    db.create_db()

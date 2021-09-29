@@ -46,3 +46,4 @@ class ContentsPage:
     def get_contents_json(self, site_name):
         path= os.path.dirname(os.path.realpath(__file__))
         return path + site_name + "/contents.json"
+

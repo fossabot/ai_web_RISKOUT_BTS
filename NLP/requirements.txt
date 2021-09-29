@@ -1,7 +1,8 @@
-numpy
-scipy
-scikit-learn
-konlpy
+numpy>=1.18.4
+scipy>=1.4.1
+scikit-learn>=0.22.1
+konlpy>=0.5.2
+tweepy==3.9.0
 pandas
 torch==1.7.1
 transformers==4.3.3

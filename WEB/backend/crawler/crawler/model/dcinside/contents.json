@@ -1,13 +1,13 @@
 {
     "name": "dccontents",
     "title": {
-        "div": "h3",
-        "div_class": "title ub-word",
+        "div": "div",
+        "div_class": "gallview-tit-box",
         "tag": "span",
-        "tag_class": "title_subject"
+        "tag_class": "tit"
     },
     "body": {
         "div": "div",
-        "div_class": "write_div"
+        "div_class": "thum-txtin"
     }
 }

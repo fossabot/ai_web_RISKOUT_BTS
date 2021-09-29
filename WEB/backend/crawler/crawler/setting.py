@@ -4,3 +4,5 @@ site_list = {
 }
 
 DEBUG = True
+
+TIME_CHECK = True

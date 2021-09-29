@@ -1,3 +1,7 @@
+from urllib.parse import urlparse
+
+from crawler.error import HTMLElementsNotFoundError as notfound_error
+
 from crawler.model.Site import *
 from crawler.model.dcinside.const import *
 
@@ -8,32 +12,28 @@ class DCListPage(listpage):
     # override
     def get_each_urlbases(self):
         # + "&page="
-        urlinfo = (DOMAIN, NAVY, None)
+        urlinfo = URLInfo(DOMAIN, NAVY, None)
         return [DC_BASE + "&page="], urlinfo
 
     #override
     def get_contents_urls(self, soup):
         """
         컨텐츠 페이지의 url들을 리스트에 담아 리턴하는 함수,
-        실패할 경우 -1을 리턴한다.
+        실패할 경우 에러를 발생시킨다
         """
         ret = []
         
-        list_div = soup.find(self.list_div)
+        list_div = soup.find(self.list_div, class_=self.list_div_class)
+
         if(list_div is None):
-            if(DEBUG):
-                print("can't find list div")
-            return -1
+            raise notfound_error("DCSite.py/get_contents_urls", "list div")
 
-        for tr in list_div.find_all("tr", class_ = "ub-content us-post"):
-            if(tr.find("td", class_="gall_num").get_text() != "공지"):
-                href = tr.find('a')['href']
-                ret.append('https://gall.dcinside.com' + href)
+        for li in list_div.find_all("div", class_="gall-detail-lnktb"):
+            href = li.find('a', class_='lt')['href']
+            ret.append(href)
 
-        if ret:
-            if(DEBUG):
-                print("can't find list div")
-            return -1
+        if not ret:
+            raise notfound_error("DCSite.py/get_contents_urls", "contents on list div")
 
         return ret
 
@@ -50,4 +50,6 @@ class DCSite(Site):
         self.header = DC_CUSTOM_HEADER
 
     def get_articleID(self, contents_url):
-        return 1
+        parts = urlparse(contents_url)
+        article_id = parts.path.split('/')[3]
+        return article_id
