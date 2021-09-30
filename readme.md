@@ -83,8 +83,6 @@
 
 여론 현황 대시보드는 여론 및 언론의 최근 동향을 실시간으로 확인할 수 있도록 다양한 **차트**로 시각화시킨 페이지입니다. 차트는 총 5가지의 형태로 표현됩니다.
 
-**5 가지 차트**는 다음과 같습니다.
-
 * [**`여론 현황`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 언급 비중이 놓은 단어들을 보여주는 [워드 클라우드](https://riskout.ithosting.repl.co)입니다.
 * [**`출처별 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 SNS 및 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 분석하여 positive, neutral, negative로 나누어서 표현한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
 * [**`통합 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 요약하여 보여주는 [파이 차트](https://riskout.ithosting.repl.co)입니다.
