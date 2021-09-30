@@ -150,6 +150,7 @@ $ yarn start or npm run start
 *축하해요!* *RISKOUT*의 유저가 되셨습니다.
 
 이제 사용하실 수 있습니다! 🎉
+
 📺 Full 영상: https://riskout.ithosting.repl.co
 
 
