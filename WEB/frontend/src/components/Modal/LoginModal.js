@@ -39,8 +39,8 @@ function LoginModal(props){
               JoinLoign === '로그인'
               ?(
                 <>
-                <input type="text" placeholder="아이디를 입력하세요" onChange={handleNameChange}/>
-                <input type="password" placeholder="비밀번호를 입력하세요" id="password" onChange={handlePasswordChange}/>
+                <input type="text" placeholder="아이디를 입력하세요." onChange={handleNameChange}/>
+                <input type="password" placeholder="비밀번호를 입력하세요." id="password" onChange={handlePasswordChange}/>
                 <button className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
                   fetch('/api/login/', {
