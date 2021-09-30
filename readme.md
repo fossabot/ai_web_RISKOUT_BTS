@@ -105,6 +105,14 @@
 
 <h3 id="feature3">맞춤형 보고서 생성</h3>
 
+<p align="center">
+  <img src="https://gdurl.com/YNdz" />
+</p>
+
+* **기밀 유출 보고** : 기밀 유출 현황을 각종 수치로 시각화시킨 브리핑 보드.
+* **허위 기사 보고** : 사용자가 선택한 허위 기사 탐지글들을 기반으로 제작된 AI 자동 요약본.
+* **허위 기사 개요** : 타임라인으로 구분된 현재까지의 허위 기사 현황.
+
 <h2 id="prerequisites"> :fork_and_knife: 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</h2>
 <h3> :earth_asia: Browser</h3>
 
