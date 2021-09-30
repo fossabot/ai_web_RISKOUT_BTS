@@ -27,8 +27,8 @@ const handleEmailChange = (e) => {
             <br></br>
             <button className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
-                  
-                    fetch('http://localhost:8000/initpwd/', {
+                  alert(JSON.stringify(data))
+                    fetch('/api/password_reset/', {
                       method: 'POST',
                       headers:{
                         'Content-Type': 'application/json'
