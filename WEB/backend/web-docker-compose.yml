@@ -15,7 +15,8 @@ services:
        pip install --no-cache-dir -r requirements.txt
        python manage.py makemigrations
        python manage.py migrate
-       python -c 'import os; os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf.settings"); import django; django.setup(); from django.contrib.auth.management.commands.createsuperuser import get_user_model; get_user_model()._default_manager.db_manager("$DJANGO_DB_NAME").create_superuser(username="$DJANGO_SU_NAME",email="$DJANGO_SU_EMAIL",password="$DJANGO_SU_PASSWORD")'
+       python manage.py collectstatic
+       python -c 'import os; if os.path.isfile("db.sqlite3"): quit();os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf.settings"); import django; django.setup(); from django.contrib.auth.management.commands.createsuperuser import get_user_model; get_user_model()._default_manager.db_manager("$DJANGO_DB_NAME").create_superuser(username="$DJANGO_SU_NAME",email="$DJANGO_SU_EMAIL",password="$DJANGO_SU_PASSWORD")'
        gunicorn drf.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=4 --worker-class=gthread
     ports:
       - "8000:8000"
