@@ -1,8 +1,7 @@
 export const articleDummy = [
   {
     title: 'Brunch this week?',
-    content:
-      "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    content: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
     person: '/static/images/avatar/5.jpg',
   },
   {
@@ -13,8 +12,7 @@ export const articleDummy = [
   },
   {
     title: 'Recipe to try',
-    content:
-      'I am try out this new BBQ recipe, I think this might be amazing',
+    content: 'I am try out this new BBQ recipe, I think this might be amazing',
     person: '/static/images/avatar/2.jpg',
   },
   {
@@ -24,8 +22,7 @@ export const articleDummy = [
   },
   {
     title: "Doctor's Appointment",
-    content:
-      'My appointment for the doctor was rescheduled for next Saturday.',
+    content: 'My appointment for the doctor was rescheduled for next Saturday.',
     person: '/static/images/avatar/4.jpg',
   },
   {
