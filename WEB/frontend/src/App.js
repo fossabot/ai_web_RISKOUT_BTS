@@ -7,7 +7,7 @@ import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
 import PressTrends from './pages/PressTrends';
 import RiskReport from './pages/RiskReport';
-import Secret from './pages/Secret';
+// import Secret from './pages/Secret';
 
 // import Header from './components/Modal/Header'; side navi component로 대체
 
