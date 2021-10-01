@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -18,7 +18,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { Link as RouterLink, MemoryRouter as Router } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Search from "./Search";
-import FilterTable from "./FilterTable";
+import BasicTable from "./BasicTable";
 import "../css/SideNavigation.css";
 
 const drawerWidth = 240;
@@ -51,9 +51,47 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end"
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
+  let [userprofile, setUserprofile] = useState(false);
+  let [userPhoto, setUserPhoto] = useState();
+  let [currentUser_pk, setCurrentUser_pk] = useState();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/user/current/", {
+      headers: {
+        Authorization: `JWT ${localStorage.getItem("token")}`
+      }
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        // 현재 유저 정보 받아왔다면, 로그인 상태로 state 업데이트 하고
+        if (json.id) {
+          //유저정보를 받아왔으면 해당 user의 프로필을 받아온다.
+        }
+        fetch(
+          "http://localhost:8000/user/auth/profile/" + json.id + "/update/",
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: `JWT ${localStorage.getItem("token")}`
+            }
+          }
+        )
+          .then((res) => res.json())
+          .then((userData) => {
+            setUserPhoto(userData.photo);
+            setCurrentUser_pk(userData.user_pk);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userPhoto]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -62,8 +100,6 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const onLogout = () => {};
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -118,9 +154,9 @@ export default function PersistentDrawerLeft() {
         className="sub_header"
       >
         <DrawerHeader>
-          <Link to="">
+          <Link to="/">
             <img
-              src={require("../images/sub/logo_w.png")}
+              src={require("../images/logo_w.png")}
               alt="홈"
               className="image"
             />
@@ -135,7 +171,7 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <List className="sub_menu">
           <ListItem className="pin">
-            <Link to="" underline="none" className="list">
+            <Link to="/riskreport" underline="none" className="list">
               <ListItemButton>
                 <InfoIcon className="icon" />
                 <ListItemText primary="언론 동향" className="link" />
@@ -143,7 +179,7 @@ export default function PersistentDrawerLeft() {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link to="" underline="none" className="list">
+            <Link to="/secret" underline="none" className="list">
               <ListItemButton className="on">
                 <SearchIcon className="icon" />
                 <ListItemText primary="탐지 현황" className="link" />
@@ -151,7 +187,7 @@ export default function PersistentDrawerLeft() {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link to="" underline="none" className="list">
+            <Link to="/fakenews" underline="none" className="list">
               <ListItemButton>
                 <AssessmentIcon className="icon" />
                 <ListItemText primary="리포트" className="link" />
@@ -159,15 +195,21 @@ export default function PersistentDrawerLeft() {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <ListItemButton>
-              <LogoutIcon className="icon" />
-              <ListItemText
-                primary="로그아웃"
-                className="link"
-                sx={{ color: "#fff" }}
-                onLogout={onLogout}
-              />
-            </ListItemButton>
+            <Link
+              onLogout={props.handleLogout}
+              to="/"
+              underline="none"
+              className="list"
+            >
+              <ListItemButton>
+                <LogoutIcon className="icon" />
+                <ListItemText
+                  primary="로그아웃"
+                  className="link"
+                  sx={{ color: "#fff" }}
+                />
+              </ListItemButton>
+            </Link>
           </ListItem>
         </List>
         <ListItem>
@@ -179,7 +221,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <Search />
-        <FilterTable />
+        <BasicTable />
       </Main>
     </Box>
   );
