@@ -1,31 +1,37 @@
+// React
 import React, { useState, useEffect } from "react";
+import { Link as RouterLink, MemoryRouter as Router, Route } from "react-router-dom";
+
+// MUI Styles
 import { styled, useTheme } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
+// MUI Components
 import Box from "@mui/material/Box";
-import InfoIcon from "@mui/icons-material/Info";
-import SearchIcon from "@mui/icons-material/Search";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Drawer from "@mui/material/Drawer";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link as RouterLink, MemoryRouter as Router, Route } from "react-router-dom";
-import Link from "@mui/material/Link";
-import Search from "../Search";
-import FilterTable from "../FilterTable"
-import LoginModal from './LoginModal';
+
+// Icons and Images
+import logoImage from "../../images/sub/logo_w.png";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import InfoIcon from "@mui/icons-material/Info";
+import SearchIcon from "@mui/icons-material/Search";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import InitInfo from './InitInfo';
-import Board from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/Board';
-import RiskReport from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/RiskReport';
+import Board from '../../pages/Board';
+import RiskReport from '../../pages/RiskReport';
 import PressTrends from '../../pages/PressTrends';
-import DetectionStatus from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/DetectionStatus';;
-import "/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/css/SideNavigation.css";
+import DetectionStatus from '../../pages/DetectionStatus';
+import "../../css/SideNavigation.css";
 
 const drawerWidth = 240;
 
@@ -120,8 +126,9 @@ export default function PersistentDrawerLeft(props) {
           sx={{ mr: 2, ...(open && { display: "none" }) }}
           className="hamburgerMenu"
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: "#fff" }} />
         </IconButton>
+
         <Box className="iconMenuBox">
           <Link href="/presstrends" underline="none" className="inconMenuLink">
             <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
@@ -164,7 +171,7 @@ export default function PersistentDrawerLeft(props) {
         <DrawerHeader>
           <Link href="/">
             <img
-              src={require("/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/images/sub/logo_w.png")}
+              src={logoImage}
               alt="홈"
               className="image"
             />
@@ -204,7 +211,7 @@ export default function PersistentDrawerLeft(props) {
           </ListItem>
           <ListItem className="pin">
             <Link
-              onLogout={props.handleLogout}
+              // onLogout={props.handleLogout}
               href="/"
               underline="none"
               className="list"
