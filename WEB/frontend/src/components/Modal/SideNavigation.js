@@ -23,8 +23,8 @@ import LoginModal from './LoginModal';
 import InitInfo from './InitInfo';
 import Board from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/Board';
 import RiskReport from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/RiskReport';
-import Secret from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/Secret';
-import FakeNews from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/FakeNews';;
+import PressTrends from '../../pages/PressTrends';
+import DetectionStatus from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/DetectionStatus';;
 import "/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/css/SideNavigation.css";
 
 const drawerWidth = 240;
@@ -123,17 +123,17 @@ export default function PersistentDrawerLeft(props) {
           <MenuIcon />
         </IconButton>
         <Box className="iconMenuBox">
-          <Link href="/riskreport" underline="none" className="inconMenuLink">
+          <Link href="/presstrends" underline="none" className="inconMenuLink">
             <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link href="/secret" underline="none" className="inconMenuLink">
+          <Link href="/detectionstatus" underline="none" className="inconMenuLink">
             <SearchIcon sx={{ color: "#3e90ff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link href="/fakenews" underline="none" className="inconMenuLink">
+          <Link href="/riskreport" underline="none" className="inconMenuLink">
             <AssessmentIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
@@ -179,7 +179,7 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <List className="sub_menu">
           <ListItem className="pin">
-            <Link href="/riskreport" underline="none" className="list">
+            <Link href="/presstrends" underline="none" className="list">
               <ListItemButton>
                 <InfoIcon className="icon" />
                 <ListItemText primary="언론 동향" className="link" />
@@ -187,7 +187,7 @@ export default function PersistentDrawerLeft(props) {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link href="/secret" underline="none" className="list">
+            <Link href="/detectionstatus" underline="none" className="list">
               <ListItemButton className="on">
                 <SearchIcon className="icon" />
                 <ListItemText primary="탐지 현황" className="link" />
@@ -195,7 +195,7 @@ export default function PersistentDrawerLeft(props) {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link href="/fakenews" underline="none" className="list">
+            <Link href="/riskreport" underline="none" className="list">
               <ListItemButton>
                 <AssessmentIcon className="icon" />
                 <ListItemText primary="리포트" className="link" />
@@ -232,16 +232,16 @@ export default function PersistentDrawerLeft(props) {
           <Board />
         </Route>
 
+        <Route exact path="/presstrends">
+          <PressTrends />
+        </Route>
+
+        <Route exact path="/detectionstatus">
+          <DetectionStatus />
+        </Route>
+
         <Route exact path="/riskreport">
           <RiskReport />
-        </Route>
-
-        <Route exact path="/secret">
-          <Secret />
-        </Route>
-
-        <Route exact path="/fakenews">
-          <FakeNews />
         </Route>
 
         <Route exact path="/init">

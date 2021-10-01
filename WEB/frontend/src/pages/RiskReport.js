@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Search from '../components/Search';
 
 const RiskReport = () => {
-    let name = "user"
     return (
       <Box>
         <Search />
@@ -94,6 +93,20 @@ const RiskReport = () => {
         Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
         Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
         Risk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
         Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
         Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
         Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
