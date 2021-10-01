@@ -3,40 +3,17 @@ version: "3"
 services:
   drf:
     container_name: drf_service
-    build:
-      context: .
-      dockerfile: Dockerfile_drf
+    image: python:3.8.12-slim-bullseye
     volumes:
       - ./drf:/drf
-    command: >
-      sh -c "python manage.py makemigrations"
-
-      && sh -c "python manage.py migrate"
-
-      && python -c "import os; \
-      os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drf.settings'); \
-      import django; \
-      django.setup(); \
-      from django.contrib.auth.management.commands.createsuperuser import get_user_model; \
-      get_user_model()._default_manager.db_manager('$DJANGO_DB_NAME').create_superuser( \
-      username='$DJANGO_SU_NAME', \
-      email='$DJANGO_SU_EMAIL', \
-      password='$DJANGO_SU_PASSWORD')"
-
-      && gunicorn drf.wsgi:application --bind 0.0.0.0:8001
+    working_dir: /drf
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+       pip install -r requirements.txt
+       python manage.py makemigrations
+       python manage.py migrate
+       python -c 'import os; os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf.settings"); import django; django.setup(); from django.contrib.auth.management.commands.createsuperuser import get_user_model; get_user_model()._default_manager.db_manager("$DJANGO_DB_NAME").create_superuser(username="$DJANGO_SU_NAME",email="$DJANGO_SU_EMAIL",password="$DJANGO_SU_PASSWORD")'
+       gunicorn drf.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=4 --worker-class=gthread
     ports:
-      - "8001:8001"
-    expose:
-      - "8001"
-    
-  nginx:
-    container_name: nginx_service
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./drf:/drf
-      - ./deploy/config/nginx:/etc/nginx/conf.d
-    depends_on:
-      - drf
- 
+      - "8000:8000"
