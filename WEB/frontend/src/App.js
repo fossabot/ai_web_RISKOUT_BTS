@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Header from './components/Modal/Header';
+// import Header from './components/Modal/Header'; side navi component로 대체
 import SideNavigation from './components/Modal/SideNavigation';
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
@@ -104,7 +104,7 @@ function App() {
     <>
       <div className="App">
         <div className="auto-margin">
-          <Header modal={modal} handleLogout={handleLogout} />
+          <SideNavigation handleLogout={handleLogout} />
           <Route exact path="/">
             <Board />
           </Route>

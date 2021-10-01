@@ -17,9 +17,9 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import { Link as RouterLink, MemoryRouter as Router } from "react-router-dom";
 import Link from "@mui/material/Link";
-import Search from "./Search";
-import BasicTable from "./BasicTable";
-import "../css/SideNavigation.css";
+import Search from "../Search";
+import FilterTable from "../FilterTable";
+import "/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/css/SideNavigation.css";
 
 const drawerWidth = 240;
 
@@ -156,7 +156,7 @@ export default function PersistentDrawerLeft(props) {
         <DrawerHeader>
           <Link to="/">
             <img
-              src={require("../images/logo_w.png")}
+              src={require("/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/images/sub/logo_w.png")}
               alt="홈"
               className="image"
             />
