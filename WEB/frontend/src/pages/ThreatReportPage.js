@@ -6,14 +6,18 @@ import icon02 from '../images/sub/btn_icon02.png';
 import icon03 from '../images/sub/btn_icon03.png';
 import Layout from '../layout';
 import Sidebar from '../components/Sidebar';
+import Box from "@mui/material/Box";
+import Search from '../components/Search';
 
 function App() {
 
 	return (
-		<Layout>
-			<Sidebar />
-			
-		</Layout>
+		<Box>
+		  <Layout>
+		    <Sidebar />
+			<Search />
+		  </Layout>
+		</Box>
 	);
 }
 

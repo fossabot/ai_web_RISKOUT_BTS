@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import Header from './components/Modal/Header'; side navi component로 대체
 import SideNavigation from './components/Modal/SideNavigation';
+import Box from "@mui/material/Box";
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
 import Board from './pages/Board';
@@ -102,35 +103,35 @@ function App() {
 
   return (
     <>
-      <div className="App">
-        <div className="auto-margin">
-          <SideNavigation handleLogout={handleLogout} />
-          <Route exact path="/">
-            <Board />
-          </Route>
+          <Box display="flex">
+            <Box>
+            <SideNavigation handleLogout={handleLogout} />
 
-          <Route exact path="/riskreport">
-            <RiskReport />
-          </Route>
+            <Route exact path="/">
+              <Board />
+            </Route>
 
-          <Route exact path="/secret">
-            <Secret />
-          </Route>
+            <Route exact path="/riskreport">
+              <RiskReport />
+            </Route>
 
-          <Route exact path="/fakenews">
-            <FakeNews />
-          </Route>
+            <Route exact path="/secret">
+              <Secret />
+            </Route>
 
-          <Route exact path="/login">
-            <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-          </Route>
+            <Route exact path="/fakenews">
+              <FakeNews />
+            </Route>
 
-          <Route exact path="/init">
-            <InitInfo />
-          </Route>
+            <Route exact path="/login">
+              <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+            </Route>
 
-        </div>
-      </div>
+            <Route exact path="/init">
+              <InitInfo />
+            </Route>
+            </Box>
+          </Box>
     </>
   );
 }

@@ -42,6 +42,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
+//<Main open={open}></Main> 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
+
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -115,22 +117,22 @@ export default function PersistentDrawerLeft(props) {
           <MenuIcon />
         </IconButton>
         <Box className="iconMenuBox">
-          <Link to="/" underline="none" className="inconMenuLink">
+          <Link to="/riskreport" underline="none" className="inconMenuLink">
             <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="" underline="none" className="inconMenuLink">
+          <Link to="/secret" underline="none" className="inconMenuLink">
             <SearchIcon sx={{ color: "#3e90ff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="" underline="none" className="inconMenuLink">
+          <Link to="/fakenews" underline="none" className="inconMenuLink">
             <AssessmentIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="" underline="none" className="inconMenuLink">
+          <Link to="/" underline="none" className="inconMenuLink">
             <LogoutIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
@@ -219,9 +221,7 @@ export default function PersistentDrawerLeft(props) {
           />
         </ListItem>
       </Drawer>
-      <Main open={open}>
-        
-      </Main>
+      
     </Box>
   );
 }
