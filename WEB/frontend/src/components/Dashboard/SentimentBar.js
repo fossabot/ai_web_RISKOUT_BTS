@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
 
-const SentimentBar = ({ data }) => (
+const SentimentBar = ({ data, colors }) => (
   <Card style={{ height: '400px' }}>
     <CardHeader title="출처별 감정 통계" />
     <Divider />
@@ -30,7 +30,7 @@ const SentimentBar = ({ data }) => (
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           valueFormat={{ format: '', enabled: false }}
-          colors={{ scheme: 'pastel2' }}
+          colors={colors}
           borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
           axisTop={null}
           axisRight={null}

@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
 
-const GeoEventPlot = ({ data /* see data tab */ }) => (
+const GeoEventPlot = ({ data, colors }) => (
   <Card style={{ height: '400px' }}>
     <CardHeader title="나라별 이벤트" />
     <Divider />
@@ -25,9 +25,9 @@ const GeoEventPlot = ({ data /* see data tab */ }) => (
           data={data}
           features={countries.features}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-          colors="nivo"
-          domain={[0, 1000000]}
-          unknownColor="#666666"
+          colors={colors}
+          domain={[0, 5000]}
+          unknownColor="white"
           label="properties.name"
           valueFormat=".2s"
           projectionType="naturalEarth1"

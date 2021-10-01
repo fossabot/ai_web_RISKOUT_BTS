@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
 
-export const SentimentPie = ({ data /* see data tab */ }) => (
+export const SentimentPie = ({ data, colors }) => (
   <Card style={{ height: '400px' }}>
     <CardHeader title="감정 통계" />
     <Divider />
@@ -27,7 +27,7 @@ export const SentimentPie = ({ data /* see data tab */ }) => (
           padAngle={0.7}
           cornerRadius={3}
           activeOuterRadiusOffset={8}
-          colors={{ scheme: 'pastel2' }}
+          colors={colors}
           borderWidth={1}
           borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
           arcLinkLabelsSkipAngle={10}

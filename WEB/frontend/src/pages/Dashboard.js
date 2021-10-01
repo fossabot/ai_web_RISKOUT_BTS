@@ -1,8 +1,8 @@
-import SentimentBar from '../components/Dashboard/SentimentBar';
-import SentimentPie from '../components/Dashboard/SentimentPie';
-import ArticleVolumeBar from '../components/Dashboard/ArticleVolumeBar';
-import GeoEventPlot from '../components/Dashboard/GeoEventPlot';
-import WordCloud from '../components/Dashboard/WordCloud';
+import SentimentBar from '../components/dashboard/SentimentBar';
+import SentimentPie from '../components/dashboard/SentimentPie';
+import ArticleVolumeBar from '../components/dashboard/ArticleVolumeBar';
+import GeoEventPlot from '../components/dashboard/GeoEventPlot';
+import WordCloud from '../components/dashboard/WordCloud';
 
 import { Container, Box, Grid } from '@mui/material';
 
@@ -13,7 +13,8 @@ import { geoDummy } from '../dummy/geoDummy';
 import { words } from '../dummy/words';
 
 const options = {
-  colors: ['#AEE1E1', '#D3E0DC', '#ECE2E1', '#FCD1D1'],
+  // colors 를 바꾸면 전체 Theme 이 바뀝니다.
+  colors: ['#EEEEEE', '#686D76', '#373A40', '#00ADB5'],
   enableTooltip: true,
   deterministic: true,
   fontFamily: 'impact',
@@ -23,7 +24,7 @@ const options = {
   padding: 1,
   rotations: 3,
   rotationAngles: [-30, 30],
-  scale: 'linear',
+  scale: 'sqrt',
   spiral: 'rectangular',
   transitionDuration: 1000,
 };
@@ -43,20 +44,23 @@ export default function Dashboard() {
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <h2>개요</h2>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={8}>
+          <Grid item xs={12} sm={12} md={12} lg={5}>
             <WordCloud options={options} words={words} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4}>
-            <ArticleVolumeBar data={volumeDummy} />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4}>
-            <SentimentBar data={barDummy} />
+            <ArticleVolumeBar data={volumeDummy} colors={options.colors} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={3}>
-            <SentimentPie data={pieDummy} />
+            <ArticleVolumeBar data={volumeDummy} colors={options.colors} />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={4}>
+            <SentimentBar data={barDummy} colors={options.colors} />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={3}>
+            <SentimentPie data={pieDummy} colors={options.colors} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={5}>
-            <GeoEventPlot data={geoDummy} />
+            <GeoEventPlot data={geoDummy} colors={options.colors} />
           </Grid>
         </Grid>
       </Container>
