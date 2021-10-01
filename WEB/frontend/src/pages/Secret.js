@@ -57,7 +57,7 @@ function Secret() {
     useEffect(search, [appliedFilters]); // changing filters automatically triggers search
 
     const showDetailModal = (id) => {
-        const data = searchResults.contents.filter(x => x.id == id).pop();
+        const data = searchResults.contents.filter(x => x.id == id).pop(0); // popping doesn't affect original array
         console.log(data, searchResults.contents.filter(x => x.id == id), searchResults);
         setDetailModalData(data);
         setDetailModalOpen(true);
@@ -65,8 +65,14 @@ function Secret() {
 
     const scrapArticle = (id) => {
         console.log('TODO: scrap article ', id);
+        alert("TODO: scrap article "+id);
     };
-
+    
+    const analyzePage = (id) => {
+        console.log('TODO: analyzePage article ', id);
+        alert("TODO: analyzePage article "+id);
+        
+    }
 
     return (
         <section id="sub_contents2">
@@ -118,12 +124,16 @@ function Secret() {
                                         href={article.site_url}
                                         showDetailModal={showDetailModal}
                                         scrapArticle={scrapArticle}
-                                    />)
-                            }
+                                        />)
+                                    }
                             <TableRow
+                                id="2"
                                 title="해군 참모총장 만난 썰 푼다"
                                 preview="나 사이버 작전센터에서 근무하는데 갑자기 참모총장이 와서 나랑 악수하는거임... 사진도 하나 찍혔어. 대박이더라. ㄷㄷ 그리고 끝나니까 무슨 동전같이 생긴거 받았는데 이게 참모총장?"
                                 author="김남춘123"
+                                href="naver.com"
+                                showDetailModal={showDetailModal}
+                                scrapArticle={scrapArticle}
                             />
                         </tbody>
                     </table>

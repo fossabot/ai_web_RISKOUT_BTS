@@ -29,7 +29,7 @@ const style = {
 
 
 export default function SecretsDetailModal(props) {
-    const { isOpen, setOpen, data, scrapArticle } = props;
+    const { isOpen, setOpen, data, scrapArticle, analyzePage } = props;
     const { isSaved, setSaved } = useState(false);
     const entityNames = Object.entries(data.entities).flatMap(x => x[1]);
     console.log(entityNames, getHighlightedText);
@@ -56,11 +56,11 @@ export default function SecretsDetailModal(props) {
                         <hr align="left" />
                     </Typography>
 
-                    <Fab variant="extended" color="primary" size="small" aria-label="add to scrap">
+                    <Fab variant="extended" color="primary" size="small" aria-label="add to scrap" onClick={() => scrapArticle(data.id)}>
                         <AddIcon />
                         Save Article
                     </Fab>
-                    <Fab variant="extended" size="small" aria-label="Detailed Analysis">
+                    <Fab variant="extended" size="small" aria-label="Detailed Analysis" onClick={() => analyzePage(data.id)}>
                         <AnalyzeIcon />
                         Analyze
                     </Fab>
