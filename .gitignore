@@ -1,6 +1,5 @@
 # docker env
 web-docker-env
-analyzer-docker-env
 
 # django secrets
 secrets.json
