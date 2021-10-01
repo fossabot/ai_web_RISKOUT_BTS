@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import Chip from "@mui/material/Chip";
+import React from "react";
 import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
-import "../App.css";
+import SearchIcon from "@mui/icons-material/Search";
+// import searchIcon from "../images/sub/search_icon.png";
+// import "../App.css";
 
 const onInputChange = (e) => {
   const personName = e.target.value;
@@ -26,20 +25,22 @@ export default function Search() {
       onSubmit={onSubmit}
       sx={{ display: "flex" }}
       autoComplete="off"
-      action="login_page.php"
+      // action="login_page.php"
     >
       <Autocomplete
         multiple
         id="tags-outlined"
         options={people}
         onInputChange={onInputChange}
-        sx={{ width: "80em", display: "flex" }}
+        sx={{ width: "100%", display: "flex" }}
         getOptionLabel={(option) => option.name}
         defaultValue={[people[13]]} // 기본 필터 고정
         filterSelectedOptions
         renderInput={(params) => <TextField {...params} label="" type="text" />}
-      />
-      <Button variant="contained" endIcon={<SendIcon />}></Button>
+        />
+      <Button 
+        sx={{ height:"2em" }}
+      variant="contained" endIcon={<SearchIcon />}></Button>
     </Box>
   );
 }

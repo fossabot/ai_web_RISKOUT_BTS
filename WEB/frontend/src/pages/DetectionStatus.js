@@ -5,7 +5,6 @@ import TableRow from '../components/SecretsTableRow';
 import FilterCheckbox from '../components/FilterCheckbox';
 import AppliedFilter from '../components/AppliedFilter';
 
-import searchIcon from "../images/sub/search_icon.png";
 import filtersCloseIcon from "../images/sub/filters_close.png";
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 
