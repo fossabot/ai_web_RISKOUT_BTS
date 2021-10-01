@@ -1,0 +1,17 @@
+export const pieDummy = [
+  {
+    id: 'positive',
+    label: 'positive',
+    value: 156,
+  },
+  {
+    id: 'neutral',
+    label: 'neutral',
+    value: 114,
+  },
+  {
+    id: 'negative',
+    label: 'negative',
+    value: 130,
+  },
+];
