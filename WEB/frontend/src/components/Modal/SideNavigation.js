@@ -221,7 +221,7 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Main open={open}>
         <Search />
-        <BasicTable />
+        <FilterTable />
       </Main>
     </Box>
   );
