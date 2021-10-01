@@ -10,3 +10,6 @@ CRAWL_DATEAMOUNT = 10
 
 # 테스트용으로 크롤링할 페이지 수 제한
 MAX_LISTPAGE_CRAWL = 3
+
+# analyzed 안 된 컨텐츠 수 제한
+MAX_UNANALYZED_AMOUNT = 300

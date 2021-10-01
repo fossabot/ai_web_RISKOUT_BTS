@@ -70,24 +70,19 @@ class DB:
 
         return id_list
 
-    def select_isAnalyzed(self):
-        self.dbcursor.execute("SELECT isAnalyzed FROM CrawlContents")
-        raw_isanalyzed_data = self.dbcursor.fetchall()
-        isanalyzed_list = []
-
-        for isAnalyzed in raw_isanalyzed_data:
-            isanalyzed_list.append(isAnalyzed)
-        
-        return isanalyzed_list
-
-    def un_analyzed_amount(self):
+    def unanalyzed_amount(self):
         self.dbcursor.execute("SELECT isAnalyzed FROM CrawlContents")
         data = self.dbcursor.fetchall()
-        return len(data)
+
+        ret = 0
+        for dat in data:
+            if dat:
+                ret += 1
+        return ret
 
     def close(self):
         self.dbcursor.close()
 
 if __name__ == "__main__":
     db = DB()
-    print(db.un_analyzed_amount())
+    print(db.unanalyzed_amount())

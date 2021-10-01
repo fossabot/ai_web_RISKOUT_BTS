@@ -84,6 +84,10 @@ async def get_contents(site, contents_url, urlinfo, db):
     news_url에서 contents 객체를 만들어 리턴하는 함수
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
     """
+    # 최대치 이상 저장하려고 하면 리턴
+    if db.unanalyzed_amount() > const.MAX_UNANALYZED_AMOUNT:
+        return
+
     if(DEBUG):
         print(f"Send request to {contents_url}")
 
