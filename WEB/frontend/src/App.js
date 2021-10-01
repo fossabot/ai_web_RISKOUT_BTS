@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Modal/Header';
+// import Header from './components/Modal/Header';
+import SideNavigation from './components/Modal/SideNavigation';
 import LoginModal from './components/Modal/LoginModal';
 import InitInfo from './components/Modal/InitInfo';
 import Board from './pages/Board';
 import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 import FakeNews from './pages/FakeNews';
-import SideNavigation from './components/SideNavigation';
 import FilterTable from './components/FilterTable';
 import Search from './components/Search';
 import { Route } from 'react-router-dom';
