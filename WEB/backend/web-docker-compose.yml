@@ -4,6 +4,11 @@ services:
   web:
     container_name: web_service
     image: python:3.8.12-slim-bullseye
+    environment:
+      - DJANGO_DB_NAME=$DJANGO_DB_NAME
+      - DJANGO_SU_NAME=$DJANGO_SU_NAME
+      - DJANGO_SU_EMAIL=$DJANGO_SU_EMAIL
+      - DJANGO_SU_PASSWORD=$DJANGO_SU_PASSWORD
     volumes:
       - ./drf:/drf
     working_dir: /drf
@@ -14,7 +19,7 @@ services:
        python manage.py makemigrations
        python manage.py migrate
        python manage.py collectstatic
-       python -c 'import os; if os.path.isfile("db.sqlite3"): quit();os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf.settings"); import django; django.setup(); from django.contrib.auth.management.commands.createsuperuser import get_user_model; get_user_model()._default_manager.db_manager("$DJANGO_DB_NAME").create_superuser(username="$DJANGO_SU_NAME",email="$DJANGO_SU_EMAIL",password="$DJANGO_SU_PASSWORD")'
+       python init_superuser.py
        gunicorn drf.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=4 --worker-class=gthread
     ports:
-      - "8000:8000"
+      - "80:8000"
