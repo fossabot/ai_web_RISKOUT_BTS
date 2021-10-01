@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from "react";
-import { Link as RouterLink, MemoryRouter as Router, Route } from "react-router-dom";
+
 
 // MUI Styles
 import { styled, useTheme } from "@mui/material/styles";
@@ -33,26 +33,6 @@ import PressTrends from '../../pages/PressTrends';
 import DetectionStatus from '../../pages/DetectionStatus';
 import "../../css/SideNavigation.css";
 
-const drawerWidth = 240;
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
-      }),
-      marginLeft: 0
-    })
-  })
-);
 
 // 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
 
@@ -116,7 +96,7 @@ export default function PersistentDrawerLeft(props) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <>
       <Box sx={{ background: "rgb(29, 28, 26)" }}>
         <IconButton
           color="inherit"
@@ -234,27 +214,7 @@ export default function PersistentDrawerLeft(props) {
           />
         </ListItem>
       </Drawer>
-      <Main open={open}>
-        <Route exact path="/">
-          <Board />
-        </Route>
-
-        <Route exact path="/presstrends">
-          <PressTrends />
-        </Route>
-
-        <Route exact path="/detectionstatus">
-          <DetectionStatus />
-        </Route>
-
-        <Route exact path="/riskreport">
-          <RiskReport />
-        </Route>
-
-        <Route exact path="/init">
-          <InitInfo />
-        </Route>
-      </Main>
-    </Box>
+     
+    </>
   );
 }

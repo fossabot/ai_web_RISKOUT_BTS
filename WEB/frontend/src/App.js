@@ -108,6 +108,10 @@ function App() {
 
   return (
     <Layout handleLogout={handleLogout}>
+      <Route exact path="/">
+        <Board />
+      </Route>
+
       <Route exact path="/login">
         <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
       </Route>
@@ -115,40 +119,21 @@ function App() {
       <Route exact path="/init">
         <InitInfo />
       </Route>
+
+
+      <Route exact path="/presstrends">
+        <PressTrends />
+      </Route>
+
+      <Route exact path="/detectionstatus">
+        <DetectionStatus />
+      </Route>
+
+      <Route exact path="/riskreport">
+        <RiskReport />
+      </Route>
+
     </Layout>
-
-
-    // <Layout>
-    //   <div className="App">
-    //     <div className="auto-margin">
-    //       <Header modal={modal} handleLogout={handleLogout} />
-    //       <Route exact path="/">
-    //         <Board />
-    //       </Route>
-
-    //       <Route exact path="/riskreport">
-    //         <RiskReport />
-    //       </Route>
-
-    //       <Route exact path="/secret">
-    //         <Secret />
-    //       </Route>
-
-    //       <Route exact path="/fakenews">
-    //         <FakeNews />
-    //       </Route>
-
-    //       <Route exact path="/login">
-    //         <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-    //       </Route>
-
-    //       <Route exact path="/init">
-    //         <InitInfo />
-    //       </Route>
-
-    //     </div>
-    //   </div>
-    // </Layout>
   );
 }
 
