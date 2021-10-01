@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  drf:
+    build:
+      context: ./Dockerfile_drf
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./drf:/drf
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
