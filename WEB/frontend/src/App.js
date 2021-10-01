@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
+
+import Layout from './layout';
+import Box from "@mui/material/Box";
+
+import Board from './pages/Board';
+import DetectionStatus from './pages/DetectionStatus';
+import PressTrends from './pages/PressTrends';
+import RiskReport from './pages/RiskReport';
+import Secret from './pages/Secret';
+
 // import Header from './components/Modal/Header'; side navi component로 대체
 import SideNavigation from './components/Modal/SideNavigation';
-import Box from "@mui/material/Box";
 import LoginModal from './components/Modal/LoginModal';
-import InitInfo from './components/Modal/InitInfo';
-import Board from './pages/Board';
-import RiskReport from './pages/RiskReport';
-import PressTrends from './pages/PressTrends';
-import DetectionStatus from './pages/DetectionStatus';
 import FilterTable from './components/FilterTable';
+import InitInfo from './components/Modal/InitInfo';
 import Search from './components/Search';
-import { Route } from 'react-router-dom';
+
 import './App.css';
 
 
@@ -24,14 +30,14 @@ function App() {
     setisAuthenticated(authenticated)
     setUser(username)
     localStorage.setItem('token', token);
-  }//회원가입이나 로그인이 성공했을 때 토큰을 저장
+  }; //회원가입이나 로그인이 성공했을 때 토큰을 저장
 
   const handleLogout = () => {
     setisAuthenticated(false)
     setUser("")
     localStorage.removeItem('token');
     setModal(false)
-  }//로그아웃
+  }; //로그아웃
 
   //회원가입이나 로그인이 성공했을 때 modal을 변경해 로그인 버튼을 없애고 정보 수정과 회원 탈퇴 버튼 나오게하는 setModal
   //useEffect의 두번째 인자는 모든 렌더링 후 두번째 인자가 변경될때에만 실행되라는 내용 
@@ -42,7 +48,7 @@ function App() {
     else {
       setModal(false)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
 
   useEffect(() => {
@@ -99,7 +105,7 @@ function App() {
           console.log(error)
         });
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -115,10 +121,43 @@ function App() {
             <Route exact path="/init">
               <InitInfo />
             </Route>
-            
+
             </Box>
           </Box>
     </>
+
+
+    // <Layout>
+    //   <div className="App">
+    //     <div className="auto-margin">
+    //       <Header modal={modal} handleLogout={handleLogout} />
+    //       <Route exact path="/">
+    //         <Board />
+    //       </Route>
+
+    //       <Route exact path="/riskreport">
+    //         <RiskReport />
+    //       </Route>
+
+    //       <Route exact path="/secret">
+    //         <Secret />
+    //       </Route>
+
+    //       <Route exact path="/fakenews">
+    //         <FakeNews />
+    //       </Route>
+
+    //       <Route exact path="/login">
+    //         <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+    //       </Route>
+
+    //       <Route exact path="/init">
+    //         <InitInfo />
+    //       </Route>
+
+    //     </div>
+    //   </div>
+    // </Layout>
   );
 }
 
