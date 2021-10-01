@@ -2,6 +2,7 @@ version: "3"
 
 services:
   drf:
+    container_name: drf
     build:
       context: .
       dockerfile: Dockerfile_drf
@@ -14,6 +15,7 @@ services:
       - "8001"
     
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
       - "80:80"
