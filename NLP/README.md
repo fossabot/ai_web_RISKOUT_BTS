@@ -20,6 +20,27 @@ docker compose up -d # (Optional) 만약, 이 nlptool를 단독으로 쓰고 싶
 
 The REST API to the example are all below.
 
+## FAKE NEWS
+
+### REQUEST
+
+`POST /fakenews`
+
+```json
+{
+  "document": "지난 9월 10일 한 블로그에 방호복을 입은 사람들이 문을 부수는 영상과 함께 한국에서도 경찰력을 동원한 백신 강제접종이 이뤄질 것이라고 주장하는 글이 올라왔다. 해당 게시물은 응급의료에 관한 법률 개정안, 경찰관 직무집행법 개정안이 통과되면 경찰이 가정을 찾아와 백신을 강제로 접종할 것이라고 주장했다. 작성자의 말대로 경찰을 동원한 백신 강제 접종이 가능해질까."
+}
+```
+
+### RESPONSE
+
+```json
+{
+  "true_score": 0.0643644329071816,
+  "time": 0.1972644329071045
+}
+```
+
 ## SUMMARIZER
 
 ### REQUEST
