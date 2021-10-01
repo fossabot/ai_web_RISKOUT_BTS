@@ -57,15 +57,16 @@ if __name__ == '__main__':
 
 
     """ fakenews_cnn """    
+    dir_path = model_dir / 'snufc'
     vocab_path = dir_path / 'vocab.pkl'
-    model_path = dir_path / 'SenCNN.pt'
+    model_path = dir_path / 'SenCNN.st'
     if not dir_path.exists():
         dir_path.mkdir(parents=True)   
 
     if not vocab_path.exists():
         url = DOWNLOAD_PATH.format('1-TGOAwOpcfnCjV1nMWfk-q97I288rwQM')
-        gdown.download(url, output=str(config_path))
+        gdown.download(url, output=str(vocab_path))
 
     if not model_path.exists():
-        url = DOWNLOAD_PATH.format('12I6hWAIUiqWuZ05c2hMIaSCTPGc_bfm3')
+        url = DOWNLOAD_PATH.format('180tanNMyIW-Ca2aheVEDx6eMgcVa7wLU')
         gdown.download(url, output=str(model_path))

@@ -1,4 +1,3 @@
-from riskout.fakenews import fakenews_classifier
 import logging
 import time
 
@@ -16,7 +15,8 @@ from riskout.sentiment import SentimentClassifier
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
-from riskout.utils import get_tokenizer, nouns
+from riskout.utils import get_tokenizer
+
 
 logging.basicConfig(format="%(asctime)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S %p")
@@ -68,10 +68,10 @@ async def fakenews(doc: DocumentRequest):
         doc.document = [doc.document]
     start_time = time.time()
     try:
-        prob = FakeNewsClassifier.predict(doc.document)
+        prob = fakenews_classifier.predict(doc.document)
         results["true_score"] = prob
-    except:
-        results["detail"] = "[Error with document] {}".format(doc.document[:100])
+    except Exception as e:
+        results["detail"] = "{}".format(e)
     results["time"] = time.time() - start_time
             
     return results
