@@ -4,7 +4,7 @@
 mongod --fork --logpath=/home/user/mongo.log
 
 # import riskout mongoDB init collection
-mongoimport --db=riskout --collection=counter --jsonArray --file=/home/user/analyzer/mongo-test/riskout_db.json
+mongoimport --db=riskout --collection=counter --jsonArray --file=/home/user/analyzer/riskout_db.json
 
 # Run crawler
 python ./crawler/main.py

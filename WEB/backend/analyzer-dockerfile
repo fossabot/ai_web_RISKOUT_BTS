@@ -17,17 +17,3 @@ RUN : \
 # set python3.8-venv as default python interpreter
 RUN python3.8 -m venv /venv
 ENV PATH=/venv/bin:$PATH
-
-# copy files
-WORKDIR /home/user
-COPY ./analyzer /home/user/analyzer
-COPY ./crawler /home/user/crawler
-COPY ./requirements.txt /home/user/requirements.txt
-COPY ./analyzer.sh /home/user/analyzer.sh
-
-# install requirements
-RUN pip install --no-cache-dir -r ./requirements.txt
-RUN bash ./analyzer/mongo-test/mongo_install_docker.sh
-
-# execute analyzer
-ENTRYPOINT ["bash", "./analyzer.sh"]
