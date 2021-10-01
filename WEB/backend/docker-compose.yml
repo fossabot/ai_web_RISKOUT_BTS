@@ -3,7 +3,8 @@ version: "3"
 services:
   drf:
     build:
-      context: ./Dockerfile_drf
+      context: .
+      dockerfile: Dockerfile_drf
     ports:
       - "8001:8001"
     volumes:
