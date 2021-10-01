@@ -2,8 +2,6 @@ version: "3"
 
 services:
   web:
-    env_file:
-      - ./web-docker-env
     container_name: web_service
     image: python:3.8.12-slim-bullseye
     volumes:
