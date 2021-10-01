@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker-compose up web-docker-compose.yml --build
+sudo docker-compose up -f web-docker-compose.yml --build
