@@ -263,3 +263,5 @@ The REST API to the example are all below.
 - [mologg/KoBERT-NER](https://github.com/monologg/KoBERT-NER)
 
   - [NAVER/nlp-challenges](https://github.com/naver/nlp-challenge)
+
+- [aisolab/nlp_classification](https://github.com/aisolab/nlp_classification)
