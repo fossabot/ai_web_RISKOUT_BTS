@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker-compose analyzer-docker-compose up --build
+sudo docker-compose up analyzer-docker-compose.yml --build
