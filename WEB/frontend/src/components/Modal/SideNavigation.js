@@ -15,10 +15,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link as RouterLink, MemoryRouter as Router } from "react-router-dom";
+import { Link as RouterLink, MemoryRouter as Router, Route } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Search from "../Search";
-import FilterTable from "../FilterTable";
+import FilterTable from "../FilterTable"
+import LoginModal from './LoginModal';
+import InitInfo from './InitInfo';
+import Board from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/Board';
+import RiskReport from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/RiskReport';
+import Secret from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/Secret';
+import FakeNews from '/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/pages/FakeNews';;
 import "/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/css/SideNavigation.css";
 
 const drawerWidth = 240;
@@ -42,7 +48,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-//<Main open={open}></Main> 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
+// 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -117,22 +123,22 @@ export default function PersistentDrawerLeft(props) {
           <MenuIcon />
         </IconButton>
         <Box className="iconMenuBox">
-          <Link to="/riskreport" underline="none" className="inconMenuLink">
+          <Link href="/riskreport" underline="none" className="inconMenuLink">
             <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="/secret" underline="none" className="inconMenuLink">
+          <Link href="/secret" underline="none" className="inconMenuLink">
             <SearchIcon sx={{ color: "#3e90ff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="/fakenews" underline="none" className="inconMenuLink">
+          <Link href="/fakenews" underline="none" className="inconMenuLink">
             <AssessmentIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
         <Box className="iconMenuBox">
-          <Link to="/" underline="none" className="inconMenuLink">
+          <Link href="/" underline="none" className="inconMenuLink">
             <LogoutIcon sx={{ color: "#fff" }} className="iconMenu" />
           </Link>
         </Box>
@@ -156,7 +162,7 @@ export default function PersistentDrawerLeft(props) {
         className="sub_header"
       >
         <DrawerHeader>
-          <Link to="/">
+          <Link href="/">
             <img
               src={require("/workspaces/ai_web_RISKOUT_BTS/WEB/frontend/src/images/sub/logo_w.png")}
               alt="홈"
@@ -173,7 +179,7 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <List className="sub_menu">
           <ListItem className="pin">
-            <Link to="/riskreport" underline="none" className="list">
+            <Link href="/riskreport" underline="none" className="list">
               <ListItemButton>
                 <InfoIcon className="icon" />
                 <ListItemText primary="언론 동향" className="link" />
@@ -181,7 +187,7 @@ export default function PersistentDrawerLeft(props) {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link to="/secret" underline="none" className="list">
+            <Link href="/secret" underline="none" className="list">
               <ListItemButton className="on">
                 <SearchIcon className="icon" />
                 <ListItemText primary="탐지 현황" className="link" />
@@ -189,7 +195,7 @@ export default function PersistentDrawerLeft(props) {
             </Link>
           </ListItem>
           <ListItem className="pin">
-            <Link to="/fakenews" underline="none" className="list">
+            <Link href="/fakenews" underline="none" className="list">
               <ListItemButton>
                 <AssessmentIcon className="icon" />
                 <ListItemText primary="리포트" className="link" />
@@ -199,7 +205,7 @@ export default function PersistentDrawerLeft(props) {
           <ListItem className="pin">
             <Link
               onLogout={props.handleLogout}
-              to="/"
+              href="/"
               underline="none"
               className="list"
             >
@@ -221,7 +227,27 @@ export default function PersistentDrawerLeft(props) {
           />
         </ListItem>
       </Drawer>
-      
+      <Main open={open}>
+        <Route exact path="/">
+          <Board />
+        </Route>
+
+        <Route exact path="/riskreport">
+          <RiskReport />
+        </Route>
+
+        <Route exact path="/secret">
+          <Secret />
+        </Route>
+
+        <Route exact path="/fakenews">
+          <FakeNews />
+        </Route>
+
+        <Route exact path="/init">
+          <InitInfo />
+        </Route>
+      </Main>
     </Box>
   );
 }

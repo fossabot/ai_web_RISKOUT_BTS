@@ -105,23 +105,8 @@ function App() {
     <>
           <Box display="flex">
             <Box>
-            <SideNavigation handleLogout={handleLogout} />
-
-            <Route exact path="/">
-              <Board />
-            </Route>
-
-            <Route exact path="/riskreport">
-              <RiskReport />
-            </Route>
-
-            <Route exact path="/secret">
-              <Secret />
-            </Route>
-
-            <Route exact path="/fakenews">
-              <FakeNews />
-            </Route>
+            <SideNavigation handleLogout={handleLogout} >
+            </SideNavigation>
 
             <Route exact path="/login">
               <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
@@ -130,6 +115,7 @@ function App() {
             <Route exact path="/init">
               <InitInfo />
             </Route>
+            
             </Box>
           </Box>
     </>
