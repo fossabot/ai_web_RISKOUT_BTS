@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 
 import Layout from './layout';
-import Box from "@mui/material/Box";
 
 import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
@@ -11,7 +10,7 @@ import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 
 // import Header from './components/Modal/Header'; side navi component로 대체
-import SideNavigation from './components/Modal/SideNavigation';
+
 import LoginModal from './components/Modal/LoginModal';
 import FilterTable from './components/FilterTable';
 import InitInfo from './components/Modal/InitInfo';
@@ -108,23 +107,15 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <>
-          <Box display="flex">
-            <Box>
-            <SideNavigation handleLogout={handleLogout} >
-            </SideNavigation>
+    <Layout handleLogout={handleLogout}>
+      <Route exact path="/login">
+        <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+      </Route>
 
-            <Route exact path="/login">
-              <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-            </Route>
-
-            <Route exact path="/init">
-              <InitInfo />
-            </Route>
-
-            </Box>
-          </Box>
-    </>
+      <Route exact path="/init">
+        <InitInfo />
+      </Route>
+    </Layout>
 
 
     // <Layout>
