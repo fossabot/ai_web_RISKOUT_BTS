@@ -34,7 +34,11 @@ export default function SecretsDetailModal(props) {
     const entityNames = Object.entries(data.entities).flatMap(x => x[1]);
     console.log(entityNames, getHighlightedText);
 
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        // setSaved(false); // TODO how should we handle display of 'save' button?
+    };
+
     return (
         <div>
             <Modal
@@ -58,7 +62,7 @@ export default function SecretsDetailModal(props) {
                     </Fab>
                     <Fab variant="extended" size="small" aria-label="Detailed Analysis">
                         <AnalyzeIcon />
-                        Page Analysis
+                        Analyze
                     </Fab>
                     <Fab variant="extended" size="small" onClick={()=>{window.open(data.site_url, '_blank').focus()}}>
                         <NavigationIcon sx={{ mr: 1 }} />
@@ -66,8 +70,8 @@ export default function SecretsDetailModal(props) {
                     </Fab>
 
                     
-                    <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
-                    <Button onClick={scrapArticle}>Save article</Button>
+                    {/* <Link href="#" color="inherit" underline="hover">Page Analysis</Link>
+                    <Button onClick={scrapArticle}>Save article</Button> */}
 
                     <Typography id="secrets-modal-description" sx={{ mt: 2 }} className="line-break">
                         {/* Insert highlighted version */}
