@@ -14,7 +14,7 @@ import { words } from '../dummy/words';
 
 const options = {
   // colors 를 바꾸면 전체 Theme 이 바뀝니다.
-  colors: ['#f4a522', '#6092cd', '#61b546', '#aa4498', '#dccc77', '#89cdf0'],
+  colors: ['#01b8aa', '#28383c', '#fd625e', '#f2c80f', '#5f6b6d', '#8ad4eb'],
   // 1. ['#EEEEEE', '#686D76', '#373A40', '#00ADB5'],
   // 2. ['#003f5c', '#444e86', '#955196', '#dd5182', '#ff6e54', '#ffa600'],
   // 3. ['#01b8aa', '#28383c', '#fd625e', '#f2c80f', '#5f6b6d', '#8ad4eb'],
@@ -23,13 +23,13 @@ const options = {
   enableTooltip: true,
   deterministic: true,
   fontFamily: 'impact',
-  fontSizes: [5, 60],
+  fontSizes: [15, 60],
   fontStyle: 'normal',
   fontWeight: 'normal',
   padding: 1,
-  rotations: 3,
-  rotationAngles: [-30, 30],
-  scale: 'sqrt',
+  rotations: 2,
+  rotationAngles: [-5, 5],
+  scale: 'linear',
   spiral: 'rectangular',
   transitionDuration: 1000,
 };

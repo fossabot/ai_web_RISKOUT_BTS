@@ -1,502 +1,178 @@
 export const words = [
   {
-    text: 'told',
+    text: '말하다',
     value: 64,
   },
   {
-    text: 'mistake',
+    text: '실수',
     value: 11,
   },
   {
-    text: 'thought',
+    text: '생각',
     value: 16,
   },
   {
-    text: 'bad',
+    text: '나쁜',
     value: 17,
   },
   {
-    text: 'correct',
+    text: '정확한',
     value: 10,
   },
   {
-    text: 'day',
+    text: '날',
     value: 54,
   },
   {
-    text: 'prescription',
+    text: '처방',
     value: 12,
   },
   {
-    text: 'time',
+    text: '시간',
     value: 77,
   },
   {
-    text: 'thing',
+    text: '것',
     value: 45,
   },
   {
-    text: 'left',
+    text: '왼쪽',
     value: 19,
   },
   {
-    text: 'pay',
+    text: '지불하다',
     value: 13,
   },
   {
-    text: 'people',
+    text: '사람',
     value: 32,
   },
   {
-    text: 'month',
+    text: '월',
     value: 22,
   },
   {
-    text: 'again',
+    text: '다시',
     value: 35,
   },
   {
-    text: 'review',
+    text: '리뷰',
     value: 24,
   },
   {
-    text: 'call',
+    text: '전화',
     value: 38,
   },
   {
-    text: 'doctor',
+    text: '의사',
     value: 70,
   },
   {
-    text: 'asked',
+    text: '물었다',
     value: 26,
   },
   {
-    text: 'finally',
+    text: '마침내',
     value: 14,
   },
   {
-    text: 'insurance',
+    text: '보험',
     value: 29,
   },
   {
-    text: 'week',
+    text: '주',
     value: 41,
   },
   {
-    text: 'called',
+    text: '요청하다',
     value: 49,
   },
   {
-    text: 'problem',
+    text: '문제',
     value: 20,
   },
   {
-    text: 'going',
+    text: '가다',
     value: 59,
   },
   {
-    text: 'help',
+    text: '도움',
     value: 49,
   },
   {
-    text: 'felt',
+    text: '느꼈다',
     value: 45,
   },
   {
-    text: 'discomfort',
+    text: '불편함',
     value: 11,
   },
   {
-    text: 'lower',
+    text: '적은',
     value: 22,
   },
   {
-    text: 'severe',
+    text: '심각한',
     value: 12,
   },
   {
-    text: 'free',
+    text: '자유',
     value: 38,
   },
   {
-    text: 'better',
+    text: '나은',
     value: 54,
   },
   {
-    text: 'muscle',
+    text: '근육',
     value: 14,
   },
   {
-    text: 'neck',
+    text: '목',
     value: 41,
   },
   {
-    text: 'root',
+    text: '뿌리',
     value: 24,
   },
   {
-    text: 'adjustment',
+    text: '조정하다',
     value: 16,
   },
   {
-    text: 'therapy',
+    text: '테라피',
     value: 29,
   },
   {
-    text: 'injury',
+    text: '부상',
     value: 20,
   },
   {
-    text: 'excruciating',
+    text: '극심한',
     value: 10,
   },
   {
-    text: 'chronic',
-    value: 13,
-  },
-  {
-    text: 'chiropractor',
-    value: 35,
-  },
-  {
-    text: 'treatment',
+    text: '치유',
     value: 59,
   },
   {
-    text: 'tooth',
+    text: '이',
     value: 32,
   },
   {
-    text: 'chiropractic',
-    value: 17,
-  },
-  {
-    text: 'dr',
-    value: 77,
-  },
-  {
-    text: 'relief',
-    value: 19,
-  },
-  {
-    text: 'shoulder',
-    value: 26,
-  },
-  {
-    text: 'nurse',
-    value: 17,
-  },
-  {
-    text: 'room',
-    value: 22,
-  },
-  {
-    text: 'hour',
-    value: 35,
-  },
-  {
-    text: 'wait',
-    value: 38,
-  },
-  {
-    text: 'hospital',
-    value: 11,
-  },
-  {
-    text: 'eye',
-    value: 13,
-  },
-  {
-    text: 'test',
+    text: '통합',
     value: 10,
   },
   {
-    text: 'appointment',
-    value: 49,
-  },
-  {
-    text: 'medical',
-    value: 19,
-  },
-  {
-    text: 'question',
-    value: 20,
-  },
-  {
-    text: 'office',
-    value: 64,
-  },
-  {
-    text: 'care',
-    value: 54,
-  },
-  {
-    text: 'minute',
-    value: 29,
-  },
-  {
-    text: 'waiting',
-    value: 16,
-  },
-  {
-    text: 'patient',
-    value: 59,
-  },
-  {
-    text: 'health',
-    value: 49,
-  },
-  {
-    text: 'alternative',
-    value: 24,
-  },
-  {
-    text: 'holistic',
-    value: 19,
-  },
-  {
-    text: 'traditional',
-    value: 20,
-  },
-  {
-    text: 'symptom',
-    value: 29,
-  },
-  {
-    text: 'internal',
-    value: 17,
-  },
-  {
-    text: 'prescribed',
-    value: 26,
-  },
-  {
-    text: 'acupuncturist',
-    value: 16,
-  },
-  {
-    text: 'pain',
-    value: 64,
-  },
-  {
-    text: 'integrative',
-    value: 10,
-  },
-  {
-    text: 'herb',
+    text: '허브',
     value: 13,
   },
   {
-    text: 'sport',
+    text: '운동',
     value: 22,
   },
   {
-    text: 'physician',
+    text: '외과',
     value: 41,
-  },
-  {
-    text: 'herbal',
-    value: 11,
-  },
-  {
-    text: 'eastern',
-    value: 12,
-  },
-  {
-    text: 'chinese',
-    value: 32,
-  },
-  {
-    text: 'acupuncture',
-    value: 45,
-  },
-  {
-    text: 'prescribe',
-    value: 14,
-  },
-  {
-    text: 'medication',
-    value: 38,
-  },
-  {
-    text: 'western',
-    value: 35,
-  },
-  {
-    text: 'sure',
-    value: 38,
-  },
-  {
-    text: 'work',
-    value: 64,
-  },
-  {
-    text: 'smile',
-    value: 17,
-  },
-  {
-    text: 'teeth',
-    value: 26,
-  },
-  {
-    text: 'pair',
-    value: 11,
-  },
-  {
-    text: 'wanted',
-    value: 20,
-  },
-  {
-    text: 'frame',
-    value: 13,
-  },
-  {
-    text: 'lasik',
-    value: 10,
-  },
-  {
-    text: 'amazing',
-    value: 41,
-  },
-  {
-    text: 'fit',
-    value: 14,
-  },
-  {
-    text: 'happy',
-    value: 22,
-  },
-  {
-    text: 'feel',
-    value: 49,
-  },
-  {
-    text: 'glasse',
-    value: 19,
-  },
-  {
-    text: 'vision',
-    value: 12,
-  },
-  {
-    text: 'pressure',
-    value: 16,
-  },
-  {
-    text: 'find',
-    value: 29,
-  },
-  {
-    text: 'experience',
-    value: 59,
-  },
-  {
-    text: 'year',
-    value: 70,
-  },
-  {
-    text: 'massage',
-    value: 35,
-  },
-  {
-    text: 'best',
-    value: 54,
-  },
-  {
-    text: 'mouth',
-    value: 20,
-  },
-  {
-    text: 'staff',
-    value: 64,
-  },
-  {
-    text: 'gum',
-    value: 10,
-  },
-  {
-    text: 'chair',
-    value: 12,
-  },
-  {
-    text: 'ray',
-    value: 22,
-  },
-  {
-    text: 'dentistry',
-    value: 11,
-  },
-  {
-    text: 'canal',
-    value: 13,
-  },
-  {
-    text: 'procedure',
-    value: 32,
-  },
-  {
-    text: 'filling',
-    value: 26,
-  },
-  {
-    text: 'gentle',
-    value: 19,
-  },
-  {
-    text: 'cavity',
-    value: 17,
-  },
-  {
-    text: 'crown',
-    value: 14,
-  },
-  {
-    text: 'cleaning',
-    value: 38,
-  },
-  {
-    text: 'hygienist',
-    value: 24,
-  },
-  {
-    text: 'dental',
-    value: 59,
-  },
-  {
-    text: 'charge',
-    value: 24,
-  },
-  {
-    text: 'cost',
-    value: 29,
-  },
-  {
-    text: 'charged',
-    value: 13,
-  },
-  {
-    text: 'spent',
-    value: 17,
-  },
-  {
-    text: 'paying',
-    value: 14,
-  },
-  {
-    text: 'pocket',
-    value: 12,
-  },
-  {
-    text: 'dollar',
-    value: 11,
-  },
-  {
-    text: 'business',
-    value: 32,
-  },
-  {
-    text: 'refund',
-    value: 10,
   },
 ];

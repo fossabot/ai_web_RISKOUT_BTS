@@ -24,7 +24,7 @@ const ArticleVolumeBar = ({ data, colors }) => (
           data={data}
           keys={['Real News', 'Fake News']}
           indexBy="date"
-          margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+          margin={{ top: 0, right: 130, bottom: 100, left: 60 }}
           padding={0.3}
           groupMode="grouped"
           valueScale={{ type: 'linear' }}

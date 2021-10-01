@@ -24,7 +24,7 @@ const SentimentBar = ({ data, colors }) => (
           data={data}
           keys={['positive', 'neutral', 'negative']}
           indexBy="category"
-          margin={{ top: 50, right: 100, bottom: 50, left: 80 }}
+          margin={{ top: 0, right: 100, bottom: 100, left: 80 }}
           padding={0.4}
           layout="horizontal"
           valueScale={{ type: 'linear' }}
