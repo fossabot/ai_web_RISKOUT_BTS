@@ -6,6 +6,9 @@ import Board from './pages/Board';
 import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 import FakeNews from './pages/FakeNews';
+import SideNavigation from './components/SideNavigation';
+import FilterTable from './components/FilterTable';
+import Search from './components/Search';
 import { Route } from 'react-router-dom';
 import './App.css';
 

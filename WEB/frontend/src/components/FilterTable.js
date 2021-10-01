@@ -43,7 +43,7 @@ const rows = [
   createData("Cookie", "Cert업무 강도 에바참치임..", "서명곤")
 ];
 
-export default function BasicTable() {
+export default function filterTable() {
   return (
     <TableContainer>
       <Table sx={{ minWidth: 500 }} aria-label="simple table">
