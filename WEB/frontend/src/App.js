@@ -101,7 +101,7 @@ function App() {
     <>
       <div className="App">
         <div className="auto-margin">
-          <Header modal={modal} handleLogout={handleLogout} />
+          {/* <Header modal={modal} handleLogout={handleLogout} /> */}
           <Route exact path="/">
             <Board />
           </Route>

@@ -3,6 +3,7 @@ import SentimentPie from '../components/Dashboard/SentimentPie';
 import ArticleVolumeBar from '../components/Dashboard/ArticleVolumeBar';
 import GeoEventPlot from '../components/Dashboard/GeoEventPlot';
 import WordCloud from '../components/Dashboard/WordCloud';
+import Trends from '../components/Dashboard/Trends';
 
 import { Container, Box, Grid } from '@mui/material';
 
@@ -10,6 +11,7 @@ import { volumeDummy } from '../dummy/volumeDummy';
 import { barDummy } from '../dummy/barDummy';
 import { pieDummy } from '../dummy/pieDummy';
 import { geoDummy } from '../dummy/geoDummy';
+import { articleDummy } from '../dummy/articleDummy';
 import { words } from '../dummy/words';
 
 const options = {
@@ -49,14 +51,14 @@ export default function Dashboard() {
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <h2>개요</h2>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={5}>
+          <Grid item xs={12} sm={12} md={12} lg={4}>
             <WordCloud options={options} words={words} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4}>
             <ArticleVolumeBar data={volumeDummy} colors={options.colors} />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={3}>
-            <ArticleVolumeBar data={volumeDummy} colors={options.colors} />
+          <Grid item xs={12} sm={12} md={12} lg={4}>
+            <Trends articles={articleDummy} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4}>
             <SentimentBar data={barDummy} colors={options.colors} />
