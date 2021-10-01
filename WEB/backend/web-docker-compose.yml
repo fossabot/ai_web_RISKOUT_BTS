@@ -2,10 +2,10 @@ version: "3"
 
 services:
   drf:
+    env_file:
+      - ./web-docker-env
     container_name: drf_service
     image: python:3.8.12-slim-bullseye
-    env_file:
-      - web-docker-env
     volumes:
       - ./drf:/drf
     working_dir: /drf
