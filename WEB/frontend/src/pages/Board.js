@@ -5,13 +5,139 @@ import Search from '../components/Search';
 
 const Board = () => {
     return (
-        <Box>
-        <section id="sub_contents">
-		<div class="sub01_wrap">
-            <Search />
-		</div>
-	</section>
-    </Box>
+      <Box>
+        <Search />
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain page
+        Main page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+        Main pageMain pageMain pageMain pageMain pageMain pageMain pageMain page
+      </Box>
     );
 };
 

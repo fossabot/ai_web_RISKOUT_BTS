@@ -12,12 +12,9 @@ import Search from '../components/Search';
 function App() {
 
 	return (
-		<Box>
-		  <Layout>
-		    <Sidebar />
-			<Search />
-		  </Layout>
-		</Box>
+	  <Box>
+	    <Search />
+	  </Box>
 	);
 }
 
