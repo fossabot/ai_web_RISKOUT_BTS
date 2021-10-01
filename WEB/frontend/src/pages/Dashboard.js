@@ -1,8 +1,8 @@
-import SentimentBar from '../components/dashboard/SentimentBar';
-import SentimentPie from '../components/dashboard/SentimentPie';
-import ArticleVolumeBar from '../components/dashboard/ArticleVolumeBar';
-import GeoEventPlot from '../components/dashboard/GeoEventPlot';
-import WordCloud from '../components/dashboard/WordCloud';
+import SentimentBar from '../components/Dashboard/SentimentBar';
+import SentimentPie from '../components/Dashboard/SentimentPie';
+import ArticleVolumeBar from '../components/Dashboard/ArticleVolumeBar';
+import GeoEventPlot from '../components/Dashboard/GeoEventPlot';
+import WordCloud from '../components/Dashboard/WordCloud';
 
 import { Container, Box, Grid } from '@mui/material';
 
