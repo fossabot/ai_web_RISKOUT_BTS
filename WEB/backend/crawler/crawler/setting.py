@@ -3,6 +3,6 @@ site_list = {
     # 'DCinside': 'dcinside'
 }
 
-DEBUG = True
+DEBUG = False
 
 TIME_CHECK = True
