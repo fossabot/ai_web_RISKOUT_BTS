@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import Search from '../components/Search';
 import TableRow from '../components/SecretsTableRow';
 import FilterCheckbox from '../components/FilterCheckbox';
 import AppliedFilter from '../components/AppliedFilter';
 
-import searchIcon from "../images/sub/search_icon.png";
 import filtersCloseIcon from "../images/sub/filters_close.png";
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 
@@ -80,10 +80,11 @@ function Secret() {
                 <div className="sub02_con">
                     <div className="top_box">
                         <h2>탐지 현황</h2>
-                        <div className="search clfix">
+                        {/* <div className="search clfix">
                             <input type="text" placeholder="EX. 전투 세부 시행규칙" />
                             <button onClick={search}><img src={searchIcon} alt="" /></button>
-                        </div>
+                        </div> */}
+                        <Search />
                     </div>
 
 

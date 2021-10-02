@@ -6,8 +6,10 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/styles": "^4.11.4",
     "@mui/icons-material": "^5.0.1",
-    "@mui/material": "^5.0.1",
+    "@mui/material": "^5.0.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -54,5 +56,6 @@
   "bugs": {
     "url": "https://github.com/osamhack2021/ai_web_RISKOUT_BTS/issues"
   },
+  // "homepage": "/build",
   "proxy": "http://localhost:8000"
 }

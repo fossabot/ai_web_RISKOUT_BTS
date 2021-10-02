@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import Header from './components/Modal/Header';
 
 import Layout from './layout';
-import LoginModal from './components/Modal/LoginModal';
-import InitInfo from './components/Modal/InitInfo';
+
 import Board from './pages/Board';
+import DetectionStatus from './pages/DetectionStatus';
+import PressTrends from './pages/PressTrends';
 import RiskReport from './pages/RiskReport';
-import Secret from './pages/Secret';
-import FakeNews from './pages/FakeNews';
+
+import LoginModal from './components/Modal/LoginModal';
+import FilterTable from './components/FilterTable';
+import InitInfo from './components/Modal/InitInfo';
+import Search from './components/Search';
+
+import './App.css';
+import './css/style.css';
 
 
 function App() {
@@ -99,36 +105,32 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <Layout>
-      <div className="App">
-        <div className="auto-margin">
-          <Header modal={modal} handleLogout={handleLogout} />
-          <Route exact path="/">
-            <Board />
-          </Route>
+    <Layout handleLogout={handleLogout}>
+      <Route exact path="/">
+        <Board />
+      </Route>
 
-          <Route exact path="/riskreport">
-            <RiskReport />
-          </Route>
+      <Route exact path="/login">
+        <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+      </Route>
 
-          <Route exact path="/secret">
-            <Secret />
-          </Route>
+      <Route exact path="/init">
+        <InitInfo />
+      </Route>
 
-          <Route exact path="/fakenews">
-            <FakeNews />
-          </Route>
 
-          <Route exact path="/login">
-            <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-          </Route>
+      <Route exact path="/presstrends">
+        <PressTrends />
+      </Route>
 
-          <Route exact path="/init">
-            <InitInfo />
-          </Route>
+      <Route exact path="/detectionstatus">
+        <DetectionStatus />
+      </Route>
 
-        </div>
-      </div>
+      <Route exact path="/riskreport">
+        <RiskReport />
+      </Route>
+
     </Layout>
   );
 }
