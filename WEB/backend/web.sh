@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p ./drf/build
+mkdir -p ./drf/staticfiles
+
 cd ../frontend
 
 npm i

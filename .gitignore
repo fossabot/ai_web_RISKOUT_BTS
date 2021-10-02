@@ -1,8 +1,5 @@
-# to commit empty dir
-!*/.gitkeep
-
 # django staticfiles
-staticfiles/
+staticfiles
 
 # docker env
 web-docker-env
