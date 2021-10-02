@@ -83,8 +83,8 @@ body::-webkit-scrollbar {
   display: block;
 }
 
-/* .sub_header .sub_menu .list .on .link { */
-.sub_header .sub_menu .list.on * {
+.sub_header .sub_menu .list.on *,
+.iconMenuBox .inconMenuLink.on * {
   /*현재 사이트 경로의 메뉴 버튼 css*/
   color: #3e90ff;
 }
@@ -94,14 +94,15 @@ body::-webkit-scrollbar {
   right: 0.4em;
 }
 
-.sub_header .sub_menu .css-10hburv-MuiTypography-root {
+.sub_header .sub_menu [class$=MuiTypography-root] {
   /* 메뉴 글자 크기, 폰트 */
   text-align: center;
   font-family: Montserrat, "Noto Sans KR";
   font-size: 1.1em;
 }
 
-.sub_header .sub_menu .list:hover * {
+.sub_header .sub_menu .list:hover *,
+.iconMenuBox .inconMenuLink:hover * {
   color: #3e90ff;
 }
 .sub_header .copyright {
@@ -111,7 +112,7 @@ body::-webkit-scrollbar {
   color: #fff;
 }
 
-.sub_header .css-10hburv-MuiTypography-root {
+.sub_header [class$=MuiTypography-root] {
   /*Copyright font size*/
   font-size: 0.5rem;
 }
