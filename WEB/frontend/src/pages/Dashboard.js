@@ -7,13 +7,44 @@ import TrendsCard from '../components/Dashboard/TrendsCard';
 
 import { Container, Box, Grid } from '@mui/material';
 
-import { volumeDummy } from '../dummy/volumeDummy';
-import { barDummy } from '../dummy/barDummy';
-import { pieDummy } from '../dummy/pieDummy';
-import { geoDummy } from '../dummy/geoDummy';
-import { articleDummy } from '../dummy/articleDummy';
-import { articleLineDummy } from '../dummy/articleLineDummy';
-import { words } from '../dummy/words';
+export default function Dashboard() {
+  return (
+    <Box
+      m={3}
+      sx={{
+        backgroundColor: 'inherit',
+        minHeight: '100%',
+        py: 3,
+      }}
+    >
+      <Container maxWidth={false}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <h2>개요</h2>
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} lg={4}>
+            <WordCloud options={options} />
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} lg={4}>
+            <ArticleVolumeLine colors={options.colors} />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={4}>
+            <TrendsCard />
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} lg={4}>
+            <SentimentBar colors={options.colors} />
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} lg={3}>
+            <SentimentPie colors={options.colors} />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={5}>
+            <GeoEventPlot colors={options.colors} />
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+}
 
 const options = {
   // colors 를 바꾸면 전체 Theme 이 바뀝니다.
@@ -36,45 +67,3 @@ const options = {
   spiral: 'rectangular',
   transitionDuration: 1000,
 };
-
-export default function Dashboard() {
-  return (
-    <Box
-      m={3}
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3,
-      }}
-    >
-      <Container maxWidth={false}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-            <h2>개요</h2>
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={4}>
-            <WordCloud options={options} words={words} />
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={4}>
-            <ArticleVolumeLine
-              data={articleLineDummy}
-              colors={options.colors}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4}>
-            <TrendsCard articles={articleDummy} />
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={4}>
-            <SentimentBar data={barDummy} colors={options.colors} />
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={3}>
-            <SentimentPie data={pieDummy} colors={options.colors} />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={5}>
-            <GeoEventPlot data={geoDummy} colors={options.colors} />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  );
-}

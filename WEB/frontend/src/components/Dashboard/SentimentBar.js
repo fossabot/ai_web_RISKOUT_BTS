@@ -7,80 +7,90 @@ import {
   Button,
   Divider,
 } from '@mui/material';
-import { ArrowDropDown } from '@mui/icons-material';
+import useFetch from '../../hooks/useFetch';
 
-const SentimentBar = ({ data, colors }) => (
-  <Card style={{ height: '400px' }}>
-    <CardHeader title="출처별 감정 통계" />
-    <Divider />
-    <CardContent>
-      <Box
-        sx={{
-          height: 350,
-          position: 'relative',
-        }}
-      >
-        <ResponsiveBar
-          data={data}
-          keys={['positive', 'neutral', 'negative']}
-          indexBy="category"
-          margin={{ top: 0, right: 100, bottom: 100, left: 80 }}
-          padding={0.4}
-          layout="horizontal"
-          valueScale={{ type: 'linear' }}
-          indexScale={{ type: 'band', round: true }}
-          valueFormat={{ format: '', enabled: false }}
-          colors={colors}
-          borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-          axisTop={null}
-          axisRight={null}
-          axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'sentiment',
-            legendPosition: 'middle',
-            legendOffset: 32,
+const SentimentBar = ({ colors }) => {
+  const { data, error, isPending } = useFetch(
+    `https://playff-osamhack2021-ai-web-riskout-bts-45v7rgwx3j4vq-8000.githubpreview.dev/sentiment-bar`
+  );
+
+  return (
+    <Card style={{ height: '400px' }}>
+      <CardHeader title="출처별 감정 통계" />
+      <Divider />
+      <CardContent>
+        <Box
+          sx={{
+            height: 350,
+            position: 'relative',
           }}
-          axisLeft={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: '',
-            legendPosition: 'middle',
-            legendOffset: -40,
-          }}
-          labelSkipWidth={12}
-          labelSkipHeight={12}
-          labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-          legends={[
-            {
-              dataFrom: 'keys',
-              anchor: 'bottom-right',
-              direction: 'column',
-              justify: false,
-              translateX: 120,
-              translateY: 0,
-              itemsSpacing: 2,
-              itemWidth: 100,
-              itemHeight: 20,
-              itemDirection: 'left-to-right',
-              itemOpacity: 0.85,
-              symbolSize: 10,
-              effects: [
+        >
+          {error && <div>{error} </div>}
+          {isPending && <div>Loading...</div>}
+          {data && (
+            <ResponsiveBar
+              data={data}
+              keys={['positive', 'neutral', 'negative']}
+              indexBy="category"
+              margin={{ top: 0, right: 100, bottom: 100, left: 80 }}
+              padding={0.4}
+              layout="horizontal"
+              valueScale={{ type: 'linear' }}
+              indexScale={{ type: 'band', round: true }}
+              valueFormat={{ format: '', enabled: false }}
+              colors={colors}
+              borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'sentiment',
+                legendPosition: 'middle',
+                legendOffset: 32,
+              }}
+              axisLeft={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: '',
+                legendPosition: 'middle',
+                legendOffset: -40,
+              }}
+              labelSkipWidth={12}
+              labelSkipHeight={12}
+              labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+              legends={[
                 {
-                  on: 'hover',
-                  style: {
-                    itemOpacity: 1,
-                  },
+                  dataFrom: 'keys',
+                  anchor: 'bottom-right',
+                  direction: 'column',
+                  justify: false,
+                  translateX: 120,
+                  translateY: 0,
+                  itemsSpacing: 2,
+                  itemWidth: 100,
+                  itemHeight: 20,
+                  itemDirection: 'left-to-right',
+                  itemOpacity: 0.85,
+                  symbolSize: 10,
+                  effects: [
+                    {
+                      on: 'hover',
+                      style: {
+                        itemOpacity: 1,
+                      },
+                    },
+                  ],
                 },
-              ],
-            },
-          ]}
-        />
-      </Box>
-    </CardContent>
-  </Card>
-);
+              ]}
+            />
+          )}
+        </Box>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default SentimentBar;
