@@ -19,6 +19,7 @@ services:
         python /analyzer/analyzer.py
     depends_on:
       - mongo
+      - mongo-seed
 
   mongo:
     container_name: mongo_service
