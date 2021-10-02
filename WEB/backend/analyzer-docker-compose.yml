@@ -20,7 +20,6 @@ services:
     depends_on:
       - mongo
       - mongo-seed
-    restart: no
 
   mongo:
     container_name: mongo_service
@@ -38,8 +37,9 @@ services:
     depends_on:
       - mongo
 
-  restarter:
+  analyzer-restarter:
+    container_name: analyzer-restarter_service
     image: docker
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
-    command: ["/bin/sh", "-c", "while true; do sleep 3600; docker restart analyzer; done"]
+    command: ["/bin/sh", "-c", "while true; do sleep 3600; docker restart analyzer_service; done"]
     restart: unless-stopped

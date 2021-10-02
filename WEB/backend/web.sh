@@ -13,4 +13,4 @@ cp -r ./build ../backend/drf/
 
 cd ../backend
 
-sudo docker-compose -f web-docker-compose.yml --env-file web-docker-env up --force-recreate
+sudo docker-compose -f web-docker-compose.yml --env-file web-docker-env up
