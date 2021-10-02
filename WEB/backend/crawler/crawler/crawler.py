@@ -20,7 +20,7 @@ from crawler.model import const as const
 import crawler.db as database
 
 # error
-from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import HTMLElementsNotFoundError as notfound_error, contentLengthError
 from crawler.error import englishContentError
 
 # import setting values
@@ -103,6 +103,10 @@ async def get_contents(site, contents_url, urlinfo, db):
                     if(DEBUG):
                         print("english contents")
                         print(detail)
+                except contentLengthError as detail:
+                    if(DEBUG):
+                        print("contents does not valid by following exception")
+                        print(detail)
                 else:
                     # news_content를 쿼리로 쏘는 코드
                     if news_content.contents_id not in db.select_id():
@@ -133,7 +137,6 @@ async def crawl(site):
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
 
-            # 추가 예외처리 필요
             try:
                 response = get_request(urlbase + str(now_page), site.header)
             except requests.exceptions.ConnectionError as detail:
