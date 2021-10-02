@@ -10,7 +10,7 @@ from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
-SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.githubpreview.dev/'
+SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -48,7 +48,12 @@ class Content:
         summarized = requests.post(url, data=document)
 
         if summarized.status_code == 200:
-            self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+            try:
+                self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+            except Exception as e:
+                print(f"Error occured while summarizing data : {e}")
+                self.content_dict['summarized'] = None
+
         else:    
             self.content_dict['summarized'] = None
 
@@ -60,7 +65,11 @@ class Content:
         positivity = requests.post(url, data=document)
 
         if positivity.status_code == 200:
-            self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+            try:
+                self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+            except Exception as e:
+                print(f"Error occured while getting positivity : {e}")
+                self.content_dict['positivity'] = None
         else:    
             self.content_dict['positivity'] = None
 
@@ -72,14 +81,18 @@ class Content:
         entities = requests.post(url, data=document)
 
         if entities.status_code == 200:
-            self.content_dict['entities'] = json.loads(entities.text)['ner']
+            try:
+                self.content_dict['entities'] = json.loads(entities.text)['ner']
+            except Exception as e:
+                print(f"Error occured while getting entities : {e}")
+                self.content_dict['entities'] = None
         else:    
             self.content_dict['entities'] = None
 
 
 class DBHandler:
     def __init__(self):
-        host = "localhost"
+        host = "mongo"
         port = "27017"
         self.client = MongoClient(host, int(port))
 
@@ -128,6 +141,13 @@ class DBHandler:
 def extractor(data):
     print('\n[*] Extractor Started!\n')
 
+    if len(data) < 1:
+        print("[!] All pages have been analyzed.")
+        cur.close()
+        conn.close()
+        quit()
+
+
     contents = []
 
     for idx, tup in enumerate(data):
@@ -158,10 +178,12 @@ def dbInserter(contents):
     try:
         mongo.insert_item_many(contents, "riskout", "analyzed")
         print('DB insertion success')
+        mongo.client.close()
         return True
 
     except Exception as e:
         print("DB insert error occured :", e)
+        mongo.client.close()
         return False
 
 
