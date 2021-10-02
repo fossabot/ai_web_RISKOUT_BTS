@@ -31,8 +31,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import '../../css/SideNavigation.css';
 
-// 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -95,7 +93,7 @@ export default function PersistentDrawerLeft(props) {
 
   return (
     <>
-      <Box sx={{ background: 'rgb(29, 28, 26)', height: 'auto' }}>
+      <Box sx={{ background: 'rgb(29, 28, 26)', height: '100vh'}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -104,7 +102,7 @@ export default function PersistentDrawerLeft(props) {
           sx={{ mr: 2 }}
           className="hamburgerMenu"
         >
-          <MenuIcon sx={{ color: '#fff' }} />
+          <MenuIcon sx={{ color: '#fff', fontSize:'1.3em'}} />
         </IconButton>
 
         <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />

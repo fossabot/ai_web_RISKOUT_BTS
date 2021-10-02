@@ -57,10 +57,6 @@ body::-webkit-scrollbar {
   padding: 6em 0em 0em;
 }
 
-.sub_header .sub_menu .css-1p823my-MuiListItem-root {
-  padding: 1em 1.7em;
-}
-
 .sub_header .sub_menu .list {
   width: 100%;
 }
