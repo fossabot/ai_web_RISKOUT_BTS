@@ -48,7 +48,12 @@ class Content:
         summarized = requests.post(url, data=document)
 
         if summarized.status_code == 200:
-            self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+            try:
+                self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+            except Exception as e:
+                print(f"Error occured while summarizing data : {e}")
+                self.content_dict['summarized'] = None
+
         else:    
             self.content_dict['summarized'] = None
 
@@ -60,7 +65,11 @@ class Content:
         positivity = requests.post(url, data=document)
 
         if positivity.status_code == 200:
-            self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+            try:
+                self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+            except Exception as e:
+                print(f"Error occured while getting positivity : {e}")
+                self.content_dict['positivity'] = None
         else:    
             self.content_dict['positivity'] = None
 
@@ -72,7 +81,11 @@ class Content:
         entities = requests.post(url, data=document)
 
         if entities.status_code == 200:
-            self.content_dict['entities'] = json.loads(entities.text)['ner']
+            try:
+                self.content_dict['entities'] = json.loads(entities.text)['ner']
+            except Exception as e:
+                print(f"Error occured while getting entities : {e}")
+                self.content_dict['entities'] = None
         else:    
             self.content_dict['entities'] = None
 
@@ -165,10 +178,12 @@ def dbInserter(contents):
     try:
         mongo.insert_item_many(contents, "riskout", "analyzed")
         print('DB insertion success')
+        mongo.client.close()
         return True
 
     except Exception as e:
         print("DB insert error occured :", e)
+        mongo.client.close()
         return False
 
 
