@@ -1,3 +1,5 @@
+/*source ./django-venv/bin/activate*/ 
+
 import React, {
   useState,
   useEffect

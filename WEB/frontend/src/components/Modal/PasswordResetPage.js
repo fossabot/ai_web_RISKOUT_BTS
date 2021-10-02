@@ -2,34 +2,49 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 import '../../css/LoginModal.css';
 
-const InitInfo = (props) => {
-let [useremail, setUserEamil] = useState()
-const data = {email : useremail}
+const PasswordResetPage = (props) => {
+  let [userpassword, setUserPassword] = useState()
+  let [userpasswordCheck, setUserPasswordCheck] = useState();
+  let token = getParameterByName('token');
 
-const handleEmailChange = (e) => {
-  setUserEamil(e.target.value)
+
+  const data = {token : usertoken, password : userpassword}
+
+const handlePassword1Change = (e) => {
+  setUserPassword(e.target.value)
+}
+
+const handlePassword2Change = (e) => {
+  setUserPasswordCheck(e.target.value)
 }
 
     const history = useHistory()
     return (
         <div className="login-container">
         <div className="login-box">
-          <span>비밀번호 찾기</span>
+          <span>비밀번호 초기화</span>
               <center>
-            <input type="text" placeholder="이메일을 입력하세요." onChange={handleEmailChange}/>
+            <input type="text" placeholder="새 비밀번호 입력" onChange={handlePassword1Change}/>
             <br></br>
-            <div><span>계정에 사용된 이메일을 입력해 주세요.</span></div>
+            <input type="text" placeholder="새 비밀번호 확인" onChange={handlePassword2Change}/>
             <br></br>
             <button className="JoinLoign-button" onClick={(e)=>{
+
                   e.preventDefault()
                   alert(JSON.stringify(data))
-                    fetch('/api/password_reset/', {
+                  if(userpassword !== userpasswordCheck){
+                    alert("비밀번호가 서로 일치하지 않습니다!")
+                  }else{
+                    fetch('/api/password_reset/confirm/', {
                       method: 'POST',
                       headers:{
                         'Content-Type': 'application/json'
                       },
                       body: JSON.stringify(data)
                     });
+                  }
+
+
                   }
                   }
                  
