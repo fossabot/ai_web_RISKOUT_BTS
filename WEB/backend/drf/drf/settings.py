@@ -26,16 +26,22 @@ ALLOWED_HOSTS = getSecretVariable("ALLOWED_HOSTS")
 
 
 INSTALLED_APPS = [
+    # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+
+    # 3rd party apps
     'rest_framework',
     'knox',
     'django_rest_passwordreset',
+
+    # my apps
+    'accounts',
+    'detection_status'
 ]
 
 MIDDLEWARE = [
