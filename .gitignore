@@ -1,6 +1,9 @@
 # to commit empty dir
 !*/.gitkeep
 
+# django staticfiles
+staticfiles/
+
 # docker env
 web-docker-env
 
@@ -40,7 +43,7 @@ media
 
 # Distribution / packaging
 .Python
-build/*
+build/
 develop-eggs/
 dist/
 downloads/
