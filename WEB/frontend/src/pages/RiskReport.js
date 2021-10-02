@@ -6,115 +6,14 @@ import Box from "@mui/material/Box";
 import Search from '../components/Search';
 
 const RiskReport = () => {
-    return (
-      <Box>
-        <Search />
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-        Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
-      </Box>
-    );
+  return (
+    <Box>
+      <Search />
+      Risk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+      Risk ReportRisk ReportRisk ReportRisk ReportRisk Report
+      Risk ReportReportRisk ReportRisk ReportRisk ReportRisk ReportRisk ReportRisk Report
+    </Box>
+  );
 };
 
 export default RiskReport;
