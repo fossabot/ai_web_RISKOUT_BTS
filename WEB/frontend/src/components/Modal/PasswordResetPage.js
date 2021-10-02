@@ -5,7 +5,7 @@ import '../../css/LoginModal.css';
 const PasswordResetPage = (props) => {
   let [userpassword, setUserPassword] = useState()
   let [userpasswordCheck, setUserPasswordCheck] = useState();
-  let token = getParameterByName('token');
+  let usertoken = document.URL.split("?")[1];
 
 
   const data = {token : usertoken, password : userpassword}
@@ -60,4 +60,4 @@ const handlePassword2Change = (e) => {
     );
 };
 
-export default InitInfo;
+export default PasswordResetPage;

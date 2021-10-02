@@ -11,6 +11,7 @@ import Board from './pages/Board';
 import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 import FakeNews from './pages/FakeNews';
+import PasswordResetPage from './components/Modal/PasswordResetPage';
 import {
   Route
 } from 'react-router-dom';
@@ -67,6 +68,10 @@ function App() {
 
           <Route exact path="/init">
             <InitInfo />
+          </Route>
+
+          <Route exact path="/password_reset">
+            <PasswordResetPage/>
           </Route>
 
         </div>
