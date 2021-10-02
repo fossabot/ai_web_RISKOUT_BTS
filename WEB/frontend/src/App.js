@@ -7,9 +7,6 @@ import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
 import PressTrends from './pages/PressTrends';
 import RiskReport from './pages/RiskReport';
-// import Secret from './pages/Secret';
-
-// import Header from './components/Modal/Header'; side navi component로 대체
 
 import LoginModal from './components/Modal/LoginModal';
 import FilterTable from './components/FilterTable';
@@ -17,6 +14,7 @@ import InitInfo from './components/Modal/InitInfo';
 import Search from './components/Search';
 
 import './App.css';
+import './css/style.css';
 
 
 function App() {

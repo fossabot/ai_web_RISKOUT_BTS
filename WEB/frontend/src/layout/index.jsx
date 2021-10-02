@@ -6,7 +6,6 @@ import '../css/style_tab.css';
 import '../css/style_mob.css';
 import '../css/slick.css';
 import '../css/jquery.fullpage.css';
-import '../css/style.css';
 
 // MUI Styles
 import { styled, useTheme } from "@mui/material/styles";
@@ -21,7 +20,7 @@ const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -50,7 +49,7 @@ export default class MainLayout extends React.Component {
       <Box display="flex">
         <Box>
           <Box sx={{ display: "flex" }}>
-            <SideNavigation handleLogout={handleLogout} >
+            <SideNavigation drawerWidth={drawerWidth} handleLogout={handleLogout} >
             </SideNavigation>
 
             <Main open={open}>

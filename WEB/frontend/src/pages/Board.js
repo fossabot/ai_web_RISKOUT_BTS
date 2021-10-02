@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from "@mui/material/Box";
-import '../css/Header.css';
+// import '../css/Header.css';
 import Search from '../components/Search';
 
 const Board = () => {

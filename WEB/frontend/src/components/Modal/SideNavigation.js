@@ -46,6 +46,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props) {
+  const { drawerWidth } = props;
   let [userprofile, setUserprofile] = useState(false);
   let [userPhoto, setUserPhoto] = useState();
   let [currentUser_pk, setCurrentUser_pk] = useState();
@@ -103,7 +104,7 @@ export default function PersistentDrawerLeft(props) {
           aria-label="open drawer"
           onClick={handleDrawerOpen}
           edge="start"
-          sx={{ mr: 2, ...(open && { display: "none" }) }}
+          sx={{ mr: 2 }}
           className="hamburgerMenu"
         >
           <MenuIcon sx={{ color: "#fff" }} />
@@ -132,14 +133,14 @@ export default function PersistentDrawerLeft(props) {
       </Box>
       <Drawer
         sx={{
-          width: 270,
+          width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             background: "rgb(29, 28, 26)",
             left: 0,
             top: 0,
-            width: "250px",
+            width: drawerWidth,
             height: "100vh"
           }
         }}
@@ -214,7 +215,7 @@ export default function PersistentDrawerLeft(props) {
           />
         </ListItem>
       </Drawer>
-     
+
     </>
   );
 }
