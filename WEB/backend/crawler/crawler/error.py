@@ -14,7 +14,7 @@ class englishContentError(Exception):
 
 class contentLengthError(Exception):
     def __init__(self):
-        self.msg = "contents too short or too long"
+        self.msg = "contents too short"
 
     def __str__(self):
         return self.msg
