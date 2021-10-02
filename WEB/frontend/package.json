@@ -56,5 +56,6 @@
   "bugs": {
     "url": "https://github.com/osamhack2021/ai_web_RISKOUT_BTS/issues"
   },
+  // "homepage": "/build",
   "proxy": "http://localhost:8000"
 }
