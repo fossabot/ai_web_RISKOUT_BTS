@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { DataGrid, useGridSlotComponentProps } from '@mui/x-data-grid';
+import ProgressBar from '../Common/ProgressBar';
 import moment from 'moment';
 
 /* Temporary data */
@@ -20,18 +21,21 @@ const rows = [
     trueScore: 0.6,
     title: '9월 수출 558억 달러, 65년 무역 역사상 최고치…두 달 만에 기록 경신',
     date: new Date('2021-10-01'),
+    emotionFilled: 0.2,
   },
   {
     id: 2,
     trueScore: 0.2,
     title: '“억지 부리지 말라”…野주자들, 이준석 때린 조수진 질타',
     date: new Date('2021-5-05'),
+    emotionFilled: 0.8,
   },
   {
     id: 3,
     trueScore: 0.4,
     title: '급성 복통으로 출석 미룬 유동규…검찰, 응급실서 체포',
     date: new Date('2021-11-15'),
+    emotionFilled: 0.55,
   },
 ];
 
@@ -69,6 +73,7 @@ const columns = [
     field: 'emotionFilled',
     headerName: '감정수치',
     width: 100,
+    renderCell: (params) => <ProgressBar value={Number(params.value)} />,
   },
 ];
 
@@ -96,11 +101,11 @@ function CustomPagination() {
 
 export default function TrendsCard({ articles }) {
   return (
-    <Card style={{ height: '400px' }}>
+    <Card style={{ width: '100%', height: '400px' }}>
       <CardHeader title="트렌드" />
       <Divider />
       <CardContent>
-        <Box sx={{ height: 300, width: '100%' }}>
+        <Box sx={{ width: '100%', height: 300 }}>
           <DataGrid
             rows={rows}
             columns={columns}
