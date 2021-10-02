@@ -11,3 +11,6 @@ class Site:
     def __init__(self, listjson, contentjson):
         self.listpage = listpage(listjson)
         self.contentspage = contentspage(contentjson)
+
+    def contentCheck(self, content):
+        pass
