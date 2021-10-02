@@ -31,7 +31,6 @@ const ArticleVolumeLine = ({ data, colors }) => (
             stacked: false,
             reverse: false,
           }}
-          yFormat=" >-.2f"
           curve="monotoneX"
           axisTop={null}
           axisRight={null}

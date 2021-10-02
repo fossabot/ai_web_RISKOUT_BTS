@@ -15,7 +15,7 @@ import 'tippy.js/animations/scale.css';
 const WordCloud = ({ options, words }) => {
   return (
     <Card style={{ height: '400px' }}>
-      <CardHeader title="여론 현황 (언급 횟수)" />
+      <CardHeader title="오늘의 키워드" />
       <Divider />
       <CardContent>
         <Box

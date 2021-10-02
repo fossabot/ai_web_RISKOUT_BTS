@@ -7,9 +7,11 @@ import {
   Divider,
   Chip,
   Pagination,
+  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { DataGrid, useGridSlotComponentProps } from '@mui/x-data-grid';
+import moment from 'moment';
 
 /* Temporary data */
 const rows = [
@@ -60,7 +62,7 @@ const columns = [
     headerName: '날짜',
     width: 100,
     renderCell: (params) => (
-      <Button>{params.value.toLocaleDateString()}</Button>
+      <Typography>{moment(params.value).format('YYYY-MM-DD')}</Typography>
     ),
   },
   {
