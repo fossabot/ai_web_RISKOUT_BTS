@@ -58,10 +58,10 @@
 
 <h2 id="about-the-project"> :monocle_face: 프로젝트 소개</h2>
 
-> 현재 군대에서는, 군 관련 허위 기사나 인터넷에 유포된 기밀글들을 추려내기 위해, 각종 신문에서 군 관련 기사들을 일일히 오려 내고, 여러 사이트들을 캡처합니다. 모은 자료들은 하나하나 읽어보면서 문제가 될 글들을 식별하고, 보고서로 정리하여 대응팀한테 넘기는 등, 번거로운 작업들을 반복하고 있습니다.
-그러다보니 놓치는 사항이 발생하거나 개인적인 편향이 보고서에 포함될 수 있습니다.
+> 현재 군대에서는, 군 관련 허위 기사나 인터넷에 유포된 기밀글들을 추려내기 위해, 각종 신문에서 군 관련 기사들을 일일히 오려 내고, 여러 사이트들을 캡처합니다. 모은 자료들은 사람이 하나하나 읽어보면서 문제가 될 글들을 식별하고, 보고서로 정리하여 대응팀한테 넘기는 등, 번거로운 작업들을 반복하고 있습니다.
+그러다보니 놓치는 사항이 발생하거나 개인적인 편향이 보고서에 포함되는 등의 문제가 발생할 수 있습니다.
 > 
-> RISKOUT은 인공지능으로 유출된 기밀을 찾아주고, 허위기사를 판별하는 플랫폼입니다. 찾은 문제의 글은 사용자가 커스텀 가능한 맞춤형 보고서로 출력됩니다.
+> 저희 BTS (방탄수병단)은 이 모든 과정을 자동화시켰습니다. RISKOUT은 인공지능으로 유출된 기밀을 찾아주고, 허위기사를 판별하는 플랫폼입니다. 찾은 문제의 글은 사용자가 커스텀 가능한 맞춤형 보고서로 출력됩니다.
 이를 통해 정확도 보장, 인력 감축, 속도 향상 등의 효과 를 얻게 됩니다.
 
 **더 자세한 부분들은 [Homepage](https://riskout.ithosting.repl.co/) 에서 확인하세요.**
@@ -81,11 +81,37 @@
   <img src="https://gdurl.com/YNdz" />
 </p>
 
-**안보 위협 탐색 + 보고서화**
+여론 현황 대시보드는 여론 및 언론의 최근 동향을 실시간으로 확인할 수 있도록 다양한 **차트**로 시각화시킨 페이지입니다. 차트는 총 5가지의 형태로 표현됩니다.
+
+* [**`여론 현황`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 언급 비중이 놓은 단어들을 보여주는 [워드 클라우드](https://riskout.ithosting.repl.co)입니다.
+* [**`출처별 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 SNS 및 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 분석하여 positive, neutral, negative로 나누어서 표현한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`통합 감정 통계`**](https://riskout.ithosting.repl.co) : 각종 기사글, 게시판 등의 커뮤니티 사이트들을 기반으로 여론의 감정 상태를 요약하여 보여주는 [파이 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`기사 변화량`**](https://riskout.ithosting.repl.co) : 오늘과 근 3일간의 기사량을 비교하여 시각화한 [막대 차트](https://riskout.ithosting.repl.co)입니다.
+* [**`나라별 이벤트`**](https://riskout.ithosting.repl.co) : 100개 이상의 기사 및 전자 신문들을 기반으로 나라별 사건 발생도를 시각화 시킨 [맵 차트](https://riskout.ithosting.repl.co)입니다.
 
 <h3 id="feature2">위협 탐지</h3>
 
+<p align="center">
+  <img src="https://gdurl.com/YNdz" />
+</p>
+
+**기밀 유출 탐지 + 허위 기사 탐지**
+
+[기밀 유출 현황](https://riskout.ithosting.repl.co) 및 [허위 기사](https://riskout.ithosting.repl.co)를 인공지능을 통해 분석하여 탐지해내는 페이지입니다. 인공지능은 탐지한 글들을 기반으로 2차적 검사를 실시하여 기밀어, 인물, 장소를 추출해냅니다. 추출한 항목들은 세부 분석을 위해 *커스텀 필터*로 제공됩니다.
+
+* **기밀 유출 & 허위 기사 탐지** : 탐지한 기밀 유출, 허위 기사 요약 보드 생성.
+* **개체 인식 필터** : AI 개체명 인식(Named Entity Recognition)을 통해 탐지글을 2차적으로 분석할 수 있도록 도와주는 필터.
+* **검색** : 시맨틱 검색을 통한 탐지 로그 조회 기능.
+
 <h3 id="feature3">맞춤형 보고서 생성</h3>
+
+<p align="center">
+  <img src="https://gdurl.com/YNdz" />
+</p>
+
+* **기밀 유출 보고** : 기밀 유출 현황을 각종 수치로 시각화시킨 브리핑 보드.
+* **허위 기사 보고** : 사용자가 선택한 허위 기사 탐지글들을 기반으로 제작된 AI 자동 요약본.
+* **허위 기사 개요** : 타임라인으로 구분된 현재까지의 허위 기사 현황.
 
 <h2 id="prerequisites"> :fork_and_knife: 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</h2>
 <h3> :earth_asia: Browser</h3>
@@ -96,13 +122,28 @@
 
 <h2 id="techniques"> :gear: 기술 스택 (Technique Used)</h2>
 
+<p align="center">
+  <img src="https://gdurl.com/YNdz" />
+</p>
 
+### AI
 
+- [Jupiter Notebook](https://jupyter.org/)을 통한 모델 학습:
+  - `KoGPT` — 보고서 생성을 위한 자연어 생성 모델.
+  - `KoBERT` — 요약기능을 위한 자연어 요약 모델.
+
+### Backend
+
+- [Django REST framework](https://www.django-rest-framework.org/)를 통한 웹 백엔드 구축
+  - [`net/http`](https://restfulapi.net/) — Simple REST API와 CRUD, 그리고 JWT 인증.
+- [Maria DB](https://mariadb.org/)를 통한 데이터베이스 구축:
+  - [`SQL`](https://searchdatamanagement.techtarget.com/definition/SQL#:~:text=SQL%20(Structured%20Query%20Language)%20is,on%20the%20data%20in%20them.&text=SQL%20became%20the%20de%20facto,late%201970s%20and%20early%201980s.) — SQL로 관계형 데이터베이스 관리.
 
 ### Frontend
 
-
-
+- [React](https://reactjs.org/)를 통한 프론트엔드 구축:
+  - `react` — 리액트앱을 이용한 템플릿 생성.
+  - `SPA` — 리액트앱을 이용한 SPA(Single-Page-Application) 제작.
 
 
 <h2 id="install"> :file_folder: 설치 안내 (Installation Process)</h2>
@@ -124,6 +165,7 @@ $ yarn start or npm run start
 *축하해요!* *RISKOUT*의 유저가 되셨습니다.
 
 이제 사용하실 수 있습니다! 🎉
+- 📺 Full 영상: https://riskout.ithosting.repl.co
 
 
 <h2 id="team"> :technologist: 팀 정보 (Team Information)</h2>
@@ -250,8 +292,8 @@ $ yarn start or npm run start
 
 ---
 
-<br />
-
-# 🤖
+# 🤖 
 
 장관상 주떼염~
+
+<br />
