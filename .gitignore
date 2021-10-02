@@ -1,8 +1,19 @@
+# django staticfiles
+staticfiles
+
+# docker env
+web-docker-env
+
 # django secrets
 secrets.json
 
 # database
-db.sqlite3
+database.db
+
+# commit empty dir
+WEB/backend/data/db/*
+!WEB/backend/data/db/.gitkeep
+
 
 # vscode
 .vscode

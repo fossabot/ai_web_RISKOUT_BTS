@@ -7,14 +7,16 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from typing import List, Dict, Optional, Union
-from rest_api.config import KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH, NER_MODEL_PATH
+from rest_api.config import KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH, NER_MODEL_PATH, VOCAB_PATH, FAKENEWS_MODEL_PATH
 
+from riskout.fakenews import FakeNewsClassifier
 from riskout.ner import NER
 from riskout.sentiment import SentimentClassifier
 from riskout.summarization import KorbartSummarizer
 from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
-from riskout.utils import get_tokenizer, tokenize
+from riskout.utils import get_tokenizer
+
 
 logging.basicConfig(format="%(asctime)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S %p")
@@ -24,11 +26,13 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Riskout-API", debug=True, version="0.1")
 
 tokenizer = get_tokenizer("mecab")
-tokenize = lambda x: tokenizer.nouns(x)
+nouns = tokenizer.nouns
+morphs = tokenizer.morphs
 
+fakenews_classifier = FakeNewsClassifier(vocab_path=VOCAB_PATH, model_path=FAKENEWS_MODEL_PATH, split_morphs=morphs)
 kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
 sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
-named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=tokenize)
+named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=nouns)
 
 
 
@@ -54,6 +58,25 @@ class DocumentRequest(BaseModel):
     document: Optional[Union[List[str],str]] = None
 
 
+@app.post("/fakenews")
+async def fakenews(doc: DocumentRequest):
+    if not doc:
+        return {"detail": "Need doe"}
+
+    results = {}
+    if isinstance(doc.document, str):
+        doc.document = [doc.document]
+    start_time = time.time()
+    try:
+        prob = fakenews_classifier.predict(doc.document)
+        results["true_score"] = prob
+    except Exception as e:
+        results["detail"] = "{}".format(e)
+    results["time"] = time.time() - start_time
+            
+    return results
+    
+
 @app.post("/ner")
 async def ner(doc: DocumentRequest):
     if not doc:
@@ -63,7 +86,11 @@ async def ner(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    results["ner"] = [named_entity_recognition.predict(d) for d in doc.document]
+    try:
+        entity = [named_entity_recognition.predict(d) for d in doc.document]
+        results["ner"] = [{k: list(set(v)) for k, v in d.items()} for d in entity] # remove duplicated
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results["time"] = time.time() - start_time
 
     return results
@@ -78,8 +105,12 @@ async def sentiment(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
-    results["score"] = scores
+    try:
+        scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
+        results["score"] = scores
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
+   
     results.update({"time": time.time() - start_time})
 
     return results
@@ -94,7 +125,11 @@ async def summarize(doc: DocumentRequest):
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
-    results["summairzed"] = [kobart_summarizer.predict(d) for d in doc.document]
+    try:
+        results["summarized"] = [kobart_summarizer.predict(d) for d in doc.document]
+    except Exception as e:
+        results["detail"] = "[Error] {}".format(e)
+
     results["time"] = time.time() - start_time
     return results
 
@@ -103,17 +138,22 @@ async def summarize(doc: DocumentRequest):
 async def keywords(doc: DocumentRequest):
     if not doc:
         return {"detail": "Need docs"}
+    elif len(doc.document) <= 1:
+        return {"detail": "Need more docs"}
 
     results = {}
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
     keyword_extractor = KeywordSummarizer(
-        tokenize=tokenize,
+        tokenize=nouns,
         window=-1,
         verbose=False
     )
-    results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
+    try:
+        results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results.update({"time": time.time() - start_time})
     return results
 
@@ -122,19 +162,24 @@ async def keywords(doc: DocumentRequest):
 async def keysentences(doc: DocumentRequest):
     if not doc:
         return {"detail": "Need docs"}
+    elif len(doc.document) <= 1:
+        return {"detail": "Need more docs"}
 
     results = {}
     if isinstance(doc.document, str):
         doc.document = [doc.document]
     start_time = time.time()
     summarizer = KeysentenceSummarizer(
-        tokenize=tokenize,
+        tokenize=nouns,
         min_sim=0.3,
         verbose=False
     )
-    _keysentences = [(int(idx), float(r), str(sents))
-                     for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
-    results.update({"keysentences": _keysentences})
+    try:
+        _keysentences = [{ "id": int(idx), "score": float(r), "sentence": str(sents)}
+                         for idx, r, sents in summarizer.summarize(doc.document, topk=10)]
+        results.update({"keysentences": _keysentences})
+    except:
+        results["detail"] = "[Error with document] {}".format(doc.document[:100])
     results.update({"time": time.time() - start_time})
     return results
 
