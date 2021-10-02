@@ -85,5 +85,7 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
 
     if(DEBUG):
         print(content)
+
+    site.contentCheck(content)
     
     return content
