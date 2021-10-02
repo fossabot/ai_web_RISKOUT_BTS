@@ -35,7 +35,7 @@ function App() {
     setisAuthenticated(false);
     setUser('');
     localStorage.removeItem('token');
-    setModal(false)
+    setModal(false);
   }; //로그아웃
 
   //회원가입이나 로그인이 성공했을 때 modal을 변경해 로그인 버튼을 없애고 정보 수정과 회원 탈퇴 버튼 나오게하는 setModal
@@ -46,11 +46,7 @@ function App() {
     } else {
       setModal(false);
     }
-    else {
-      setModal(false)
-    }
   }, [isAuthenticated]);
-
 
   useEffect(() => {
     // 토큰(access token)이 이미 존재하는 상황이라면 서버에 GET /validate 요청하여 해당 access token이 유효한지 확인
@@ -115,13 +111,15 @@ function App() {
       </Route>
 
       <Route exact path="/login">
-        <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+        <LoginModal
+          setModal={setModal}
+          userHasAuthenticated={userHasAuthenticated}
+        />
       </Route>
 
       <Route exact path="/init">
         <InitInfo />
       </Route>
-
 
       <Route exact path="/presstrends">
         <PressTrends />
@@ -134,7 +132,6 @@ function App() {
       <Route exact path="/riskreport">
         <RiskReport />
       </Route>
-
     </Layout>
   );
 }
