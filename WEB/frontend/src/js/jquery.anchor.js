@@ -11,7 +11,7 @@
 *****/
 
 $(document).ready(function () {
-  $("a.anchorLink").anchorAnimate();
+  $('a.anchorLink').anchorAnimate();
 });
 
 jQuery.fn.anchorAnimate = function (settings) {
@@ -27,10 +27,10 @@ jQuery.fn.anchorAnimate = function (settings) {
     $(caller).click(function (event) {
       event.preventDefault();
       var locationHref = window.location.href;
-      var elementClick = $(caller).attr("href");
+      var elementClick = $(caller).attr('href');
 
       var destination = $(elementClick).offset().top;
-      $("html:not(:animated),body:not(:animated)").animate(
+      $('html:not(:animated),body:not(:animated)').animate(
         { scrollTop: destination },
         settings.speed,
         function () {

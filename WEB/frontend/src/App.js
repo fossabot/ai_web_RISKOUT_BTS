@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 
-import Layout from "./layout";
+import Layout from './layout';
 
-import Board from "./pages/Board";
-import DetectionStatus from "./pages/DetectionStatus";
-import PressTrends from "./pages/PressTrends";
-import RiskReport from "./pages/RiskReport";
+import Board from './pages/Board';
+import DetectionStatus from './pages/DetectionStatus';
+import PressTrends from './pages/PressTrends';
+import RiskReport from './pages/RiskReport';
 
-import LoginModal from "./components/Modal/LoginModal";
-import FilterTable from "./components/FilterTable";
-import InitInfo from "./components/Modal/InitInfo";
-import Search from "./components/Search";
+import LoginModal from './components/Modal/LoginModal';
+import FilterTable from './components/FilterTable';
+import InitInfo from './components/Modal/InitInfo';
+import Search from './components/Search';
 
-import "./App.css";
-import "./css/style.css";
+import './App.css';
+import './css/style.css';
 
 function App() {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState([]);
 
   let [isAuthenticated, setisAuthenticated] = useState(
-    localStorage.getItem("token") ? true : false
+    localStorage.getItem('token') ? true : false
   );
 
   const userHasAuthenticated = (authenticated, username, token) => {
     setisAuthenticated(authenticated);
     setUser(username);
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
   }; //회원가입이나 로그인이 성공했을 때 토큰을 저장
 
   const handleLogout = () => {
     setisAuthenticated(false);
-    setUser("");
-    localStorage.removeItem("token");
+    setUser('');
+    localStorage.removeItem('token');
     setModal(false);
   }; //로그아웃
 
@@ -52,15 +52,15 @@ function App() {
     if (isAuthenticated) {
       // 현재 JWT 토큰 값이 타당한지 GET /validate 요청을 통해 확인하고
       // 상태 코드가 200이라면 현재 GET /user/current 요청을 통해 user정보를 받아옴
-      fetch("http://localhost:8000/validate/", {
+      fetch('http://localhost:8000/validate/', {
         headers: {
-          Authorization: `JWT ${localStorage.getItem("token")}`,
+          Authorization: `JWT ${localStorage.getItem('token')}`,
         },
       })
         .then((res) => {
-          fetch("http://localhost:8000/user/current/", {
+          fetch('http://localhost:8000/user/current/', {
             headers: {
-              Authorization: `JWT ${localStorage.getItem("token")}`,
+              Authorization: `JWT ${localStorage.getItem('token')}`,
             },
           })
             .then((res) => res.json())
@@ -74,13 +74,13 @@ function App() {
                 setisAuthenticated(false);
               }
               // Refresh Token 발급 받아 token의 만료 시간 연장
-              fetch("http://localhost:8000/refresh/", {
-                method: "POST",
+              fetch('http://localhost:8000/refresh/', {
+                method: 'POST',
                 headers: {
-                  "Content-Type": "application/json",
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  token: localStorage.getItem("token"),
+                  token: localStorage.getItem('token'),
                 }),
               })
                 .then((res) => res.json())

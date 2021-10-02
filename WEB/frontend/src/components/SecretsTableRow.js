@@ -1,5 +1,5 @@
-import React from "react";
-import fileIcon from "../images/sub/file.png";
+import React from 'react';
+import fileIcon from '../images/sub/file.png';
 
 export default function tableRow(props) {
   const { id, title, preview, author, href, showDetailModal, scrapArticle } =
@@ -12,7 +12,7 @@ export default function tableRow(props) {
           <img src={fileIcon} alt="filetype" />
         </a>
       </td>
-      <td onClick={() => showDetailModal(id)} style={{ cursor: "pointer" }}>
+      <td onClick={() => showDetailModal(id)} style={{ cursor: 'pointer' }}>
         <h3>{title}</h3>
         <p>{preview}</p>
       </td>

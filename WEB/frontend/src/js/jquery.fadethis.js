@@ -4,20 +4,20 @@
     _watch = [],
     $window = $(window),
     Plugin = function () {};
-  $.expr[":"].hasClassStartingWith = function (el, i, selector) {
-    var re = new RegExp("\\b" + selector[3]);
+  $.expr[':'].hasClassStartingWith = function (el, i, selector) {
+    var re = new RegExp('\\b' + selector[3]);
     return re.test(el.className);
   };
 
   Plugin.prototype = {
     globals: {
-      pluginName: "fadeThis",
+      pluginName: 'fadeThis',
       bufferTime: 300,
     },
     defaults: {
-      baseName: "slide-",
+      baseName: 'slide-',
       speed: 500,
-      easing: "swing",
+      easing: 'swing',
       offset: 0,
       reverse: true,
       distance: 50,
@@ -32,7 +32,7 @@
     },
     addElements: function (elem, options) {
       var element = elem === document.body ? window : elem,
-        $element = element === window ? $("body") : $(element),
+        $element = element === window ? $('body') : $(element),
         base = this,
         classBaseName =
           options && options.baseName
@@ -51,7 +51,7 @@
       return $element;
     },
     _addElement: function ($elem, options) {
-      var metadata = $elem.data("plugin-options"),
+      var metadata = $elem.data('plugin-options'),
         localOptions = $.extend({}, this.defaults, options, metadata),
         item = {
           element: $elem,
@@ -67,18 +67,18 @@
     _prepareElement: function (item) {
       var cssOptionsIn = {
           opacity: 0,
-          visibility: "visible",
-          position: "relative",
+          visibility: 'visible',
+          position: 'relative',
         },
         direction = null;
-      if (item.element.hasClass(item.options.baseName + "right")) {
-        direction = "left";
-      } else if (item.element.hasClass(item.options.baseName + "left")) {
-        direction = "right";
-      } else if (item.element.hasClass(item.options.baseName + "top")) {
-        direction = "bottom";
-      } else if (item.element.hasClass(item.options.baseName + "bottom")) {
-        direction = "top";
+      if (item.element.hasClass(item.options.baseName + 'right')) {
+        direction = 'left';
+      } else if (item.element.hasClass(item.options.baseName + 'left')) {
+        direction = 'right';
+      } else if (item.element.hasClass(item.options.baseName + 'top')) {
+        direction = 'bottom';
+      } else if (item.element.hasClass(item.options.baseName + 'bottom')) {
+        direction = 'top';
       } else {
         return false;
       }
@@ -90,7 +90,7 @@
     _setEvent: function () {
       var base = this;
 
-      $window.on("scroll", function (e) {
+      $window.on('scroll', function (e) {
         if (!_buffer) {
           _buffer = setTimeout(function () {
             base._checkVisibleElements(e);
@@ -110,7 +110,7 @@
             if (item.options.scrolledIn) {
               item.options.scrolledIn.call(item.element, e);
             }
-            item.element.trigger("fadethisscrolledin", e);
+            item.element.trigger('fadethisscrolledin', e);
           }
         } else if (item.invp) {
           item.invp = false;
@@ -120,7 +120,7 @@
           if (item.options.scrolledOut) {
             item.options.scrolledOut.call(item.element, e);
           }
-          item.element.trigger("fadethisscrolledout", e);
+          item.element.trigger('fadethisscrolledout', e);
         }
       });
     },
@@ -137,7 +137,7 @@
       );
     },
     _triggerFading: function (item, appear) {
-      appear = typeof appear !== "undefined" ? appear : true;
+      appear = typeof appear !== 'undefined' ? appear : true;
 
       var stateAnimIn = {
           opacity: 1,
@@ -146,14 +146,14 @@
           opacity: 0,
         },
         direction = null;
-      if (item.element.hasClass(item.options.baseName + "right")) {
-        direction = "left";
-      } else if (item.element.hasClass(item.options.baseName + "left")) {
-        direction = "right";
-      } else if (item.element.hasClass(item.options.baseName + "top")) {
-        direction = "bottom";
-      } else if (item.element.hasClass(item.options.baseName + "bottom")) {
-        direction = "top";
+      if (item.element.hasClass(item.options.baseName + 'right')) {
+        direction = 'left';
+      } else if (item.element.hasClass(item.options.baseName + 'left')) {
+        direction = 'right';
+      } else if (item.element.hasClass(item.options.baseName + 'top')) {
+        direction = 'bottom';
+      } else if (item.element.hasClass(item.options.baseName + 'bottom')) {
+        direction = 'top';
       } else {
         return false;
       }
@@ -181,17 +181,17 @@
   // Preventing against multiple instantiations for the same DOM element
   $.fn[Plugin.globals.pluginName] = function (options) {
     this.each(function () {
-      if (!$.data(window, "plugin_" + Plugin.globals.pluginName)) {
-        $.data(window, "plugin_" + Plugin.globals.pluginName, "set");
+      if (!$.data(window, 'plugin_' + Plugin.globals.pluginName)) {
+        $.data(window, 'plugin_' + Plugin.globals.pluginName, 'set');
         $.data(
           this,
-          "plugin_" + Plugin.globals.pluginName,
+          'plugin_' + Plugin.globals.pluginName,
           window.Plugin.init(this, options)
         );
-      } else if (!$.data(this, "plugin_" + Plugin.globals.pluginName)) {
+      } else if (!$.data(this, 'plugin_' + Plugin.globals.pluginName)) {
         $.data(
           this,
-          "plugin_" + Plugin.globals.pluginName,
+          'plugin_' + Plugin.globals.pluginName,
           window.Plugin.addElements(this, options)
         );
       }

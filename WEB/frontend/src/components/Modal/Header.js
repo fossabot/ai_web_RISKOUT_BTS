@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 // import '../../css/Header.css';
-import logo from "../../images/sub/logo_w.png";
-import logo_btn from "../../images/sub/prev_btn.png";
+import logo from '../../images/sub/logo_w.png';
+import logo_btn from '../../images/sub/prev_btn.png';
 
 function Header(props) {
   let [userprofile, setUserprofile] = useState(false);
@@ -11,9 +11,9 @@ function Header(props) {
   let [currentUser_pk, setCurrentUser_pk] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:8000/user/current/", {
+    fetch('http://localhost:8000/user/current/', {
       headers: {
-        Authorization: `JWT ${localStorage.getItem("token")}`,
+        Authorization: `JWT ${localStorage.getItem('token')}`,
       },
     })
       .then((res) => res.json())
@@ -23,11 +23,11 @@ function Header(props) {
           //유저정보를 받아왔으면 해당 user의 프로필을 받아온다.
         }
         fetch(
-          "http://localhost:8000/user/auth/profile/" + json.id + "/update/",
+          'http://localhost:8000/user/auth/profile/' + json.id + '/update/',
           {
-            method: "PATCH",
+            method: 'PATCH',
             headers: {
-              Authorization: `JWT ${localStorage.getItem("token")}`,
+              Authorization: `JWT ${localStorage.getItem('token')}`,
             },
           }
         )

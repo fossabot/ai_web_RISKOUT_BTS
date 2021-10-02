@@ -1,4 +1,4 @@
-import ReactDOMServer from "react-dom/server";
+import ReactDOMServer from 'react-dom/server';
 
 /**
  * Split on highlight term and include term into parts, ignore case
@@ -8,25 +8,25 @@ import ReactDOMServer from "react-dom/server";
  * @returns requested parts are highlighted with <b>
  */
 function getHighlightedText(text, highlight) {
-  const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+  const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
   return (
     <span>
-      {" "}
+      {' '}
       {parts.map((part, i) =>
         part.toLowerCase() === highlight.toLowerCase() ? (
           <mark key={i}>{part}</mark>
         ) : (
           <span key={i}>{part}</span>
         )
-      )}{" "}
+      )}{' '}
     </span>
   );
 }
 
 function getLineBreakText(text) {
-  console.log("getlinebreak", text, ReactDOMServer.renderToString(text));
+  console.log('getlinebreak', text, ReactDOMServer.renderToString(text));
   return ReactDOMServer.renderToString(text)
-    .split("\n")
+    .split('\n')
     .map((str) => <p>{str}</p>);
 }
 
@@ -37,13 +37,13 @@ function getLineBreakText(text) {
  * @returns String of the text content
  */
 function getNodeText(node) {
-  if (["string", "number"].includes(typeof node)) return node;
-  if (node instanceof Array) return node.map(getNodeText).join("");
-  if (typeof node === "object" && node) return getNodeText(node.props.children);
+  if (['string', 'number'].includes(typeof node)) return node;
+  if (node instanceof Array) return node.map(getNodeText).join('');
+  if (typeof node === 'object' && node) return getNodeText(node.props.children);
 }
 
 function decodeNewline(text, multiplier) {
-  return text.replace(/\\n/g, "\n".repeat(multiplier));
+  return text.replace(/\\n/g, '\n'.repeat(multiplier));
 }
 
 export {

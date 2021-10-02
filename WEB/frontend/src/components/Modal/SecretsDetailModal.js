@@ -1,33 +1,33 @@
-import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Link from "@mui/material/Link";
+import * as React from 'react';
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Link from '@mui/material/Link';
 import {
   getHighlightedText,
   getLineBreakText,
   getNodeText,
   replaceNewline,
-} from "../../js/util";
-import "../../css/SecretsDetailModal.css";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import AnalyzeIcon from "@mui/icons-material/Analytics";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import NavigationIcon from "@mui/icons-material/Link";
+} from '../../js/util';
+import '../../css/SecretsDetailModal.css';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import AnalyzeIcon from '@mui/icons-material/Analytics';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Link';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50vw",
-  maxHeight: "70vh",
-  overflowY: "auto",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '50vw',
+  maxHeight: '70vh',
+  overflowY: 'auto',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -90,7 +90,7 @@ export default function SecretsDetailModal(props) {
             variant="extended"
             size="small"
             onClick={() => {
-              window.open(data.site_url, "_blank").focus();
+              window.open(data.site_url, '_blank').focus();
             }}
           >
             <NavigationIcon sx={{ mr: 1 }} />
@@ -108,7 +108,7 @@ export default function SecretsDetailModal(props) {
             {/* Insert highlighted version */}
             {getHighlightedText(
               replaceNewline(data.contentBody, 2),
-              entityNames.length ? entityNames[0] : ""
+              entityNames.length ? entityNames[0] : ''
             )}
 
             {/* {data.summarized} */}

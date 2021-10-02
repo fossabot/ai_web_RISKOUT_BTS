@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import Search from "../components/Search";
-import TableRow from "../components/SecretsTableRow";
-import FilterCheckbox from "../components/FilterCheckbox";
-import AppliedFilter from "../components/AppliedFilter";
+import Search from '../components/Search';
+import TableRow from '../components/SecretsTableRow';
+import FilterCheckbox from '../components/FilterCheckbox';
+import AppliedFilter from '../components/AppliedFilter';
 
-import filtersCloseIcon from "../images/sub/filters_close.png";
-import SecretsDetailModal from "../components/Modal/SecretsDetailModal";
+import filtersCloseIcon from '../images/sub/filters_close.png';
+import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 
 function Secret() {
   const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
   const [detailModalData, setDetailModalData] = React.useState({
     id: 0,
-    created_at: "",
-    site_url: "",
-    thumbnail_url: "",
-    category: "",
-    title: "",
-    contentBody: "",
-    summarized: "",
+    created_at: '',
+    site_url: '',
+    thumbnail_url: '',
+    category: '',
+    title: '',
+    contentBody: '',
+    summarized: '',
     positivity: 0,
     entities: {},
   });
   const [appliedFilters, setAppliedFilters] = useState([
-    "전투시행세부규칙",
-    "GP/GOP",
+    '전투시행세부규칙',
+    'GP/GOP',
   ]);
   const [searchResults, setSearchResults] = useState({
     contentsLength: 0,
@@ -48,7 +48,7 @@ function Secret() {
 
   const search = () => {
     // console.log(`search options: `);
-    fetch("SecretData.example.json")
+    fetch('SecretData.example.json')
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -70,13 +70,13 @@ function Secret() {
   };
 
   const scrapArticle = (id) => {
-    console.log("TODO: scrap article ", id);
-    alert("TODO: scrap article " + id);
+    console.log('TODO: scrap article ', id);
+    alert('TODO: scrap article ' + id);
   };
 
   const analyzePage = (id) => {
-    console.log("TODO: analyzePage article ", id);
-    alert("TODO: analyzePage article " + id);
+    console.log('TODO: analyzePage article ', id);
+    alert('TODO: analyzePage article ' + id);
   };
 
   return (
@@ -166,9 +166,9 @@ function Secret() {
                     - [ ] 조정환
                     */}
           {[
-            ["단체", "ORG"],
-            ["인물", "CVL"],
-            ["시간대", "TIM"],
+            ['단체', 'ORG'],
+            ['인물', 'CVL'],
+            ['시간대', 'TIM'],
           ].map(([filterLabel, filterCode]) => {
             const filterTags = Object.entries(
               searchResults.filterTags[filterCode]

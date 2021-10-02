@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function filterCheckbox(props) {
   const { count, hashtag, checked, onToggle } = props;
@@ -11,7 +11,7 @@ export default function filterCheckbox(props) {
         <input type="checkbox" onChange={onChange} checked={checked} />
         <p>{hashtag}</p>
       </label>
-      <em>{count > 10 ? "10+" : count}</em>
+      <em>{count > 10 ? '10+' : count}</em>
     </li>
   );
 }

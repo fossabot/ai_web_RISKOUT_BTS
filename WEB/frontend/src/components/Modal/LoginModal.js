@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-import "../../css/LoginModal.css";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import '../../css/LoginModal.css';
 
 function LoginModal(props) {
-  let [JoinLoign, setJoinLogin] = useState("로그인");
+  let [JoinLoign, setJoinLogin] = useState('로그인');
   const history = useHistory();
 
   let [username, setUsername] = useState();
@@ -50,7 +50,7 @@ function LoginModal(props) {
           </div>
           <span>{JoinLoign}</span>
           <form>
-            {JoinLoign === "로그인" ? (
+            {JoinLoign === '로그인' ? (
               <>
                 <input
                   type="text"
@@ -68,10 +68,10 @@ function LoginModal(props) {
                   onClick={(e) => {
                     alert(JSON.stringify(data));
                     e.preventDefault();
-                    fetch("/api/login/", {
-                      method: "POST",
+                    fetch('/api/login/', {
+                      method: 'POST',
                       headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                       },
                       body: JSON.stringify(data),
                     })
@@ -83,11 +83,11 @@ function LoginModal(props) {
                             json.user.username,
                             json.token
                           );
-                          history.push("/");
+                          history.push('/');
                           props.setModal(true);
                           console.log(json);
                         } else {
-                          alert("아이디 또는 비밀번호를 확인해주세요.");
+                          alert('아이디 또는 비밀번호를 확인해주세요.');
                         }
                       })
                       .catch((error) => alert(error));
@@ -127,12 +127,12 @@ function LoginModal(props) {
                     alert(JSON.stringify(data));
                     e.preventDefault();
                     if (userpassword !== userpasswordCheck) {
-                      alert("비밀번호를 확인해 주세요.");
+                      alert('비밀번호를 확인해 주세요.');
                     } else {
-                      fetch("/api/register/", {
-                        method: "POST",
+                      fetch('/api/register/', {
+                        method: 'POST',
                         headers: {
-                          "Content-Type": "application/json",
+                          'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(data),
                       })
@@ -144,10 +144,10 @@ function LoginModal(props) {
                               json.username,
                               json.token
                             );
-                            history.push("/");
+                            history.push('/');
                             props.setModal(true);
                           } else {
-                            alert("사용불가능한 아이디입니다.");
+                            alert('사용불가능한 아이디입니다.');
                           }
                         })
 
@@ -161,14 +161,14 @@ function LoginModal(props) {
             )}
           </form>
           <div className="login-foot">
-            {JoinLoign === "회원가입" ? (
+            {JoinLoign === '회원가입' ? (
               <>
                 <span>이미 회원이신가요 ?</span>
                 <div
                   className="foot-link"
                   onClick={(e) => {
                     e.preventDefault();
-                    setJoinLogin("로그인");
+                    setJoinLogin('로그인');
                   }}
                 >
                   로그인
@@ -181,7 +181,7 @@ function LoginModal(props) {
                     className="foot-link"
                     onClick={(e) => {
                       e.preventDefault();
-                      setJoinLogin("회원가입");
+                      setJoinLogin('회원가입');
                     }}
                   >
                     회원가입
@@ -193,7 +193,7 @@ function LoginModal(props) {
                     onClick={(e) => {
                       e.preventDefault();
                       //비밀번호 경로 : /init
-                      history.push("/init");
+                      history.push('/init');
                     }}
                   >
                     비밀번호 찾기

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-import "../../css/LoginModal.css";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import '../../css/LoginModal.css';
 
 const InitInfo = (props) => {
   let [useremail, setUserEamil] = useState();
@@ -49,10 +49,10 @@ const InitInfo = (props) => {
             onClick={(e) => {
               e.preventDefault();
 
-              fetch("http://localhost:8000/initpwd/", {
-                method: "POST",
+              fetch('http://localhost:8000/initpwd/', {
+                method: 'POST',
                 headers: {
-                  "Content-Type": "application/json",
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
               });
@@ -65,7 +65,7 @@ const InitInfo = (props) => {
             className="foot-link"
             onClick={(e) => {
               e.preventDefault();
-              history.push("/login");
+              history.push('/login');
             }}
           >
             로그인

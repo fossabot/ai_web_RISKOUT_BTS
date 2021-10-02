@@ -80,7 +80,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -103,7 +103,7 @@ textarea,
 button {
   font-size: 18px;
   line-height: 1.7;
-  font-family: "Montserrat", "Noto Sans KR";
+  font-family: 'Montserrat', 'Noto Sans KR';
   color: #555;
 }
 
@@ -186,7 +186,7 @@ button {
 /* common */
 
 .clfix:after {
-  content: ".";
+  content: '.';
   display: block;
   height: 0px;
   clear: both;
@@ -997,7 +997,7 @@ button {
 }
 
 #sub_contents3_2 .include_keyword ul li em::after {
-  content: "";
+  content: '';
   width: 1px;
   height: 20px;
   background: #fff;

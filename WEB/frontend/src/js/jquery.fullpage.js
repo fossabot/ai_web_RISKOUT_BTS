@@ -6,14 +6,14 @@
  * Copyright (C) 2015 alvarotrigo.com - A project by Alvaro Trigo
  */
 (function (global, factory) {
-  "use strict";
-  if (typeof define === "function" && define.amd) {
-    define(["jquery"], function ($) {
+  'use strict';
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], function ($) {
       return factory($, global, global.document, global.Math);
     });
-  } else if (typeof exports === "object" && exports) {
+  } else if (typeof exports === 'object' && exports) {
     module.exports = factory(
-      require("jquery"),
+      require('jquery'),
       global,
       global.document,
       global.Math
@@ -22,74 +22,74 @@
     factory(jQuery, global, global.document, global.Math);
   }
 })(
-  typeof window !== "undefined" ? window : this,
+  typeof window !== 'undefined' ? window : this,
   function ($, window, document, Math, undefined) {
-    "use strict";
+    'use strict';
 
     // keeping central set of classnames and selectors
-    var WRAPPER = "fullpage-wrapper";
-    var WRAPPER_SEL = "." + WRAPPER;
+    var WRAPPER = 'fullpage-wrapper';
+    var WRAPPER_SEL = '.' + WRAPPER;
 
     // slimscroll
-    var SCROLLABLE = "fp-scrollable";
-    var SCROLLABLE_SEL = "." + SCROLLABLE;
+    var SCROLLABLE = 'fp-scrollable';
+    var SCROLLABLE_SEL = '.' + SCROLLABLE;
 
     // util
-    var RESPONSIVE = "fp-responsive";
-    var NO_TRANSITION = "fp-notransition";
-    var DESTROYED = "fp-destroyed";
-    var ENABLED = "fp-enabled";
-    var VIEWING_PREFIX = "fp-viewing";
-    var ACTIVE = "active";
-    var ACTIVE_SEL = "." + ACTIVE;
-    var COMPLETELY = "fp-completely";
-    var COMPLETELY_SEL = "." + COMPLETELY;
+    var RESPONSIVE = 'fp-responsive';
+    var NO_TRANSITION = 'fp-notransition';
+    var DESTROYED = 'fp-destroyed';
+    var ENABLED = 'fp-enabled';
+    var VIEWING_PREFIX = 'fp-viewing';
+    var ACTIVE = 'active';
+    var ACTIVE_SEL = '.' + ACTIVE;
+    var COMPLETELY = 'fp-completely';
+    var COMPLETELY_SEL = '.' + COMPLETELY;
 
     // section
-    var SECTION_DEFAULT_SEL = ".section";
-    var SECTION = "fp-section";
-    var SECTION_SEL = "." + SECTION;
+    var SECTION_DEFAULT_SEL = '.section';
+    var SECTION = 'fp-section';
+    var SECTION_SEL = '.' + SECTION;
     var SECTION_ACTIVE_SEL = SECTION_SEL + ACTIVE_SEL;
-    var SECTION_FIRST_SEL = SECTION_SEL + ":first";
-    var SECTION_LAST_SEL = SECTION_SEL + ":last";
-    var TABLE_CELL = "fp-tableCell";
-    var TABLE_CELL_SEL = "." + TABLE_CELL;
-    var AUTO_HEIGHT = "fp-auto-height";
-    var AUTO_HEIGHT_SEL = ".fp-auto-height";
-    var NORMAL_SCROLL = "fp-normal-scroll";
-    var NORMAL_SCROLL_SEL = ".fp-normal-scroll";
+    var SECTION_FIRST_SEL = SECTION_SEL + ':first';
+    var SECTION_LAST_SEL = SECTION_SEL + ':last';
+    var TABLE_CELL = 'fp-tableCell';
+    var TABLE_CELL_SEL = '.' + TABLE_CELL;
+    var AUTO_HEIGHT = 'fp-auto-height';
+    var AUTO_HEIGHT_SEL = '.fp-auto-height';
+    var NORMAL_SCROLL = 'fp-normal-scroll';
+    var NORMAL_SCROLL_SEL = '.fp-normal-scroll';
 
     // section nav
-    var SECTION_NAV = "fp-nav";
-    var SECTION_NAV_SEL = "#" + SECTION_NAV;
-    var SECTION_NAV_TOOLTIP = "fp-tooltip";
-    var SECTION_NAV_TOOLTIP_SEL = "." + SECTION_NAV_TOOLTIP;
-    var SHOW_ACTIVE_TOOLTIP = "fp-show-active";
+    var SECTION_NAV = 'fp-nav';
+    var SECTION_NAV_SEL = '#' + SECTION_NAV;
+    var SECTION_NAV_TOOLTIP = 'fp-tooltip';
+    var SECTION_NAV_TOOLTIP_SEL = '.' + SECTION_NAV_TOOLTIP;
+    var SHOW_ACTIVE_TOOLTIP = 'fp-show-active';
 
     // slide
-    var SLIDE_DEFAULT_SEL = ".slide";
-    var SLIDE = "fp-slide";
-    var SLIDE_SEL = "." + SLIDE;
+    var SLIDE_DEFAULT_SEL = '.slide';
+    var SLIDE = 'fp-slide';
+    var SLIDE_SEL = '.' + SLIDE;
     var SLIDE_ACTIVE_SEL = SLIDE_SEL + ACTIVE_SEL;
-    var SLIDES_WRAPPER = "fp-slides";
-    var SLIDES_WRAPPER_SEL = "." + SLIDES_WRAPPER;
-    var SLIDES_CONTAINER = "fp-slidesContainer";
-    var SLIDES_CONTAINER_SEL = "." + SLIDES_CONTAINER;
-    var TABLE = "fp-table";
+    var SLIDES_WRAPPER = 'fp-slides';
+    var SLIDES_WRAPPER_SEL = '.' + SLIDES_WRAPPER;
+    var SLIDES_CONTAINER = 'fp-slidesContainer';
+    var SLIDES_CONTAINER_SEL = '.' + SLIDES_CONTAINER;
+    var TABLE = 'fp-table';
 
     // slide nav
-    var SLIDES_NAV = "fp-slidesNav";
-    var SLIDES_NAV_SEL = "." + SLIDES_NAV;
-    var SLIDES_NAV_LINK_SEL = SLIDES_NAV_SEL + " a";
-    var SLIDES_ARROW = "fp-controlArrow";
-    var SLIDES_ARROW_SEL = "." + SLIDES_ARROW;
-    var SLIDES_PREV = "fp-prev";
-    var SLIDES_PREV_SEL = "." + SLIDES_PREV;
-    var SLIDES_ARROW_PREV = SLIDES_ARROW + " " + SLIDES_PREV;
+    var SLIDES_NAV = 'fp-slidesNav';
+    var SLIDES_NAV_SEL = '.' + SLIDES_NAV;
+    var SLIDES_NAV_LINK_SEL = SLIDES_NAV_SEL + ' a';
+    var SLIDES_ARROW = 'fp-controlArrow';
+    var SLIDES_ARROW_SEL = '.' + SLIDES_ARROW;
+    var SLIDES_PREV = 'fp-prev';
+    var SLIDES_PREV_SEL = '.' + SLIDES_PREV;
+    var SLIDES_ARROW_PREV = SLIDES_ARROW + ' ' + SLIDES_PREV;
     var SLIDES_ARROW_PREV_SEL = SLIDES_ARROW_SEL + SLIDES_PREV_SEL;
-    var SLIDES_NEXT = "fp-next";
-    var SLIDES_NEXT_SEL = "." + SLIDES_NEXT;
-    var SLIDES_ARROW_NEXT = SLIDES_ARROW + " " + SLIDES_NEXT;
+    var SLIDES_NEXT = 'fp-next';
+    var SLIDES_NEXT_SEL = '.' + SLIDES_NEXT;
+    var SLIDES_ARROW_NEXT = SLIDES_ARROW + ' ' + SLIDES_NEXT;
     var SLIDES_ARROW_NEXT_SEL = SLIDES_ARROW_SEL + SLIDES_NEXT_SEL;
 
     var $window = $(window);
@@ -97,14 +97,14 @@
 
     $.fn.fullpage = function (options) {
       //only once my friend!
-      if ($("html").hasClass(ENABLED)) {
+      if ($('html').hasClass(ENABLED)) {
         displayWarnings();
         return;
       }
 
       // common jQuery objects
-      var $htmlBody = $("html, body");
-      var $body = $("body");
+      var $htmlBody = $('html, body');
+      var $body = $('body');
 
       var FP = $.fn.fullpage;
 
@@ -116,11 +116,11 @@
           anchors: [],
           lockAnchors: false,
           navigation: false,
-          navigationPosition: "right",
+          navigationPosition: 'right',
           navigationTooltips: [],
           showActiveTooltip: false,
           slidesNavigation: false,
-          slidesNavPosition: "bottom",
+          slidesNavPosition: 'bottom',
           scrollBar: false,
           hybrid: false,
 
@@ -130,8 +130,8 @@
           autoScrolling: true,
           fitToSection: true,
           fitToSectionDelay: 1000,
-          easing: "easeInOutCubic",
-          easingcss3: "ease",
+          easing: 'easeInOutCubic',
+          easingcss3: 'ease',
           loopBottom: false,
           loopTop: false,
           loopHorizontal: true,
@@ -161,7 +161,7 @@
 
           //design
           controlArrows: true,
-          controlArrowColor: "#fff",
+          controlArrowColor: '#fff',
           verticalCentered: true,
           sectionsColor: [],
           paddingTop: 0,
@@ -173,9 +173,9 @@
           responsiveSlides: false,
           parallax: false,
           parallaxOptions: {
-            type: "reveal",
+            type: 'reveal',
             percentage: 62,
-            property: "translate",
+            property: 'translate',
           },
 
           //Custom selectors
@@ -204,7 +204,7 @@
         /(iPhone|iPod|iPad|Android|playbook|silk|BlackBerry|BB10|Windows Phone|Tizen|Bada|webOS|IEMobile|Opera Mini)/
       );
       var isTouch =
-        "ontouchstart" in window ||
+        'ontouchstart' in window ||
         navigator.msMaxTouchPoints > 0 ||
         navigator.maxTouchPoints;
       var container = $(this);
@@ -222,8 +222,8 @@
       isScrollAllowed.k = $.extend(true, {}, isScrollAllowed.m);
       var MSPointer = getMSPointer();
       var events = {
-        touchmove: "ontouchmove" in window ? "touchmove" : MSPointer.move,
-        touchstart: "ontouchstart" in window ? "touchstart" : MSPointer.down,
+        touchmove: 'ontouchmove' in window ? 'touchmove' : MSPointer.move,
+        touchstart: 'ontouchstart' in window ? 'touchstart' : MSPointer.down,
       };
       var scrollBarHandler;
 
@@ -260,22 +260,22 @@
           silentScroll(0);
         }
 
-        setVariableState("autoScrolling", value, type);
+        setVariableState('autoScrolling', value, type);
 
         var element = $(SECTION_ACTIVE_SEL);
 
         if (options.autoScrolling && !options.scrollBar) {
           $htmlBody.css({
-            overflow: "hidden",
-            height: "100%",
+            overflow: 'hidden',
+            height: '100%',
           });
 
-          setRecordHistory(originals.recordHistory, "internal");
+          setRecordHistory(originals.recordHistory, 'internal');
 
           //for IE touch devices
           container.css({
-            "-ms-touch-action": "none",
-            "touch-action": "none",
+            '-ms-touch-action': 'none',
+            'touch-action': 'none',
           });
 
           if (element.length) {
@@ -284,16 +284,16 @@
           }
         } else {
           $htmlBody.css({
-            overflow: "visible",
-            height: "initial",
+            overflow: 'visible',
+            height: 'initial',
           });
 
-          setRecordHistory(false, "internal");
+          setRecordHistory(false, 'internal');
 
           //for IE touch devices
           container.css({
-            "-ms-touch-action": "",
-            "touch-action": "",
+            '-ms-touch-action': '',
+            'touch-action': '',
           });
 
           //scrolling the page to the section with no animation
@@ -307,21 +307,21 @@
        * Defines wheter to record the history for each hash change in the URL.
        */
       function setRecordHistory(value, type) {
-        setVariableState("recordHistory", value, type);
+        setVariableState('recordHistory', value, type);
       }
 
       /**
        * Defines the scrolling speed
        */
       function setScrollingSpeed(value, type) {
-        setVariableState("scrollingSpeed", value, type);
+        setVariableState('scrollingSpeed', value, type);
       }
 
       /**
        * Sets fitToSection
        */
       function setFitToSection(value, type) {
-        setVariableState("fitToSection", value, type);
+        setVariableState('fitToSection', value, type);
       }
 
       /**
@@ -351,14 +351,14 @@
        * @param directions string containing the direction or directions separated by comma.
        */
       function setAllowScrolling(value, directions) {
-        if (typeof directions !== "undefined") {
-          directions = directions.replace(/ /g, "").split(",");
+        if (typeof directions !== 'undefined') {
+          directions = directions.replace(/ /g, '').split(',');
 
           $.each(directions, function (index, direction) {
-            setIsScrollAllowed(value, direction, "m");
+            setIsScrollAllowed(value, direction, 'm');
           });
         } else {
-          setIsScrollAllowed(value, "all", "m");
+          setIsScrollAllowed(value, 'all', 'm');
 
           if (value) {
             setMouseWheelScrolling(true);
@@ -374,14 +374,14 @@
        * Adds or remove the possibility of scrolling through sections by using the keyboard arrow keys
        */
       function setKeyboardScrolling(value, directions) {
-        if (typeof directions !== "undefined") {
-          directions = directions.replace(/ /g, "").split(",");
+        if (typeof directions !== 'undefined') {
+          directions = directions.replace(/ /g, '').split(',');
 
           $.each(directions, function (index, direction) {
-            setIsScrollAllowed(value, direction, "k");
+            setIsScrollAllowed(value, direction, 'k');
           });
         } else {
-          setIsScrollAllowed(value, "all", "k");
+          setIsScrollAllowed(value, 'all', 'k');
           options.keyboardScrolling = value;
         }
       }
@@ -431,9 +431,9 @@
        * Anchors or index positions can be used as params.
        */
       function silentMoveTo(sectionAnchor, slideAnchor) {
-        setScrollingSpeed(0, "internal");
+        setScrollingSpeed(0, 'internal');
         moveTo(sectionAnchor, slideAnchor);
-        setScrollingSpeed(originals.scrollingSpeed, "internal");
+        setScrollingSpeed(originals.scrollingSpeed, 'internal');
       }
 
       /**
@@ -443,7 +443,7 @@
       function moveTo(sectionAnchor, slideAnchor) {
         var destiny = getSectionByAnchor(sectionAnchor);
 
-        if (typeof slideAnchor !== "undefined") {
+        if (typeof slideAnchor !== 'undefined') {
           scrollPageAndSlide(sectionAnchor, slideAnchor);
         } else if (destiny.length > 0) {
           scrollPage(destiny);
@@ -455,7 +455,7 @@
        * Optional `section` param.
        */
       function moveSlideRight(section) {
-        moveSlide("right", section);
+        moveSlide('right', section);
       }
 
       /**
@@ -463,7 +463,7 @@
        * Optional `section` param.
        */
       function moveSlideLeft(section) {
-        moveSlide("left", section);
+        moveSlide('left', section);
       }
 
       /**
@@ -486,10 +486,10 @@
           if (options.verticalCentered) {
             $(this)
               .find(TABLE_CELL_SEL)
-              .css("height", getTableHeight($(this)) + "px");
+              .css('height', getTableHeight($(this)) + 'px');
           }
 
-          $(this).css("height", windowsHeight + "px");
+          $(this).css('height', windowsHeight + 'px');
 
           //adjusting the position fo the FULL WIDTH slides...
           if (slides.length > 1) {
@@ -528,16 +528,16 @@
 
         if (active) {
           if (!isResponsive) {
-            setAutoScrolling(false, "internal");
-            setFitToSection(false, "internal");
+            setAutoScrolling(false, 'internal');
+            setFitToSection(false, 'internal');
             $(SECTION_NAV_SEL).hide();
             $body.addClass(RESPONSIVE);
             $.isFunction(options.afterResponsive) &&
               options.afterResponsive.call(container, active);
           }
         } else if (isResponsive) {
-          setAutoScrolling(originals.autoScrolling, "internal");
-          setFitToSection(originals.autoScrolling, "internal");
+          setAutoScrolling(originals.autoScrolling, 'internal');
+          setFitToSection(originals.autoScrolling, 'internal');
           $(SECTION_NAV_SEL).show();
           $body.removeClass(RESPONSIVE);
           $.isFunction(options.afterResponsive) &&
@@ -547,7 +547,7 @@
 
       if ($(this).length) {
         //public functions
-        FP.version = "2.9.6";
+        FP.version = '2.9.6';
         FP.setAutoScrolling = setAutoScrolling;
         FP.setRecordHistory = setRecordHistory;
         FP.setScrollingSpeed = setScrollingSpeed;
@@ -589,26 +589,26 @@
         setOptionsFromDOM();
         prepareDom();
         setAllowScrolling(true);
-        setAutoScrolling(options.autoScrolling, "internal");
+        setAutoScrolling(options.autoScrolling, 'internal');
         responsive();
 
         //setting the class for the body element
         setBodyClass();
 
-        if (document.readyState === "complete") {
+        if (document.readyState === 'complete') {
           scrollToAnchor();
         }
-        $window.on("load", scrollToAnchor);
+        $window.on('load', scrollToAnchor);
       }
 
       function bindEvents() {
         $window
           //when scrolling...
-          .on("scroll", scrollHandler)
+          .on('scroll', scrollHandler)
 
           //detecting any change on the URL to scroll to the given anchor link
           //(a way to detect back history button as we play with the hashes on the URL)
-          .on("hashchange", hashChangeHandler)
+          .on('hashchange', hashChangeHandler)
 
           //when opening a new tab (ctrl + t), `control` won't be pressed when coming back.
           .blur(blurHandler)
@@ -624,16 +624,16 @@
           .keyup(keyUpHandler)
 
           //Scrolls to the section when clicking the navigation bullet
-          .on("click touchstart", SECTION_NAV_SEL + " a", sectionBulletHandler)
+          .on('click touchstart', SECTION_NAV_SEL + ' a', sectionBulletHandler)
 
           //Scrolls the slider to the given slide destination for the given section
-          .on("click touchstart", SLIDES_NAV_LINK_SEL, slideBulletHandler)
+          .on('click touchstart', SLIDES_NAV_LINK_SEL, slideBulletHandler)
 
-          .on("click", SECTION_NAV_TOOLTIP_SEL, tooltipTextHandler);
+          .on('click', SECTION_NAV_TOOLTIP_SEL, tooltipTextHandler);
 
         //Scrolling horizontally when clicking on the slider controls.
         $(SECTION_SEL).on(
-          "click touchstart",
+          'click touchstart',
           SLIDES_ARROW_SEL,
           slideArrowHandler
         );
@@ -644,7 +644,7 @@
          */
         if (options.normalScrollElements) {
           $document.on(
-            "mouseenter touchstart",
+            'mouseenter touchstart',
             options.normalScrollElements,
             function () {
               setAllowScrolling(false);
@@ -652,7 +652,7 @@
           );
 
           $document.on(
-            "mouseleave touchend",
+            'mouseleave touchend',
             options.normalScrollElements,
             function () {
               setAllowScrolling(true);
@@ -670,9 +670,9 @@
         //no anchors option? Checking for them in the DOM attributes
         if (!options.anchors.length) {
           options.anchors = sections
-            .filter("[data-anchor]")
+            .filter('[data-anchor]')
             .map(function () {
-              return $(this).data("anchor").toString();
+              return $(this).data('anchor').toString();
             })
             .get();
         }
@@ -680,9 +680,9 @@
         //no tooltips option? Checking for them in the DOM attributes
         if (!options.navigationTooltips.length) {
           options.navigationTooltips = sections
-            .filter("[data-tooltip]")
+            .filter('[data-tooltip]')
             .map(function () {
-              return $(this).data("tooltip").toString();
+              return $(this).data('tooltip').toString();
             })
             .get();
         }
@@ -693,13 +693,13 @@
        */
       function prepareDom() {
         container.css({
-          height: "100%",
-          position: "relative",
+          height: '100%',
+          position: 'relative',
         });
 
         //adding a class to recognize the container internally in the code
         container.addClass(WRAPPER);
-        $("html").addClass(ENABLED);
+        $('html').addClass(ENABLED);
 
         //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
         windowsHeight = $window.height();
@@ -715,7 +715,7 @@
           var numSlides = slides.length;
 
           //caching the original styles to add them back on destroy('all')
-          section.data("fp-styles", section.attr("style"));
+          section.data('fp-styles', section.attr('style'));
 
           styleSection(section, index);
           styleMenu(section, index);
@@ -759,7 +759,7 @@
         slides.wrapAll('<div class="' + SLIDES_CONTAINER + '" />');
         slides.parent().wrap('<div class="' + SLIDES_WRAPPER + '" />');
 
-        section.find(SLIDES_CONTAINER_SEL).css("width", sliderWidth + "%");
+        section.find(SLIDES_CONTAINER_SEL).css('width', sliderWidth + '%');
 
         if (numSlides > 1) {
           if (options.controlArrows) {
@@ -772,7 +772,7 @@
         }
 
         slides.each(function (index) {
-          $(this).css("width", slideWidth + "%");
+          $(this).css('width', slideWidth + '%');
 
           if (options.verticalCentered) {
             addTableClass($(this));
@@ -789,7 +789,7 @@
             ($(SECTION_ACTIVE_SEL).index(SECTION_SEL) === 0 &&
               startingSlide.index() !== 0))
         ) {
-          silentLandscapeScroll(startingSlide, "internal");
+          silentLandscapeScroll(startingSlide, 'internal');
         } else {
           slides.eq(0).addClass(ACTIVE);
         }
@@ -805,22 +805,22 @@
         }
         startingSection = $(SECTION_ACTIVE_SEL);
 
-        section.css("height", windowsHeight + "px");
+        section.css('height', windowsHeight + 'px');
 
         if (options.paddingTop) {
-          section.css("padding-top", options.paddingTop);
+          section.css('padding-top', options.paddingTop);
         }
 
         if (options.paddingBottom) {
-          section.css("padding-bottom", options.paddingBottom);
+          section.css('padding-bottom', options.paddingBottom);
         }
 
-        if (typeof options.sectionsColor[index] !== "undefined") {
-          section.css("background-color", options.sectionsColor[index]);
+        if (typeof options.sectionsColor[index] !== 'undefined') {
+          section.css('background-color', options.sectionsColor[index]);
         }
 
-        if (typeof options.anchors[index] !== "undefined") {
-          section.attr("data-anchor", options.anchors[index]);
+        if (typeof options.anchors[index] !== 'undefined') {
+          section.attr('data-anchor', options.anchors[index]);
         }
       }
 
@@ -828,7 +828,7 @@
        * Sets the data-anchor attributes to the menu elements and activates the current one.
        */
       function styleMenu(section, index) {
-        if (typeof options.anchors[index] !== "undefined") {
+        if (typeof options.anchors[index] !== 'undefined') {
           //activating the menu / nav element on load
           if (section.hasClass(ACTIVE)) {
             activateMenuAndNav(options.anchors[index], index);
@@ -868,20 +868,20 @@
               '"></div>'
           );
 
-        if (options.controlArrowColor != "#fff") {
+        if (options.controlArrowColor != '#fff') {
           section
             .find(SLIDES_ARROW_NEXT_SEL)
             .css(
-              "border-color",
-              "transparent transparent transparent " + options.controlArrowColor
+              'border-color',
+              'transparent transparent transparent ' + options.controlArrowColor
             );
           section
             .find(SLIDES_ARROW_PREV_SEL)
             .css(
-              "border-color",
-              "transparent " +
+              'border-color',
+              'transparent ' +
                 options.controlArrowColor +
-                " transparent transparent"
+                ' transparent transparent'
             );
         }
 
@@ -899,12 +899,12 @@
 
         nav.addClass(function () {
           return options.showActiveTooltip
-            ? SHOW_ACTIVE_TOOLTIP + " " + options.navigationPosition
+            ? SHOW_ACTIVE_TOOLTIP + ' ' + options.navigationPosition
             : options.navigationPosition;
         });
 
         for (var i = 0; i < $(SECTION_SEL).length; i++) {
-          var link = "";
+          var link = '';
           if (options.anchors.length) {
             link = options.anchors[i];
           }
@@ -914,33 +914,33 @@
           // Only add tooltip if needed (defined by user)
           var tooltip = options.navigationTooltips[i];
 
-          if (typeof tooltip !== "undefined" && tooltip !== "") {
+          if (typeof tooltip !== 'undefined' && tooltip !== '') {
             li +=
               '<div class="' +
               SECTION_NAV_TOOLTIP +
-              " " +
+              ' ' +
               options.navigationPosition +
               '">' +
               tooltip +
-              "</div>";
+              '</div>';
           }
 
-          li += "</li>";
+          li += '</li>';
 
-          nav.find("ul").append(li);
+          nav.find('ul').append(li);
         }
 
         //centering it vertically
         $(SECTION_NAV_SEL).css(
-          "margin-top",
-          "-" + $(SECTION_NAV_SEL).height() / 2 + "px"
+          'margin-top',
+          '-' + $(SECTION_NAV_SEL).height() / 2 + 'px'
         );
 
         //activating the current active section
         $(SECTION_NAV_SEL)
-          .find("li")
+          .find('li')
           .eq($(SECTION_ACTIVE_SEL).index(SECTION_SEL))
-          .find("a")
+          .find('a')
           .addClass(ACTIVE);
       }
 
@@ -949,7 +949,7 @@
        */
       function enableYoutubeAPI() {
         container.find('iframe[src*="youtube.com/embed/"]').each(function () {
-          addURLParam($(this), "enablejsapi=1");
+          addURLParam($(this), 'enablejsapi=1');
         });
       }
 
@@ -957,9 +957,9 @@
        * Adds a new parameter and its value to the `src` of a given element
        */
       function addURLParam(element, newParam) {
-        var originalSrc = element.attr("src");
+        var originalSrc = element.attr('src');
         element.attr(
-          "src",
+          'src',
           originalSrc + getUrlParamSign(originalSrc) + newParam
         );
       }
@@ -970,7 +970,7 @@
        * @return {String}  ? | &
        */
       function getUrlParamSign(url) {
-        return !/\?/.test(url) ? "?" : "&";
+        return !/\?/.test(url) ? '?' : '&';
       }
 
       /**
@@ -992,7 +992,7 @@
           $.isFunction(options.afterLoad) &&
             options.afterLoad.call(
               section,
-              section.data("anchor"),
+              section.data('anchor'),
               section.index(SECTION_SEL) + 1
             );
         }
@@ -1068,14 +1068,14 @@
             var leavingSection = $(SECTION_ACTIVE_SEL);
             var leavingSectionIndex = leavingSection.index(SECTION_SEL) + 1;
             var yMovement = getYmovement(currentSection);
-            var anchorLink = currentSection.data("anchor");
+            var anchorLink = currentSection.data('anchor');
             var sectionIndex = currentSection.index(SECTION_SEL) + 1;
             var activeSlide = currentSection.find(SLIDE_ACTIVE_SEL);
             var slideIndex;
             var slideAnchorLink;
 
             if (activeSlide.length) {
-              slideAnchorLink = activeSlide.data("anchor");
+              slideAnchorLink = activeSlide.data('anchor');
               slideIndex = activeSlide.index();
             }
 
@@ -1156,7 +1156,7 @@
         var top = $(SECTION_ACTIVE_SEL).position().top;
         var bottom = top + $window.height();
 
-        if (movement == "up") {
+        if (movement == 'up') {
           return bottom >= $window.scrollTop() + $window.height();
         }
         return top <= $window.scrollTop();
@@ -1166,7 +1166,7 @@
        * Gets the directon of the the scrolling fired by the scroll event.
        */
       function getScrollDirection(currentScroll) {
-        var direction = currentScroll > lastScroll ? "down" : "up";
+        var direction = currentScroll > lastScroll ? 'down' : 'up';
 
         lastScroll = currentScroll;
 
@@ -1185,13 +1185,13 @@
           return;
         }
 
-        var scrollSection = type === "down" ? moveSectionDown : moveSectionUp;
+        var scrollSection = type === 'down' ? moveSectionDown : moveSectionUp;
 
         if (options.scrollOverflow) {
           var scrollable = options.scrollOverflowHandler.scrollable(
             $(SECTION_ACTIVE_SEL)
           );
-          var check = type === "down" ? "bottom" : "top";
+          var check = type === 'down' ? 'bottom' : 'top';
 
           if (scrollable.length > 0) {
             //is the scrollbar at the start/end of the scroll?
@@ -1280,9 +1280,9 @@
               ($window.height() / 100) * options.touchSensitivity
             ) {
               if (touchStartY > touchEndY) {
-                scrolling("down");
+                scrolling('down');
               } else if (touchEndY > touchStartY) {
-                scrolling("up");
+                scrolling('up');
               }
             }
           }
@@ -1295,7 +1295,7 @@
        */
       function isReallyTouch(e) {
         //if is not IE   ||  IE is detecting `touch` or `pen`
-        return typeof e.pointerType === "undefined" || e.pointerType != "mouse";
+        return typeof e.pointerType === 'undefined' || e.pointerType != 'mouse';
       }
 
       /**
@@ -1354,8 +1354,8 @@
           var delta = Math.max(-1, Math.min(1, value));
 
           var horizontalDetection =
-            typeof e.wheelDeltaX !== "undefined" ||
-            typeof e.deltaX !== "undefined";
+            typeof e.wheelDeltaX !== 'undefined' ||
+            typeof e.deltaX !== 'undefined';
           var isScrollingVertically =
             Math.abs(e.wheelDeltaX) < Math.abs(e.wheelDelta) ||
             Math.abs(e.deltaX) < Math.abs(e.deltaY) ||
@@ -1394,11 +1394,11 @@
             if (isAccelerating && isScrollingVertically) {
               //scrolling down?
               if (delta < 0) {
-                scrolling("down");
+                scrolling('down');
 
                 //scrolling up?
               } else {
-                scrolling("up");
+                scrolling('up');
               }
             }
           }
@@ -1418,7 +1418,7 @@
        */
       function moveSlide(direction, section) {
         var activeSection =
-          typeof section === "undefined" ? $(SECTION_ACTIVE_SEL) : section;
+          typeof section === 'undefined' ? $(SECTION_ACTIVE_SEL) : section;
         var slides = activeSection.find(SLIDES_WRAPPER_SEL);
         var numSlides = slides.find(SLIDE_SEL).length;
 
@@ -1430,7 +1430,7 @@
         var currentSlide = slides.find(SLIDE_ACTIVE_SEL);
         var destiny = null;
 
-        if (direction === "left") {
+        if (direction === 'left') {
           destiny = currentSlide.prev(SLIDE_SEL);
         } else {
           destiny = currentSlide.next(SLIDE_SEL);
@@ -1441,10 +1441,10 @@
           //respect loopHorizontal settin
           if (!options.loopHorizontal) return;
 
-          if (direction === "left") {
-            destiny = currentSlide.siblings(":last");
+          if (direction === 'left') {
+            destiny = currentSlide.siblings(':last');
           } else {
-            destiny = currentSlide.siblings(":first");
+            destiny = currentSlide.siblings(':first');
           }
         }
 
@@ -1459,7 +1459,7 @@
        */
       function keepSlidesPosition() {
         $(SLIDE_ACTIVE_SEL).each(function () {
-          silentLandscapeScroll($(this), "internal");
+          silentLandscapeScroll($(this), 'internal');
         });
       }
 
@@ -1482,14 +1482,14 @@
           //scrolling up?
           if (
             (!isScrollingDown && !bigSectionsDestination) ||
-            bigSectionsDestination === "bottom"
+            bigSectionsDestination === 'bottom'
           ) {
             position = sectionBottom;
           }
         }
 
         //sections equal or smaller than the viewport height && scrolling down? ||  is resizing and its in the last section
-        else if (isScrollingDown || (isResizing && element.is(":last-child"))) {
+        else if (isScrollingDown || (isResizing && element.is(':last-child'))) {
           //The bottom of the destination will be at the bottom of the viewport
           position = sectionBottom;
         }
@@ -1508,7 +1508,7 @@
        * Scrolls the site to the given element and scrolls to the slide if a callback is given.
        */
       function scrollPage(element, callback, isMovementUp) {
-        if (typeof element === "undefined") {
+        if (typeof element === 'undefined') {
           return;
         } //there's no element to scroll, leaving the function
 
@@ -1523,7 +1523,7 @@
           isMovementUp: isMovementUp,
           dtop: dtop,
           yMovement: getYmovement(element),
-          anchorLink: element.data("anchor"),
+          anchorLink: element.data('anchor'),
           sectionIndex: element.index(SECTION_SEL),
           activeSlide: element.find(SLIDE_ACTIVE_SEL),
           activeSection: $(SECTION_ACTIVE_SEL),
@@ -1545,7 +1545,7 @@
         }
 
         if (v.activeSlide.length) {
-          slideAnchorLink = v.activeSlide.data("anchor");
+          slideAnchorLink = v.activeSlide.data('anchor');
           slideIndex = v.activeSlide.index();
         }
 
@@ -1554,8 +1554,8 @@
           var direction = v.yMovement;
 
           //required for continousVertical
-          if (typeof isMovementUp !== "undefined") {
-            direction = isMovementUp ? "up" : "down";
+          if (typeof isMovementUp !== 'undefined') {
+            direction = isMovementUp ? 'up' : 'down';
           }
 
           if (
@@ -1574,9 +1574,9 @@
         if (
           options.autoScrolling &&
           options.continuousVertical &&
-          typeof v.isMovementUp !== "undefined" &&
-          ((!v.isMovementUp && v.yMovement == "up") || // Intending to scroll down but about to go up or
-            (v.isMovementUp && v.yMovement == "down"))
+          typeof v.isMovementUp !== 'undefined' &&
+          ((!v.isMovementUp && v.yMovement == 'up') || // Intending to scroll down but about to go up or
+            (v.isMovementUp && v.yMovement == 'down'))
         ) {
           // intending to scroll up but about to go down
 
@@ -1623,7 +1623,7 @@
           // The first section can have a negative value in iOS 10. Not quite sure why: -0.0142822265625
           // that's why we round it to 0.
           var translate3d =
-            "translate3d(0px, -" + Math.round(v.dtop) + "px, 0px)";
+            'translate3d(0px, -' + Math.round(v.dtop) + 'px, 0px)';
           transformContainer(translate3d, true);
 
           //even when the scrollingSpeed is 0 there's a little delay, which might cause the
@@ -1679,7 +1679,7 @@
           scroll.element = WRAPPER_SEL;
         } else {
           scroll.options = { scrollTop: v.dtop };
-          scroll.element = "html, body";
+          scroll.element = 'html, body';
         }
 
         return scroll;
@@ -1777,7 +1777,7 @@
       function setSrc(element, attribute) {
         element
           .attr(attribute, element.data(attribute))
-          .removeAttr("data-" + attribute);
+          .removeAttr('data-' + attribute);
       }
 
       /**
@@ -1793,22 +1793,22 @@
 
         panel
           .find(
-            "img[data-src], img[data-srcset], source[data-src], source[data-srcset], video[data-src], audio[data-src], iframe[data-src]"
+            'img[data-src], img[data-srcset], source[data-src], source[data-srcset], video[data-src], audio[data-src], iframe[data-src]'
           )
           .each(function () {
             element = $(this);
 
-            $.each(["src", "srcset"], function (index, type) {
-              var attribute = element.attr("data-" + type);
-              if (typeof attribute !== "undefined" && attribute) {
+            $.each(['src', 'srcset'], function (index, type) {
+              var attribute = element.attr('data-' + type);
+              if (typeof attribute !== 'undefined' && attribute) {
                 setSrc(element, type);
               }
             });
 
-            if (element.is("source")) {
-              var typeToPlay = element.closest("video").length
-                ? "video"
-                : "audio";
+            if (element.is('source')) {
+              var typeToPlay = element.closest('video').length
+                ? 'video'
+                : 'audio';
               element.closest(typeToPlay).get(0).load();
             }
           });
@@ -1821,12 +1821,12 @@
         var panel = getSlideOrSection(destiny);
 
         //playing HTML5 media elements
-        panel.find("video, audio").each(function () {
+        panel.find('video, audio').each(function () {
           var element = $(this).get(0);
 
           if (
-            element.hasAttribute("data-autoplay") &&
-            typeof element.play === "function"
+            element.hasAttribute('data-autoplay') &&
+            typeof element.play === 'function'
           ) {
             element.play();
           }
@@ -1836,13 +1836,13 @@
         panel.find('iframe[src*="youtube.com/embed/"]').each(function () {
           var element = $(this).get(0);
 
-          if (element.hasAttribute("data-autoplay")) {
+          if (element.hasAttribute('data-autoplay')) {
             playYoutube(element);
           }
 
           //in case the URL was not loaded yet. On page load we need time for the new URL (with the API string) to load.
           element.onload = function () {
-            if (element.hasAttribute("data-autoplay")) {
+            if (element.hasAttribute('data-autoplay')) {
               playYoutube(element);
             }
           };
@@ -1855,7 +1855,7 @@
       function playYoutube(element) {
         element.contentWindow.postMessage(
           '{"event":"command","func":"playVideo","args":""}',
-          "*"
+          '*'
         );
       }
 
@@ -1866,12 +1866,12 @@
         var panel = getSlideOrSection(destiny);
 
         //stopping HTML5 media elements
-        panel.find("video, audio").each(function () {
+        panel.find('video, audio').each(function () {
           var element = $(this).get(0);
 
           if (
-            !element.hasAttribute("data-keepplaying") &&
-            typeof element.pause === "function"
+            !element.hasAttribute('data-keepplaying') &&
+            typeof element.pause === 'function'
           ) {
             element.pause();
           }
@@ -1882,14 +1882,14 @@
           var element = $(this).get(0);
 
           if (
-            /youtube\.com\/embed\//.test($(this).attr("src")) &&
-            !element.hasAttribute("data-keepplaying")
+            /youtube\.com\/embed\//.test($(this).attr('src')) &&
+            !element.hasAttribute('data-keepplaying')
           ) {
             $(this)
               .get(0)
               .contentWindow.postMessage(
                 '{"event":"command","func":"pauseVideo","args":""}',
-                "*"
+                '*'
               );
           }
         });
@@ -1936,10 +1936,10 @@
           var slideAnchor = anchors.slide;
 
           //when moving to a slide in the first section for the first time (first time to add an anchor to the URL)
-          var isFirstSlideMove = typeof lastScrolledDestiny === "undefined";
+          var isFirstSlideMove = typeof lastScrolledDestiny === 'undefined';
           var isFirstScrollMove =
-            typeof lastScrolledDestiny === "undefined" &&
-            typeof slideAnchor === "undefined" &&
+            typeof lastScrolledDestiny === 'undefined' &&
+            typeof slideAnchor === 'undefined' &&
             !slideMoving;
 
           if (sectionAnchor && sectionAnchor.length) {
@@ -1967,13 +1967,13 @@
 
         if (hash.length) {
           //getting the anchor link in the URL and deleting the `#`
-          var anchorsParts = hash.replace("#", "").split("/");
+          var anchorsParts = hash.replace('#', '').split('/');
 
           //using / for visual reasons and not as a section/slide separator #2803
-          var isFunkyAnchor = hash.indexOf("#/") > -1;
+          var isFunkyAnchor = hash.indexOf('#/') > -1;
 
           section = isFunkyAnchor
-            ? "/" + anchorsParts[1]
+            ? '/' + anchorsParts[1]
             : decodeURIComponent(anchorsParts[0]);
 
           var slideAnchor = isFunkyAnchor ? anchorsParts[2] : anchorsParts[1];
@@ -1992,18 +1992,18 @@
       function keydownHandler(e) {
         clearTimeout(keydownId);
 
-        var activeElement = $(":focus");
+        var activeElement = $(':focus');
         var keyCode = e.which;
 
         //tab?
         if (keyCode === 9) {
           onTab(e);
         } else if (
-          !activeElement.is("textarea") &&
-          !activeElement.is("input") &&
-          !activeElement.is("select") &&
-          activeElement.attr("contentEditable") !== "true" &&
-          activeElement.attr("contentEditable") !== "" &&
+          !activeElement.is('textarea') &&
+          !activeElement.is('input') &&
+          !activeElement.is('select') &&
+          activeElement.attr('contentEditable') !== 'true' &&
+          activeElement.attr('contentEditable') !== '' &&
           options.keyboardScrolling &&
           options.autoScrolling
         ) {
@@ -2022,7 +2022,7 @@
       }
 
       function tooltipTextHandler() {
-        $(this).prev().trigger("click");
+        $(this).prev().trigger('click');
       }
 
       //to prevent scrolling while zooming
@@ -2038,7 +2038,7 @@
         //middle button
         if (e.which == 2) {
           oldPageY = e.pageY;
-          container.on("mousemove", mouseMoveHandler);
+          container.on('mousemove', mouseMoveHandler);
         }
       }
 
@@ -2046,7 +2046,7 @@
       function mouseUpHandler(e) {
         //middle button
         if (e.which == 2) {
-          container.off("mousemove");
+          container.off('mousemove');
         }
       }
 
@@ -2082,7 +2082,7 @@
       function slideBulletHandler(e) {
         e.preventDefault();
         var slides = $(this).closest(SECTION_SEL).find(SLIDES_WRAPPER_SEL);
-        var destiny = slides.find(SLIDE_SEL).eq($(this).closest("li").index());
+        var destiny = slides.find(SLIDE_SEL).eq($(this).closest('li').index());
 
         landscapeScroll(slides, destiny);
       }
@@ -2162,7 +2162,7 @@
        */
       function onTab(e) {
         var isShiftPressed = e.shiftKey;
-        var activeElement = $(":focus");
+        var activeElement = $(':focus');
         var activeSection = $(SECTION_ACTIVE_SEL);
         var activeSlide = activeSection.find(SLIDE_ACTIVE_SEL);
         var focusableWrapper = activeSlide.length ? activeSlide : activeSection;
@@ -2232,7 +2232,7 @@
           slideIndex: destiny.index(),
           section: section,
           sectionIndex: section.index(SECTION_SEL),
-          anchorLink: section.data("anchor"),
+          anchorLink: section.data('anchor'),
           slidesNav: section.find(SLIDES_NAV_SEL),
           slideAnchor: getAnchor(destiny),
           prevSlide: section.find(SLIDE_ACTIVE_SEL),
@@ -2252,7 +2252,7 @@
 
         if (options.onSlideLeave) {
           //if the site is not just resizing and readjusting the slides
-          if (!v.localIsResizing && v.xMovement !== "none") {
+          if (!v.localIsResizing && v.xMovement !== 'none') {
             if ($.isFunction(options.onSlideLeave)) {
               if (
                 options.onSlideLeave.call(
@@ -2285,7 +2285,7 @@
           //hidding it for the last slide, showing for the rest
           section
             .find(SLIDES_ARROW_NEXT_SEL)
-            .toggle(!destiny.is(":last-child"));
+            .toggle(!destiny.is(':last-child'));
         }
 
         //only changing the URL if the slides are in the current section (not for resize re-adjusting)
@@ -2331,7 +2331,7 @@
 
         if (options.css3) {
           var translate3d =
-            "translate3d(-" + Math.round(destinyPos.left) + "px, 0px, 0px)";
+            'translate3d(-' + Math.round(destinyPos.left) + 'px, 0px, 0px)';
 
           addAnimation(slides.find(SLIDES_CONTAINER_SEL)).css(
             getTransforms(translate3d)
@@ -2363,7 +2363,7 @@
        */
       function activeSlidesNavigation(slidesNav, slideIndex) {
         slidesNav.find(ACTIVE_SEL).removeClass(ACTIVE);
-        slidesNav.find("li").eq(slideIndex).find("a").addClass(ACTIVE);
+        slidesNav.find('li').eq(slideIndex).find('a').addClass(ACTIVE);
       }
 
       var previousHeight = windowsHeight;
@@ -2379,9 +2379,9 @@
 
           //if the keyboard is NOT visible
           if (
-            !activeElement.is("textarea") &&
-            !activeElement.is("input") &&
-            !activeElement.is("select")
+            !activeElement.is('textarea') &&
+            !activeElement.is('input') &&
+            !activeElement.is('select')
           ) {
             var currentHeight = $window.height();
 
@@ -2433,11 +2433,11 @@
        */
       function addAnimation(element) {
         var transition =
-          "all " + options.scrollingSpeed + "ms " + options.easingcss3;
+          'all ' + options.scrollingSpeed + 'ms ' + options.easingcss3;
 
         element.removeClass(NO_TRANSITION);
         return element.css({
-          "-webkit-transition": transition,
+          '-webkit-transition': transition,
           transition: transition,
         });
       }
@@ -2461,9 +2461,9 @@
               .addClass(ACTIVE);
           } else {
             $(SECTION_NAV_SEL)
-              .find("li")
+              .find('li')
               .eq(sectionIndex)
-              .find("a")
+              .find('a')
               .addClass(ACTIVE);
           }
         }
@@ -2497,12 +2497,12 @@
         var fromIndex = $(SECTION_ACTIVE_SEL).index(SECTION_SEL);
         var toIndex = destiny.index(SECTION_SEL);
         if (fromIndex == toIndex) {
-          return "none";
+          return 'none';
         }
         if (fromIndex > toIndex) {
-          return "up";
+          return 'up';
         }
-        return "down";
+        return 'down';
       }
 
       /**
@@ -2511,12 +2511,12 @@
        */
       function getXmovement(fromIndex, toIndex) {
         if (fromIndex == toIndex) {
-          return "none";
+          return 'none';
         }
         if (fromIndex > toIndex) {
-          return "left";
+          return 'left';
         }
-        return "right";
+        return 'right';
       }
 
       function addTableClass(element) {
@@ -2539,8 +2539,8 @@
           }
 
           var paddings =
-            parseInt(section.css("padding-top")) +
-            parseInt(section.css("padding-bottom"));
+            parseInt(section.css('padding-top')) +
+            parseInt(section.css('padding-bottom'));
           sectionHeight = windowsHeight - paddings;
         }
 
@@ -2574,7 +2574,7 @@
         );
         if (!section.length) {
           var sectionIndex =
-            typeof sectionAnchor !== "undefined" ? sectionAnchor - 1 : 0;
+            typeof sectionAnchor !== 'undefined' ? sectionAnchor - 1 : 0;
           section = $(SECTION_SEL).eq(sectionIndex);
         }
 
@@ -2589,7 +2589,7 @@
           SLIDE_SEL + '[data-anchor="' + slideAnchor + '"]'
         );
         if (!slide.length) {
-          slideAnchor = typeof slideAnchor !== "undefined" ? slideAnchor : 0;
+          slideAnchor = typeof slideAnchor !== 'undefined' ? slideAnchor : 0;
           slide = section.find(SLIDE_SEL).eq(slideAnchor);
         }
 
@@ -2642,13 +2642,13 @@
         nav.addClass(options.slidesNavPosition);
 
         for (var i = 0; i < numSlides; i++) {
-          nav.find("ul").append('<li><a href="#"><span></span></a></li>');
+          nav.find('ul').append('<li><a href="#"><span></span></a></li>');
         }
 
         //centering it
-        nav.css("margin-left", "-" + nav.width() / 2 + "px");
+        nav.css('margin-left', '-' + nav.width() / 2 + 'px');
 
-        nav.find("li").first().find("a").addClass(ACTIVE);
+        nav.find('li').first().find('a').addClass(ACTIVE);
       }
 
       /**
@@ -2656,25 +2656,25 @@
        * It changes the URL hash when needed and updates the body class.
        */
       function setState(slideIndex, slideAnchor, anchorLink, sectionIndex) {
-        var sectionHash = "";
+        var sectionHash = '';
 
         if (options.anchors.length && !options.lockAnchors) {
           //isn't it the first slide?
           if (slideIndex) {
-            if (typeof anchorLink !== "undefined") {
+            if (typeof anchorLink !== 'undefined') {
               sectionHash = anchorLink;
             }
 
             //slide without anchor link? We take the index instead.
-            if (typeof slideAnchor === "undefined") {
+            if (typeof slideAnchor === 'undefined') {
               slideAnchor = slideIndex;
             }
 
             lastScrolledSlide = slideAnchor;
-            setUrlHash(sectionHash + "/" + slideAnchor);
+            setUrlHash(sectionHash + '/' + slideAnchor);
 
             //first slide won't have slide anchor, just the section one
-          } else if (typeof slideIndex !== "undefined") {
+          } else if (typeof slideIndex !== 'undefined') {
             lastScrolledSlide = slideAnchor;
             setUrlHash(anchorLink);
           }
@@ -2697,10 +2697,10 @@
         } else {
           //Mobile Chrome doesn't work the normal way, so... lets use HTML5 for phones :)
           if (isTouchDevice || isTouch) {
-            window.history.replaceState(undefined, undefined, "#" + url);
+            window.history.replaceState(undefined, undefined, '#' + url);
           } else {
-            var baseUrl = window.location.href.split("#")[0];
-            window.location.replace(baseUrl + "#" + url);
+            var baseUrl = window.location.href.split('#')[0];
+            window.location.replace(baseUrl + '#' + url);
           }
         }
       }
@@ -2709,11 +2709,11 @@
        * Gets the anchor for the given slide / section. Its index will be used if there's none.
        */
       function getAnchor(element) {
-        var anchor = element.data("anchor");
+        var anchor = element.data('anchor');
         var index = element.index();
 
         //Slide without anchor link? We take the index instead.
-        if (typeof anchor === "undefined") {
+        if (typeof anchor === 'undefined') {
           anchor = index;
         }
 
@@ -2733,21 +2733,21 @@
         var text = String(sectionAnchor);
 
         if (slide.length) {
-          text = text + "-" + slideAnchor;
+          text = text + '-' + slideAnchor;
         }
 
         //changing slash for dash to make it a valid CSS style
-        text = text.replace("/", "-").replace("#", "");
+        text = text.replace('/', '-').replace('#', '');
 
         //removing previous anchor classes
         var classRe = new RegExp(
-          "\\b\\s?" + VIEWING_PREFIX + "-[^\\s]+\\b",
-          "g"
+          '\\b\\s?' + VIEWING_PREFIX + '-[^\\s]+\\b',
+          'g'
         );
-        $body[0].className = $body[0].className.replace(classRe, "");
+        $body[0].className = $body[0].className.replace(classRe, '');
 
         //adding the current anchor
-        $body.addClass(VIEWING_PREFIX + "-" + text);
+        $body.addClass(VIEWING_PREFIX + '-' + text);
       }
 
       /**
@@ -2756,14 +2756,14 @@
        * http://stackoverflow.com/questions/5661671/detecting-transform-translate3d-support
        */
       function support3d() {
-        var el = document.createElement("p"),
+        var el = document.createElement('p'),
           has3d,
           transforms = {
-            webkitTransform: "-webkit-transform",
-            OTransform: "-o-transform",
-            msTransform: "-ms-transform",
-            MozTransform: "-moz-transform",
-            transform: "transform",
+            webkitTransform: '-webkit-transform',
+            OTransform: '-o-transform',
+            msTransform: '-ms-transform',
+            MozTransform: '-moz-transform',
+            transform: 'transform',
           };
 
         // Add it to the body to get the computed style.
@@ -2771,14 +2771,14 @@
 
         for (var t in transforms) {
           if (el.style[t] !== undefined) {
-            el.style[t] = "translate3d(1px,1px,1px)";
+            el.style[t] = 'translate3d(1px,1px,1px)';
             has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
           }
         }
 
         document.body.removeChild(el);
 
-        return has3d !== undefined && has3d.length > 0 && has3d !== "none";
+        return has3d !== undefined && has3d.length > 0 && has3d !== 'none';
       }
 
       /**
@@ -2787,15 +2787,15 @@
        */
       function removeMouseWheelHandler() {
         if (document.addEventListener) {
-          document.removeEventListener("mousewheel", MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
-          document.removeEventListener("wheel", MouseWheelHandler, false); //Firefox
+          document.removeEventListener('mousewheel', MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
+          document.removeEventListener('wheel', MouseWheelHandler, false); //Firefox
           document.removeEventListener(
-            "MozMousePixelScroll",
+            'MozMousePixelScroll',
             MouseWheelHandler,
             false
           ); //old Firefox
         } else {
-          document.detachEvent("onmousewheel", MouseWheelHandler); //IE 6/7/8
+          document.detachEvent('onmousewheel', MouseWheelHandler); //IE 6/7/8
         }
       }
 
@@ -2805,27 +2805,27 @@
        * https://developer.mozilla.org/en-US/docs/Web/Events/wheel
        */
       function addMouseWheelHandler() {
-        var prefix = "";
+        var prefix = '';
         var _addEventListener;
 
         if (window.addEventListener) {
-          _addEventListener = "addEventListener";
+          _addEventListener = 'addEventListener';
         } else {
-          _addEventListener = "attachEvent";
-          prefix = "on";
+          _addEventListener = 'attachEvent';
+          prefix = 'on';
         }
 
         // detect available wheel event
         var support =
-          "onwheel" in document.createElement("div")
-            ? "wheel" // Modern browsers support "wheel"
+          'onwheel' in document.createElement('div')
+            ? 'wheel' // Modern browsers support "wheel"
             : document.onmousewheel !== undefined
-            ? "mousewheel" // Webkit and IE support at least "mousewheel"
-            : "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
+            ? 'mousewheel' // Webkit and IE support at least "mousewheel"
+            : 'DOMMouseScroll'; // let's assume that remaining browsers are older Firefox
 
-        if (support == "DOMMouseScroll") {
+        if (support == 'DOMMouseScroll') {
           document[_addEventListener](
-            prefix + "MozMousePixelScroll",
+            prefix + 'MozMousePixelScroll',
             MouseWheelHandler,
             false
           );
@@ -2846,8 +2846,8 @@
        */
       function addMiddleWheelHandler() {
         container
-          .on("mousedown", mouseDownHandler)
-          .on("mouseup", mouseUpHandler);
+          .on('mousedown', mouseDownHandler)
+          .on('mouseup', mouseUpHandler);
       }
 
       /**
@@ -2855,8 +2855,8 @@
        */
       function removeMiddleWheelHandler() {
         container
-          .off("mousedown", mouseDownHandler)
-          .off("mouseup", mouseUpHandler);
+          .off('mousedown', mouseDownHandler)
+          .off('mouseup', mouseUpHandler);
       }
 
       /**
@@ -2898,12 +2898,12 @@
 
         //IE >= 11 & rest of browsers
         if (window.PointerEvent) {
-          pointer = { down: "pointerdown", move: "pointermove" };
+          pointer = { down: 'pointerdown', move: 'pointermove' };
         }
 
         //IE < 11
         else {
-          pointer = { down: "MSPointerDown", move: "MSPointerMove" };
+          pointer = { down: 'MSPointerDown', move: 'MSPointerMove' };
         }
 
         return pointer;
@@ -2917,11 +2917,11 @@
         var events = [];
 
         events.y =
-          typeof e.pageY !== "undefined" && (e.pageY || e.pageX)
+          typeof e.pageY !== 'undefined' && (e.pageY || e.pageX)
             ? e.pageY
             : e.touches[0].pageY;
         events.x =
-          typeof e.pageX !== "undefined" && (e.pageY || e.pageX)
+          typeof e.pageX !== 'undefined' && (e.pageY || e.pageX)
             ? e.pageX
             : e.touches[0].pageX;
 
@@ -2943,20 +2943,20 @@
        * @param noCallback {bool} true or defined -> no callbacks
        */
       function silentLandscapeScroll(activeSlide, noCallbacks) {
-        setScrollingSpeed(0, "internal");
+        setScrollingSpeed(0, 'internal');
 
-        if (typeof noCallbacks !== "undefined") {
+        if (typeof noCallbacks !== 'undefined') {
           //preventing firing callbacks afterSlideLoad etc.
           isResizing = true;
         }
 
         landscapeScroll(activeSlide.closest(SLIDES_WRAPPER_SEL), activeSlide);
 
-        if (typeof noCallbacks !== "undefined") {
+        if (typeof noCallbacks !== 'undefined') {
           isResizing = false;
         }
 
-        setScrollingSpeed(originals.scrollingSpeed, "internal");
+        setScrollingSpeed(originals.scrollingSpeed, 'internal');
       }
 
       /**
@@ -2968,10 +2968,10 @@
         var roundedTop = Math.round(top);
 
         if (options.css3 && options.autoScrolling && !options.scrollBar) {
-          var translate3d = "translate3d(0px, -" + roundedTop + "px, 0px)";
+          var translate3d = 'translate3d(0px, -' + roundedTop + 'px, 0px)';
           transformContainer(translate3d, false);
         } else if (options.autoScrolling && !options.scrollBar) {
-          container.css("top", -roundedTop);
+          container.css('top', -roundedTop);
         } else {
           $htmlBody.scrollTop(roundedTop);
         }
@@ -2982,9 +2982,9 @@
        */
       function getTransforms(translate3d) {
         return {
-          "-webkit-transform": translate3d,
-          "-moz-transform": translate3d,
-          "-ms-transform": translate3d,
+          '-webkit-transform': translate3d,
+          '-moz-transform': translate3d,
+          '-ms-transform': translate3d,
           transform: translate3d,
         };
       }
@@ -2995,7 +2995,7 @@
        */
       function setIsScrollAllowed(value, direction, type) {
         //up, down, left, right
-        if (direction !== "all") {
+        if (direction !== 'all') {
           isScrollAllowed[type][direction] = value;
         }
 
@@ -3011,7 +3011,7 @@
        * Destroys fullpage.js plugin events and optinally its html markup and styles
        */
       function destroy(all) {
-        setAutoScrolling(false, "internal");
+        setAutoScrolling(false, 'internal');
         setAllowScrolling(false);
         setKeyboardScrolling(false);
         container.addClass(DESTROYED);
@@ -3023,21 +3023,21 @@
         clearTimeout(scrollId2);
 
         $window
-          .off("scroll", scrollHandler)
-          .off("hashchange", hashChangeHandler)
-          .off("resize", resizeHandler);
+          .off('scroll', scrollHandler)
+          .off('hashchange', hashChangeHandler)
+          .off('resize', resizeHandler);
 
         $document
-          .off("keydown", keydownHandler)
-          .off("keyup", keyUpHandler)
-          .off("click touchstart", SECTION_NAV_SEL + " a")
-          .off("mouseenter", SECTION_NAV_SEL + " li")
-          .off("mouseleave", SECTION_NAV_SEL + " li")
-          .off("click touchstart", SLIDES_NAV_LINK_SEL)
-          .off("mouseover", options.normalScrollElements)
-          .off("mouseout", options.normalScrollElements);
+          .off('keydown', keydownHandler)
+          .off('keyup', keyUpHandler)
+          .off('click touchstart', SECTION_NAV_SEL + ' a')
+          .off('mouseenter', SECTION_NAV_SEL + ' li')
+          .off('mouseleave', SECTION_NAV_SEL + ' li')
+          .off('click touchstart', SLIDES_NAV_LINK_SEL)
+          .off('mouseover', options.normalScrollElements)
+          .off('mouseout', options.normalScrollElements);
 
-        $(SECTION_SEL).off("click touchstart", SLIDES_ARROW_SEL);
+        $(SECTION_SEL).off('click touchstart', SLIDES_ARROW_SEL);
 
         clearTimeout(afterSlideLoadsId);
         clearTimeout(afterSectionLoadsId);
@@ -3058,45 +3058,45 @@
         //loading all the lazy load content
         container
           .find(
-            "img[data-src], source[data-src], audio[data-src], iframe[data-src]"
+            'img[data-src], source[data-src], audio[data-src], iframe[data-src]'
           )
           .each(function () {
-            setSrc($(this), "src");
+            setSrc($(this), 'src');
           });
 
-        container.find("img[data-srcset]").each(function () {
-          setSrc($(this), "srcset");
+        container.find('img[data-srcset]').each(function () {
+          setSrc($(this), 'srcset');
         });
 
         $(
-          SECTION_NAV_SEL + ", " + SLIDES_NAV_SEL + ", " + SLIDES_ARROW_SEL
+          SECTION_NAV_SEL + ', ' + SLIDES_NAV_SEL + ', ' + SLIDES_ARROW_SEL
         ).remove();
 
         //removing inline styles
         $(SECTION_SEL).css({
-          height: "",
-          "background-color": "",
-          padding: "",
+          height: '',
+          'background-color': '',
+          padding: '',
         });
 
         $(SLIDE_SEL).css({
-          width: "",
+          width: '',
         });
 
         container.css({
-          height: "",
-          position: "",
-          "-ms-touch-action": "",
-          "touch-action": "",
+          height: '',
+          position: '',
+          '-ms-touch-action': '',
+          'touch-action': '',
         });
 
         $htmlBody.css({
-          overflow: "",
-          height: "",
+          overflow: '',
+          height: '',
         });
 
         // remove .fp-enabled class
-        $("html").removeClass(ENABLED);
+        $('html').removeClass(ENABLED);
 
         // remove .fp-responsive class
         $body.removeClass(RESPONSIVE);
@@ -3112,12 +3112,12 @@
         );
 
         //removing added classes
-        $(SECTION_SEL + ", " + SLIDE_SEL).each(function () {
+        $(SECTION_SEL + ', ' + SLIDE_SEL).each(function () {
           if (options.scrollOverflowHandler) {
             options.scrollOverflowHandler.remove($(this));
           }
-          $(this).removeClass(TABLE + " " + ACTIVE);
-          $(this).attr("style", $(this).data("fp-styles"));
+          $(this).removeClass(TABLE + ' ' + ACTIVE);
+          $(this).attr('style', $(this).data('fp-styles'));
         });
 
         removeAnimation(container);
@@ -3126,9 +3126,9 @@
         container
           .find(
             TABLE_CELL_SEL +
-              ", " +
+              ', ' +
               SLIDES_CONTAINER_SEL +
-              ", " +
+              ', ' +
               SLIDES_WRAPPER_SEL
           )
           .each(function () {
@@ -3138,8 +3138,8 @@
 
         //removing the applied transition from the fullpage wrapper
         container.css({
-          "-webkit-transition": "none",
-          transition: "none",
+          '-webkit-transition': 'none',
+          transition: 'none',
         });
 
         //scrolling the page to the top with no animation
@@ -3148,7 +3148,7 @@
         //removing selectors
         var usedSelectors = [SECTION, SLIDE, SLIDES_CONTAINER];
         $.each(usedSelectors, function (index, value) {
-          $("." + value).removeClass(value);
+          $('.' + value).removeClass(value);
         });
       }
 
@@ -3160,7 +3160,7 @@
        */
       function setVariableState(variable, value, type) {
         options[variable] = value;
-        if (type !== "internal") {
+        if (type !== 'internal') {
           originals[variable] = value;
         }
       }
@@ -3170,21 +3170,21 @@
        */
       function displayWarnings() {
         var extensions = [
-          "fadingEffect",
-          "continuousHorizontal",
-          "scrollHorizontally",
-          "interlockedSlides",
-          "resetSliders",
-          "responsiveSlides",
-          "offsetSections",
-          "dragAndMove",
-          "scrollOverflowReset",
-          "parallax",
+          'fadingEffect',
+          'continuousHorizontal',
+          'scrollHorizontally',
+          'interlockedSlides',
+          'resetSliders',
+          'responsiveSlides',
+          'offsetSections',
+          'dragAndMove',
+          'scrollOverflowReset',
+          'parallax',
         ];
-        if ($("html").hasClass(ENABLED)) {
+        if ($('html').hasClass(ENABLED)) {
           showError(
-            "error",
-            "Fullpage.js can only be initialized once and you are doing it multiple times!"
+            'error',
+            'Fullpage.js can only be initialized once and you are doing it multiple times!'
           );
           return;
         }
@@ -3196,15 +3196,15 @@
         ) {
           options.continuousVertical = false;
           showError(
-            "warn",
-            "Option `loopTop/loopBottom` is mutually exclusive with `continuousVertical`; `continuousVertical` disabled"
+            'warn',
+            'Option `loopTop/loopBottom` is mutually exclusive with `continuousVertical`; `continuousVertical` disabled'
           );
         }
 
         if (options.scrollBar && options.scrollOverflow) {
           showError(
-            "warn",
-            "Option `scrollBar` is mutually exclusive with `scrollOverflow`. Sections with scrollOverflow might not work well in Firefox"
+            'warn',
+            'Option `scrollBar` is mutually exclusive with `scrollOverflow`. Sections with scrollOverflow might not work well in Firefox'
           );
         }
 
@@ -3214,16 +3214,16 @@
         ) {
           options.continuousVertical = false;
           showError(
-            "warn",
-            "Scroll bars (`scrollBar:true` or `autoScrolling:false`) are mutually exclusive with `continuousVertical`; `continuousVertical` disabled"
+            'warn',
+            'Scroll bars (`scrollBar:true` or `autoScrolling:false`) are mutually exclusive with `continuousVertical`; `continuousVertical` disabled'
           );
         }
 
         if (options.scrollOverflow && !options.scrollOverflowHandler) {
           options.scrollOverflow = false;
           showError(
-            "error",
-            "The option `scrollOverflow:true` requires the file `scrolloverflow.min.js`. Please include it before fullPage.js."
+            'error',
+            'The option `scrollOverflow:true` requires the file `scrolloverflow.min.js`. Please include it before fullPage.js.'
           );
         }
 
@@ -3232,8 +3232,8 @@
           //is the option set to true?
           if (options[extension]) {
             showError(
-              "warn",
-              "fullpage.js extensions require jquery.fullpage.extensions.min.js file instead of the usual jquery.fullpage.js. Requested: " +
+              'warn',
+              'fullpage.js extensions require jquery.fullpage.extensions.min.js file instead of the usual jquery.fullpage.js. Requested: ' +
                 extension
             );
           }
@@ -3242,35 +3242,35 @@
         //anchors can not have the same value as any element ID or NAME
         $.each(options.anchors, function (index, name) {
           //case insensitive selectors (http://stackoverflow.com/a/19465187/1081396)
-          var nameAttr = $document.find("[name]").filter(function () {
+          var nameAttr = $document.find('[name]').filter(function () {
             return (
-              $(this).attr("name") &&
-              $(this).attr("name").toLowerCase() == name.toLowerCase()
+              $(this).attr('name') &&
+              $(this).attr('name').toLowerCase() == name.toLowerCase()
             );
           });
 
-          var idAttr = $document.find("[id]").filter(function () {
+          var idAttr = $document.find('[id]').filter(function () {
             return (
-              $(this).attr("id") &&
-              $(this).attr("id").toLowerCase() == name.toLowerCase()
+              $(this).attr('id') &&
+              $(this).attr('id').toLowerCase() == name.toLowerCase()
             );
           });
 
           if (idAttr.length || nameAttr.length) {
             showError(
-              "error",
-              "data-anchor tags can not have the same value as any `id` element on the site (or `name` element for IE)."
+              'error',
+              'data-anchor tags can not have the same value as any `id` element on the site (or `name` element for IE).'
             );
             idAttr.length &&
               showError(
-                "error",
+                'error',
                 '"' +
                   name +
                   '" is is being used by another element `id` property'
               );
             nameAttr.length &&
               showError(
-                "error",
+                'error',
                 '"' +
                   name +
                   '" is is being used by another element `name` property'
@@ -3283,7 +3283,7 @@
        * Shows a message in the console of the given type.
        */
       function showError(type, text) {
-        console && console[type] && console[type]("fullPage: " + text);
+        console && console[type] && console[type]('fullPage: ' + text);
       }
     }; //end of $.fn.fullpage
   }

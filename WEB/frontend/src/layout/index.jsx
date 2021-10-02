@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react';
 
-import Helmet from "react-helmet";
+import Helmet from 'react-helmet';
 // import '../css//normalize.css';
-import "../css/style_tab.css";
-import "../css/style_mob.css";
-import "../css/slick.css";
-import "../css/jquery.fullpage.css";
+import '../css/style_tab.css';
+import '../css/style_mob.css';
+import '../css/slick.css';
+import '../css/jquery.fullpage.css';
 
 // MUI Styles
-import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import SideNavigation from "../components/Modal/SideNavigation";
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import SideNavigation from '../components/Modal/SideNavigation';
 
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
     // padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
-      transition: theme.transitions.create("margin", {
+      transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -45,7 +45,7 @@ export default class MainLayout extends React.Component {
 
       <Box display="flex">
         <Box>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: 'flex' }}>
             <SideNavigation
               drawerWidth={drawerWidth}
               handleLogout={handleLogout}

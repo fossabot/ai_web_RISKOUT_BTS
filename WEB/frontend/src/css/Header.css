@@ -70,7 +70,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 button {
@@ -90,7 +90,7 @@ textarea,
 button {
   font-size: 18px;
   line-height: 1.7;
-  font-family: "Montserrat", "Noto Sans KR";
+  font-family: 'Montserrat', 'Noto Sans KR';
   color: #555;
 }
 input,
@@ -165,7 +165,7 @@ button {
 
 /* common */
 .clfix:after {
-  content: ".";
+  content: '.';
   display: block;
   height: 0px;
   clear: both;
