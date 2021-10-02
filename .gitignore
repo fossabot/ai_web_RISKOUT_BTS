@@ -8,7 +8,7 @@ web-docker-env
 secrets.json
 
 # database
-db.sqlite3
+database.db
 
 # vscode
 .vscode

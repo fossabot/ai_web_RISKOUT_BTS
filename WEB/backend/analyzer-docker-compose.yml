@@ -9,9 +9,14 @@ services:
     volumes:
       - ./analyzer:/analyzer
       - ./crawler:/crawler
-    working_dir: /
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     entrypoint: ["/bin/bash","-c"]
     command:
     - |
-       pip install --no-cache-dir -r ./analyzer/requirements.txt
-       ./analyzer/analyzer.sh
+       /analyzer/mongo_install.sh
+       mongod --fork --logpath=/home/user/mongo.log
+       mongoimport --db=riskout --collection=counter --jsonArray --file=/home/user/analyzer/riskout_db.json
+       pip install --no-cache-dir -r /analyzer/requirements.txt
+       python /crawler/main.py
+       python /analyzer/analyzer.py

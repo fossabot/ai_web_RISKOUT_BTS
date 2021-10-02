@@ -10,7 +10,7 @@ from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
-SERVER_URL = 'https://osamhack2021-ai-web-riskout-bts-jjqv7j5vgfj7pw-8000.githubpreview.dev/'
+SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -127,6 +127,13 @@ class DBHandler:
 
 def extractor(data):
     print('\n[*] Extractor Started!\n')
+
+    if len(data) < 1:
+        print("[!] All pages have been analyzed.")
+        cur.close()
+        conn.close()
+        quit()
+
 
     contents = []
 
