@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  analyzer:
+    container_name: analyzer_service
+    build:
+      context: .
+      dockerfile: ./analyzer-dockerfile
+    volumes:
+      - ./analyzer:/analyzer
+      - ./crawler:/crawler
+    working_dir: /
+    entrypoint: ["/bin/bash","-c"]
+    command:
+    - |
+       pip install --no-cache-dir -r ./analyzer/requirements.txt
+       ./analyzer/analyzer.sh
