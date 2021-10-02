@@ -1,7 +1,7 @@
 /* === Sub === */
 /* 기존 li태그, a태그 각각 .list, .link로 변경 */
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Noto+Sans+KR:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Noto+Sans+KR:wght@500&display=swap');
 
 body {
   -ms-overflow-style: none; /* IE and Edge */
@@ -48,7 +48,6 @@ body::-webkit-scrollbar {
   cursor: pointer;
 }
 
-
 .css-i4bv87-MuiSvgIcon-root {
   /*햄버거 버튼 크기*/
   width: 1.5em;
@@ -90,10 +89,10 @@ body::-webkit-scrollbar {
   right: 0.4em;
 }
 
-.sub_header .sub_menu [class$=MuiTypography-root] {
+.sub_header .sub_menu [class$='MuiTypography-root'] {
   /* 메뉴 글자 크기, 폰트 */
   text-align: center;
-  font-family: Montserrat, "Noto Sans KR";
+  font-family: Montserrat, 'Noto Sans KR';
   font-size: 1.1em;
 }
 
@@ -108,7 +107,7 @@ body::-webkit-scrollbar {
   color: #fff;
 }
 
-.sub_header [class$=MuiTypography-root] {
+.sub_header [class$='MuiTypography-root'] {
   /*Copyright font size*/
   font-size: 0.5rem;
 }
