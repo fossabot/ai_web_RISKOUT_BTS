@@ -18,6 +18,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 
 // Custom Components
 import SidebarLink from "../SidebarLink";
+import SidebarLinkMini from "../SidebarLinkMini";
 
 // Icons and Images
 import logoImage from "../../images/sub/logo_w.png";
@@ -29,11 +30,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import InitInfo from './InitInfo';
-import Board from '../../pages/Board';
-import RiskReport from '../../pages/RiskReport';
-import PressTrends from '../../pages/PressTrends';
-import DetectionStatus from '../../pages/DetectionStatus';
 import "../../css/SideNavigation.css";
 
 
@@ -113,30 +109,10 @@ export default function PersistentDrawerLeft(props) {
           <MenuIcon sx={{ color: "#fff" }} />
         </IconButton>
 
-        {/* <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
+        <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
         <SidebarLinkMini icon={SearchIcon} text="탐지현황" href="/detectionstatus" isOn={true} />
         <SidebarLinkMini icon={AssessmentIcon} text="리포트" href="/riskreport" />
-        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" /> */}
-        <Box className="iconMenuBox">
-          <Link href="/presstrends" underline="none" className="inconMenuLink">
-            <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
-          </Link>
-        </Box>
-        <Box className="iconMenuBox">
-          <Link href="/detectionstatus" underline="none" className="inconMenuLink">
-            <SearchIcon sx={{ color: "#3e90ff" }} className="iconMenu" />
-          </Link>
-        </Box>
-        <Box className="iconMenuBox">
-          <Link href="/riskreport" underline="none" className="inconMenuLink">
-            <AssessmentIcon sx={{ color: "#fff" }} className="iconMenu" />
-          </Link>
-        </Box>
-        <Box className="iconMenuBox">
-          <Link href="/" underline="none" className="inconMenuLink">
-            <LogoutIcon sx={{ color: "#fff" }} className="iconMenu" />
-          </Link>
-        </Box>
+        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" />
       </Box>
       <Drawer
         sx={{
