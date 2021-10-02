@@ -16,6 +16,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 
+// Custom Components
+import SidebarLink from "../SidebarLink";
+
 // Icons and Images
 import logoImage from "../../images/sub/logo_w.png";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -110,6 +113,10 @@ export default function PersistentDrawerLeft(props) {
           <MenuIcon sx={{ color: "#fff" }} />
         </IconButton>
 
+        {/* <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
+        <SidebarLinkMini icon={SearchIcon} text="탐지현황" href="/detectionstatus" isOn={true} />
+        <SidebarLinkMini icon={AssessmentIcon} text="리포트" href="/riskreport" />
+        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" /> */}
         <Box className="iconMenuBox">
           <Link href="/presstrends" underline="none" className="inconMenuLink">
             <InfoIcon sx={{ color: "#fff" }} className="iconMenu" />
@@ -166,47 +173,10 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </DrawerHeader>
         <List className="sub_menu">
-          <ListItem className="pin">
-            <Link href="/presstrends" underline="none" className="list">
-              <ListItemButton>
-                <InfoIcon className="icon" />
-                <ListItemText primary="언론 동향" className="link" />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem className="pin">
-            <Link href="/detectionstatus" underline="none" className="list">
-              <ListItemButton className="on">
-                <SearchIcon className="icon" />
-                <ListItemText primary="탐지 현황" className="link" />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem className="pin">
-            <Link href="/riskreport" underline="none" className="list">
-              <ListItemButton>
-                <AssessmentIcon className="icon" />
-                <ListItemText primary="리포트" className="link" />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem className="pin">
-            <Link
-              // onLogout={props.handleLogout}
-              href="/"
-              underline="none"
-              className="list"
-            >
-              <ListItemButton>
-                <LogoutIcon className="icon" />
-                <ListItemText
-                  primary="로그아웃"
-                  className="link"
-                  sx={{ color: "#fff" }}
-                />
-              </ListItemButton>
-            </Link>
-          </ListItem>
+          <SidebarLink icon={InfoIcon} text="언론 동향" href="/presstrends" />
+          <SidebarLink icon={SearchIcon} text="탐지현황" href="/detectionstatus" isOn={true} />
+          <SidebarLink icon={AssessmentIcon} text="리포트" href="/riskreport" />
+          <SidebarLink icon={LogoutIcon} text="로그아웃" href="/logout" />
         </List>
         <ListItem>
           <ListItemText
