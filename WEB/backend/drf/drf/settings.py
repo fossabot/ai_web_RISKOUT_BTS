@@ -22,7 +22,7 @@ def getSecretVariable(key):
 
 SECRET_KEY = getSecretVariable("SECRET_KEY")
 DEBUG = True if getSecretVariable("DEBUG") == "True" else False
-ALLOWED_HOSTS = ['localhost', 'http://localhost:3000']
+ALLOWED_HOSTS = getSecretVariable("ALLOWED_HOSTS")
 
 
 INSTALLED_APPS = [
