@@ -13,13 +13,25 @@ services:
       - "host.docker.internal:host-gateway"
     entrypoint: ["/bin/bash","-c"]
     command:
-    - |
-       pip install --no-cache-dir -r /analyzer/requirements.txt
-       python /crawler/main.py
-       python /analyzer/analyzer.py
+      - |
+        pip install --no-cache-dir -r /analyzer/requirements.txt
+        python /crawler/main.py
+        python /analyzer/analyzer.py
+    depends_on:
+      - mongo
 
-# Todo
-# mongoDB 서비스 붙이기
-# mongoDB 데이터 저장할 디렉터리 만들고, riskout_db.json 거기로 옮기기
-# analyzer command 첫줄에 nc로 mongoDB 서비스 켜졌는지 확인하는 루프문 추가하기
-# mongoDB command에 riskout_db.json import 하는 명령어 추가하기 (mongoimport --db=riskout --collection=counter --jsonArray --file=/home/user/analyzer/riskout_db.json)
+  mongo:
+    container_name: mongo_service
+    image: mongo:4.4
+    volumes:
+      - ./analyzer/data:/data
+    expose:
+      - "27017"
+  
+  mongo-seed:
+    container_name: mongo-seed_service
+    build:
+      context: .
+      dockerfile: ./analyzer-dockerfile
+    depends_on:
+      - mongo

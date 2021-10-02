@@ -79,7 +79,7 @@ class Content:
 
 class DBHandler:
     def __init__(self):
-        host = "localhost"
+        host = "mongo"
         port = "27017"
         self.client = MongoClient(host, int(port))
 
