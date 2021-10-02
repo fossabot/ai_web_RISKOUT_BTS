@@ -10,6 +10,11 @@ secrets.json
 # database
 database.db
 
+# commit empty dir
+WEB/backend/data/db/*
+!WEB/backend/data/db/.gitkeep
+
+
 # vscode
 .vscode
 
