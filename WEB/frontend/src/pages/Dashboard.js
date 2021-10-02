@@ -20,7 +20,7 @@ export default function Dashboard() {
       <Container maxWidth={false}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={12} lg={12}>
-            <h2>개요</h2>
+            <h2>대시보드</h2>
           </Grid>
           <Grid item xs={6} sm={6} md={6} lg={4}>
             <WordCloud options={options} />
