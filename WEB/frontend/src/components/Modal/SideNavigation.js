@@ -134,11 +134,7 @@ export default function PersistentDrawerLeft(props) {
       >
         <DrawerHeader>
           <Link href="/">
-            <img
-              src={logoImage}
-              alt="홈"
-              className="image"
-            />
+            <img src={logoImage} alt="홈" className="image" />
           </Link>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
@@ -155,10 +151,7 @@ export default function PersistentDrawerLeft(props) {
           <SidebarLink icon={LogoutIcon} text="로그아웃" href="/logout" />
         </List>
         <ListItem>
-          <ListItemText
-            primary="Copyright © 2021. RISKOUT All right reserved."
-            className="copyright"
-          />
+          <ListItemText primary="Copyright © 2021. RISKOUT All right reserved." className="copyright" />
         </ListItem>
       </Drawer>
 
