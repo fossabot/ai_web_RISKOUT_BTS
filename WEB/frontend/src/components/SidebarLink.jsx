@@ -1,4 +1,7 @@
-import Link from "@mui/material/Link";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+// import Link from "@mui/material/Link";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -11,12 +14,12 @@ export default function SidebarLink(props) {
 
     return (
         <ListItem className="pin">
-            <Link href={href} underline="none" className="list">
+            <NavLink to={href} underline="none" className="list" activeClassName="on">
                 <ListItemButton className={isOn && "on"}>
                     <ListIcon className="icon" />
                     <ListItemText primary={text} className="link" />
                 </ListItemButton>
-            </Link>
+            </NavLink>
         </ListItem>
     )
 }

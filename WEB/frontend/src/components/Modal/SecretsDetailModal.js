@@ -49,7 +49,7 @@ export default function SecretsDetailModal(props) {
             >
                 <Box sx={style}>
                     <Typography id="secrets-modal-title" variant="h6" component="h2">
-                    <Link href={data.site_url} color="inherit" underline="hover" target="_blank" title="원본 페이지 보기">
+                    <Link href={data.site_url} color="inherit" underline="hover" target="_blank" rel="noopener" title="원본 페이지 보기">
                         <NavigationIcon sx={{ mr: 1,  }} />
                     </Link>
                         {data.title}
