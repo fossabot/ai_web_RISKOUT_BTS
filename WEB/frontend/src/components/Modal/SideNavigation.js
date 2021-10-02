@@ -97,7 +97,7 @@ export default function PersistentDrawerLeft(props) {
 
   return (
     <>
-      <Box sx={{ background: "rgb(29, 28, 26)" }}>
+      <Box sx={{ background: "rgb(29, 28, 26)", height: "100vh" }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -114,7 +114,8 @@ export default function PersistentDrawerLeft(props) {
         <SidebarLinkMini icon={AssessmentIcon} text="리포트" href="/riskreport" />
         <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" />
       </Box>
-      <Drawer
+
+      <Drawer variant="persistent" anchor="left" open={open} className="sub_header"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -127,10 +128,6 @@ export default function PersistentDrawerLeft(props) {
             height: "100vh"
           }
         }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        className="sub_header"
       >
         <DrawerHeader>
           <Link href="/">
