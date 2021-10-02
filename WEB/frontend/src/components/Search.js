@@ -37,10 +37,12 @@ export default function Search() {
         defaultValue={[people[13]]} // 기본 필터 고정
         filterSelectedOptions
         renderInput={(params) => <TextField {...params} label="" type="text" />}
-        />
-      <Button 
-        sx={{ height:"2em" }}
-      variant="contained" endIcon={<SearchIcon />}></Button>
+      />
+      <Button
+        sx={{ height: "2em" }}
+        variant="contained"
+        endIcon={<SearchIcon />}
+      ></Button>
     </Box>
   );
 }
@@ -48,90 +50,90 @@ export default function Search() {
 const people = [
   {
     name: "이원빈",
-    age: "22"
+    age: "22",
   },
   {
     name: "서종찬",
-    age: "22"
+    age: "22",
   },
   {
     name: "서명근",
-    age: "22"
+    age: "22",
   },
   {
     name: "김태원",
-    age: "20"
+    age: "20",
   },
   {
     name: "이민식",
-    age: "25"
+    age: "25",
   },
   {
     name: "박용준",
-    age: "20"
+    age: "20",
   },
   {
     name: "조정환",
-    age: "23"
+    age: "23",
   },
   {
     name: "김선균",
-    age: "22"
+    age: "22",
   },
   {
     name: "오정도",
-    age: "22"
+    age: "22",
   },
   {
     name: "최원용",
-    age: "22"
+    age: "22",
   },
   {
     name: "김태완",
-    age: "20"
+    age: "20",
   },
   {
     name: "박도범",
-    age: "25"
+    age: "25",
   },
   {
     name: "손의섭",
-    age: "20"
+    age: "20",
   },
   {
     name: "손정호",
-    age: "23"
+    age: "23",
   },
   {
     name: "오희호",
-    age: "23"
+    age: "23",
   },
   {
     name: "문자석",
-    age: "22"
+    age: "22",
   },
   {
     name: "홍길동",
-    age: "22"
+    age: "22",
   },
   {
     name: "신해진",
-    age: "22"
+    age: "22",
   },
   {
     name: "한정진",
-    age: "20"
+    age: "20",
   },
   {
     name: "이정빈",
-    age: "25"
+    age: "25",
   },
   {
     name: "손길동",
-    age: "20"
+    age: "20",
   },
   {
     name: "윤세준",
-    age: "23"
-  }
+    age: "23",
+  },
 ];

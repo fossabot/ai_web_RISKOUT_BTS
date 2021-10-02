@@ -1,7 +1,6 @@
 // React
 import React, { useState, useEffect } from "react";
 
-
 // MUI Styles
 import { styled, useTheme } from "@mui/material/styles";
 
@@ -32,7 +31,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import "../../css/SideNavigation.css";
 
-
 // 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -41,7 +39,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end"
+  justifyContent: "flex-end",
 }));
 
 export default function PersistentDrawerLeft(props) {
@@ -55,8 +53,8 @@ export default function PersistentDrawerLeft(props) {
   useEffect(() => {
     fetch("http://localhost:8000/user/current/", {
       headers: {
-        Authorization: `JWT ${localStorage.getItem("token")}`
-      }
+        Authorization: `JWT ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => res.json())
       .then((json) => {
@@ -69,8 +67,8 @@ export default function PersistentDrawerLeft(props) {
           {
             method: "PATCH",
             headers: {
-              Authorization: `JWT ${localStorage.getItem("token")}`
-            }
+              Authorization: `JWT ${localStorage.getItem("token")}`,
+            },
           }
         )
           .then((res) => res.json())
@@ -110,12 +108,25 @@ export default function PersistentDrawerLeft(props) {
         </IconButton>
 
         <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
-        <SidebarLinkMini icon={SearchIcon} text="탐지현황" href="/detectionstatus" isOn={true} />
-        <SidebarLinkMini icon={AssessmentIcon} text="리포트" href="/riskreport" />
+        <SidebarLinkMini
+          icon={SearchIcon}
+          text="탐지현황"
+          href="/detectionstatus"
+          isOn={true}
+        />
+        <SidebarLinkMini
+          icon={AssessmentIcon}
+          text="리포트"
+          href="/riskreport"
+        />
         <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" />
       </Box>
 
-      <Drawer variant="persistent" anchor="left" open={open} className="sub_header"
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={open}
+        className="sub_header"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -125,8 +136,8 @@ export default function PersistentDrawerLeft(props) {
             left: 0,
             top: 0,
             width: drawerWidth,
-            height: "100vh"
-          }
+            height: "100vh",
+          },
         }}
       >
         <DrawerHeader>
@@ -143,15 +154,22 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <List className="sub_menu">
           <SidebarLink icon={InfoIcon} text="언론 동향" href="/presstrends" />
-          <SidebarLink icon={SearchIcon} text="탐지현황" href="/detectionstatus" isOn={true} />
+          <SidebarLink
+            icon={SearchIcon}
+            text="탐지현황"
+            href="/detectionstatus"
+            isOn={true}
+          />
           <SidebarLink icon={AssessmentIcon} text="리포트" href="/riskreport" />
           <SidebarLink icon={LogoutIcon} text="로그아웃" href="/logout" />
         </List>
         <ListItem>
-          <ListItemText primary="Copyright © 2021. RISKOUT All right reserved." className="copyright" />
+          <ListItemText
+            primary="Copyright © 2021. RISKOUT All right reserved."
+            className="copyright"
+          />
         </ListItem>
       </Drawer>
-
     </>
   );
 }

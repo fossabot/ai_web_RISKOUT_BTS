@@ -40,7 +40,7 @@ const rows = [
   createData("Cupcake", "갑자기 태풍와서 피항간 썰 푼다", "오정도"),
   createData("Gingerbread", "3함대 젓가락 살인마 썰푼다", "문자석"),
   createData("Jam", "계룡에서 박보검 본 썰푼다", "손정호"),
-  createData("Cookie", "Cert업무 강도 에바참치임..", "서명곤")
+  createData("Cookie", "Cert업무 강도 에바참치임..", "서명곤"),
 ];
 
 export default function filterTable() {

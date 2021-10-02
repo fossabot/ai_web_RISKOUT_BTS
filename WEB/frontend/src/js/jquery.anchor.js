@@ -9,31 +9,35 @@
 	You can use and modify this script for any project you want, but please leave this comment as credit.
 	
 *****/
-		
 
-
-$(document).ready(function() {
-	$("a.anchorLink").anchorAnimate()
+$(document).ready(function () {
+  $("a.anchorLink").anchorAnimate();
 });
 
-jQuery.fn.anchorAnimate = function(settings) {
+jQuery.fn.anchorAnimate = function (settings) {
+  settings = jQuery.extend(
+    {
+      speed: 900,
+    },
+    settings
+  );
 
- 	settings = jQuery.extend({
-		speed : 900
-	}, settings);	
-	
-	return this.each(function(){
-		var caller = this
-		$(caller).click(function (event) {	
-			event.preventDefault()
-			var locationHref = window.location.href
-			var elementClick = $(caller).attr("href")
-			
-			var destination = $(elementClick).offset().top;
-			$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, settings.speed, function() {
-				window.location.hash = elementClick
-			});
-		  	return false;
-		})
-	})
-}
+  return this.each(function () {
+    var caller = this;
+    $(caller).click(function (event) {
+      event.preventDefault();
+      var locationHref = window.location.href;
+      var elementClick = $(caller).attr("href");
+
+      var destination = $(elementClick).offset().top;
+      $("html:not(:animated),body:not(:animated)").animate(
+        { scrollTop: destination },
+        settings.speed,
+        function () {
+          window.location.hash = elementClick;
+        }
+      );
+      return false;
+    });
+  });
+};

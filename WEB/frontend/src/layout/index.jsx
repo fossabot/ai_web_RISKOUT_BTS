@@ -1,19 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import Helmet from 'react-helmet';
+import Helmet from "react-helmet";
 // import '../css//normalize.css';
-import '../css/style_tab.css';
-import '../css/style_mob.css';
-import '../css/slick.css';
-import '../css/jquery.fullpage.css';
+import "../css/style_tab.css";
+import "../css/style_mob.css";
+import "../css/slick.css";
+import "../css/jquery.fullpage.css";
 
 // MUI Styles
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import SideNavigation from '../components/Modal/SideNavigation';
-
-
-
+import SideNavigation from "../components/Modal/SideNavigation";
 
 const drawerWidth = 240;
 
@@ -23,16 +20,16 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     // padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
+        duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0
-    })
+      marginLeft: 0,
+    }),
   })
 );
 
@@ -44,20 +41,17 @@ export default class MainLayout extends React.Component {
       // cf. https://stackoverflow.com/questions/62202890/how-can-i-fix-using-unsafe-componentwillmount-in-strict-mode-is-not-recommended#comment118614308_62202890
       // <Helmet>
       //   <meta name="description" content="my-layout" />
-      // </Helmet> 
+      // </Helmet>
 
       <Box display="flex">
         <Box>
           <Box sx={{ display: "flex" }}>
-            <SideNavigation drawerWidth={drawerWidth} handleLogout={handleLogout} >
-            </SideNavigation>
+            <SideNavigation
+              drawerWidth={drawerWidth}
+              handleLogout={handleLogout}
+            ></SideNavigation>
 
-            <Main open={open}>
-
-              {children}
-            </Main>
-
-
+            <Main open={open}>{children}</Main>
           </Box>
         </Box>
       </Box>
