@@ -45,16 +45,21 @@ class Content:
         url = SERVER_URL + 'summarize'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        summarized = requests.post(url, data=document)
+        try:
+            summarized = requests.post(url, data=document)
 
-        if summarized.status_code == 200:
-            try:
-                self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
-            except Exception as e:
-                print(f"Error occured while summarizing data : {e}")
+            if summarized.status_code == 200:
+                try:
+                    self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+                except Exception as e:
+                    print(f"Error occured while summarizing data : {e}")
+                    self.content_dict['summarized'] = None
+
+            else:    
                 self.content_dict['summarized'] = None
 
-        else:    
+        except Exception as e:
+            print(f"Error occured while fetching summarized data : {e}")
             self.content_dict['summarized'] = None
 
 
@@ -62,31 +67,42 @@ class Content:
         url = SERVER_URL + 'sentiment'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        positivity = requests.post(url, data=document)
+        try:
+            positivity = requests.post(url, data=document)
 
-        if positivity.status_code == 200:
-            try:
-                self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
-            except Exception as e:
-                print(f"Error occured while getting positivity : {e}")
+            if positivity.status_code == 200:
+                try:
+                    self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+                except Exception as e:
+                    print(f"Error occured while getting positivity : {e}")
+                    self.content_dict['positivity'] = None
+            else:    
                 self.content_dict['positivity'] = None
-        else:    
+
+        except Exception as e:
+            print(f"Error occured while fetching positivity data : {e}")
             self.content_dict['positivity'] = None
+
 
 
     def getEntities(self):
         url = SERVER_URL + 'ner'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        entities = requests.post(url, data=document)
+        try:
+            entities = requests.post(url, data=document)
 
-        if entities.status_code == 200:
-            try:
-                self.content_dict['entities'] = json.loads(entities.text)['ner']
-            except Exception as e:
-                print(f"Error occured while getting entities : {e}")
+            if entities.status_code == 200:
+                try:
+                    self.content_dict['entities'] = json.loads(entities.text)['ner']
+                except Exception as e:
+                    print(f"Error occured while getting entities : {e}")
+                    self.content_dict['entities'] = None
+            else:    
                 self.content_dict['entities'] = None
-        else:    
+
+        except Exception as e:
+            print(f"Error occured while fetching entities : {e}")
             self.content_dict['entities'] = None
 
 
