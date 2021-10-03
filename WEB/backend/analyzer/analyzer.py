@@ -10,7 +10,8 @@ from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
-SERVER_URL = 'http://host.docker.internal:8000/'
+SERVER_URL = 'http://localhost:8000/'
+# SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -154,6 +155,51 @@ class DBHandler:
         return result
 
 
+def dataRanker(data):
+    print('\n[*] Data ranker Started!\n')
+
+    if len(data) < 1:
+        return data
+
+    url = SERVER_URL + 'keysentences'
+    document = {"document": []}
+    ranked_data = []
+    sentences = []
+
+    for tup in data:
+        document["document"].append(tup[0])
+        # document["document"] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
+    
+    print(len(document["document"]))
+    document = json.dumps(document)
+
+    try:
+        ranked = requests.post(url, data=document, timeout=20)
+
+        if ranked.status_code == 200:
+            try:
+                for sentence in json.loads(ranked.text)['keysentences']:
+                    sentences.append(sentence["sentence"])
+
+            except Exception as e:
+                print(f"Error occured while ranking data : {e}")
+                quit()
+        else:
+            print(f"Error occured while fetching ranking data : http status code : {ranked.status_code}")
+            quit()
+
+    except Exception as e:
+        print(f"Error occured while fetching ranking data : {e}")
+        quit()
+
+    print(sentences)
+    print(len(sentences))
+    quit()
+
+
+    return ranked_data
+
+
 def extractor(data):
     print('\n[*] Extractor Started!\n')
 
@@ -221,7 +267,9 @@ def main():
 
     cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0")
     raw_data = cur.fetchall()
-    contents = extractor(raw_data)
+    dataRanker(raw_data)
+    quit()
+    # contents = extractor(raw_data)
     dbInserter(contents)
 
     cur.close()
