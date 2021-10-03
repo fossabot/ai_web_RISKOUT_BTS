@@ -28,13 +28,10 @@ class AnalyzedDataView(generics.CreateAPIView):
                 category = serializer.data.get("category")
             
             # Check period
-            if type(serializer.data.get("period")) != int:
-                if not (0 <= serializer.data.get("period") <= (24 * 7)):
-                    return Response({"period": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)    
+            if type(serializer.data.get("period")) != int or not (0 <= serializer.data.get("period") <= (24 * 7)):
                 return Response({"period": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 period = serializer.data.get("period")
-
 
             mongo = DBHandler()
             results = None
