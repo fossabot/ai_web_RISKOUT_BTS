@@ -51,6 +51,10 @@ class NaverNewsContentsPage(contentspage):
     def __init__(self):
         contentspage.__init__(self, '/naver')
 
+    def get_finedate(self, date):
+        data = date[2:10].replace('.','_')
+        return data
+
 class NaverNewsSite(Site):
     def __init__(self):
         self.name = 'naver_news'
