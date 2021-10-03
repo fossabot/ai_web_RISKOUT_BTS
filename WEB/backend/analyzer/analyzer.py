@@ -92,8 +92,8 @@ class Content:
 
 class DBHandler:
     def __init__(self):
-        host = "mongo"
-        port = "27017"
+        host = "localhost"
+        port = "8001"
         self.client = MongoClient(host, int(port))
 
     def insert_item_one(self, data, db_name=None, collection_name=None):
