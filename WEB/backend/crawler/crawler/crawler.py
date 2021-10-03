@@ -1,6 +1,5 @@
 # for multiprocess
 import asyncio
-from json.encoder import py_encode_basestring
 import aiohttp
 
 # for crawl
@@ -11,8 +10,6 @@ from bs4 import BeautifulSoup as bs
 import time
 
 # import class
-from crawler.model.ListPage import ListPage as listpage
-from crawler.model.ContentsPage import ContentsPage as contentspage
 from crawler.model import Content
 from crawler.model import const as const
 
@@ -85,8 +82,8 @@ async def get_contents(site, contents_url, urlinfo, db):
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
     """
     # 최대치 이상 저장하려고 하면 리턴
-    if db.unanalyzed_amount() > const.MAX_UNANALYZED_AMOUNT:
-        return
+    # if db.unanalyzed_amount() > const.MAX_UNANALYZED_AMOUNT:
+    #     return
 
     if(DEBUG):
         print(f"Send request to {contents_url}")
