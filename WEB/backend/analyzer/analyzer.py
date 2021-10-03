@@ -186,31 +186,34 @@ def extractor(data):
 
 
 def dbInserter(contents):
+    validated_contents= []
     mongo = DBHandler()
+
     for i in range(len(contents)):
         hasNone = False
-        for _, value in contents[i].iteritems():
-            if value is None:
+
+        for key in contents[i]:
+            if contents[i][key] is None:
                 hasNone = True
                 break
-        
-        if hasNone:
-            del contents[i]
-            i -= 1
-        else:
+
+        if not hasNone:
             contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
             contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
-    
+            validated_contents.append(contents[i])
+
     try:
-        mongo.insert_item_many(contents, "riskout", "analyzed")
+        mongo.insert_item_many(validated_contents, "riskout", "analyzed")
         print('DB insertion success')
         mongo.client.close()
         return True
-
+    
     except Exception as e:
         print("DB insert error occured :", e)
         mongo.client.close()
         return False
+        
+        
 
 
 def main():
