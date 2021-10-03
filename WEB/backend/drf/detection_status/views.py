@@ -32,38 +32,42 @@ class AnalyzedDataView(generics.CreateAPIView):
                 return Response({"period": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 period = serializer.data.get("period")
-
-            mongo = DBHandler()
-            results = None
-            response = {
-                "contents": []
-            }
-
-            if period == 0:
-                results = mongo.find_item(
-                    { }, 
-                    "riskout", 
-                    "analyzed"
-                )
-                
-            else:
-                now = datetime.utcnow() + timedelta(hours=9)
-                
-                results = mongo.find_item(
-                    {
-                        "created_at": {'$gte' : (now - timedelta(hours=period))},
-                        "category":category
-                    }, 
-                    "riskout", 
-                    "analyzed"
-                )
-
-            for result in enumerate(results):
-                _id = result[1]['_id']
-                response["contents"].append(result[1])
-                response["contents"][-1]['created_at'] = response["contents"][-1]['created_at'].strftime('%y-%m-%d %H:%M:%S')
-            
-            return Response(response)
-
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def getAnalyzedData(self, category, period):
+        mongo = DBHandler()
+        results = None
+        response = {
+            "contentsLength": 0,
+            "contents": []
+        }
+
+        if period == 0:
+            results = mongo.find_item(
+                { }, 
+                "riskout", 
+                "analyzed"
+            )
+            
+        else:
+            now = datetime.utcnow() + timedelta(hours=9)
+            
+            results = mongo.find_item(
+                {
+                    "created_at": {'$gte' : (now - timedelta(hours=period))},
+                    "category":category
+                }, 
+                "riskout", 
+                "analyzed"
+            )
+
+        for result in enumerate(results):
+            response["contents"].append(result[1])
+            response["contents"][-1]['created_at'] = response["contents"][-1]['created_at'].strftime('%y-%m-%d %H:%M:%S')
+        
+        return Response(response)
+
+        
+        
