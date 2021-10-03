@@ -34,9 +34,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   },
 }));
 
-export default function ToggleButtons() {
-  const [selectedValue, setSelectedValue] = React.useState('all');
-
+export default function ToggleButtons({
+  selectOptions,
+  selectedValue,
+  setSelectedValue,
+}) {
   const handleSelectedValue = (event, newSelectedValue) => {
     if (newSelectedValue !== null) setSelectedValue(newSelectedValue);
   };
@@ -49,21 +51,11 @@ export default function ToggleButtons() {
       aria-label="select value"
       className="period-select"
     >
-      <ToggleButton value="1hr" aria-label="last one hour">
-        1hr
-      </ToggleButton>
-      <ToggleButton value="1d" aria-label="last one day">
-        1d
-      </ToggleButton>
-      <ToggleButton value="1mo" aria-label="last one month">
-        1mo
-      </ToggleButton>
-      <ToggleButton value="1yr" aria-label="last one year">
-        1yr
-      </ToggleButton>
-      <ToggleButton value="all" aria-label="all">
-        all
-      </ToggleButton>
+      {selectOptions.map((val) => (
+        <ToggleButton value={val} aria-label={'last ' + val}>
+          {val}
+        </ToggleButton>
+      ))}
     </StyledToggleButtonGroup>
   );
 }

@@ -8,7 +8,16 @@ import Search from '../components/Search';
 import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
 
+const timeBefore = (today: Date, timelength: String) => {
+  const [d, m, y] = [today.getDate(), today.getMonth(), today.getFullYear()];
+  if (timelength === '1hr') {
+    return new Date(y, m, d);
+  }
+};
+
 const RiskReport = () => {
+  const [selectedValue, setSelectedValue] = React.useState('all'); // for period select
+
   return (
     <>
       <section id="sub_contents">
@@ -31,7 +40,11 @@ const RiskReport = () => {
 
           <div className="period">
             <span>8월 5일부터 주요내용</span>
-            <ExclusiveSelect />
+            <ExclusiveSelect
+              selectOptions={['1hr', '1d', '1m', '1y', 'all']}
+              selectedValue={selectedValue}
+              setSelectedValue={setSelectedValue}
+            />
           </div>
 
           <div className="content clfix">
