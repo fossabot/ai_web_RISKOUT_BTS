@@ -92,7 +92,7 @@ class Content:
 
 class DBHandler:
     def __init__(self):
-        host = "host.docker.internal:8001"
+        host = "host.docker.internal"
         port = "8001"
         self.client = MongoClient(host, int(port))
 
