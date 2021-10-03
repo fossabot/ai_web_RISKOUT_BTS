@@ -7,6 +7,7 @@ from .serializers import AnalyzedDataSerializer
 from .mongo import DBHandler
 
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 
 class AnalyzedDataView(generics.CreateAPIView):
@@ -32,20 +33,38 @@ class AnalyzedDataView(generics.CreateAPIView):
                 return Response({"period": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 period = serializer.data.get("period")
+            
+            return Response(self.getAnalyzedData(category, period))
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     def getAnalyzedData(self, category, period):
         mongo = DBHandler()
-        results = None
+        db_result = None
         response = {
             "contentsLength": 0,
-            "contents": []
+            "contents": [],
+            "filterTags": {
+                "PER": {},
+                "FLD": {},
+                "AFW": {},
+                "ORG": {},
+                "LOC": {},
+                "CVL": {},
+                "DAT": {},
+                "TIM": {},
+                "NUM": {},
+                "EVN": {},
+                "ANM": {},
+                "PLT": {},
+                "MAT": {},
+                "TRM": {}
+            }
         }
 
         if period == 0:
-            results = mongo.find_item(
+            db_result = mongo.find_item(
                 { }, 
                 "riskout", 
                 "analyzed"
@@ -54,7 +73,7 @@ class AnalyzedDataView(generics.CreateAPIView):
         else:
             now = datetime.utcnow() + timedelta(hours=9)
             
-            results = mongo.find_item(
+            db_result = mongo.find_item(
                 {
                     "created_at": {'$gte' : (now - timedelta(hours=period))},
                     "category":category
@@ -63,11 +82,30 @@ class AnalyzedDataView(generics.CreateAPIView):
                 "analyzed"
             )
 
-        for result in enumerate(results):
-            response["contents"].append(result[1])
-            response["contents"][-1]['created_at'] = response["contents"][-1]['created_at'].strftime('%y-%m-%d %H:%M:%S')
-        
-        return Response(response)
 
+        response["contents"] = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+        response["contentsLength"] = len(response["contents"])
+        response["filterTags"] = self.getFilterTags(response["filterTags"], response["contents"])
+
+        return response
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
         
-        
+        return contents
+
+
+    def getFilterTags(self, tags, contents):
+        for i in range(len(contents)):
+            for key1 in tags:
+                if key1 in contents[i]['entities']:
+                    key2 = contents[i]['entities'][key1]
+                    for key3 in key2:
+                        try:
+                            tags[key1][key3] += 1
+                        except KeyError:
+                            tags[key1][key3] = 1
+
+        return tags
