@@ -20,7 +20,7 @@ class AnalyzedDataView(generics.CreateAPIView):
 
         if serializer.is_valid():
             # Check category
-            print(serializer.data)
+            # print(serializer.data)
             
             if serializer.data.get("category") not in ["news", "social"]:
                 return Response({"category": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
@@ -64,7 +64,6 @@ class AnalyzedDataView(generics.CreateAPIView):
             for result in enumerate(results):
                 _id = result[1]['_id']
                 response["contents"].append(result[1])
-                print(response)
                 response["contents"][-1]['created_at'] = response["contents"][-1]['created_at'].strftime('%y-%m-%d %H:%M:%S')
             
             return Response(response)
