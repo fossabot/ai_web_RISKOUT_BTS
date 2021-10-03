@@ -1,5 +1,4 @@
 import sqlite3
-from sqlite3.dbapi2 import OperationalError
 
 import os
 
@@ -9,15 +8,13 @@ class DB:
         self.filename = path + "/database.db"
         self.dbfile = sqlite3.connect(self.filename)
         self.dbcursor = self.dbfile.cursor()
-        try:
-            self.create_db()
-        except OperationalError:
-            pass
+
+        self.create_db()
 
     def create_db(self):
         try:
             self.dbcursor.execute("SELECT * FROM CrawlContents")
-        except:
+        except Exception:
             self.dbcursor.execute("CREATE TABLE CrawlContents(\
                 title TEXT,\
                 href TEXT,\
@@ -65,16 +62,27 @@ class DB:
 
     def select_id(self):
         self.dbcursor.execute("SELECT id FROM CrawlContents")
-        data = self.dbcursor.fetchall()
+        raw_id_data = self.dbcursor.fetchall()
         id_list = []
 
-        for dat in data:
-            id_list.append(dat[0])
+        for id_ in raw_id_data:
+            id_list.append(id_[0])
 
         return id_list
+
+    def unanalyzed_amount(self):
+        self.dbcursor.execute("SELECT isAnalyzed FROM CrawlContents")
+        data = self.dbcursor.fetchall()
+
+        ret = 0
+        for dat in data:
+            if dat:
+                ret += 1
+        return ret
 
     def close(self):
         self.dbcursor.close()
 
 if __name__ == "__main__":
     db = DB()
+    print(db.unanalyzed_amount())
