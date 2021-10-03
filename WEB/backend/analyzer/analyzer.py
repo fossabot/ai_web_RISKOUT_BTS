@@ -94,7 +94,7 @@ class Content:
 
             if entities.status_code == 200:
                 try:
-                    self.content_dict['entities'] = json.loads(entities.text)['ner']
+                    self.content_dict['entities'] = json.loads(entities.text)['ner'][0]
                 except Exception as e:
                     print(f"Error occured while getting entities : {e}")
                     self.content_dict['entities'] = None
