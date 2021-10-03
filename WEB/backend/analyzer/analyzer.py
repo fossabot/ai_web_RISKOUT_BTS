@@ -168,7 +168,6 @@ def dataRanker(data):
 
     for tup in data:
         document["document"].append(tup[0])
-        # document["document"] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
     
     print(len(document["document"]))
     document = json.dumps(document)
@@ -192,10 +191,11 @@ def dataRanker(data):
         print(f"Error occured while fetching ranking data : {e}")
         quit()
 
-    print(sentences)
-    print(len(sentences))
-    quit()
 
+    for sentence in sentences:
+        for tup in data:
+            if tup[0] == sentence:
+                ranked_data.append(tup)
 
     return ranked_data
 
@@ -267,7 +267,7 @@ def main():
 
     cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0")
     raw_data = cur.fetchall()
-    dataRanker(raw_data)
+    print(dataRanker(raw_data))
     quit()
     # contents = extractor(raw_data)
     dbInserter(contents)
