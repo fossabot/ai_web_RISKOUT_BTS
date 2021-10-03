@@ -24,9 +24,9 @@ const handlePassword2Change = (e) => {
         <div className="login-box">
           <span>비밀번호 초기화</span>
               <center>
-            <input type="text" placeholder="새 비밀번호 입력" onChange={handlePassword1Change}/>
+            <input type="password" placeholder="새 비밀번호 입력" onChange={handlePassword1Change}/>
             <br></br>
-            <input type="text" placeholder="새 비밀번호 확인" onChange={handlePassword2Change}/>
+            <input type="password" placeholder="새 비밀번호 확인" onChange={handlePassword2Change}/>
             <br></br>
             <button className="JoinLoign-button" onClick={(e)=>{
 
