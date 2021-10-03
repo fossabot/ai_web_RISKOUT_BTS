@@ -24,7 +24,8 @@ class DB:
                 domain TEXT,\
                 subject_ TEXT,\
                 id TEXT,\
-                isAnalyzed INTEGER)"\
+                isAnalyzed INTEGER,\
+                created_at)"\
                 )
 
     def get_cursor(self):
@@ -40,7 +41,8 @@ class DB:
             :domain,\
             :subject_,\
             :id,\
-            :isAnalyzed)",\
+            :isAnalyzed,\
+            :created_at)",\
                 {
                 'title':content.title,
                 'href': content.url,
@@ -50,7 +52,8 @@ class DB:
                 'domain':content.site_domain,
                 'subject_': content.subject,
                 'id': content.contents_id,
-                'isAnalyzed': 0
+                'isAnalyzed': 0,
+                'created_at': content.created_at
                 }
             )
         self.dbfile.commit()
