@@ -33,16 +33,28 @@ class AnalyzedDataView(generics.CreateAPIView):
             else:
                 period = serializer.data.get("period")
 
-            now = datetime.utcnow() + timedelta(hours=9)
+
             mongo = DBHandler()
-            results = mongo.find_item(
-                {
-                    "created_at": {'$gte' : (now - timedelta(hours=period))},
-                    "category":category
-                }, 
-                "riskout", 
-                "analyzed"
-            )
+            results = None
+
+            if period == 0:
+                results = mongo.find_item(
+                    { }, 
+                    "riskout", 
+                    "analyzed"
+                )
+                
+            else:
+                now = datetime.utcnow() + timedelta(hours=9)
+                
+                results = mongo.find_item(
+                    {
+                        "created_at": {'$gte' : (now - timedelta(hours=period))},
+                        "category":category
+                    }, 
+                    "riskout", 
+                    "analyzed"
+                )
 
             for i in range(len(results)):
                 results[i]['created_at'] = results[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
