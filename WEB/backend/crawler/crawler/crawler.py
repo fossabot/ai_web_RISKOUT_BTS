@@ -1,6 +1,5 @@
 # for multiprocess
 import asyncio
-from json.encoder import py_encode_basestring
 import aiohttp
 
 # for crawl
@@ -11,8 +10,6 @@ from bs4 import BeautifulSoup as bs
 import time
 
 # import class
-from crawler.model.ListPage import ListPage as listpage
-from crawler.model.ContentsPage import ContentsPage as contentspage
 from crawler.model import Content
 from crawler.model import const as const
 
