@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { styled } from '@mui/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
@@ -8,35 +9,61 @@ import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 
-export default function ToggleButtons() {
-  const [alignment, setAlignment] = React.useState('left');
+import '../css/ExclusiveSelect.css';
 
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+  '& .MuiToggleButtonGroup-grouped': {
+    // margin: theme.spacing(0.5),
+    borderRadius: '5px',
+    border: 0,
+    '&.Mui-disabled': {
+      border: 0,
+    },
+    '&:not(:first-of-type)': {
+      borderRadius: '5px',
+      //   borderRadius: theme.shape.borderRadius,
+    },
+    '&:first-of-type': {
+      borderRadius: '5px',
+      //   borderRadius: theme.shape.borderRadius,
+    },
+  },
+  '& .Mui-selected': {
+    backgroundColor: '#d0e4ff',
+    fontWeight: 'bold',
+  },
+}));
+
+export default function ToggleButtons() {
+  const [selectedValue, setSelectedValue] = React.useState('all');
+
+  const handleSelectedValue = (event, newSelectedValue) => {
+    if (newSelectedValue !== null) setSelectedValue(newSelectedValue);
   };
 
   return (
-    <ToggleButtonGroup
-      value={alignment}
+    <StyledToggleButtonGroup
+      value={selectedValue}
       exclusive
-      onChange={handleAlignment}
-      aria-label="text alignment"
+      onChange={handleSelectedValue}
+      aria-label="select value"
+      className="period-select"
     >
-      <ToggleButton value="1hr" aria-label="left aligned">
-        <FormatAlignLeftIcon />
+      <ToggleButton value="1hr" aria-label="last one hour">
+        1hr
       </ToggleButton>
-      <ToggleButton value="1d" aria-label="centered">
-        <FormatAlignCenterIcon />
+      <ToggleButton value="1d" aria-label="last one day">
+        1d
       </ToggleButton>
-      <ToggleButton value="1mo" aria-label="right aligned">
-        <FormatAlignRightIcon />
+      <ToggleButton value="1mo" aria-label="last one month">
+        1mo
       </ToggleButton>
-      <ToggleButton value="1yr" aria-label="justified" disabled>
-        <FormatAlignJustifyIcon />
+      <ToggleButton value="1yr" aria-label="last one year">
+        1yr
       </ToggleButton>
-      <ToggleButton value="all" aria-label="justified" disabled>
-        <FormatAlignJustifyIcon />
+      <ToggleButton value="all" aria-label="all">
+        all
       </ToggleButton>
-    </ToggleButtonGroup>
+    </StyledToggleButtonGroup>
   );
 }
