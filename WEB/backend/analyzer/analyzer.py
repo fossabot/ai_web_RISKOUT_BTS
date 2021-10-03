@@ -46,7 +46,7 @@ class Content:
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
         try:
-            summarized = requests.post(url, data=document)
+            summarized = requests.post(url, data=document, timeout=20)
 
             if summarized.status_code == 200:
                 try:
@@ -68,7 +68,7 @@ class Content:
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
         try:
-            positivity = requests.post(url, data=document)
+            positivity = requests.post(url, data=document, timeout=20)
 
             if positivity.status_code == 200:
                 try:
@@ -90,7 +90,7 @@ class Content:
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
         try:
-            entities = requests.post(url, data=document)
+            entities = requests.post(url, data=document, timeout=20)
 
             if entities.status_code == 200:
                 try:
@@ -188,8 +188,18 @@ def extractor(data):
 def dbInserter(contents):
     mongo = DBHandler()
     for i in range(len(contents)):
-        contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
-        contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
+        hasNone = False
+        for _, value in contents[i].iteritems():
+            if value is None:
+                hasNone = True
+                break
+        
+        if hasNone:
+            del contents[i]
+            i -= 1
+        else:
+            contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
+            contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
     
     try:
         mongo.insert_item_many(contents, "riskout", "analyzed")
