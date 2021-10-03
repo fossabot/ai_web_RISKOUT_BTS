@@ -5,7 +5,8 @@ from pymongo.cursor import CursorType
 
 class DBHandler:
     def __init__(self):
-        host = "localhost"
+        # host = "localhost"
+        host = "host.docker.internal"
         port = "8001"
         self.client = MongoClient(host, int(port))
 
