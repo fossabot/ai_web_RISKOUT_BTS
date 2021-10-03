@@ -12,6 +12,7 @@ import RiskReport from './pages/RiskReport';
 import Secret from './pages/Secret';
 import FakeNews from './pages/FakeNews';
 import PasswordResetPage from './components/Modal/PasswordResetPage';
+import PasswordChangePage from './components/Modal/PasswordChangePage';
 import {
   Route
 } from 'react-router-dom';
@@ -21,12 +22,14 @@ import './App.css';
 function App() {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState([])
+  const [token, setToken] = useState([])
 
   let [isAuthenticated, setisAuthenticated] = useState(localStorage.getItem('token') ? true : false)
 
   const userHasAuthenticated = (authenticated, username, token) => {
     setisAuthenticated(authenticated)
     setUser(username)
+    setToken(token)
     console.log("토큰 저장됨");
     localStorage.setItem('token', token);
   } //회원가입이나 로그인이 성공했을 때 토큰을 저장
@@ -73,7 +76,9 @@ function App() {
           <Route exact path="/password_reset">
             <PasswordResetPage/>
           </Route>
-
+          <Route exact path="/password_change">
+            <PasswordChangePage token = {token}/>
+          </Route>
         </div>
       </div>
   );
