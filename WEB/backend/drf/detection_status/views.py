@@ -100,10 +100,8 @@ class AnalyzedDataView(generics.CreateAPIView):
     def getFilterTags(self, tags, contents):
         for i in range(len(contents)):
             for key1 in tags:
-                if key1 in contents[i]['entities'][0]:
-                # if key1 in contents[i]['entities']:
-                    key2 = contents[i]['entities'][0][key1]
-                    # key2 = contents[i]['entities'][key1]
+                if key1 in contents[i]['entities']:
+                    key2 = contents[i]['entities'][key1]
                     for key3 in key2:
                         try:
                             tags[key1][key3] += 1
