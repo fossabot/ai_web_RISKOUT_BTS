@@ -173,7 +173,7 @@ def dbInserter(contents):
     mongo = DBHandler()
     for i in range(len(contents)):
         contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
-        contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9)).strftime('%y-%m-%d %H:%M:%S')
+        contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
     
     try:
         mongo.insert_item_many(contents, "riskout", "analyzed")
