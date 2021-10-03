@@ -4,7 +4,7 @@ from transformers.models.bart import BartForConditionalGeneration
 
 
 class KorbartSummarizer:
-    def __init__(self, model_path, tokenizer=get_kobart_tokenizer, max_length=2048, num_beams=10):
+    def __init__(self, model_path, tokenizer=get_kobart_tokenizer, max_length=1024, num_beams=10):
         self.model = BartForConditionalGeneration.from_pretrained(model_path)
         self.tokenizer = tokenizer()
         self.max_length = max_length
@@ -12,14 +12,11 @@ class KorbartSummarizer:
 
     def _preprocess(self, text: str):
         sents = text.replace('\n', '')
-        input_ids = self.tokenizer.encode(sents)
+        input_ids = self.tokenizer.encode(sents, max_length=1024, truncation=True)
         input_ids = torch.tensor(input_ids).unsqueeze(0)
         return input_ids
 
     def predict(self, text: str):
-        # max_length 넘으면 slice
-        if len(text) > self.max_length:
-            text = text[:self.max_length]
         input_ids = self._preprocess(text)
         output = self.model.generate(input_ids, eos_token_id=1,
                                      max_length=self.max_length, num_beams=self.num_beams)
