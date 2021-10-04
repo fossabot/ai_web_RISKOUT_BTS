@@ -38,9 +38,13 @@ export default function ToggleButtons({
   selectOptions,
   selectedValue,
   setSelectedValue,
+  selectHandler,
 }) {
   const handleSelectedValue = (event, newSelectedValue) => {
-    if (newSelectedValue !== null) setSelectedValue(newSelectedValue);
+    if (newSelectedValue !== null) {
+      setSelectedValue(newSelectedValue);
+      selectHandler(newSelectedValue);
+    }
   };
 
   return (

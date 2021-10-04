@@ -361,9 +361,9 @@ button {
 
 #sub_contents {
   background: #f5f5f5;
-  margin-left: 300px;
+  /* margin-left: 300px; */
   padding: 150px 260px 150px 80px;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 #sub_contents h2.h2_tit {
