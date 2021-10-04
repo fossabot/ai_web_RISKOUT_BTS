@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Optional, Union
 from rest_api.config import CONCURRENT_REQUEST_PER_WORKER, KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH, NER_MODEL_PATH, VOCAB_PATH, FAKENEWS_MODEL_PATH
 from rest_api.utils import RequestLimiter
+from rest_api.http_error import http_error_handler
 
 from riskout.fakenews import FakeNewsClassifier
 from riskout.ner import NER
@@ -36,12 +37,11 @@ kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
 sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
 named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=nouns)
 
-
-
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_credentials=True,
     allow_methods=["*"], allow_headers=["*"]
 )
+app.add_exception_handler(HTTPException, http_error_handler)
 
 class DocumentRequest(BaseModel):
     document: Optional[Union[List[str],str]] = None
@@ -65,9 +65,9 @@ async def fakenews(doc: DocumentRequest):
             results["true_score"] = prob
         except Exception as e:
             results["detail"] = "{}".format(e)
-        results["time"] = time.time() - start_time
-                
-        return results
+        finally:
+            results["time"] = time.time() - start_time                
+            return results
     
 
 @app.post("/ner")
@@ -86,8 +86,9 @@ async def ner(doc: DocumentRequest):
             results["ner"] = [{k: list(set(v)) for k, v in d.items()} for d in entity] # remove duplicated
         except:
             raise HTTPException(status_code=503, detail="The server is busy processing requests.")
-        results["time"] = time.time() - start_time
-        return results
+        finally:
+            results["time"] = time.time() - start_time                
+            return results
     
 
 @app.post("/sentiment")
@@ -107,8 +108,9 @@ async def sentiment(doc: DocumentRequest):
             results["score"] = scores
         except:
             raise HTTPException(status_code=503, detail="The server is busy processing requests.")
-        results.update({"time": time.time() - start_time})
-        return results
+        finally:
+            results["time"] = time.time() - start_time                
+            return results
 
 
 @app.post("/summarize")
@@ -164,8 +166,9 @@ async def keywords(doc: DocumentRequest):
             results["keywords"] =  keyword_extractor.summarize(doc.document, topk=10)
         except:
             raise HTTPException(status_code=503, detail="The server is busy processing requests.")
-        results.update({"time": time.time() - start_time})
-        return results
+        finally:
+            results["time"] = time.time() - start_time                
+            return results
 
 
 @app.post("/keysentences")
@@ -191,8 +194,9 @@ async def keysentences(doc: DocumentRequest):
             results.update({"keysentences": _keysentences})
         except:
             raise HTTPException(status_code=503, detail="The server is busy processing requests.")
-        results.update({"time": time.time() - start_time})
-        return results
+        finally:
+            results["time"] = time.time() - start_time                
+            return results
 
 
 logger.info("Open http://127.0.0.1:8000/docs to see Swagger API Documentation.")
