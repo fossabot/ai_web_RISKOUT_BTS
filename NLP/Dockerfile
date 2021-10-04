@@ -43,4 +43,6 @@ EXPOSE 8000
 
 # Command for running the API server
 # gunicorn rest_api.application:app -k uvicorn.workers.UvicornWorker --workers 1
-CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "2", "--timeout", "180", "--keep-alive", "20", "--graceful-timeout", "300"]
+
+CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--workers", "2", "--timeout", "300"]
+

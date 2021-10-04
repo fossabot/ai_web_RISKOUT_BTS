@@ -19,6 +19,6 @@ class KorbartSummarizer:
     def predict(self, text: str):
         input_ids = self._preprocess(text)
         output = self.model.generate(input_ids, eos_token_id=1,
-                                     max_length=self.max_length, num_beams=self.num_beams)
+                                    max_length=self.max_length, num_beams=self.num_beams)
         output = self.tokenizer.decode(output[0], skip_special_tokens=True)
         return output
