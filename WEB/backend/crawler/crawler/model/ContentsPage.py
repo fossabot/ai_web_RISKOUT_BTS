@@ -43,6 +43,16 @@ class ContentsPage:
         except KeyError:
             self.img_div_class = None
 
+        # created_at
+        try:
+            self.create_div = config['created_at']['div']
+        except KeyError:
+            self.create_div = None
+        try:
+            self.create_div_class = config['created_at']['div_class']
+        except KeyError:
+            self.create_div_class = None
+
     def get_contents_json(self, site_name):
         path= os.path.dirname(os.path.realpath(__file__))
         return path + site_name + "/contents.json"

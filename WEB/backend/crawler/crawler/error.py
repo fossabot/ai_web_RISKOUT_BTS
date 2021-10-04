@@ -11,3 +11,10 @@ class englishContentError(Exception):
 
     def __str__(self):
         return self.msg
+
+class contentLengthError(Exception):
+    def __init__(self):
+        self.msg = "contents too short"
+
+    def __str__(self):
+        return self.msg

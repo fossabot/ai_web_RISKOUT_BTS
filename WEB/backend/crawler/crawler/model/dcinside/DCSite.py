@@ -41,6 +41,10 @@ class DCContentsPage(contentspage):
     def __init__(self):
         contentspage.__init__(self, '/dcinside')
 
+    def get_finedate(self, date):
+        data = date[-15:-6].replace('.','_')
+        return data
+
 class DCSite(Site):
     def __init__(self):
         self.name = 'dcinside'

@@ -4,6 +4,7 @@ from crawler.model.Site import *
 from crawler.model.naver.const import *
 
 from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import contentLengthError as length_error
 
 
 class NaverNewsListPage(listpage):
@@ -50,6 +51,10 @@ class NaverNewsContentsPage(contentspage):
     def __init__(self):
         contentspage.__init__(self, '/naver')
 
+    def get_finedate(self, date):
+        data = date[2:10].replace('.','_')
+        return data
+
 class NaverNewsSite(Site):
     def __init__(self):
         self.name = 'naver_news'
@@ -64,4 +69,8 @@ class NaverNewsSite(Site):
 
         return article_id
 
-        # return contents_url[-10:]
+    def contentCheck(self, content):
+        if(len(content.body) < 600):
+            raise length_error
+
+        return

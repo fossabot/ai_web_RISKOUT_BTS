@@ -1,6 +1,5 @@
 # for multiprocess
 import asyncio
-from json.encoder import py_encode_basestring
 import aiohttp
 
 # for crawl
@@ -10,13 +9,7 @@ from bs4 import BeautifulSoup as bs
 # for checking elapsed time
 import time
 
-import random
-
-from os import CLD_EXITED, close
-
 # import class
-from crawler.model.ListPage import ListPage as listpage
-from crawler.model.ContentsPage import ContentsPage as contentspage
 from crawler.model import Content
 from crawler.model import const as const
 
@@ -24,7 +17,7 @@ from crawler.model import const as const
 import crawler.db as database
 
 # error
-from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import HTMLElementsNotFoundError as notfound_error, contentLengthError
 from crawler.error import englishContentError
 
 # import setting values
@@ -88,27 +81,35 @@ async def get_contents(site, contents_url, urlinfo, db):
     news_url에서 contents 객체를 만들어 리턴하는 함수
     페이지 각각에서 스크래핑하는 기능을 담당하고 있다
     """
+
     if(DEBUG):
         print(f"Send request to {contents_url}")
 
     # aiohttp 이용
-    async with aiohttp.ClientSession() as sess:
-        async with sess.get(contents_url, headers = site.header) as res:
-            text = await res.text()
-            content_soup = bs(text, 'html.parser')
-            try:
-                news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
-            except englishContentError as detail:
-                if(DEBUG):
-                    print("english contents")
-                    print(detail)
-            else:
-                # news_content를 쿼리로 쏘는 코드
-                # db.dbcursor.execute("SELECT id FROM CrawlContents")
-                # stored_data = db.dbcursor.fetchall()
-                if news_content.contents_id not in db.select_id():
-                    db.put_content(news_content)
-                print(db.select_id())
+    try:
+        async with aiohttp.ClientSession() as sess:
+            async with sess.get(contents_url, headers = site.header) as res:
+                text = await res.text()
+                content_soup = bs(text, 'html.parser')
+                try:
+                    news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
+                except englishContentError as detail:
+                    if(DEBUG):
+                        print("english contents")
+                        print(detail)
+                except contentLengthError as detail:
+                    if(DEBUG):
+                        print("contents does not valid by following exception")
+                        print(detail)
+                else:
+                    # news_content를 쿼리로 쏘는 코드
+                    if news_content.contents_id not in db.select_id():
+                        db.put_content(news_content)
+                    # print(db.select_id())
+    except Exception as detail:
+        if(DEBUG):
+            print("an exception occured when getting information of contentsPage")
+            print(detail)
                 
     if (DEBUG):
         print(f"Received request to {contents_url}")
@@ -126,11 +127,10 @@ async def crawl(site):
 
         test_breaker = 0
 
-        while prev_page != now_page and test_breaker < 1:
+        while prev_page != now_page: # and test_breaker < const.MAX_LISTPAGE_CRAWL:
             if(DEBUG):
                 print('\nlisturl: ' + urlbase + str(now_page) + '\n')
 
-            # 추가 예외처리 필요
             try:
                 response = get_request(urlbase + str(now_page), site.header)
             except requests.exceptions.ConnectionError as detail:
@@ -145,16 +145,17 @@ async def crawl(site):
                 break
             except requests.exceptions.HTTPError as detail:
                 if(DEBUG):
-                    print("in crawler/crawler.py.crawl: unsuccessful respond occured")
+                    print("in crawler/crawler.py/crawl: unsuccessful respond occured")
+                    print(detail)
+                break
+            except requests.exceptions.RequestException as detail:
+                if(DEBUG):
+                    print("in crawler/crawler.py/crawl: any other exception occured on getting respond")
                     print(detail)
                 break
 
             list_html = response.text
             list_soup = bs(list_html, 'html.parser')
-            # f = open('output.html', 'w')
-            # f.write(list_soup.prettify())
-            # f.close()
-            # print(list_soup.prettify())
 
             try:
                 now_page = site.listpage.get_nowpage(list_soup)
