@@ -39,7 +39,7 @@ class Content:
         summarized, positivity, entities: analyze 호출 이후 할당
         """
         
-        # self.getSummarized()
+        self.getSummarized()
         self.getPositivity()
         self.getEntities()
         self.content_dict['isAnalyzed'] = True
@@ -248,15 +248,15 @@ def extractor(data):
         conn.close()
         quit()
 
-    nlp_resquest_list = []
-    nlp_response_list = []
+    # nlp_resquest_list = []
+    # nlp_response_list = []
 
-    for idx, tup in enumerate(data):
-        url = SERVER_URL + 'summarize'
-        document = {"document": unicodedata.normalize('NFKC', tup[3])}
-        nlp_resquest_list.append({"url": url, "id": tup[7], "document": document})
+    # for idx, tup in enumerate(data):
+    #     url = SERVER_URL + 'summarize'
+    #     document = {"document": unicodedata.normalize('NFKC', tup[3])}
+    #     nlp_resquest_list.append({"url": url, "id": tup[7], "document": document})
 
-    nlp_response_list = asyncio.get_event_loop().run_until_complete(dispatch(nlp_resquest_list))
+    # nlp_response_list = asyncio.get_event_loop().run_until_complete(dispatch(nlp_resquest_list))
 
     contents = []
 
@@ -267,11 +267,11 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
-        extracted['summarized'] = None
+        # extracted['summarized'] = None
         
-        for res in nlp_response_list:
-            if res['id'] == tup[7]:
-                extracted['summarized'] = res['summarized']
+        # for res in nlp_response_list:
+        #     if res['id'] == tup[7]:
+        #         extracted['summarized'] = res['summarized']
 
         content = Content(extracted)
         contents.append(content.content_dict)
