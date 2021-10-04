@@ -189,7 +189,7 @@ $ yarn start or npm run start
 <td width="250">AI Developer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/playff">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/playff-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -202,7 +202,7 @@ $ yarn start or npm run start
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/simonseo">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/simonseo-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -215,7 +215,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/dev-taewon-kim">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/dev-taewon-kim-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -228,7 +228,7 @@ $ yarn start or npm run start
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/liboto00">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/liboto00-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -241,7 +241,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/flydog98">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/flydog98-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -254,7 +254,7 @@ $ yarn start or npm run start
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/Seo-Faper">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/Seo-Faper-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -267,7 +267,7 @@ $ yarn start or npm run start
 <td width="250">Product Manager<br>AI Developer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/mslee300">
-	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/mslee300-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
