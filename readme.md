@@ -185,80 +185,80 @@ $ yarn start or npm run start
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">조정환</td>
+<td width="250">AI Developer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/playff">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:chotnt741@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=chotnt741@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">서명근</td>
+<td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/simonseo">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:simonseo.doubles@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=simonseo.doubles@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">김태원</td>
+<td width="250">Backend Engineer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/dev-taewon-kim">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:dev.taewon.kim@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=dev.taewon.kim@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">이원빈</td>
+<td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/liboto00">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:wonbinlee00@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=wonbinlee00@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">박용준</td>
+<td width="250">Backend Engineer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/flydog98">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:guinnessoverflow@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=guinnessoverflow@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
+<td width="100" align="center">서종찬</td>
+<td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
-	<a href="https://github.com/mslee300">
+	<a href="https://github.com/Seo-Faper">
 	<img src="https://img.shields.io/badge/Minseok-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+<a href="mailto:dswhdcks@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=dswhdcks@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
 	
 <tr>
