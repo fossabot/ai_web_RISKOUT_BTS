@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 import '../../css/LoginModal.css';
 
-const PasswordChangePage = (props) => {
+const PasswordChangePage = () => {
   let [useroldpassword, setUserOldPassword] = useState()
   let [usernewpassword, setUserNewPassword] = useState();
-  let token = props.token;
+  let token = localStorage.getItem("token");
 
   const data = {old_password : useroldpassword, new_password : usernewpassword}
 
@@ -34,8 +34,9 @@ const handlePassword2Change = (e) => {
                   alert(token)
                     fetch('/api/change-password/', {
                       method: 'PUT',
-                      headers:{
-                        'Authorization': token
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Token ${token}`,
                       },
                       body: JSON.stringify(data)
                     });
