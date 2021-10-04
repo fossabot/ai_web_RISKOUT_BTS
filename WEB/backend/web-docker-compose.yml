@@ -12,6 +12,8 @@ services:
     volumes:
       - ./drf:/drf
     working_dir: /drf
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     entrypoint: ["/bin/sh","-c"]
     command:
     - |

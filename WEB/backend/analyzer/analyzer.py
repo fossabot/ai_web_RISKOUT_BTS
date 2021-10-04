@@ -4,12 +4,13 @@ import sqlite3
 import requests
 import json
 from time import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from pymongo import MongoClient
 from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
+# SERVER_URL = 'http://localhost:8000/'
 SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
@@ -45,16 +46,23 @@ class Content:
         url = SERVER_URL + 'summarize'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        summarized = requests.post(url, data=document)
 
-        if summarized.status_code == 200:
-            try:
-                self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
-            except Exception as e:
-                print(f"Error occured while summarizing data : {e}")
+        try:
+            summarized = requests.post(url, data=document, timeout=20)
+
+            if summarized.status_code == 200:
+                try:
+                    self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+                except Exception as e:
+                    print(f"Error occured while summarizing data : {e}")
+                    self.content_dict['summarized'] = None
+
+            else:
+                print(f"Error occured while fetching summarized data : {e}")
                 self.content_dict['summarized'] = None
 
-        else:    
+        except Exception as e:
+            print(f"Error occured while fetching summarized data : {e}")
             self.content_dict['summarized'] = None
 
 
@@ -62,38 +70,51 @@ class Content:
         url = SERVER_URL + 'sentiment'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        positivity = requests.post(url, data=document)
+        try:
+            positivity = requests.post(url, data=document, timeout=20)
 
-        if positivity.status_code == 200:
-            try:
-                self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
-            except Exception as e:
-                print(f"Error occured while getting positivity : {e}")
+            if positivity.status_code == 200:
+                try:
+                    self.content_dict['positivity'] = json.loads(positivity.text)['score'][0]
+                except Exception as e:
+                    print(f"Error occured while getting positivity : {e}")
+                    self.content_dict['positivity'] = None
+            else:
+                print(f"Error occured while fetching positivity data : {e}")
                 self.content_dict['positivity'] = None
-        else:    
+
+        except Exception as e:
+            print(f"Error occured while fetching positivity data : {e}")
             self.content_dict['positivity'] = None
+
 
 
     def getEntities(self):
         url = SERVER_URL + 'ner'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
-        entities = requests.post(url, data=document)
+        try:
+            entities = requests.post(url, data=document, timeout=20)
 
-        if entities.status_code == 200:
-            try:
-                self.content_dict['entities'] = json.loads(entities.text)['ner']
-            except Exception as e:
-                print(f"Error occured while getting entities : {e}")
+            if entities.status_code == 200:
+                try:
+                    self.content_dict['entities'] = json.loads(entities.text)['ner'][0]
+                except Exception as e:
+                    print(f"Error occured while getting entities : {e}")
+                    self.content_dict['entities'] = None
+            else:
+                print(f"Error occured while fetching entities : {e}")
                 self.content_dict['entities'] = None
-        else:    
+
+        except Exception as e:
+            print(f"Error occured while fetching entities : {e}")
             self.content_dict['entities'] = None
 
 
 class DBHandler:
     def __init__(self):
-        host = "mongo"
-        port = "27017"
+        host = "host.docker.internal"
+        port = "8001"
         self.client = MongoClient(host, int(port))
 
     def insert_item_one(self, data, db_name=None, collection_name=None):
@@ -138,15 +159,94 @@ class DBHandler:
         return result
 
 
+def process_data(res_data):
+    try:
+        res_data["summarized"] = json.loads(res_data["res_text"])["summarized"][0]
+
+    except Exception as e:
+        print(f"Error occured while summarizing data : {e}")
+    
+    return res_data
+
+
+async def post_data(url, session, id, document):
+    result = {"id": id, "res_text": None, "summarized": None}
+
+    try:
+        async with session.post(url, json=document, timeout = 7200) as res:
+            result["res_text"] = await res.text()
+
+    except Exception as e:
+        print(f"Error occured while fetching summarized data : {e}")
+    
+    return result
+
+
+async def process(url, session, pool, id, document):
+    data = await post_data(url, session, id, document)
+    print(data)
+    return await asyncio.wrap_future(pool.submit(process_data, data))
+
+
+async def dispatch(req_list):
+    pool = ProcessPoolExecutor()
+    async with aiohttp.ClientSession() as session:
+        coros = (process(url=req["url"], session=session, pool=pool, id=req["id"], document=req["document"]) for req in req_list)
+        return await asyncio.gather(*coros)
+
+
+def dataRanker(data):
+    print('[*] Data ranker Started!')
+
+    if not len(data):
+        return data
+
+    url = SERVER_URL + 'keysentences'
+    document = {"document": []}
+    ranked_data = []
+    sentences = []
+
+    for tup in data:
+        document["document"].append(tup[0])
+    
+    document = json.dumps(document)
+
+    try:
+        ranked = requests.post(url, data=document, timeout=20)
+
+        if ranked.status_code == 200:
+            try:
+                for sentence in json.loads(ranked.text)['keysentences']:
+                    sentences.append(sentence["sentence"])
+
+            except Exception as e:
+                print(f"Error occured while ranking data : {e}")
+                quit()
+        else:
+            print(f"Error occured while fetching ranking data : http status code : {ranked.status_code}")
+            quit()
+
+    except Exception as e:
+        print(f"Error occured while fetching ranking data : {e}")
+        quit()
+
+
+    for sentence in sentences:
+        for tup in data:
+            if tup[0] == sentence:
+                ranked_data.append(tup)
+
+    return ranked_data
+
+
 def extractor(data):
-    print('\n[*] Extractor Started!\n')
+    print('[*] Extractor Started!\n')
 
     if len(data) < 1:
         print("[!] All pages have been analyzed.")
         cur.close()
         conn.close()
         quit()
-
 
     contents = []
 
@@ -170,29 +270,61 @@ def extractor(data):
 
 
 def dbInserter(contents):
+    validated_contents= []
     mongo = DBHandler()
+
     for i in range(len(contents)):
-        contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
-        contents[i]['created_at'] = datetime.utcnow().strftime('%y-%m-%d %H:%M:%S')
-    
+        hasNone = False
+
+        for key in contents[i]:
+            if contents[i][key] is None:
+                hasNone = True
+                break
+
+        if not hasNone:
+            contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
+            contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
+            validated_contents.append(contents[i])
+
     try:
-        mongo.insert_item_many(contents, "riskout", "analyzed")
+        mongo.insert_item_many(validated_contents, "riskout", "analyzed")
         print('DB insertion success')
         mongo.client.close()
         return True
-
+    
     except Exception as e:
         print("DB insert error occured :", e)
         mongo.client.close()
         return False
-
-
+        
+        
 def main():
     start_time = time()
 
     cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0")
     raw_data = cur.fetchall()
-    contents = extractor(raw_data)
+
+    date_list = []
+    important_data_list = []
+    
+    for tup in raw_data:
+        if tup[9] not in date_list:
+            date_list.append(tup[9])
+    
+    today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
+
+    for date in date_list:
+        cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+        if date != today:
+            important_data_list.extend(dataRanker(cur.fetchall()))
+            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+            conn.commit()
+        else:
+            important_data_list.extend(dataRanker(cur.fetchall()))
+
+    print(f"[*] Serving {len(important_data_list)} pages to Extractor...")
+
+    contents = extractor(important_data_list)
     dbInserter(contents)
 
     cur.close()

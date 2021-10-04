@@ -15,8 +15,8 @@ services:
     command:
       - |
         pip install --no-cache-dir -r /analyzer/requirements.txt
-        python /crawler/main.py
-        python /analyzer/analyzer.py
+        python -u /crawler/main.py
+        python -u /analyzer/analyzer.py
     depends_on:
       - mongo
       - mongo-seed
@@ -26,8 +26,8 @@ services:
     image: mongo:4.4
     volumes:
       - ./data/db:/data/db
-    expose:
-      - "27017"
+    ports:
+      - "8001:27017"
   
   mongo-seed:
     container_name: mongo-seed_service
