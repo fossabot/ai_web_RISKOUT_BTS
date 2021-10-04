@@ -13,8 +13,8 @@ import aiohttp
 from concurrent.futures import ProcessPoolExecutor
 
 
-SERVER_URL = 'http://localhost:8000/'
-# SERVER_URL = 'http://host.docker.internal:8000/'
+# SERVER_URL = 'http://localhost:8000/'
+SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -161,7 +161,7 @@ class DBHandler:
 
 def process_data(res_data):
     try:
-        res_data["summarized"] = res_data["res_text"]["summarized"][0]
+        res_data["summarized"] = json.loads(res_data["res_text"])["summarized"][0]
 
     except Exception as e:
         print(f"Error occured while summarizing data : {e}")
@@ -173,7 +173,7 @@ async def post_data(url, session, id, document):
     result = {"id": id, "res_text": None, "summarized": None}
 
     try:
-        async with session.post(url, json=document, timeout = 20) as res:
+        async with session.post(url, json=document, timeout = 7200) as res:
             result["res_text"] = await res.text()
 
     except Exception as e:
@@ -254,7 +254,6 @@ def extractor(data):
     for idx, tup in enumerate(data):
         url = SERVER_URL + 'summarize'
         document = {"document": unicodedata.normalize('NFKC', tup[3])}
-        document = json.dumps(document)
         nlp_resquest_list.append({"url": url, "id": tup[7], "document": document})
 
     nlp_response_list = asyncio.get_event_loop().run_until_complete(dispatch(nlp_resquest_list))
@@ -268,7 +267,11 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
-        extracted['summarized'] = nlp_response_list[tup[7]]
+        extracted['summarized'] = None
+        
+        for res in nlp_response_list:
+            if res['id'] == tup[7]:
+                extracted['summarized'] = res['summarized']
 
         content = Content(extracted)
         contents.append(content.content_dict)
