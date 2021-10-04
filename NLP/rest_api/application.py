@@ -18,6 +18,8 @@ from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
 from riskout.utils import get_tokenizer
 
+from . import timeout_exception
+
 logging.basicConfig(format="%(asctime)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -117,15 +119,28 @@ async def summarize(doc: DocumentRequest):
         if not doc:
             return {"detail": "Need doc"}    
 
-        results = {}
+        results = {"summarized": []}
         if isinstance(doc.document, str):
             doc.document = [doc.document]
-        try:
-            results["summarized"] = [kobart_summarizer.predict(d) for d in doc.document]
-        except:
-            raise HTTPException(status_code=503, detail="The server is busy processing requests.")
+
+        for d in doc.document:
+            try:
+                summarized = getSummarize(d)
+                results["summarized"].append(summarized)
+
+            except timeout_exception.TimeoutError as e:
+                results["summarized"] = None
+                results["error_msg"] = e
+            except:
+                raise HTTPException(status_code=503, detail="The server is busy processing requests.")
+
         results["time"] = time.time() - start_time
         return results
+
+
+@timeout_exception.timeout(20)
+def getSummarize(data):
+    return kobart_summarizer.predict(data)
 
 
 @app.post("/keywords")
