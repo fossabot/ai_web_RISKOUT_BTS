@@ -9,5 +9,9 @@
     "body": {
         "div": "div",
         "div_class": "thum-txtin"
+    },
+    "created_at": {
+        "div": "ul",
+        "div_class": "ginfo2"
     }
 }

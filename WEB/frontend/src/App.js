@@ -6,6 +6,7 @@ import Layout from './layout';
 import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
 import PressTrends from './pages/PressTrends';
+import Dashboard from './pages/Dashboard';
 import RiskReport from './pages/RiskReport';
 
 import LoginModal from './components/Modal/LoginModal';
