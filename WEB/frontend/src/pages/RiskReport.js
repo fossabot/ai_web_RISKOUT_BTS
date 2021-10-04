@@ -61,6 +61,7 @@ const RiskReport = () => {
 
   const selectHandler = (dateRange) => {
     alert('dateRange changed ' + dateRange);
+    // TODO: call search here
   };
 
   return (
