@@ -41,9 +41,17 @@ const handlePassword2Change = (e) => {
                         'Content-Type': 'application/json'
                       },
                       body: JSON.stringify(data)
-                    });
-                  }
-
+                    }).then(res => res.json())
+                    .then(json => {
+                      if(json.status=="OK"){
+                          alert("성공적으로 변경되었습니다.");
+                          history.push("/");
+                      }else{
+                          alert("비밀번호를 다시 확인 해 주세요.")
+                      }
+                    })
+                    .catch(error => alert(error));
+                    };
 
                   }
                   }
