@@ -215,7 +215,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/dev-taewon-kim">
-	<img src="https://img.shields.io/badge/dev-taewon-kim-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/devtaewonkim-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -254,7 +254,7 @@ $ yarn start or npm run start
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/Seo-Faper">
-	<img src="https://img.shields.io/badge/Seo-Faper-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/SeoFaper-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
