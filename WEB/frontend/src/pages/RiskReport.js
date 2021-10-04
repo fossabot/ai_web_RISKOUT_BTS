@@ -43,9 +43,9 @@ const RiskReport = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        topic: 'Hacker',
-        dateRange: dateRange,
-        articleIds: [1, 2, 3],
+        topic: 'Hacker', // organization name?
+        dateRange: dateRange, // user selected
+        articleIds: [1, 2, 3], // get from sessionStorage
       }),
     }
   */
@@ -68,18 +68,10 @@ const RiskReport = () => {
     </section>
   );
 
-  /*
-  useEffect(() => {
-    if (data) {
-      setDateRange(data.dateRange);
-    }
-  }, [data]);
-*/
-
+  // select handler is not required.
+  // when dateRange changes selected happens due to the useFetch hook
   const selectHandler = (dateRange) => {
     alert('dateRange changed ' + dateRange);
-    // TODO: call search here
-    // Search(dateRange);
   };
 
   return (
@@ -92,9 +84,12 @@ const RiskReport = () => {
         <section id="sub_contents">
           <div className="sub01_wrap">
             <h2 className="h2_tit2">
-              “{data.topic}” 개요
+              Report
               <em>
-                {data.startDate}부터 {data.endDate}까지
+                {new Intl.DateTimeFormat('ko-KR', { dateStyle: 'full' }).format(
+                  new Date()
+                )}{' '}
+                (24h)
               </em>
             </h2>
 
@@ -115,14 +110,34 @@ const RiskReport = () => {
                 <img src={graphImage} alt="" />
               </div>
               <div className="text">
-                {data.contents.map(({ title, summary }) => {
-                  return (
-                    <>
-                      <h4>{title}</h4>
-                      {getLineBreakText(summary)}
-                    </>
-                  );
-                })}
+                {data.contents.map(
+                  ({
+                    title,
+                    summary,
+                    characteristics,
+                    sourceName,
+                    url,
+                    datetime,
+                  }) => {
+                    return (
+                      <>
+                        <a href={url} target="_blank" rel="noopener">
+                          <h4>{title}</h4>
+                        </a>
+                        {getLineBreakText(summary)}
+                        <p>
+                          {characteristics.map((c) => (
+                            <span>{c}</span>
+                          ))}
+                        </p>
+                        <p>
+                          원본: {sourceName} {datetime}
+                        </p>
+                        <p>URL: {url}</p>
+                      </>
+                    );
+                  }
+                )}
               </div>
             </div>
           </div>
