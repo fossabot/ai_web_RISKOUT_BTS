@@ -32,8 +32,23 @@ const timeBefore = (today: Date, timelength: String) => {
 const RiskReport = () => {
   const [dateRange, setDateRange] = React.useState('all'); // for period select
   const { data, isPending, error } = useFetch(
-    '/static/ReportData.example.json'
+    '/static/ReportData.example.json?dateRange=' + dateRange // fetch occurs whenever dateRange changes
   );
+
+  /*
+    // if using POST request with request options
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        topic: 'Hacker',
+        dateRange: dateRange,
+        articleIds: [1, 2, 3],
+      }),
+    }
+  */
 
   const loadingScreen = (
     <section id="sub_contents">
@@ -53,15 +68,18 @@ const RiskReport = () => {
     </section>
   );
 
+  /*
   useEffect(() => {
     if (data) {
       setDateRange(data.dateRange);
     }
   }, [data]);
+*/
 
   const selectHandler = (dateRange) => {
     alert('dateRange changed ' + dateRange);
     // TODO: call search here
+    // Search(dateRange);
   };
 
   return (
