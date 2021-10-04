@@ -8,9 +8,6 @@ from datetime import datetime, timedelta
 from pymongo import MongoClient
 from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
-import asyncio
-import aiohttp
-from concurrent.futures import ProcessPoolExecutor
 
 
 # SERVER_URL = 'http://localhost:8000/'
@@ -60,7 +57,8 @@ class Content:
                     print(f"Error occured while summarizing data : {e}")
                     self.content_dict['summarized'] = None
 
-            else:    
+            else:
+                print(f"Error occured while fetching summarized data : {e}")
                 self.content_dict['summarized'] = None
 
         except Exception as e:
@@ -81,7 +79,8 @@ class Content:
                 except Exception as e:
                     print(f"Error occured while getting positivity : {e}")
                     self.content_dict['positivity'] = None
-            else:    
+            else:
+                print(f"Error occured while fetching positivity data : {e}")
                 self.content_dict['positivity'] = None
 
         except Exception as e:
@@ -103,7 +102,8 @@ class Content:
                 except Exception as e:
                     print(f"Error occured while getting entities : {e}")
                     self.content_dict['entities'] = None
-            else:    
+            else:
+                print(f"Error occured while fetching entities : {e}")
                 self.content_dict['entities'] = None
 
         except Exception as e:
@@ -248,16 +248,6 @@ def extractor(data):
         conn.close()
         quit()
 
-    # nlp_resquest_list = []
-    # nlp_response_list = []
-
-    # for idx, tup in enumerate(data):
-    #     url = SERVER_URL + 'summarize'
-    #     document = {"document": unicodedata.normalize('NFKC', tup[3])}
-    #     nlp_resquest_list.append({"url": url, "id": tup[7], "document": document})
-
-    # nlp_response_list = asyncio.get_event_loop().run_until_complete(dispatch(nlp_resquest_list))
-
     contents = []
 
     for idx, tup in enumerate(data):
@@ -267,11 +257,6 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
-        # extracted['summarized'] = None
-        
-        # for res in nlp_response_list:
-        #     if res['id'] == tup[7]:
-        #         extracted['summarized'] = res['summarized']
 
         content = Content(extracted)
         contents.append(content.content_dict)
