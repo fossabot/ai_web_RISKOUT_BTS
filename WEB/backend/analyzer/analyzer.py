@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 from pymongo import MongoClient
 from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
+import asyncio
+import aiohttp
+from concurrent.futures import ProcessPoolExecutor
 
 
 SERVER_URL = 'http://localhost:8000/'
@@ -36,7 +39,7 @@ class Content:
         summarized, positivity, entities: analyze 호출 이후 할당
         """
         
-        self.getSummarized()
+        # self.getSummarized()
         self.getPositivity()
         self.getEntities()
         self.content_dict['isAnalyzed'] = True
@@ -46,6 +49,7 @@ class Content:
         url = SERVER_URL + 'summarize'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
+
         try:
             summarized = requests.post(url, data=document, timeout=20)
 
@@ -155,10 +159,46 @@ class DBHandler:
         return result
 
 
-def dataRanker(data):
-    print('\n[*] Data ranker Started!\n')
+def process_data(res_data):
+    try:
+        res_data["summarized"] = res_data["res_text"]["summarized"][0]
 
-    if len(data) < 1:
+    except Exception as e:
+        print(f"Error occured while summarizing data : {e}")
+    
+    return res_data
+
+
+async def post_data(url, session, id, document):
+    result = {"id": id, "res_text": None, "summarized": None}
+
+    try:
+        async with session.post(url, json=document, timeout = 20) as res:
+            result["res_text"] = await res.text()
+
+    except Exception as e:
+        print(f"Error occured while fetching summarized data : {e}")
+    
+    return result
+
+
+async def process(url, session, pool, id, document):
+    data = await post_data(url, session, id, document)
+    print(data)
+    return await asyncio.wrap_future(pool.submit(process_data, data))
+
+
+async def dispatch(req_list):
+    pool = ProcessPoolExecutor()
+    async with aiohttp.ClientSession() as session:
+        coros = (process(url=req["url"], session=session, pool=pool, id=req["id"], document=req["document"]) for req in req_list)
+        return await asyncio.gather(*coros)
+
+
+def dataRanker(data):
+    print('[*] Data ranker Started!')
+
+    if not len(data):
         return data
 
     url = SERVER_URL + 'keysentences'
@@ -169,7 +209,6 @@ def dataRanker(data):
     for tup in data:
         document["document"].append(tup[0])
     
-    print(len(document["document"]))
     document = json.dumps(document)
 
     try:
@@ -201,7 +240,7 @@ def dataRanker(data):
 
 
 def extractor(data):
-    print('\n[*] Extractor Started!\n')
+    print('[*] Extractor Started!\n')
 
     if len(data) < 1:
         print("[!] All pages have been analyzed.")
@@ -209,6 +248,16 @@ def extractor(data):
         conn.close()
         quit()
 
+    nlp_resquest_list = []
+    nlp_response_list = []
+
+    for idx, tup in enumerate(data):
+        url = SERVER_URL + 'summarize'
+        document = {"document": unicodedata.normalize('NFKC', tup[3])}
+        document = json.dumps(document)
+        nlp_resquest_list.append({"url": url, "id": tup[7], "document": document})
+
+    nlp_response_list = asyncio.get_event_loop().run_until_complete(dispatch(nlp_resquest_list))
 
     contents = []
 
@@ -219,6 +268,7 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
+        extracted['summarized'] = nlp_response_list[tup[7]]
 
         content = Content(extracted)
         contents.append(content.content_dict)
@@ -260,16 +310,33 @@ def dbInserter(contents):
         return False
         
         
-
-
 def main():
     start_time = time()
 
     cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0")
     raw_data = cur.fetchall()
-    print(dataRanker(raw_data))
-    quit()
-    # contents = extractor(raw_data)
+
+    date_list = []
+    important_data_list = []
+    
+    for tup in raw_data:
+        if tup[9] not in date_list:
+            date_list.append(tup[9])
+    
+    today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
+
+    for date in date_list:
+        cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+        if date != today:
+            important_data_list.extend(dataRanker(cur.fetchall()))
+            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+            conn.commit()
+        else:
+            important_data_list.extend(dataRanker(cur.fetchall()))
+
+    print(f"[*] Serving {len(important_data_list)} pages to Extractor...")
+
+    contents = extractor(important_data_list)
     dbInserter(contents)
 
     cur.close()
