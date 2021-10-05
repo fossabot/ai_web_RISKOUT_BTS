@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import AutocompleteInSearch from './AutocompleteInSearch';
 import Button from '@mui/material/Button';
@@ -11,11 +11,19 @@ export default function Search() {
     const textValue = e.target.value;
     console.log(textValue);
   };
+
+  const [searchValue, setSearchValue] = useState('');
+
+  const onChange = (e) => {
+    e.preventDefault();
+    setSearchValue(e.current.value);
+  };
+
   
   return (
     <Box>
       <form onSubmit={onSubmit} style={{display: 'flex'}}>
-        <AutocompleteInSearch />
+        <AutocompleteInSearch onChange={onChange} />
         <Button
           sx={{ width: "", height: '5.1em' }}
           variant="contained"
