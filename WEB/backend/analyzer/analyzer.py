@@ -43,7 +43,7 @@ class Content:
     
 
     def getSummarized(self):
-        url = SERVER_URL + 'summarize'
+        url = SERVER_URL + '/summarize/extractive'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
 
