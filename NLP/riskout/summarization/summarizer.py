@@ -3,7 +3,7 @@ from kobart import get_kobart_tokenizer
 from transformers.models.bart import BartForConditionalGeneration
 
 
-class KorbartSummarizer:
+class AbstractiveSummarizer:
     def __init__(self, model_path, tokenizer=get_kobart_tokenizer, max_length=1024, num_beams=10):
         self.model = BartForConditionalGeneration.from_pretrained(model_path)
         self.tokenizer = tokenizer()
