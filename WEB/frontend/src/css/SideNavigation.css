@@ -101,7 +101,7 @@ body::-webkit-scrollbar {
 .sub_header .copyright {
   /*Copyright position*/
   position: absolute;
-  top: 27em;
+  top: 22em;
   color: #fff;
 }
 
