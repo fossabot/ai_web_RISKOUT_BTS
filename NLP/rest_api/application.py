@@ -1,20 +1,28 @@
 import logging
 import time
-
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from typing import List, Dict, Optional, Union
-from rest_api.config import CONCURRENT_REQUEST_PER_WORKER, KOBARTSUM_MODEL_PATH, SENTIMENT_MODEL_PATH, NER_MODEL_PATH, VOCAB_PATH, FAKENEWS_MODEL_PATH
+
 from rest_api.utils import RequestLimiter
 from rest_api.http_error import http_error_handler
+from rest_api.config import (
+    CONCURRENT_REQUEST_PER_WORKER, 
+    KOBARTSUM_MODEL_PATH, 
+    SENTIMENT_MODEL_PATH, 
+    NER_MODEL_PATH, 
+    VOCAB_PATH, 
+    FAKENEWS_MODEL_PATH
+)
 
 from riskout.fakenews import FakeNewsClassifier
 from riskout.ner import NER
 from riskout.sentiment import SentimentClassifier
-from riskout.summarization import KorbartSummarizer
+from riskout.summarization import AbstractiveSummarizer
+from riskout.extractive import ExtractiveSummarizer
 from riskout.textrank import KeysentenceSummarizer
 from riskout.textrank import KeywordSummarizer
 from riskout.utils import get_tokenizer
@@ -33,7 +41,8 @@ nouns = tokenizer.nouns
 morphs = tokenizer.morphs
 
 fakenews_classifier = FakeNewsClassifier(vocab_path=VOCAB_PATH, model_path=FAKENEWS_MODEL_PATH, split_morphs=morphs)
-kobart_summarizer = KorbartSummarizer(model_path=KOBARTSUM_MODEL_PATH)
+kobart_summarizer = AbstractiveSummarizer(model_path=KOBARTSUM_MODEL_PATH)
+extractive_summarizer = ExtractiveSummarizer()
 sentiment_classifier = SentimentClassifier(model_path=SENTIMENT_MODEL_PATH)
 named_entity_recognition = NER(model_path=NER_MODEL_PATH, split_by=nouns)
 
@@ -98,11 +107,10 @@ async def sentiment(doc: DocumentRequest):
 
         if not doc:
             return {"detail": "Need doc"}  
-
-        results = {"score": []}
         if isinstance(doc.document, str):
             doc.document = [doc.document]
-        
+
+        results = {"score": []}        
         try:
             scores = [sentiment_classifier.predict(d)[1] for d in doc.document] # [1] stand for positive score
             results["score"] = scores
@@ -113,7 +121,30 @@ async def sentiment(doc: DocumentRequest):
             return results
 
 
-@app.post("/summarize")
+@app.post("/summarize/extractive")
+async def extraction(doc: DocumentRequest):
+    with concurrency_limiter.run():
+        start_time = time.time()
+
+        if not doc:
+            return {"detail": "Need doc"}
+        if isinstance(doc.document, str):
+            doc.document = [doc.document]
+
+        results = {"summarized": []}
+
+        for d in doc.document:
+            try:
+                summarized = extractive_summarizer.summarize(d)
+                results["summarized"].append(summarized)
+            except:
+                raise HTTPException(status_code=503, detail="The server is busy processing requests.")
+        
+        results["time"] = time.time() - start_time
+        return results
+
+
+@app.post("/summarize/abstractive")
 async def summarize(doc: DocumentRequest):
     with concurrency_limiter.run():
         start_time = time.time()
