@@ -82,7 +82,9 @@ body::-webkit-scrollbar {
 
 .sub_header .sub_menu .css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root {
   /*메뉴*/
+  bottom: 1.1em;
   right: 0.4em;
+  padding: 2.0em 1.5em 0em;
 }
 
 .sub_header .sub_menu [class$='MuiTypography-root'] {
