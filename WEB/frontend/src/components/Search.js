@@ -1,136 +1,29 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import AutocompleteInSearch from './AutocompleteInSearch';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-// import searchIcon from "../images/sub/search_icon.png";
 // import "../App.css";
 
 
 export default function Search() {
-  const [text, setText] = React.useState('');
-
-  const onInputChange = (e) => {
-    setText(e.target.value);
-  };
-
   const onSubmit = (e) => {
     const textValue = e.target.value;
     console.log(textValue);
   };
   
   return (
-    <Box
-      component="form"
-      sx={{ display: 'flex' }}
-      action={onSubmit}
-    >
-      <Autocomplete
-        multiple
-        id="tags-outlined"
-        options={people}
-        sx={{ width: '100%'}}
-        getOptionLabel={(option) => option.name}
-        //defaultValue={} 첫 렌더링 시 기본으로 설정될 필터
-        renderInput={(params) => <TextField {...params} onChange={onInputChange} type="input" variant="outlined" margin="dense"/>}
-      / >
-      <Button
-        sx={{ width: "", height: '5.1em' }}
-        variant="contained"
-        type="submit"
-      ><SearchIcon /></Button>
+    <Box>
+      <form onSubmit={onSubmit} style={{display: 'flex'}}>
+        <AutocompleteInSearch />
+        <Button
+          sx={{ width: "", height: '5.1em' }}
+          variant="contained"
+          type="submit"
+        ><SearchIcon /></Button>
+      </form>
     </Box>
   );
 }
 
-const people = [
-  {
-    name: '이원빈',
-    age: '22',
-  },
-  {
-    name: '서종찬',
-    age: '22',
-  },
-  {
-    name: '서명근',
-    age: '22',
-  },
-  {
-    name: '김태원',
-    age: '20',
-  },
-  {
-    name: '이민식',
-    age: '25',
-  },
-  {
-    name: '박용준',
-    age: '20',
-  },
-  {
-    name: '조정환',
-    age: '23',
-  },
-  {
-    name: '김선균',
-    age: '22',
-  },
-  {
-    name: '오정도',
-    age: '22',
-  },
-  {
-    name: '최원용',
-    age: '22',
-  },
-  {
-    name: '김태완',
-    age: '20',
-  },
-  {
-    name: '박도범',
-    age: '25',
-  },
-  {
-    name: '손의섭',
-    age: '20',
-  },
-  {
-    name: '손정호',
-    age: '23',
-  },
-  {
-    name: '오희호',
-    age: '23',
-  },
-  {
-    name: '문자석',
-    age: '22',
-  },
-  {
-    name: '홍길동',
-    age: '22',
-  },
-  {
-    name: '신해진',
-    age: '22',
-  },
-  {
-    name: '한정진',
-    age: '20',
-  },
-  {
-    name: '이정빈',
-    age: '25',
-  },
-  {
-    name: '손길동',
-    age: '20',
-  },
-  {
-    name: '윤세준',
-    age: '23',
-  },
-];
+
