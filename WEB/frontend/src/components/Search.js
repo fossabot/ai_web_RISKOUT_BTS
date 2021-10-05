@@ -7,40 +7,38 @@ import SearchIcon from '@mui/icons-material/Search';
 // import searchIcon from "../images/sub/search_icon.png";
 // import "../App.css";
 
-const onInputChange = (e) => {
-  const personName = e.target.value;
-  console.log(personName);
-};
-
-const onSubmit = (e) => {
-  console.log('검색중..');
-  const sumbitContent = e.target.value;
-  console.log(sumbitContent);
-};
 
 export default function Search() {
+  const [text, setText] = React.useState('');
+
+  const onInputChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    const textValue = e.target.value;
+    console.log(textValue);
+  };
+  
   return (
     <Box
       component="form"
-      onSubmit={onSubmit}
       sx={{ display: 'flex' }}
-      autoComplete="off"
-      // action="login_page.php"
+      action={onSubmit}
     >
       <Autocomplete
         multiple
         id="tags-outlined"
         options={people}
-        onInputChange={onInputChange}
-        sx={{ width: '100%', display: 'flex' }}
+        sx={{ width: '100%'}}
         getOptionLabel={(option) => option.name}
-        //defaultValue={} // 첫 렌더링 시 기본으로 설정될 필터
-        // filterSelectedOptions
-        renderInput={(params) => <TextField {...params} type="text" variant="outlined" margin="dense"/>}
-      />
+        //defaultValue={} 첫 렌더링 시 기본으로 설정될 필터
+        renderInput={(params) => <TextField {...params} onChange={onInputChange} type="input" variant="outlined" margin="dense"/>}
+      / >
       <Button
         sx={{ width: "", height: '5.1em' }}
         variant="contained"
+        type="submit"
       ><SearchIcon /></Button>
     </Box>
   );
