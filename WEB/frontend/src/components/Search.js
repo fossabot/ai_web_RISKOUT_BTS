@@ -39,7 +39,7 @@ export default function Search() {
         renderInput={(params) => <TextField {...params} type="text" variant="outlined" margin="dense"/>}
       />
       <Button
-        sx={{ width: "", height: '5em' }}
+        sx={{ width: "", height: '5.1em' }}
         variant="contained"
       ><SearchIcon /></Button>
     </Box>
