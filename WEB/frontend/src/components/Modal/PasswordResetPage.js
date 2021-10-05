@@ -43,7 +43,7 @@ const handlePassword2Change = (e) => {
                       body: JSON.stringify(data)
                     }).then(res => res.json())
                     .then(json => {
-                      if(json.status=="OK"){
+                      if(json.status==="OK"){
                           alert("성공적으로 변경되었습니다.");
                           history.push("/");
                       }else{

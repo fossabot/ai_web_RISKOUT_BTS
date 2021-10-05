@@ -54,6 +54,7 @@ function LoginModal(props){
                   .then(json => {
                     if (json.token) {
                       props.userHasAuthenticated(true, data.username, json.token);
+                      alert("환영합니다."+username+"님.")
                       history.push("/");
                       props.setModal(true)
                       console.log(json)
