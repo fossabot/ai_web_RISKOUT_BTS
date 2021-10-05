@@ -17,8 +17,7 @@ from rest_api.controller.router import router as api_router
 def get_application() -> FastAPI:
     application = FastAPI(title="Riskout-API", debug=True, version="0.1", root_path=ROOT_PATH)
 
-    # This middleware enables allow all cross-domain requests to the API from a browser.
-    # For production deployments, it could be more restrictive.
+    #TODO 프로덕션 배포 전에 CORS 수정해야합니다.
     application.add_middleware(
         CORSMiddleware, allow_origins=["*"], allow_credentials=True,
         allow_methods=["*"], allow_headers=["*"]
