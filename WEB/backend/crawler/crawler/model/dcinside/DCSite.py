@@ -45,6 +45,9 @@ class DCContentsPage(contentspage):
         data = date[-15:-6].replace('.','_')
         return data
 
+    def get_fineauthor(self, author):
+        return author[0:-16]
+
 class DCSite(Site):
     def __init__(self):
         self.name = 'dcinside'

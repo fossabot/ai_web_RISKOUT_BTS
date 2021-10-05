@@ -9,7 +9,7 @@ class Content:
     url, 제목, 내용, 대표 이미지가 있다.
     Website 모델을 토대로 얻은 정보들을 담고 있다.
     """
-    def __init__(self, url, title, body, img_url, category, site_domain, subject, contents_id, created_at):
+    def __init__(self, url, title, body, img_url, category, site_domain, subject, contents_id, created_at, author):
         self.url = url
         self.title = title
         self.body = body
@@ -19,6 +19,7 @@ class Content:
         self.subject = subject
         self.contents_id = contents_id
         self.created_at = created_at
+        self.author = author
 
     def __str__(self):
         result = ""
@@ -27,6 +28,7 @@ class Content:
         result += f"Body: {self.body[:20]}\n"
         result += f"Img_url: {self.img_url}\n"
         result += f"created_at: {self.created_at}\n"
+        result += f"author: {self.author}\n"
         return result
 
 def contents_factory(site, contents_page_url, urlinfo, soup):
@@ -90,8 +92,14 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
     except:
         created_at = None
 
+    # author
+    try:
+        author = str.strip(soup.find(contents_page.author_div, class_ = contents_page.author_div_class).get_text())
+        author = contents_page.get_fineauthor(author)
+    except:
+        author = None
 
-    content = Content(contents_page_url, title, body, img_url, category, site_domain, subject, contents_id, created_at)
+    content = Content(contents_page_url, title, body, img_url, category, site_domain, subject, contents_id, created_at, author)
 
     if(DEBUG):
         print(content)

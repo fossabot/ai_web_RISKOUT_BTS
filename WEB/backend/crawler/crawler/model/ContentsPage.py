@@ -53,6 +53,17 @@ class ContentsPage:
         except KeyError:
             self.create_div_class = None
 
+        # author
+        try:
+            self.author_div = config['author']['div']
+        except KeyError:
+            self.author_div = None
+        try:
+            self.author_div_class = config['author']['div_class']
+        except KeyError:
+            self.author_div_class = None
+
+
     def get_contents_json(self, site_name):
         path= os.path.dirname(os.path.realpath(__file__))
         return path + site_name + "/contents.json"
