@@ -34,7 +34,7 @@ export default function Search() {
         onInputChange={onInputChange}
         sx={{ width: '100%', display: 'flex' }}
         getOptionLabel={(option) => option.name}
-        defaultValue={[people[13]]} // 기본 필터 고정
+        //defaultValue={} // 첫 렌더링 시 기본으로 설정될 필터
         filterSelectedOptions
         renderInput={(params) => <TextField {...params} label="" type="text" />}
       />
