@@ -35,14 +35,13 @@ export default function Search() {
         sx={{ width: '100%', display: 'flex' }}
         getOptionLabel={(option) => option.name}
         //defaultValue={} // 첫 렌더링 시 기본으로 설정될 필터
-        filterSelectedOptions
-        renderInput={(params) => <TextField {...params} label="" type="text" />}
+        // filterSelectedOptions
+        renderInput={(params) => <TextField {...params} type="text" variant="outlined" margin="dense"/>}
       />
       <Button
-        sx={{ height: '2em' }}
+        sx={{ width: "", height: '5em' }}
         variant="contained"
-        endIcon={<SearchIcon />}
-      ></Button>
+      ><SearchIcon /></Button>
     </Box>
   );
 }
