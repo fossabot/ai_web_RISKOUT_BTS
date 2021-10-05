@@ -18,4 +18,4 @@ VOCAB_PATH = os.getenv("VOCAB_PATH", "/home/user/models/snufc/vocab.pkl")
 # FAKENEWS_MODEL_PATH = os.getenv("FAKENEWS_MODEL_PATH", "./models/snufc/SenCNN.st")
 # VOCAB_PATH = os.getenv("VOCAB_PATH", "./models/snufc/vocab.pkl")
 
-ROOT_PATH = os.getenv("ROOT_PATH", "/api/v1")
+ROOT_PATH = os.getenv("ROOT_PATH", "/")
