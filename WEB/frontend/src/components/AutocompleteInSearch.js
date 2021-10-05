@@ -2,11 +2,9 @@ import React, {useState} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function AutocompleteInSearch(onChange){
- 
+export default function AutocompleteInSearch(){
   return(    
     <Autocomplete
-      onChange={onChange}
       multiple
       freeSolo
       id="tags-outlined"
