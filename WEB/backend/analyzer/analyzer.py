@@ -159,42 +159,6 @@ class DBHandler:
         return result
 
 
-def process_data(res_data):
-    try:
-        res_data["summarized"] = json.loads(res_data["res_text"])["summarized"][0]
-
-    except Exception as e:
-        print(f"Error occured while summarizing data : {e}")
-    
-    return res_data
-
-
-async def post_data(url, session, id, document):
-    result = {"id": id, "res_text": None, "summarized": None}
-
-    try:
-        async with session.post(url, json=document, timeout = 7200) as res:
-            result["res_text"] = await res.text()
-
-    except Exception as e:
-        print(f"Error occured while fetching summarized data : {e}")
-    
-    return result
-
-
-async def process(url, session, pool, id, document):
-    data = await post_data(url, session, id, document)
-    print(data)
-    return await asyncio.wrap_future(pool.submit(process_data, data))
-
-
-async def dispatch(req_list):
-    pool = ProcessPoolExecutor()
-    async with aiohttp.ClientSession() as session:
-        coros = (process(url=req["url"], session=session, pool=pool, id=req["id"], document=req["document"]) for req in req_list)
-        return await asyncio.gather(*coros)
-
-
 def dataRanker(data):
     print('[*] Data ranker Started!')
 
