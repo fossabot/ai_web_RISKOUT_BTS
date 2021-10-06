@@ -3,11 +3,14 @@ import { useState } from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 
 const ScrapButton = (props) => {
+  const { handleScrap, isAlreadyScrapped } = props;
   const [isScrapped, setScrapped] = useState(false);
-  const color = isScrapped ? 'disabled' : 'primary';
+  const color = isScrapped || isAlreadyScrapped ? 'disabled' : 'primary';
 
-  const { handleScrap } = props;
   const handleClick = () => {
+    if (isScrapped || isAlreadyScrapped) {
+      return;
+    }
     handleScrap();
     setScrapped(!isScrapped);
   };
