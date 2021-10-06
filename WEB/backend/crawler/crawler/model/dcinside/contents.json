@@ -13,5 +13,9 @@
     "created_at": {
         "div": "ul",
         "div_class": "ginfo2"
+    },
+    "author": {
+        "div": "ul",
+        "div_class": "ginfo2"
     }
 }

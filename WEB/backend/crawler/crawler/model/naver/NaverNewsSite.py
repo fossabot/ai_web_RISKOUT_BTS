@@ -55,6 +55,9 @@ class NaverNewsContentsPage(contentspage):
         data = date[2:10].replace('.','_')
         return data
 
+    def get_fineauthor(self, author):
+        return author
+
 class NaverNewsSite(Site):
     def __init__(self):
         self.name = 'naver_news'
