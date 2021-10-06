@@ -1,6 +1,6 @@
 import React from 'react';
 import fileIcon from '../images/sub/file.png';
-import ScrapButton from './UI/ScrapButton';
+import ScrapButton from './ScrapButton';
 
 export default function tableRow(props) {
   const {
@@ -11,6 +11,7 @@ export default function tableRow(props) {
     href,
     showDetailModal,
     scrapArticle,
+    isAlreadyScrapped,
   } = props;
 
   return (
@@ -26,7 +27,10 @@ export default function tableRow(props) {
       </td>
       <td>{author}</td>
       <td>
-        <ScrapButton handleScrap={() => scrapArticle(id)} />
+        <ScrapButton
+          handleScrap={() => scrapArticle(id)}
+          isAlreadyScrapped={isAlreadyScrapped}
+        />
       </td>
     </tr>
   );
