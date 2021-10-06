@@ -4,7 +4,17 @@ import icon02 from '../images/sub/btn_icon02.png';
 import icon03 from '../images/sub/btn_icon03.png';
 import Box from '@mui/material/Box';
 import Search from '../components/Search';
-import { Chip, Stack, Link, Grid } from '@mui/material';
+import {
+  Chip,
+  Stack,
+  Link,
+  Grid,
+  Typography,
+  Skeleton,
+  Card,
+  CardMedia,
+  CardContent,
+} from '@mui/material';
 
 import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
@@ -56,7 +66,15 @@ const RiskReport = () => {
       <div className="sub01_wrap">
         <h2 className="h2_tit2">Loading...</h2>
       </div>
-      <div className="content clfix"></div>
+      <div className="content clfix">
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+        <Skeleton></Skeleton>
+      </div>
     </section>
   );
 
@@ -97,7 +115,7 @@ const RiskReport = () => {
             <div className="text">{getLineBreakText(data.overview)}</div>
 
             <div className="period">
-              <span>{data.startDate} 이후의 주요내용</span>
+              <h2>리스크 브리핑</h2>
               <ExclusiveSelect
                 selectOptions={['1d', '1wk', '1m', '1yr', 'all']}
                 selectedValue={dateRange}
@@ -129,7 +147,7 @@ const RiskReport = () => {
                           rel="noopener"
                           underline="hover"
                         >
-                          <h4>{title}</h4>
+                          <h3>{title}</h3>
                         </Link>
                         {getLineBreakText(summary)}
                         <Grid
@@ -163,6 +181,81 @@ const RiskReport = () => {
                   }
                 )}
               </div>
+            </div>
+
+            <div className="content clfix">
+              <h2>중대한 위협</h2>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mt: '1rem' }}
+              >
+                <Card variant="outlined" sx="width: 400px">
+                  <CardMedia
+                    component="img"
+                    height="150"
+                    image="https://via.placeholder.com/400x150/09f/fff.png"
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="h3"
+                      sx={{
+                        mt: '1em',
+                        mb: '1em',
+                        lineHeight: '1.67',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '2',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        WebkitBoxOrient: 'vertical',
+                        // -webkit-box-orient: vertical;
+                      }}
+                    >
+                      문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지
+                      않았다고 주장
+                    </Typography>
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      sx={{ mt: '1rem' }}
+                    >
+                      <Stack direction="row" spacing={1}>
+                        <Chip
+                          label="허위뉴스"
+                          // variant="outlined"
+                          color="error"
+                          size="medium"
+                          sx={{ height: '2.4rem', fontSize: '1rem' }}
+                        />
+                      </Stack>
+                      <Link
+                        href="#"
+                        target="_blank"
+                        rel="noopener"
+                        underline="hover"
+                      >
+                        연합뉴스 2021-10-03 10:33PM
+                      </Link>
+                    </Grid>
+                  </CardContent>
+                </Card>
+                <Card variant="outlined">
+                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
+                  <Typography>허위 뉴스</Typography>
+                </Card>
+                <Card variant="outlined">
+                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
+                  <Typography>허위 뉴스</Typography>
+                </Card>
+                {/* <Card variant="outlined">
+                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
+                  <Typography>허위 뉴스</Typography>
+                </Card> */}
+              </Grid>
             </div>
           </div>
         </section>
