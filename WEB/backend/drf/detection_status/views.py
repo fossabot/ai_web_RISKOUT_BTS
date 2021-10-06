@@ -18,10 +18,17 @@ class AnalyzedDataView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         category = None
         period = None
+        tags = None
+        limit = None
+        offset = None
 
         if serializer.is_valid():
+            
+            tags = serializer.data.get("tags")
+            limit = serializer.data.get("limit")
+            offset = serializer.data.get("offset")
+
             # Check category
-            # print(serializer.data)
             
             if serializer.data.get("category") not in ["news", "social"]:
                 return Response({"category": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
@@ -34,16 +41,17 @@ class AnalyzedDataView(generics.CreateAPIView):
             else:
                 period = serializer.data.get("period")
             
-            return Response(self.getAnalyzedData(category, period))
+            return Response(self.getAnalyzedData(category, period, tags, limit, offset))
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def getAnalyzedData(self, category, period):
+    def getAnalyzedData(self, category, period, tags, limit, offset):
         mongo = DBHandler()
         db_result = None
         response = {
-            "contentsLength": 0,
+            "totalContentsLength": 0,
+            "pageContentsLength": 0,
             "contents": [],
             "filterTags": {
                 "PER": {},
@@ -63,10 +71,12 @@ class AnalyzedDataView(generics.CreateAPIView):
             }
         }
 
+        
+
         if period == 0:
             db_result = mongo.find_item(
                 { }, 
-                "riskout", 
+                "riskout",
                 "analyzed"
             )
             
@@ -76,7 +86,8 @@ class AnalyzedDataView(generics.CreateAPIView):
             db_result = mongo.find_item(
                 {
                     "created_at": {'$gte' : (now - timedelta(hours=period))},
-                    "category":category
+                    "category":category,
+                    "entities": { "$in": tags }
                 }, 
                 "riskout", 
                 "analyzed"
@@ -84,8 +95,11 @@ class AnalyzedDataView(generics.CreateAPIView):
 
 
         response["contents"] = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
-        response["contentsLength"] = len(response["contents"])
+        response["totalContentsLength"] = len(response["contents"])
         response["filterTags"] = self.getFilterTags(response["filterTags"], response["contents"])
+        
+        response["contents"] = response["contents"][offset:(offset + limit)]
+        response["pageContentsLength"] = len(response["contents"])
 
         return response
 
