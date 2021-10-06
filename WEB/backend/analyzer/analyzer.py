@@ -31,7 +31,7 @@ class Content:
         id: (mongoDB에 insert 되기 직전에 생성됨)
         created_at: (mongoDB에 insert 되기 직전에 생성됨)
 
-        site_url, thumbnail_url, category, title, contentBody: extracted 에서 추출
+        site_url, thumbnail_url, category, title, contentBody, author: extracted 에서 추출
 
         summarized, positivity, entities: analyze 호출 이후 할당
         """
@@ -43,7 +43,7 @@ class Content:
     
 
     def getSummarized(self):
-        url = SERVER_URL + '/summarize/extractive'
+        url = SERVER_URL + 'summarize/extractive'
         document = {"document": self.content_dict['contentBody']}
         document = json.dumps(document)
 
@@ -58,7 +58,7 @@ class Content:
                     self.content_dict['summarized'] = None
 
             else:
-                print(f"Error occured while fetching summarized data : {e}")
+                print(f"Error occured while fetching summarized data : {summarized.status_code}")
                 self.content_dict['summarized'] = None
 
         except Exception as e:
@@ -80,7 +80,7 @@ class Content:
                     print(f"Error occured while getting positivity : {e}")
                     self.content_dict['positivity'] = None
             else:
-                print(f"Error occured while fetching positivity data : {e}")
+                print(f"Error occured while fetching positivity data : {positivity.status_code}")
                 self.content_dict['positivity'] = None
 
         except Exception as e:
@@ -103,7 +103,7 @@ class Content:
                     print(f"Error occured while getting entities : {e}")
                     self.content_dict['entities'] = None
             else:
-                print(f"Error occured while fetching entities : {e}")
+                print(f"Error occured while fetching entities : {entities.status_code}")
                 self.content_dict['entities'] = None
 
         except Exception as e:
@@ -221,12 +221,13 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
+        extracted['author'] = tup[10]
 
         content = Content(extracted)
         contents.append(content.content_dict)
         
         cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
-        conn.commit()
+        # conn.commit()
 
         print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
@@ -282,7 +283,7 @@ def main():
         if date != today:
             important_data_list.extend(dataRanker(cur.fetchall()))
             cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND created_at = ?", (date,))
-            conn.commit()
+            # conn.commit()
         else:
             important_data_list.extend(dataRanker(cur.fetchall()))
 
