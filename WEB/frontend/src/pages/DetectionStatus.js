@@ -48,7 +48,7 @@ function Secret() {
 
   const search = () => {
     // console.log(`search options: `);
-    fetch('SecretData.example.json')
+    fetch('/static/SecretData.example.json')
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -70,6 +70,7 @@ function Secret() {
   };
 
   const scrapArticle = (id) => {
+    
     console.log('TODO: scrap article ', id);
     alert('TODO: scrap article ' + id);
   };
