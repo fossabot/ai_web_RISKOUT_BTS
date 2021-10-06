@@ -4,6 +4,7 @@ import icon02 from '../images/sub/btn_icon02.png';
 import icon03 from '../images/sub/btn_icon03.png';
 import Box from '@mui/material/Box';
 import Search from '../components/Search';
+import { Chip, Stack, Link, Grid } from '@mui/material';
 
 import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
@@ -109,6 +110,7 @@ const RiskReport = () => {
               <div className="img">
                 <img src={graphImage} alt="" />
               </div>
+
               <div className="text">
                 {data.contents.map(
                   ({
@@ -120,21 +122,43 @@ const RiskReport = () => {
                     datetime,
                   }) => {
                     return (
-                      <>
-                        <a href={url} target="_blank" rel="noopener">
+                      <article>
+                        <Link
+                          href={url}
+                          target="_blank"
+                          rel="noopener"
+                          underline="hover"
+                        >
                           <h4>{title}</h4>
-                        </a>
+                        </Link>
                         {getLineBreakText(summary)}
-                        <p>
-                          {characteristics.map((c) => (
-                            <span>{c}</span>
-                          ))}
-                        </p>
-                        <p>
-                          원본: {sourceName} {datetime}
-                        </p>
-                        <p>URL: {url}</p>
-                      </>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center"
+                          sx={{ mt: '1rem' }}
+                        >
+                          <Stack direction="row" spacing={1}>
+                            {characteristics.map((c) => (
+                              <Chip
+                                label={c}
+                                variant="outlined"
+                                size="medium"
+                                sx={{ height: '2.4rem', fontSize: '1rem' }}
+                              />
+                            ))}
+                          </Stack>
+                          <Link
+                            href={url}
+                            target="_blank"
+                            rel="noopener"
+                            underline="hover"
+                          >
+                            <em>원본:</em> {sourceName} {datetime}
+                          </Link>
+                        </Grid>
+                      </article>
                     );
                   }
                 )}

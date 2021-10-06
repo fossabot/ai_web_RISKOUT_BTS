@@ -27,7 +27,7 @@ function getLineBreakText(text) {
   console.log('getlinebreak', text, ReactDOMServer.renderToString(text));
   return ReactDOMServer.renderToString(text)
     .split('\n')
-    .map((str) => <p>{str}</p>);
+    .map((str) => <div>{str}</div>);
 }
 
 /**

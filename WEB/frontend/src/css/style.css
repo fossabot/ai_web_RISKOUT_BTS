@@ -530,6 +530,10 @@ button {
   width: 480px;
 }
 
+#sub_contents .sub01_wrap .content article {
+  margin-bottom: 3rem;
+}
+
 #sub_contents .sub01_wrap .content .img img {
   width: 100%;
 }
@@ -544,13 +548,13 @@ button {
   color: #000;
   font-size: 20px;
   line-height: 1;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 #sub_contents .sub01_wrap .content .text p {
   font-size: 20px;
   line-height: 35px;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 
 #sub_contents .sub01_wrap .content .text p:last-child {
