@@ -15,7 +15,7 @@ body::-webkit-scrollbar {
 /*햄버거 메뉴 위치*/
 .hamburgerMenu {
   top: 0.3em;
-  left: 0.6em;
+  left: 0.7em;
   width: 2em;
 }
 
@@ -24,7 +24,7 @@ body::-webkit-scrollbar {
   padding: 3em 0em 0em;
   position: relative;
   top: 6.1em;
-  text-align: center;
+  left: 0.7em;
 }
 
 /*아이콘 메뉴에 마우스를 올렸을 때 css*/
