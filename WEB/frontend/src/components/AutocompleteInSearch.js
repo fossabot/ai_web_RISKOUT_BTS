@@ -10,7 +10,7 @@ export default function AutocompleteInSearch({ tableData, options }){
   });
 
   const searchInputRef = useRef(null);
-
+  
   const handleSearchBtnClick = () => {
     const searchInput = document.getElementById("search-query-input");
     setSearchState((prevState) => {
