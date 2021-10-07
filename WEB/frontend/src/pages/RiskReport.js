@@ -20,6 +20,7 @@ import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
 import useFetch from '../hooks/useFetch';
 import { getLineBreakText, useSessionStorage } from '../js/util';
+import ThreatMediaCard from '../components/ThreatMediaCard';
 
 const timeBefore = (today: Date, timelength: String) => {
   const [d, m, y] = [today.getDate(), today.getMonth(), today.getFullYear()];
@@ -196,6 +197,7 @@ const RiskReport = () => {
                 alignItems="center"
                 sx={{ mt: '1rem' }}
               >
+                <ThreatMediaCard />
                 <Card variant="outlined" sx="width: 400px">
                   <CardMedia
                     component="img"
@@ -247,18 +249,6 @@ const RiskReport = () => {
                     </Grid>
                   </CardContent>
                 </Card>
-                <Card variant="outlined">
-                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
-                  <Typography>허위 뉴스</Typography>
-                </Card>
-                <Card variant="outlined">
-                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
-                  <Typography>허위 뉴스</Typography>
-                </Card>
-                {/* <Card variant="outlined">
-                  <img src="https://via.placeholder.com/400x150/09f/fff.png" />
-                  <Typography>허위 뉴스</Typography>
-                </Card> */}
               </Grid>
             </div>
           </div>
