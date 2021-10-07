@@ -87,7 +87,6 @@ class AnalyzedDataView(generics.CreateAPIView):
                 {
                     "created_at": {'$gte' : (now - timedelta(hours=period))},
                     "category":category,
-                    "entities": { "$in": tags }
                 }, 
                 "riskout", 
                 "analyzed"
