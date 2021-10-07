@@ -5,7 +5,7 @@ from riskout.utils import preprocess
 
 class ExtractiveSummarizer(object):
     """Extractive summarize using gensim library."""
-    def __init__(self, ratio_or_count='ratio', ratio=0.4, word_count=50):
+    def __init__(self, ratio_or_count='ratio', ratio=0.2, word_count=50):
         self.ratio = ratio
         self.word_count = word_count
         self.ratio_or_count = ratio_or_count
@@ -13,17 +13,20 @@ class ExtractiveSummarizer(object):
 
     def summarize(self, text):
         text = self._preprocess(text)
-        if len(text.split('.')) < 5:
+        if len(text.split('.')) < 10:
             return text
         else:            
             text = self._summarize(text)
             return re.sub('\n', ' ', text)
 
     def _summarize(self, text):
-        if self.ratio_or_count == 'ratio':
-            res = summarize(text, ratio=self.ratio)
-        elif self.ratio_or_count == 'count':
-            res = summarize(text, word_count=self.word_count)
+        try:
+            if self.ratio_or_count == 'ratio':
+                res = summarize(text, ratio=self.ratio)
+            elif self.ratio_or_count == 'count':
+                res = summarize(text, word_count=self.word_count)
+        except:
+            res = '.'.join(text.split('.')[:10])
         return res
 
     def _preprocess(self, text):
