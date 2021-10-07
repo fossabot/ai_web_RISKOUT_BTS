@@ -41,7 +41,7 @@ const LoginModal=(props)=>{
                <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
               <h2>{JoinLoign}</h2>
           </Grid>
-          <TextField label='아이디' placeholder='아이디를 입력해 주세요.' fullWidth required onChange={handleNameChange}/>
+          <TextField label='ID' placeholder='아이디를 입력해 주세요.' fullWidth required onChange={handleNameChange}/>
           <TextField label='비밀번호' placeholder='비밀번호를 입력해 주세요.' type='password' fullWidth required  onChange={handlePasswordChange}/>
           <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
