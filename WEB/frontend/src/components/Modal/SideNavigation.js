@@ -40,7 +40,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft(props) {
+export default function SideNavigation(props) {
   const { drawerWidth } = props;
   let [userprofile, setUserprofile] = useState(false);
   let [userPhoto, setUserPhoto] = useState();
