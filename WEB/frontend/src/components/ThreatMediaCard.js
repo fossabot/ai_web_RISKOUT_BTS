@@ -21,7 +21,12 @@ export default function ThreatMediaCard(props) {
   return (
     <Card variant="outlined" sx="width: 400px">
       <a href={href} style={{ padding: 0, margin: 0 }}>
-        <CardMedia component="img" height="150" image={imageUrl} />
+        <CardMedia
+          component="img"
+          height="150"
+          image={imageUrl}
+          sx={{ height: '150px', width: '400px' }}
+        />
         <CardContent>
           <Typography
             variant="h3"

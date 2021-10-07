@@ -120,7 +120,7 @@ const RiskReport = () => {
             <div className="text">{getLineBreakText(data.overview)}</div>
 
             <div className="period">
-              <h2>리스크 브리핑</h2>
+              <h2 style={{ display: 'inline-block' }}>리스크 브리핑</h2>
               <ExclusiveSelect
                 selectOptions={['1d', '1wk', '1m', '1yr', 'all']}
                 selectedValue={dateRange}
@@ -189,7 +189,7 @@ const RiskReport = () => {
             </div>
 
             <div className="content clfix">
-              <h2>중대한 위협</h2>
+              <h2>중대 위협</h2>
               <Grid
                 container
                 direction="row"
@@ -198,9 +198,8 @@ const RiskReport = () => {
                 sx={{ mt: '1rem' }}
               >
                 <ThreatMediaCard
-                  imageUrl="https://via.placeholder.com/400x150/09f/fff.png"
-                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지
-                  않았다고 주장"
+                  imageUrl="https://via.placeholder.com/400x1200/09f/fff.png"
+                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지 않았다고 주장"
                   threatType="허위뉴스"
                   sourceChannel="연합뉴스"
                   sourceTime="2021-10-03 10:33PM"
@@ -208,18 +207,24 @@ const RiskReport = () => {
                 />
                 <ThreatMediaCard
                   imageUrl="https://via.placeholder.com/400x150/09f/fff.png"
-                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지
-                  않았다고 주장"
-                  threatType="허위뉴스"
+                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지 않았다고 주장"
+                  threatType="대외비 기밀"
                   sourceChannel="연합뉴스"
                   sourceTime="2021-10-03 10:33PM"
                   href="#"
                 />
                 <ThreatMediaCard
-                  imageUrl="https://via.placeholder.com/400x150/09f/fff.png"
-                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지
-                  않았다고 주장"
-                  threatType="허위뉴스"
+                  imageUrl="https://via.placeholder.com/600x150/09f/fff.png"
+                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지 않았다고 주장"
+                  threatType="3급 기밀"
+                  sourceChannel="연합뉴스"
+                  sourceTime="2021-10-03 10:33PM"
+                  href="#"
+                />
+                <ThreatMediaCard
+                  imageUrl="https://via.placeholder.com/600x150/09f/fff.png"
+                  title="문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지 않았다고 주장"
+                  threatType="3급 기밀"
                   sourceChannel="연합뉴스"
                   sourceTime="2021-10-03 10:33PM"
                   href="#"
