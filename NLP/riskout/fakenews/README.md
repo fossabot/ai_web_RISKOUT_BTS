@@ -7,7 +7,7 @@ Fake News Classifier
 | SenCNN         | 0.9624 | 0.8016    | 0.7827 |
 | BERT           | 0.9662 | 0.8299    | 0.8070 |
 
-
+- 세 개 모델 모두 Early Stopping 을 적용한 결과입니다.
 
 ## Dataset
 데이터셋은 [SNU factcheck](https://factcheck.snu.ac.kr/)를 크롤링하여 사실, 거짓으로 라벨링하였음.
