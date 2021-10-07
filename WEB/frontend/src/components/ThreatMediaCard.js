@@ -10,13 +10,17 @@ import {
 } from '@mui/material';
 
 export default function ThreatMediaCard(props) {
+  const {
+    imageUrl,
+    title,
+    threatType,
+    sourceChannel,
+    sourceTime,
+    href,
+  } = props;
   return (
     <Card variant="outlined" sx="width: 400px">
-      <CardMedia
-        component="img"
-        height="150"
-        image="https://via.placeholder.com/400x150/09f/fff.png"
-      />
+      <CardMedia component="img" height="150" image={imageUrl} />
       <CardContent>
         <Typography
           variant="h3"
@@ -32,8 +36,7 @@ export default function ThreatMediaCard(props) {
             // -webkit-box-orient: vertical;
           }}
         >
-          문재인: 이명박, 박근혜가 5.18 민주화운동 기념식에 참석하지 않았다고
-          주장
+          {title}
         </Typography>
         <Grid
           container
@@ -44,15 +47,15 @@ export default function ThreatMediaCard(props) {
         >
           <Stack direction="row" spacing={1}>
             <Chip
-              label="허위뉴스"
+              label={threatType}
               // variant="outlined"
               color="error"
               size="medium"
               sx={{ height: '2.4rem', fontSize: '1rem' }}
             />
           </Stack>
-          <Link href="#" target="_blank" rel="noopener" underline="hover">
-            연합뉴스 2021-10-03 10:33PM
+          <Link href={href} target="_blank" rel="noopener" underline="hover">
+            {sourceChannel} {sourceTime}
           </Link>
         </Grid>
       </CardContent>
