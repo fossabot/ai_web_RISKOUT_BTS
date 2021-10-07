@@ -1,8 +1,14 @@
 import React, {useState, useRef} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { search, shapeData, sort } from "./searchTable";
 
 export default function AutocompleteInSearch({ tableData, options }){
+  const [searchState, setSearchState] = useState({
+    isActive: false,
+    query: null
+  });
+
   const searchInputRef = useRef(null);
 
   const handleSearchBtnClick = () => {
@@ -20,6 +26,8 @@ export default function AutocompleteInSearch({ tableData, options }){
     );
     setData(formattedSearchResults);
   };
+
+  const [data, setData] = useState(shapeData(tableData, options.headers));
 
   return(    
     <Autocomplete

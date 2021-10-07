@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import AutocompleteInSearch from './AutocompleteInSearch';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import {sampleData, sampleOptions} from './sample.js';
 // import "../App.css";
 
 
