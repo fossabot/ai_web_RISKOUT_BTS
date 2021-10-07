@@ -7,6 +7,7 @@ import AppliedFilter from '../components/AppliedFilter';
 
 import filtersCloseIcon from '../images/sub/filters_close.png';
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
+import { useSessionStorage } from '../js/util';
 
 function Secret() {
   const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
@@ -67,18 +68,6 @@ function Secret() {
     );
     setDetailModalData(data);
     setDetailModalOpen(true);
-  };
-
-  // sessionStorage를 쉽게 사용하게 해주는 함수
-  // ex) const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
-  const useSessionStorage = (key) => {
-    const getStorage = () => JSON.parse(sessionStorage.getItem(key)) || [];
-    const addStorage = (item) => {
-      const sto = getStorage();
-      sto.push(item);
-      sessionStorage.setItem(key, JSON.stringify(sto));
-    };
-    return [getStorage, addStorage];
   };
 
   const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
