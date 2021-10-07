@@ -102,22 +102,24 @@ export default function SideNavigation(props) {
           sx={{ mr: 2 }}
           className="hamburgerMenu"
         >
-          <MenuIcon sx={{ color: '#fff', fontSize:'1.3em'}} />
+          <MenuIcon sx={{ color: '#fff', fontSize:'1.3em', position:'fixed'}} />
         </IconButton>
 
-        <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
+        <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" className="a" />
         <SidebarLinkMini
           icon={SearchIcon}
           text="탐지현황"
           href="/detectionstatus"
           isOn={true}
+          className="b"
         />
         <SidebarLinkMini
           icon={AssessmentIcon}
           text="리포트"
           href="/riskreport"
+          className="c"
         />
-        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" />
+        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" className="d" />
       </Box>
 
       <Drawer

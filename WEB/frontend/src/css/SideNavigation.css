@@ -19,7 +19,7 @@ body::-webkit-scrollbar {
   width: 2em;
 }
 
-/*아이콘 메뉴 위치*/
+/*모든 아이콘 메뉴 위치*/
 .iconMenuBox {
   padding: 3em 0em 0em;
   position: relative;
