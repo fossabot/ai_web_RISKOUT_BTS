@@ -1,8 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 export default function AutocompleteInSearch({ tableData, options }){
+  const searchInputRef = useRef(null);
+
+  const handleSearchBtnClick = () => {
+    const searchInput = document.getElementById("search-query-input");
+    setSearchState((prevState) => {
+      return {
+        ...prevState,
+        query: searchInput.value
+      };
+    });
+
+    const formattedSearchResults = search(
+      shapeData(tableData, options.headers),
+      searchInput.value
+    );
+    setData(formattedSearchResults);
+  };
+
   return(    
     <Autocomplete
       multiple
