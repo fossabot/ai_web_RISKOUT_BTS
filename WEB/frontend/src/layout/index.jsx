@@ -1,4 +1,5 @@
 import React from 'react';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import Helmet from 'react-helmet';
 // import '../css//normalize.css';
@@ -51,7 +52,12 @@ export default class MainLayout extends React.Component {
               handleLogout={handleLogout}
             ></SideNavigation>
 
-            <Main open={open}>{children}</Main>
+            <SnackbarProvider
+              maxSnack={3}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <Main open={open}>{children}</Main>
+            </SnackbarProvider>
           </Box>
         </Box>
       </Box>

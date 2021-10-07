@@ -3,7 +3,7 @@
   "dateRange": "1yr",
   "startDate": "2001-01-01",
   "endDate": "2021-12-31",
-  "contents": [
+  "briefingContents": [
     {
       "id": 1,
       "title": "랜섬웨어 역사",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
 
 import Search from '../components/Search';
 import TableRow from '../components/SecretsTableRow';
@@ -36,6 +37,7 @@ function Secret() {
       TIM: {},
     },
   });
+  const { enqueueSnackbar } = useSnackbar();
 
   const toggleFilter = (hashtag) => {
     // console.log(`toggle ${hashtag}`, appliedFilters);
@@ -49,14 +51,13 @@ function Secret() {
 
   const search = () => {
     // console.log(`search options: `);
-    fetch('/static/SecretData.example.json')
+    fetch('static/SecretData.example.json')
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
         setSearchResults(data);
       });
   };
-
   useEffect(search, [appliedFilters]); // changing filters automatically triggers search
 
   const showDetailModal = (id) => {
@@ -71,11 +72,13 @@ function Secret() {
   };
 
   const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
-
   const scrapArticle = (id) => {
     addCart(id);
-    console.log('TODO: scrap article ', id);
-    alert('TODO: scrap article ' + id + ' ' + getCart());
+    const article = searchResults.contents.filter((x) => x.id == id).pop();
+    enqueueSnackbar('Scrapped article | ' + article.title, {
+      variant: 'success',
+      autoHideDuration: 10000,
+    });
   };
 
   const analyzePage = (id) => {
@@ -196,7 +199,8 @@ function Secret() {
                       />
                     ))}
                 </ul>
-                <button className="more_btn">더보기</button>
+                {/* <button className="more_btn">더보기</button> */}
+                {/* 더보기는 안 쓰기로 함 */}
               </div>
             );
           })}

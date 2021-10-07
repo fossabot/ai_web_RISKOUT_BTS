@@ -122,7 +122,7 @@ function App() {
       </Route>
 
       <Route exact path="/presstrends">
-        <PressTrends />
+        <Dashboard />
       </Route>
 
       <Route exact path="/detectionstatus">

@@ -19,7 +19,7 @@ import {
 import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
 import useFetch from '../hooks/useFetch';
-import { getLineBreakText } from '../js/util';
+import { getLineBreakText, useSessionStorage } from '../js/util';
 
 const timeBefore = (today: Date, timelength: String) => {
   const [d, m, y] = [today.getDate(), today.getMonth(), today.getFullYear()];
@@ -41,9 +41,13 @@ const timeBefore = (today: Date, timelength: String) => {
 };
 
 const RiskReport = () => {
+  const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
   const [dateRange, setDateRange] = React.useState('all'); // for period select
   const { data, isPending, error } = useFetch(
-    '/static/ReportData.example.json?dateRange=' + dateRange // fetch occurs whenever dateRange changes
+    '/static/ReportData.example.json?dateRange=' +
+      dateRange +
+      '&articleIds=' +
+      JSON.stringify(getCart()) // fetch occurs whenever dateRange changes
   );
 
   /*
@@ -62,7 +66,7 @@ const RiskReport = () => {
   */
 
   const loadingScreen = (
-    <section id="sub_contents">
+    <section id="sub_contents" style={{ width: '100vw', height: '100vh' }}>
       <div className="sub01_wrap">
         <h2 className="h2_tit2">Loading...</h2>
       </div>
@@ -130,7 +134,7 @@ const RiskReport = () => {
               </div>
 
               <div className="text">
-                {data.contents.map(
+                {data.briefingContents.map(
                   ({
                     title,
                     summary,
