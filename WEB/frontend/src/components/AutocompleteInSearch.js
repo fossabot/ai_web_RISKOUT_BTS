@@ -2,17 +2,18 @@ import React, {useState} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function AutocompleteInSearch(){
+export default function AutocompleteInSearch({ tableData, options }){
   return(    
     <Autocomplete
       multiple
       freeSolo
-      id="tags-outlined"
+      ref={searchInputRef}
+      id="search-query-input"
       options={people}
       sx={{ width: '100%'}}
       getOptionLabel={(option) => option.name}
       //defaultValue={} 첫 렌더링 시 기본으로 설정될 필터
-      renderInput={(params) => <TextField {...params} type="input" variant="outlined" margin="dense"/>}
+      renderInput={(params) => <TextField {...params} type="text" variant="outlined" margin="dense"/>}
     / >
   );
 };
