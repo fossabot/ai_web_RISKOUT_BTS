@@ -1,9 +1,18 @@
 import React from 'react';
 import fileIcon from '../images/sub/file.png';
+import ScrapButton from './ScrapButton';
 
 export default function tableRow(props) {
-  const { id, title, preview, author, href, showDetailModal, scrapArticle } =
-    props;
+  const {
+    id,
+    title,
+    preview,
+    author,
+    href,
+    showDetailModal,
+    scrapArticle,
+    isAlreadyScrapped,
+  } = props;
 
   return (
     <tr>
@@ -18,7 +27,10 @@ export default function tableRow(props) {
       </td>
       <td>{author}</td>
       <td>
-        <button onClick={() => scrapArticle(id)}>scrap</button>
+        <ScrapButton
+          handleScrap={() => scrapArticle(id)}
+          isAlreadyScrapped={isAlreadyScrapped}
+        />
       </td>
     </tr>
   );

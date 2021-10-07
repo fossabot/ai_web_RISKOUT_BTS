@@ -46,9 +46,22 @@ function decodeNewline(text, multiplier) {
   return text.replace(/\\n/g, '\n'.repeat(multiplier));
 }
 
+// sessionStorage를 쉽게 사용하게 해주는 함수
+// ex) const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
+const useSessionStorage = (key) => {
+  const getStorage = () => JSON.parse(sessionStorage.getItem(key)) || [];
+  const addStorage = (item) => {
+    const sto = getStorage();
+    sto.push(item);
+    sessionStorage.setItem(key, JSON.stringify(sto));
+  };
+  return [getStorage, addStorage];
+};
+
 export {
   getHighlightedText,
   getLineBreakText,
   getNodeText,
   decodeNewline as replaceNewline,
+  useSessionStorage,
 };

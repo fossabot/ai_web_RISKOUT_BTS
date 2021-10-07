@@ -7,6 +7,7 @@ import AppliedFilter from '../components/AppliedFilter';
 
 import filtersCloseIcon from '../images/sub/filters_close.png';
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
+import { useSessionStorage } from '../js/util';
 
 function Secret() {
   const [isDetailModalOpen, setDetailModalOpen] = React.useState(false);
@@ -48,7 +49,7 @@ function Secret() {
 
   const search = () => {
     // console.log(`search options: `);
-    fetch('static/SecretData.example.json')
+    fetch('/static/SecretData.example.json')
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -69,9 +70,12 @@ function Secret() {
     setDetailModalOpen(true);
   };
 
+  const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
+
   const scrapArticle = (id) => {
+    addCart(id);
     console.log('TODO: scrap article ', id);
-    alert('TODO: scrap article ' + id);
+    alert('TODO: scrap article ' + id + ' ' + getCart());
   };
 
   const analyzePage = (id) => {
@@ -138,6 +142,7 @@ function Secret() {
                   href={article.site_url}
                   showDetailModal={showDetailModal}
                   scrapArticle={scrapArticle}
+                  isAlreadyScrapped={getCart().includes(article.id)}
                 />
               ))}
               <TableRow
