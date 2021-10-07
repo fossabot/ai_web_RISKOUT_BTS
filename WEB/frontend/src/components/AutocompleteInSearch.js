@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { search, shapeData, sort } from "./searchTable";
