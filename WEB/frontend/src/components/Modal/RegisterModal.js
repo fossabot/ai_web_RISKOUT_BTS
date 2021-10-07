@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
 const LoginModal=(props)=>{
-  let [JoinLoign,setJoinLogin] = useState('로그인')
+  let [JoinLoign,setJoinLogin] = useState('회원가입')
   const history = useHistory()
 
 
@@ -42,42 +42,40 @@ const LoginModal=(props)=>{
               <h2>{JoinLoign}</h2>
           </Grid>
           <TextField label='아이디' placeholder='아이디를 입력해 주세요.' fullWidth required onChange={handleNameChange}/>
-          <TextField label='비밀번호' placeholder='비밀번호를 입력해 주세요.' type='password' fullWidth required  onChange={handlePasswordChange}/>
+          <TextField label='비밀번호' placeholder='비밀번호를 입력해 주세요.' type='password' fullWidth required onChange={handlePasswordChange}/>
+          <TextField label='비밀번호 확인' placeholder='비밀번호를 다시 입력해 주세요.' type='password' fullWidth required onChange={handlePasswordCheckChange}/>
+          <TextField label='이메일' placeholder='이메일을 입력해 주세요.' fullWidth required onChange={handleEmailChange}/>
           <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth className="JoinLoign-button" onClick={(e)=>{
+                  alert(JSON.stringify(data))
                   e.preventDefault()
-                  fetch('/api/login/', {
-                  method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                  })
-                  .then(res => res.json())
-                  .then(json => {
-                    if (json.token) {
-                      props.userHasAuthenticated(true, data.username, json.token);
-                      alert("환영합니다."+username+"님.")
-                      history.push("/");
-                      props.setModal(true)
+                  if(!useremail.indexOf("@")){
+                    alert("이메일 형식이 올바르지 않습니다.")
+                  }else if(userpassword !== userpasswordCheck){
+                    alert("비밀번호를 확인해 주세요.")
+                  }else{
+                    fetch('/api/register/', {
+                      method: 'POST',
+                      headers:{
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(data)
+                      
+                    }).then(res => res.json())
+                    .then(json => {
                       console.log(json)
-                    }else{
-                      alert("아이디 또는 비밀번호를 확인해주세요.")
-                    }
-                  })
-                  .catch(error => alert(error));
-                }}>{JoinLoign}</Button>
-          <Typography >
-          <br></br>
-               <Link href="/init" >
-                  비밀번호 찾기
-          </Link>
-          </Typography>
-          <Typography >
-          <br></br>
-               <Link href="register" >
-                  회원가입
-          </Link>
-          </Typography>
+                      if (json.token) {
+                        props.userHasAuthenticated(true, data.username, json.token);
+                        history.push("/");
+                        props.setModal(true)
+                      }else{
+                        alert("사용불가능한 아이디입니다.")
+                      }
+                    })
+                    
+                    .catch(error => alert(error));
+                  }
+                  }
+                 }>{JoinLoign}</Button>
       </Paper>
   </Grid>
     )
