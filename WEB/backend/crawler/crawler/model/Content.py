@@ -56,15 +56,24 @@ def contents_factory(site, contents_page_url, urlinfo, soup):
         raise englishContentError
 
     # body
+    body = None
+    body_div = None
+
     try:
-        body = ""
-        body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class).findAll(text = True, recursive = False)
-        for txt in body_div:
-            txt = str.strip(txt.get_text())
-            txt = re.sub("\[.*\].*=|\(.*=.*\).*=", '', txt)
-            txt = re.sub("\[.*\]|\(.*=.*\)", '', txt)
-            if(txt):
-                body += txt + ' '
+        if site.category == "news":
+            body = ""
+            body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class).findAll(text = True, recursive = False)
+
+            for txt in body_div:
+                txt = str.strip(txt.get_text())
+                txt = re.sub("\[.*\].*=|\(.*=.*\).*=", '', txt)
+                txt = re.sub("\[.*\]|\(.*=.*\)", '', txt)
+                if(txt):
+                    body += txt + ' '
+        else:
+            body_div = soup.find(contents_page.body_div, class_=contents_page.body_div_class)
+            body = str.strip(body_div.get_text())
+
     except AttributeError:
         body = "내용이 없습니다."
     
