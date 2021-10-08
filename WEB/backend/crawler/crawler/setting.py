@@ -1,8 +1,9 @@
 site_list = {
-    'NaverNews': 'naver_news',
-    # 'DCinside': 'dcinside'
+    # 'NaverNews': 'naver_news',
+    # 'DCinside': 'dcinside',
+    'Twitter': 'twitter'
 }
 
-DEBUG = False
+DEBUG = True
 
 TIME_CHECK = True
