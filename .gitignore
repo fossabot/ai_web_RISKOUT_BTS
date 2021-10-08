@@ -14,6 +14,9 @@ database.db
 WEB/backend/data/db/*
 !WEB/backend/data/db/.gitkeep
 
+# keep twitter api secrets
+# WEB/backend/crawler/crawler/model/twitter/secrets
+secrets.py
 
 # vscode
 .vscode
