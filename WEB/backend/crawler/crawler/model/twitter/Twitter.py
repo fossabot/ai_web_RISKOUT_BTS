@@ -31,7 +31,7 @@ class Twitter():
     def crawl(self, db):
 
         for keyword in KEYWORD:
-            tweets = tweepy.Cursor(self.api.search_tweets, q = keyword, result_type = 'recent').items(20)
+            tweets = tweepy.Cursor(self.api.search_tweets, q = keyword + ' -filter:retweets', result_type = 'recent').items(20)
 
             if(DEBUG):
                 print(keyword)
@@ -45,11 +45,6 @@ class Twitter():
         created_at = str(created_at)[2:10]
         created_at = created_at.replace("-", "_")
         return created_at
-
-    def contentCheck(self, content):
-
-
-        return
 
 def twitter_contents_factory(site, tweet, keyword):
     body = tweet.text
