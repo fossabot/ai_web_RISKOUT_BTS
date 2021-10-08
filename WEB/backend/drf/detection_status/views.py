@@ -77,45 +77,45 @@ class AnalyzedDataView(generics.CreateAPIView):
         db = mongo.client.riskout
         col = db.analyzed
         index_info = list(col.index_information())
-        print(index_info)
-        col.create_index([("title", mongoText), ("contentBody", mongoText)])
-        index_info = list(col.index_information())
-        print(index_info)
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
 
-        if period == 0:
-            db_result = mongo.find_item(
-                { }, 
-                "riskout",
-                "analyzed"
-            )
-            
-        else:
-            query = {}
-            
-            now = datetime.utcnow() + timedelta(hours=9)
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+
+        if period != 0:
             query["created_at"] = {"$gte" : (now - timedelta(hours=period))}
-            query["category"] = category
 
-            if search_text:
-                query["$text"] = {"$search": search_text}
-            
-            db_result = mongo.find_item(query, "riskout", "analyzed")
+        query["category"] = category
 
-        db_filtered = []
+        if search_text:
+            query["$text"] = {"$search": search_text}
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
 
         db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
 
-        for tag_name in tags:
+        if tags:
             for content in db_filtered:
-                if tag_name in content["entities"]:
-                    isPassed = True
-                    for tag in tags[tag_name]:
-                        if tag not in content["entities"][tag_name]:
-                            isPassed = False
-                            break
-                    if isPassed:
-                        response["contents"].append(content)
-    
+                isPassed = True
+                for tag_name in tags:
+                    if tag_name in content["entities"]:
+                        for tag in tags[tag_name]:
+                            if tag not in content["entities"][tag_name]:
+                                isPassed = False
+                                break
+
+                    else:
+                        isPassed = False
+                        continue
+                    
+                if isPassed:
+                    response["contents"].append(content)
+
+        else:
+            for content in db_filtered:
+                response["contents"].append(content)
 
         response["totalContentsLength"] = len(response["contents"])
         response["filterTags"] = self.getFilterTags(response["filterTags"], response["contents"])
