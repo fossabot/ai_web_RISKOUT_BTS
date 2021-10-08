@@ -12,7 +12,7 @@ class DCListPage(listpage):
     # override
     def get_each_urlbases(self):
         # + "&page="
-        urlinfo = URLInfo(DOMAIN, NAVY, None)
+        urlinfo = URLInfo(DOMAIN, NAVY)
         return [DC_BASE + "&page="], urlinfo
 
     #override
@@ -55,6 +55,8 @@ class DCSite(Site):
         self.listpage = DCListPage()
         self.contentspage = DCContentsPage()
         self.header = DC_CUSTOM_HEADER
+
+        self.hasAPI = False
 
     def get_articleID(self, contents_url):
         parts = urlparse(contents_url)
