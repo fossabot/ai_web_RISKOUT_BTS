@@ -21,7 +21,7 @@ from crawler.error import HTMLElementsNotFoundError as notfound_error, contentLe
 from crawler.error import englishContentError
 
 # import setting values
-from crawler.setting import DEBUG, TIME_CHECK
+from crawler.setting import DEBUG
 
 # for matching site name to site class instance
 from crawler.model.siteInstanceServer import get_siteInstance_list
