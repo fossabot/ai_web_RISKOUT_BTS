@@ -119,6 +119,10 @@ async def get_contents(site, contents_url, urlinfo, db):
 async def crawl(site):
     db = database.DB()
 
+    if site.hasAPI:
+        site.crawl(db)
+        return
+
     each_urlbases, urlinfo = site.listpage.get_each_urlbases()
 
     for urlbase in each_urlbases:
