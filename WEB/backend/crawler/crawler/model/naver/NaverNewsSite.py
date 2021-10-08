@@ -23,7 +23,7 @@ class NaverNewsListPage(listpage):
             date -= timedelta(days=1)
             date_format = date.strftime("%Y%m%d")
 
-        urlinfo = URLInfo(DOMAIN, NK, None)
+        urlinfo = URLInfo(DOMAIN, NK)
 
         return each_urlbases, urlinfo
 
@@ -65,6 +65,8 @@ class NaverNewsSite(Site):
         self.listpage = NaverNewsListPage()
         self.contentspage = NaverNewsContentsPage()
         self.header = NAVER_CUSTOM_HEADER
+
+        self.hasAPI = False
 
     def get_articleID(self, contents_url):
         parts = urlparse(contents_url)
