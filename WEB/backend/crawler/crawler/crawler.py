@@ -65,7 +65,7 @@ async def crawl_manager(site):
     start_time = time.time()
     await asyncio.gather(crawl(site_instance_selector(site)))
     end_time = time.time()
-    if(TIME_CHECK):
+    if DEBUG:
         print(f'time taken crawling "{site}": {end_time - start_time}')
 
 def get_request(url, header):
@@ -121,6 +121,7 @@ async def crawl(site):
 
     if site.hasAPI:
         site.crawl(db)
+        db.close()
         return
 
     each_urlbases, urlinfo = site.listpage.get_each_urlbases()
