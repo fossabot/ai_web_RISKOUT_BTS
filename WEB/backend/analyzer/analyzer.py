@@ -39,6 +39,7 @@ class Content:
         self.getSummarized()
         self.getPositivity()
         self.getEntities()
+        self.getTrueScore()
         self.content_dict['isAnalyzed'] = True
     
 
@@ -113,6 +114,34 @@ class Content:
         except Exception as e:
             print(f"Error occured while fetching entities : {e}")
             self.content_dict['entities'] = None
+    
+
+    def getTrueScore(self):
+        if self.content_dict['category'] == 'news':
+            url = SERVER_URL + 'fakenews'
+            document = {"document": self.content_dict['contentBody']}
+            document = json.dumps(document)
+
+            try:
+                true_score = requests.post(url, data=document, timeout=20)
+
+                if true_score.status_code == 200:
+                    try:
+                        self.content_dict['true_score'] = json.loads(true_score.text)['true_score']
+                    except Exception as e:
+                        print(f"Error occured while true_score data : {e}")
+                        self.content_dict['true_score'] = None
+
+                else:
+                    print(f"Error occured while fetching true_score data : {true_score.status_code}")
+                    self.content_dict['true_score'] = None
+
+            except Exception as e:
+                print(f"Error occured while fetching true_score data : {e}")
+                self.content_dict['true_score'] = None
+
+        else:
+            self.content_dict['true_score'] = None
 
 
 class DBHandler:
@@ -246,7 +275,7 @@ def dbInserter(contents):
         hasNone = False
 
         for key in contents[i]:
-            if key in ['summarized', 'title', 'site_url', 'thumbnail_url']:
+            if key in ['title', 'site_url', 'thumbnail_url', 'summarized', 'true_score']:
                 if contents[i]['category'] == 'news' and contents[i][key] == None:
                     hasNone = True
                     break
