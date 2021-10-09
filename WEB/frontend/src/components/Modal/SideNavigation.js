@@ -30,8 +30,7 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import '../../css/SideNavigation.css';
-
-// 맨 아래 Box 컴포넌트 바로 위에 넣어서 사용 (보류)
+import { getRadioUtilityClass } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -42,7 +41,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft(props) {
+const test = styled('.sidebarBackground')(() => ({
+  background: "gray"
+}));
+
+export default function SideNavigation(props) {
+  const [sidebarBackground, setSidebarBackground] = useState("");
   const { drawerWidth } = props;
   let [userprofile, setUserprofile] = useState(false);
   let [userPhoto, setUserPhoto] = useState();
@@ -87,10 +91,12 @@ export default function PersistentDrawerLeft(props) {
 
   const handleDrawerOpen = () => {
     setOpen(true);
+    setSidebarBackground("sidebarBackground");
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setSidebarBackground("miniSidebarBackground");
   };
 
   return (
@@ -104,22 +110,25 @@ export default function PersistentDrawerLeft(props) {
           sx={{ mr: 2 }}
           className="hamburgerMenu"
         >
-          <MenuIcon sx={{ color: '#fff' }} />
+          <MenuIcon sx={{ color: '#fff', fontSize:'1.3em', position:'fixed'}} />
         </IconButton>
-
-        <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" />
-        <SidebarLinkMini
-          icon={SearchIcon}
-          text="탐지현황"
-          href="/detectionstatus"
-          isOn={true}
-        />
-        <SidebarLinkMini
-          icon={AssessmentIcon}
-          text="리포트"
-          href="/riskreport"
-        />
-        <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" />
+        <Box sx={{position: 'fixed'}}>
+          <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" className="a" />
+          <SidebarLinkMini
+            icon={SearchIcon}
+            text="탐지현황"
+            href="/detectionstatus"
+            isOn={true}
+            className="b"
+          />
+          <SidebarLinkMini
+            icon={AssessmentIcon}
+            text="리포트"
+            href="/riskreport"
+            className="c"
+          />
+          <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" className="d" />
+        </Box>
       </Box>
 
       <Drawer
