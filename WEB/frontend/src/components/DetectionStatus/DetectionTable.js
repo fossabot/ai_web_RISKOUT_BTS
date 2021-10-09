@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-import SecretsTableRow from './SecretsTableRow';
+import SecretsTableRow from '../SecretsTableRow';
 
 export default function DetectionTable({
   data,

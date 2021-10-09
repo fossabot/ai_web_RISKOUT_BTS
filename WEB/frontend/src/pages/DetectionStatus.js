@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Grid, Paper, Typography, Divider } from '@mui/material';
 
-import AppliedFilters from '../components/AppliedFilter';
-import DetectionTable from '../components/DetectionTable';
-import FilterBar from '../components/FilterBar';
+import AppliedFilters from '../components/DetectionStatus/AppliedFilter';
+import DetectionTable from '../components/DetectionStatus/DetectionTable';
+import FilterBar from '../components/DetectionStatus/FilterBar';
 import Search from '../components/Search';
 import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 import { useSessionStorage } from '../js/util';
