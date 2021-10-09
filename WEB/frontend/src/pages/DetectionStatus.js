@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Grid, Paper, Typography, Divider } from '@mui/material';
 
-import SearchBar from 'material-ui-search-bar';
-import { styled } from '@mui/material/styles';
-
 import AppliedFilters from '../components/AppliedFilter';
 import DetectionTable from '../components/DetectionTable';
 import FilterBar from '../components/FilterBar';
+import Search from '../components/Search';
 
 export default function DetectionStatus() {
   const [appliedFilters, setAppliedFilters] = useState([
@@ -33,6 +31,13 @@ export default function DetectionStatus() {
       appliedFilters.push(hashtag);
       setAppliedFilters([...appliedFilters]);
     }
+  };
+
+  const handleDelete = (filterToDelete) => () => {
+    alert(filterToDelete);
+    setAppliedFilters((filters) =>
+      filters.filter((filter) => filter !== filterToDelete)
+    );
   };
 
   //TODO: hooks 따로 뺄 것
@@ -61,7 +66,7 @@ export default function DetectionStatus() {
             <Typography mb={2} variant="h6">
               탐지 현황
             </Typography>
-            <SearchBar />
+            <Search />
             <Typography mt={3} color="primary">
               {searchResults.contentsLength}개 결과 | {appliedFilters.length}개
               필터 적용중
@@ -70,7 +75,7 @@ export default function DetectionStatus() {
           <Grid width="100%" item justify="center">
             <AppliedFilters
               appliedFilters={appliedFilters}
-              setAppliedFilters={setAppliedFilters}
+              handleDelete={handleDelete}
             />
           </Grid>
           <Grid item justify="center">
