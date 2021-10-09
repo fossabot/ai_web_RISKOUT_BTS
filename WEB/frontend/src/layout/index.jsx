@@ -43,16 +43,14 @@ export default class MainLayout extends React.Component {
       //   <meta name="description" content="my-layout" />
       // </Helmet>
 
-      <Box display="flex">
-        <Box>
-          <Box sx={{ display: 'flex' }}>
-            <SideNavigation
-              drawerWidth={drawerWidth}
-              handleLogout={handleLogout}
-            ></SideNavigation>
+      <Box>
+        <Box sx={{ display: 'flex' }}>
+          <SideNavigation
+            drawerWidth={drawerWidth}
+            handleLogout={handleLogout}
+          ></SideNavigation>
 
-            <Main open={open}>{children}</Main>
-          </Box>
+          <Main open={open}>{children}</Main>
         </Box>
       </Box>
     );

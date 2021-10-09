@@ -9,7 +9,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import DescriptionIcon from '@mui/icons-material/Description';
 
 export default function SecretsTableRow(props) {
-  const { id, title, preview, author, href } = props;
+  const { id, title, preview, author, href, showDetailModal } = props;
 
   return (
     <TableRow
@@ -21,7 +21,7 @@ export default function SecretsTableRow(props) {
           <DescriptionIcon />
         </Link>
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="left" onClick={() => showDetailModal(id)}>
         <Typography style={{ fontWeight: 'bold' }} color="textPrimary">
           {title}
         </Typography>

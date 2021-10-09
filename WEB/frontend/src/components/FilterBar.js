@@ -26,7 +26,6 @@ export default function FilterBar({ search, filter, toggleFilter }) {
         titleTypographyProps={{ variant: 'body1' }}
         title="FILTER"
       />
-      <Divider />
       <CardContent>
         <Box
           sx={{
