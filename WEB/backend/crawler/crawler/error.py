@@ -18,3 +18,10 @@ class contentLengthError(Exception):
 
     def __str__(self):
         return self.msg
+
+class daterangeError(Exception):
+    def __init__(self):
+        self.msg = "date over"
+
+    def __str__(self):
+        return self.msg
