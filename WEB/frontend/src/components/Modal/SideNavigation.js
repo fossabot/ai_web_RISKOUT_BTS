@@ -100,7 +100,7 @@ export default function SideNavigation(props) {
   };
 
   return (
-    <Box sx={{ display:"flex" }}
+    <Box sx={{ display:"flex", width:"100%"}}
          className={sidebarBackground}>
       <Box sx={{ background: 'rgb(29, 28, 26)', height: '500vh'}}>
         <IconButton
