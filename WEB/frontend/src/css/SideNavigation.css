@@ -33,10 +33,12 @@ body::-webkit-scrollbar {
   color: #3e90ff;
 }
 
+/* side bar를 열었을 때 background color */
 .sidebarBackground {
   background: gray;
 }
 
+/* side bar를 닫았을 때 background color */
 .miniSidebarBackground {
   background: white;
 }
