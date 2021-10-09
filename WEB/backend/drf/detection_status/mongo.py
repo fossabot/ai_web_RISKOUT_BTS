@@ -5,10 +5,10 @@ from pymongo.cursor import CursorType
 
 class DBHandler:
     def __init__(self):
-        # host = "localhost"
-        host = "host.docker.internal"
+        host = "localhost"
+        # host = "host.docker.internal"
         port = "8001"
-        self.client = MongoClient(host, int(port))
+        self.client = MongoClient(f"mongodb://{host}:{port}/?maxIdleTimeMS={1000000000 - 1}")
 
     def insert_item_one(self, data, db_name=None, collection_name=None):
         result = self.client[db_name][collection_name].insert_one(data).inserted_id

@@ -5,9 +5,9 @@ from rest_framework.response import Response
 
 from .serializers import AnalyzedDataSerializer
 from .mongo import DBHandler
+from pymongo import TEXT as mongoText
 
 from datetime import datetime, timedelta
-from collections import defaultdict
 
 
 class AnalyzedDataView(generics.CreateAPIView):
@@ -18,10 +18,19 @@ class AnalyzedDataView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         category = None
         period = None
+        tags = None
+        search_text = None
+        limit = None
+        offset = None
 
         if serializer.is_valid():
+            
+            tags = serializer.data.get("tags")
+            search_text = serializer.data.get("search_text") if serializer.data.get("search_text") else None
+            limit = serializer.data.get("limit")
+            offset = serializer.data.get("offset")
+
             # Check category
-            # print(serializer.data)
             
             if serializer.data.get("category") not in ["news", "social"]:
                 return Response({"category": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
@@ -34,16 +43,17 @@ class AnalyzedDataView(generics.CreateAPIView):
             else:
                 period = serializer.data.get("period")
             
-            return Response(self.getAnalyzedData(category, period))
+            return Response(self.getAnalyzedData(category, period, tags, search_text, limit, offset))
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def getAnalyzedData(self, category, period):
+    def getAnalyzedData(self, category, period, tags, search_text, limit, offset):
         mongo = DBHandler()
         db_result = None
         response = {
-            "contentsLength": 0,
+            "totalContentsLength": 0,
+            "pageContentsLength": 0,
             "contents": [],
             "filterTags": {
                 "PER": {},
@@ -63,29 +73,56 @@ class AnalyzedDataView(generics.CreateAPIView):
             }
         }
 
-        if period == 0:
-            db_result = mongo.find_item(
-                { }, 
-                "riskout", 
-                "analyzed"
-            )
-            
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+
+        if period != 0:
+            query["created_at"] = {"$gte" : (now - timedelta(hours=period))}
+
+        query["category"] = category
+
+        if search_text:
+            query["$text"] = {"$search": search_text}
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+
+        if tags:
+            for content in db_filtered:
+                isPassed = True
+                for tag_name in tags:
+                    if tag_name in content["entities"]:
+                        for tag in tags[tag_name]:
+                            if tag not in content["entities"][tag_name]:
+                                isPassed = False
+                                break
+
+                    else:
+                        isPassed = False
+                        continue
+                    
+                if isPassed:
+                    response["contents"].append(content)
+
         else:
-            now = datetime.utcnow() + timedelta(hours=9)
-            
-            db_result = mongo.find_item(
-                {
-                    "created_at": {'$gte' : (now - timedelta(hours=period))},
-                    "category":category
-                }, 
-                "riskout", 
-                "analyzed"
-            )
+            for content in db_filtered:
+                response["contents"].append(content)
 
-
-        response["contents"] = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
-        response["contentsLength"] = len(response["contents"])
+        response["totalContentsLength"] = len(response["contents"])
         response["filterTags"] = self.getFilterTags(response["filterTags"], response["contents"])
+
+        
+        response["contents"] = response["contents"][offset:(offset + limit)]
+        response["pageContentsLength"] = len(response["contents"])
 
         return response
 
@@ -110,5 +147,9 @@ class AnalyzedDataView(generics.CreateAPIView):
 
         for tag in tags:
             tags[tag] = dict(sorted(tags[tag].items(), key=lambda x:x[1], reverse=True))
+        
+        for tag in tags:
+            if not tags[tag]:
+                tags[tag] = None
 
         return tags
