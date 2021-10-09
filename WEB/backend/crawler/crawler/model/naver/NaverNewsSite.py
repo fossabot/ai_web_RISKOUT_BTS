@@ -23,7 +23,7 @@ class NaverNewsListPage(listpage):
             date -= timedelta(days=1)
             date_format = date.strftime("%Y%m%d")
 
-        urlinfo = URLInfo(DOMAIN, NK, None)
+        urlinfo = URLInfo(DOMAIN, NK)
 
         return each_urlbases, urlinfo
 
@@ -55,6 +55,9 @@ class NaverNewsContentsPage(contentspage):
         data = date[2:10].replace('.','_')
         return data
 
+    def get_fineauthor(self, author):
+        return author
+
 class NaverNewsSite(Site):
     def __init__(self):
         self.name = 'naver_news'
@@ -63,6 +66,8 @@ class NaverNewsSite(Site):
         self.contentspage = NaverNewsContentsPage()
         self.header = NAVER_CUSTOM_HEADER
 
+        self.hasAPI = False
+
     def get_articleID(self, contents_url):
         parts = urlparse(contents_url)
         article_id = parts.query.split('&')[5][4:]
@@ -70,7 +75,7 @@ class NaverNewsSite(Site):
         return article_id
 
     def contentCheck(self, content):
-        if(len(content.body) < 600):
+        if(len(content.body) < 800 or len(content.body) > 2000):
             raise length_error
 
         return

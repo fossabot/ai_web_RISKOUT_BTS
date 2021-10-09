@@ -1,2 +1,2 @@
-from .summarizer import KorbartSummarizer
+from .summarizer import AbstractiveSummarizer
 

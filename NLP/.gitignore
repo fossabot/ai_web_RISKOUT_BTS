@@ -141,8 +141,12 @@ cython_debug/
 fastapi/
 
 # models
+*.st
 *.bin
 config.json
+
+# pickle
+*.pkl
 
 # vscode
 .vscode

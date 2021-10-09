@@ -12,14 +12,16 @@ services:
     volumes:
       - ./drf:/drf
     working_dir: /drf
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     entrypoint: ["/bin/sh","-c"]
     command:
     - |
        pip install --no-cache-dir -r requirements.txt
-       python manage.py makemigrations
-       python manage.py migrate
-       python manage.py collectstatic --noinput
-       python init_superuser.py
+       python -u manage.py makemigrations
+       python -u manage.py migrate
+       python -u manage.py collectstatic --noinput
+       python -u init_superuser.py
        gunicorn drf.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=4 --worker-class=gthread
     ports:
       - "80:8000"

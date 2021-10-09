@@ -12,7 +12,7 @@ class DCListPage(listpage):
     # override
     def get_each_urlbases(self):
         # + "&page="
-        urlinfo = URLInfo(DOMAIN, NAVY, None)
+        urlinfo = URLInfo(DOMAIN, NAVY)
         return [DC_BASE + "&page="], urlinfo
 
     #override
@@ -45,13 +45,18 @@ class DCContentsPage(contentspage):
         data = date[-15:-6].replace('.','_')
         return data
 
+    def get_fineauthor(self, author):
+        return author[0:-16]
+
 class DCSite(Site):
     def __init__(self):
         self.name = 'dcinside'
-        self.category = 'social'
+        self.category = 'community'
         self.listpage = DCListPage()
         self.contentspage = DCContentsPage()
         self.header = DC_CUSTOM_HEADER
+
+        self.hasAPI = False
 
     def get_articleID(self, contents_url):
         parts = urlparse(contents_url)

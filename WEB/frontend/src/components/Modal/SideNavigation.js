@@ -95,7 +95,13 @@ export default function PersistentDrawerLeft(props) {
 
   return (
     <>
-      <Box sx={{ background: 'rgb(29, 28, 26)', height: '100vh' }}>
+      <Box
+        sx={{
+          background: 'rgb(29, 28, 26)',
+          height: '100vh',
+          position: 'fixed',
+        }}
+      >
         <IconButton
           color="inherit"
           aria-label="open drawer"
