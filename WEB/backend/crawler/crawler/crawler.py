@@ -17,8 +17,10 @@ from crawler.model import const as const
 import crawler.db as database
 
 # error
-from crawler.error import HTMLElementsNotFoundError as notfound_error, contentLengthError
+from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import contentLengthError
 from crawler.error import englishContentError
+from crawler.error import daterangeError
 
 # import setting values
 from crawler.setting import DEBUG
@@ -106,6 +108,8 @@ async def get_contents(site, contents_url, urlinfo, db):
                     if news_content.contents_id not in db.select_id():
                         db.put_content(news_content)
                     # print(db.select_id())
+    except daterangeError:
+        raise daterangeError
     except Exception as detail:
         if(DEBUG):
             print("an exception occured when getting information of contentsPage")
@@ -132,68 +136,74 @@ async def crawl(site):
 
         test_breaker = 0
 
-        while prev_page != now_page: # and test_breaker < const.MAX_LISTPAGE_CRAWL:
+        try:
+            while prev_page != now_page: # and test_breaker < const.MAX_LISTPAGE_CRAWL:
+                if(DEBUG):
+                    print('\nlisturl: ' + urlbase + str(now_page) + '\n')
+
+                try:
+                    response = get_request(urlbase + str(now_page), site.header)
+                except requests.exceptions.ConnectionError as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py/crawl: failed connection by following exception")
+                        print(detail)
+                    break
+                except requests.exceptions.Timeout as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py/crawl: server timeout occured")
+                        print(detail)
+                    break
+                except requests.exceptions.HTTPError as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py/crawl: unsuccessful respond occured")
+                        print(detail)
+                    break
+                except requests.exceptions.RequestException as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py/crawl: any other exception occured on getting respond")
+                        print(detail)
+                    break
+
+                list_html = response.text
+                list_soup = bs(list_html, 'html.parser')
+
+                try:
+                    now_page = site.listpage.get_nowpage(list_soup)
+                except notfound_error as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py: now_page not found by following exception")
+                        print(detail)
+                    break
+
+                # 일단 마음에 안 들지만 이렇게 해 두었습니다.
+                if(now_page == prev_page):
+                    break
+                
+                try:
+                    contents_urls= site.listpage.get_contents_urls(list_soup)
+                except notfound_error as detail:
+                    if(DEBUG):
+                        print("in crawler/crawler.py: can't found contents url by following exception")
+                        print(detail)
+                    break
+
+                futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
+
+                await asyncio.gather(*futures)
+
+                if(DEBUG):
+                    print("nowpage: " + str(now_page) + '\n')
+
+                await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
+
+                test_breaker += 1
+                prev_page = now_page
+                now_page += 1
+        except daterangeError as detail:
             if(DEBUG):
-                print('\nlisturl: ' + urlbase + str(now_page) + '\n')
-
-            try:
-                response = get_request(urlbase + str(now_page), site.header)
-            except requests.exceptions.ConnectionError as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py/crawl: failed connection by following exception")
-                    print(detail)
-                break
-            except requests.exceptions.Timeout as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py/crawl: server timeout occured")
-                    print(detail)
-                break
-            except requests.exceptions.HTTPError as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py/crawl: unsuccessful respond occured")
-                    print(detail)
-                break
-            except requests.exceptions.RequestException as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py/crawl: any other exception occured on getting respond")
-                    print(detail)
-                break
-
-            list_html = response.text
-            list_soup = bs(list_html, 'html.parser')
-
-            try:
-                now_page = site.listpage.get_nowpage(list_soup)
-            except notfound_error as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py: now_page not found by following exception")
-                    print(detail)
-                break
-
-            # 일단 마음에 안 들지만 이렇게 해 두었습니다.
-            if(now_page == prev_page):
-                break
-            
-            try:
-                contents_urls= site.listpage.get_contents_urls(list_soup)
-            except notfound_error as detail:
-                if(DEBUG):
-                    print("in crawler/crawler.py: can't found contents url by following exception")
-                    print(detail)
-                break
-
-            futures = [asyncio.ensure_future(get_contents(site, contents_url, urlinfo, db)) for contents_url in contents_urls]
-
-            await asyncio.gather(*futures)
-
-            if(DEBUG):
-                print("nowpage: " + str(now_page) + '\n')
-
-            await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
-
-            test_breaker += 1
-            prev_page = now_page
-            now_page += 1
+                print("crawling over date by following exception")
+                print(detail)
+            break
 
     # db.select_all()
     db.close()
