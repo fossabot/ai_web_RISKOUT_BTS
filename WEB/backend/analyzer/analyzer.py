@@ -227,7 +227,7 @@ def extractor(data):
         contents.append(content.content_dict)
         
         cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
-        # conn.commit()
+        conn.commit()
 
         print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
@@ -283,7 +283,7 @@ def main():
         if date != today:
             important_data_list.extend(dataRanker(cur.fetchall()))
             cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND created_at = ?", (date,))
-            # conn.commit()
+            conn.commit()
         else:
             important_data_list.extend(dataRanker(cur.fetchall()))
 
