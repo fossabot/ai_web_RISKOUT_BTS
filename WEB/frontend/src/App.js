@@ -15,7 +15,7 @@ import InitInfo from './components/Modal/InitInfo';
 import Search from './components/Search';
 
 import './App.css';
-import './css/style.css';
+// import './css/style.css';
 
 function App() {
   const [modal, setModal] = useState(false);

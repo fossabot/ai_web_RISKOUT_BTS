@@ -1,37 +1,40 @@
-import React from 'react';
-import fileIcon from '../images/sub/file.png';
-import ScrapButton from './ScrapButton';
+import {
+  IconButton,
+  Link,
+  Typography,
+  TableCell,
+  TableRow,
+} from '@mui/material';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import DescriptionIcon from '@mui/icons-material/Description';
 
-export default function tableRow(props) {
-  const {
-    id,
-    title,
-    preview,
-    author,
-    href,
-    showDetailModal,
-    scrapArticle,
-    isAlreadyScrapped,
-  } = props;
+export default function SecretsTableRow(props) {
+  const { id, title, preview, author, href } = props;
 
   return (
-    <tr>
-      <td>
-        <a href={href} title="외부링크">
-          <img src={fileIcon} alt="filetype" />
-        </a>
-      </td>
-      <td onClick={() => showDetailModal(id)} style={{ cursor: 'pointer' }}>
-        <h3>{title}</h3>
-        <p>{preview}</p>
-      </td>
-      <td>{author}</td>
-      <td>
-        <ScrapButton
-          handleScrap={() => scrapArticle(id)}
-          isAlreadyScrapped={isAlreadyScrapped}
-        />
-      </td>
-    </tr>
+    <TableRow
+      key={id}
+      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+    >
+      <TableCell component="th" scope="row">
+        <Link href={href} underline="hover">
+          <DescriptionIcon />
+        </Link>
+      </TableCell>
+      <TableCell align="left">
+        <Typography style={{ fontWeight: 'bold' }} color="textPrimary">
+          {title}
+        </Typography>
+        <Typography color="textSecondary" variant="body2">
+          {preview}
+        </Typography>
+      </TableCell>
+      <TableCell align="center">{author}</TableCell>
+      <TableCell align="center">
+        <IconButton>
+          <AddBoxIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
   );
 }

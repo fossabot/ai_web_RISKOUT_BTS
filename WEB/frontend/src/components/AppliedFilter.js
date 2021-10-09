@@ -1,20 +1,30 @@
-// import React from "react";
-import closeIcon from '../images/sub/close_icon.png';
-import Chip from '@mui/material/Chip';
+import { Chip, Grid } from '@mui/material';
 
-export default function appliedFilter(props) {
-  const { hashtag, onRemoveHashtag } = props;
-  const handleDelete = () => {
-    onRemoveHashtag(hashtag);
+export default function AppliedFilter({ appliedFilters, setAppliedFilters }) {
+  const handleDelete = (filterToDelete) => () => {
+    alert(filterToDelete);
+    setAppliedFilters((filters) =>
+      filters.filter((filter) => filter !== filterToDelete)
+    );
   };
-
   return (
-    // <Chip label={hashtag} variant="outlined" onDelete={handleDelete} />
-    <li>
-      <p>{hashtag}</p>
-      <button onClick={handleDelete}>
-        <img src={closeIcon} alt="" />
-      </button>
-    </li>
+    <Grid
+      sx={{
+        display: 'flex',
+        justifyContent: 'start',
+        flexWrap: 'wrap',
+        listStyle: 'none',
+        m: 0,
+      }}
+    >
+      {appliedFilters.map((data, id) => (
+        <Chip
+          key={id}
+          color="primary"
+          label={data}
+          onDelete={handleDelete(data)}
+        />
+      ))}
+    </Grid>
   );
 }

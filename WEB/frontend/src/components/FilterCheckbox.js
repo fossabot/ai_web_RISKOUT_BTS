@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function filterCheckbox(props) {
   const { count, hashtag, checked, onToggle } = props;
   const onChange = (e) => {
