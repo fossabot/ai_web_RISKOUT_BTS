@@ -8,7 +8,6 @@ from .mongo import DBHandler
 from pymongo import TEXT as mongoText
 
 from datetime import datetime, timedelta
-from collections import defaultdict
 
 
 class AnalyzedDataView(generics.CreateAPIView):
@@ -77,6 +76,7 @@ class AnalyzedDataView(generics.CreateAPIView):
         db = mongo.client.riskout
         col = db.analyzed
         index_info = list(col.index_information())
+
         if "title_text_contentBody_text_summarized_text" not in index_info:
             col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
 
