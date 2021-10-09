@@ -4,6 +4,12 @@ from crawler.model.twitter.const import *
 from crawler.model.twitter.secrets import *
 from crawler.setting import DEBUG
 
+from datetime import datetime, timedelta
+
+from crawler.model import const as const
+
+import time
+
 class TwitterContent():
     def __init__(self, body, category, site_domain, subject, contents_id, created_at, author):
         self.url = None
@@ -31,15 +37,27 @@ class Twitter():
     def crawl(self, db):
 
         for keyword in KEYWORD:
-            tweets = tweepy.Cursor(self.api.search_tweets, q = keyword + ' -filter:retweets', result_type = 'recent').items(20)
+            tweets = tweepy.Cursor(self.api.search_tweets, q = keyword + ' -filter:retweets', result_type = 'recent').items(1000)
 
             if(DEBUG):
                 print(keyword)
 
             for tweet in tweets:
                 content = twitter_contents_factory(self, tweet, keyword)
+
+                created_at = content.created_at
+                created_at = '20' + created_at
+                created_at = created_at.split("_")
+                created_at = datetime(year = int(created_at[0]), month = int(created_at[1]), day = int(created_at[2]))
+                if (datetime.today() - timedelta(hours = const.CRAWL_DATEAMOUNT * 24)) > created_at:
+                    if(DEBUG):
+                        print("date limit exceeded")
+                    break
+
                 if content.contents_id not in db.select_id():
                     db.put_content(content)
+            
+            time.sleep(const.CRAWLING_LIST_INTERVAL)
 
     def define_created_at(self, created_at):
         created_at = str(created_at)[2:10]
