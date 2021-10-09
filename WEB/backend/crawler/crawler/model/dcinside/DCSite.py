@@ -51,7 +51,7 @@ class DCContentsPage(contentspage):
 class DCSite(Site):
     def __init__(self):
         self.name = 'dcinside'
-        self.category = 'social'
+        self.category = 'community'
         self.listpage = DCListPage()
         self.contentspage = DCContentsPage()
         self.header = DC_CUSTOM_HEADER
