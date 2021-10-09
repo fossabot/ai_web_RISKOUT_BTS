@@ -24,7 +24,7 @@ class Twitter():
 
         self.api = tweepy.API(auth)
 
-        self.category = 'social'
+        self.category = 'sns'
 
         self.hasAPI = True
 
