@@ -1,9 +1,12 @@
 from urllib.parse import urlparse
 
 from crawler.error import HTMLElementsNotFoundError as notfound_error
+from crawler.error import daterangeError as date_error
 
 from crawler.model.Site import *
 from crawler.model.dcinside.const import *
+
+from crawler.model.const import *
 
 class DCListPage(listpage):
     def __init__(self):
@@ -62,3 +65,11 @@ class DCSite(Site):
         parts = urlparse(contents_url)
         article_id = parts.path.split('/')[3]
         return article_id
+
+    def contentCheck(self, content):
+        created_at = content.created_at
+        created_at = '20' + created_at
+        created_at = created_at.split("_")
+        created_at = datetime(year = int(created_at[0]), month = int(created_at[1]), day = int(created_at[2]))
+        if (datetime.today() - timedelta(hours = CRAWL_DATEAMOUNT * 24)) > created_at:
+            raise date_error
