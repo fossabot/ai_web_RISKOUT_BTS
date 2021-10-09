@@ -3,6 +3,7 @@ import { Chip, Grid } from '@mui/material';
 export default function AppliedFilter({ appliedFilters, handleDelete }) {
   return (
     <Grid
+      container
       sx={{
         display: 'flex',
         justifyContent: 'start',
@@ -10,14 +11,17 @@ export default function AppliedFilter({ appliedFilters, handleDelete }) {
         listStyle: 'none',
         m: 0,
       }}
+      spacing={1}
     >
       {appliedFilters.map((data, id) => (
-        <Chip
-          key={id}
-          color="primary"
-          label={data}
-          onDelete={handleDelete(data)}
-        />
+        <Grid item>
+          <Chip
+            key={id}
+            color="primary"
+            label={data}
+            onDelete={handleDelete(data)}
+          />
+        </Grid>
       ))}
     </Grid>
   );

@@ -6,13 +6,27 @@ import AppliedFilters from '../components/AppliedFilter';
 import DetectionTable from '../components/DetectionTable';
 import FilterBar from '../components/FilterBar';
 import Search from '../components/Search';
+import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
+import { useSessionStorage } from '../js/util';
 
 export default function DetectionStatus() {
+  const [isDetailModalOpen, setDetailModalOpen] = useState(false);
+  const [detailModalData, setDetailModalData] = useState({
+    id: 0,
+    created_at: '',
+    site_url: '',
+    thumbnail_url: '',
+    category: '',
+    title: '',
+    contentBody: '',
+    summarized: '',
+    positivity: 0,
+    entities: {},
+  });
   const [appliedFilters, setAppliedFilters] = useState([
-    '전투시행세부규칙: 군사기밀',
-    'GP/GOP: 군사기밀',
-    '계룡대: 장소',
-    '사이버작전센터: 조직',
+    'GP/GOP',
+    '정체단',
+    '사이버작전센터',
   ]);
   const [searchResults, setSearchResults] = useState({
     contentsLength: 0,
@@ -40,16 +54,40 @@ export default function DetectionStatus() {
     );
   };
 
-  //TODO: hooks 따로 뺄 것
+  // => search
   useEffect(() => {
-    const searchUrl = `/dummy/searchData.json`;
+    const searchUrl = `/static/SecretData.example.json`;
     async function fetchSearch() {
       axios.get(searchUrl).then((data) => {
-        setSearchResults(data.data.search);
+        setSearchResults(data.data);
       });
     }
     fetchSearch();
-  }, []);
+  }, [appliedFilters]);
+
+  const showDetailModal = (id) => {
+    const data = searchResults.contents.filter((x) => x.id == id).pop(0); // popping doesn't affect original array
+    console.log(
+      data,
+      searchResults.contents.filter((x) => x.id == id),
+      searchResults
+    );
+    setDetailModalData(data);
+    setDetailModalOpen(true);
+  };
+
+  const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
+
+  const scrapArticle = (id) => {
+    addCart(id);
+    console.log('TODO: scrap article ', id);
+    alert('TODO: scrap article ' + id + ' ' + getCart());
+  };
+
+  const analyzePage = (id) => {
+    console.log('TODO: analyzePage article ', id);
+    alert('TODO: analyzePage article ' + id);
+  };
 
   return (
     <Box
@@ -61,7 +99,7 @@ export default function DetectionStatus() {
       }}
     >
       <Grid container spacing={3}>
-        <Grid item xs={9} container spacing={3} direction="column">
+        <Grid item xs={12} md={10} container spacing={3} direction="column">
           <Grid width="100%" item>
             <Typography mb={2} variant="h6">
               탐지 현황
@@ -79,16 +117,26 @@ export default function DetectionStatus() {
             />
           </Grid>
           <Grid item justify="center">
-            <DetectionTable data={searchResults} />
+            <DetectionTable
+              data={searchResults}
+              showDetailModal={showDetailModal}
+              scrapArticle={scrapArticle}
+            />
           </Grid>
         </Grid>
-        <Grid item xs={3} mt={6}>
+        <Grid item xs={0} md={2} display={{ xs: 'none', md: 'block' }}>
           <FilterBar
             search={searchResults}
             filter={appliedFilters}
             toggleFilter={toggleFilter}
           />
         </Grid>
+        <SecretsDetailModal
+          isOpen={isDetailModalOpen}
+          setOpen={setDetailModalOpen}
+          scrapArticle={scrapArticle}
+          data={detailModalData}
+        />
       </Grid>
     </Box>
   );

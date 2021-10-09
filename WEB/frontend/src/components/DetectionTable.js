@@ -10,7 +10,11 @@ import {
 
 import SecretsTableRow from './SecretsTableRow';
 
-export default function DetectionTable({ data }) {
+export default function DetectionTable({
+  data,
+  showDetailModal,
+  scrapArticle,
+}) {
   return (
     <TableContainer component={Paper} elevation={5}>
       <Table>
@@ -37,6 +41,7 @@ export default function DetectionTable({ data }) {
               preview={article.preview}
               author={article.author}
               href={article.href}
+              showDetailModal={showDetailModal}
             />
           ))}
         </TableBody>

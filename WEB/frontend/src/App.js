@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
 import Layout from './layout';
 
@@ -17,7 +18,9 @@ import Search from './components/Search';
 import './App.css';
 // import './css/style.css';
 
-function App() {
+const mdTheme = createTheme();
+
+export default function App() {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState([]);
 
@@ -105,35 +108,36 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    <Layout handleLogout={handleLogout}>
-      <Route exact path="/">
-        <Board />
-      </Route>
+    <ThemeProvider theme={mdTheme}>
+      <CssBaseline />
+      <Layout handleLogout={handleLogout}>
+        <Route exact path="/">
+          <Board />
+        </Route>
 
-      <Route exact path="/login">
-        <LoginModal
-          setModal={setModal}
-          userHasAuthenticated={userHasAuthenticated}
-        />
-      </Route>
+        <Route exact path="/login">
+          <LoginModal
+            setModal={setModal}
+            userHasAuthenticated={userHasAuthenticated}
+          />
+        </Route>
 
-      <Route exact path="/init">
-        <InitInfo />
-      </Route>
+        <Route exact path="/init">
+          <InitInfo />
+        </Route>
 
-      <Route exact path="/presstrends">
-        <PressTrends />
-      </Route>
+        <Route exact path="/presstrends">
+          <PressTrends />
+        </Route>
 
-      <Route exact path="/detectionstatus">
-        <DetectionStatus />
-      </Route>
+        <Route exact path="/detectionstatus">
+          <DetectionStatus />
+        </Route>
 
-      <Route exact path="/riskreport">
-        <RiskReport />
-      </Route>
-    </Layout>
+        <Route exact path="/riskreport">
+          <RiskReport />
+        </Route>
+      </Layout>
+    </ThemeProvider>
   );
 }
-
-export default App;
