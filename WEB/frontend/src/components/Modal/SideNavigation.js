@@ -30,6 +30,7 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import '../../css/SideNavigation.css';
+import { getRadioUtilityClass } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -40,7 +41,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+const test = styled('.sidebarBackground')(() => ({
+  background: "gray"
+}));
+
 export default function SideNavigation(props) {
+  const [sidebarBackground, setSidebarBackground] = useState("");
   const { drawerWidth } = props;
   let [userprofile, setUserprofile] = useState(false);
   let [userPhoto, setUserPhoto] = useState();
@@ -85,14 +91,17 @@ export default function SideNavigation(props) {
 
   const handleDrawerOpen = () => {
     setOpen(true);
+    setSidebarBackground("sidebarBackground");
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setSidebarBackground("miniSidebarBackground");
   };
 
   return (
-    <>
+    <Box sx={{ display:"flex" }}
+         className={sidebarBackground}>
       <Box sx={{ background: 'rgb(29, 28, 26)', height: '500vh'}}>
         <IconButton
           color="inherit"
@@ -171,6 +180,6 @@ export default function SideNavigation(props) {
           />
         </ListItem>
       </Drawer>
-    </>
+    </Box>
   );
 }

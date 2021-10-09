@@ -33,6 +33,14 @@ body::-webkit-scrollbar {
   color: #3e90ff;
 }
 
+.sidebarBackground {
+  background: gray;
+}
+
+.miniSidebarBackground {
+  background: white;
+}
+
 .sub_header .image {
   position: absolute;
   top: 1em;
