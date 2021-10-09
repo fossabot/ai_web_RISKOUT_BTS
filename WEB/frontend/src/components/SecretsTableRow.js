@@ -21,7 +21,11 @@ export default function SecretsTableRow(props) {
           <DescriptionIcon />
         </Link>
       </TableCell>
-      <TableCell align="left" onClick={() => showDetailModal(id)}>
+      <TableCell
+        align="left"
+        onClick={() => showDetailModal(id)}
+        style={{ cursor: 'pointer' }}
+      >
         <Typography style={{ fontWeight: 'bold' }} color="textPrimary">
           {title}
         </Typography>
