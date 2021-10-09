@@ -43,26 +43,30 @@ class Content:
     
 
     def getSummarized(self):
-        url = SERVER_URL + 'summarize/extractive'
-        document = {"document": self.content_dict['contentBody']}
-        document = json.dumps(document)
+        if self.content_dict['category'] == 'news':
+            url = SERVER_URL + 'summarize/extractive'
+            document = {"document": self.content_dict['contentBody']}
+            document = json.dumps(document)
 
-        try:
-            summarized = requests.post(url, data=document, timeout=20)
+            try:
+                summarized = requests.post(url, data=document, timeout=20)
 
-            if summarized.status_code == 200:
-                try:
-                    self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
-                except Exception as e:
-                    print(f"Error occured while summarizing data : {e}")
+                if summarized.status_code == 200:
+                    try:
+                        self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+                    except Exception as e:
+                        print(f"Error occured while summarizing data : {e}")
+                        self.content_dict['summarized'] = None
+
+                else:
+                    print(f"Error occured while fetching summarized data : {summarized.status_code}")
                     self.content_dict['summarized'] = None
 
-            else:
-                print(f"Error occured while fetching summarized data : {summarized.status_code}")
+            except Exception as e:
+                print(f"Error occured while fetching summarized data : {e}")
                 self.content_dict['summarized'] = None
-
-        except Exception as e:
-            print(f"Error occured while fetching summarized data : {e}")
+                
+        else:
             self.content_dict['summarized'] = None
 
 
