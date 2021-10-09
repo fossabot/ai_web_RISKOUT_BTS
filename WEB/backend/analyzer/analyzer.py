@@ -65,7 +65,7 @@ class Content:
             except Exception as e:
                 print(f"Error occured while fetching summarized data : {e}")
                 self.content_dict['summarized'] = None
-                
+
         else:
             self.content_dict['summarized'] = None
 
@@ -246,9 +246,15 @@ def dbInserter(contents):
         hasNone = False
 
         for key in contents[i]:
-            if contents[i][key] is None:
-                hasNone = True
-                break
+            if key in ['summarized', 'title', 'site_url', 'thumbnail_url']:
+                if contents[i]['category'] == 'news' and contents[i][key] == None:
+                    hasNone = True
+                    break
+
+            else:
+                if contents[i][key] is None:
+                    hasNone = True
+                    break
 
         if not hasNone:
             contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
