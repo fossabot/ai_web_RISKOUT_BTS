@@ -1,12 +1,6 @@
 import { Chip, Grid } from '@mui/material';
 
-export default function AppliedFilter({ appliedFilters, setAppliedFilters }) {
-  const handleDelete = (filterToDelete) => () => {
-    alert(filterToDelete);
-    setAppliedFilters((filters) =>
-      filters.filter((filter) => filter !== filterToDelete)
-    );
-  };
+export default function AppliedFilter({ appliedFilters, handleDelete }) {
   return (
     <Grid
       sx={{
