@@ -318,13 +318,16 @@ def main():
     today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
 
     for date in date_list:
-        cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+        cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
         if date != today:
             important_data_list.extend(dataRanker(cur.fetchall()))
-            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND created_at = ?", (date,))
+            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
             conn.commit()
         else:
             important_data_list.extend(dataRanker(cur.fetchall()))
+    
+    cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND created_at = ?", (date,)) # news는 이미 analyzed 되었기 때문에 sns와 community만 남는다
+    important_data_list.extend(cur.fetchall())
 
     print(f"[*] Serving {len(important_data_list)} pages to Extractor...")
 
