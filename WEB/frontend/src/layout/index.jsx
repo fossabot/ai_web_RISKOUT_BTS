@@ -2,10 +2,10 @@ import React from 'react';
 
 import Helmet from 'react-helmet';
 // import '../css//normalize.css';
-import '../css/style_tab.css';
-import '../css/style_mob.css';
-import '../css/slick.css';
-import '../css/jquery.fullpage.css';
+// import '../css/style_tab.css';
+// import '../css/style_mob.css';
+// import '../css/slick.css';
+// import '../css/jquery.fullpage.css';
 
 // MUI Styles
 import { styled, useTheme } from '@mui/material/styles';
