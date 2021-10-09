@@ -21,7 +21,7 @@ from crawler.error import HTMLElementsNotFoundError as notfound_error, contentLe
 from crawler.error import englishContentError
 
 # import setting values
-from crawler.setting import DEBUG, TIME_CHECK
+from crawler.setting import DEBUG
 
 # for matching site name to site class instance
 from crawler.model.siteInstanceServer import get_siteInstance_list
@@ -65,7 +65,7 @@ async def crawl_manager(site):
     start_time = time.time()
     await asyncio.gather(crawl(site_instance_selector(site)))
     end_time = time.time()
-    if(TIME_CHECK):
+    if DEBUG:
         print(f'time taken crawling "{site}": {end_time - start_time}')
 
 def get_request(url, header):
@@ -118,6 +118,11 @@ async def get_contents(site, contents_url, urlinfo, db):
 # 이후 각 Site 페이지에서 받은 subject 매개변수를 토대로 baseurl을 제작하면 됨
 async def crawl(site):
     db = database.DB()
+
+    if site.hasAPI:
+        site.crawl(db)
+        db.close()
+        return
 
     each_urlbases, urlinfo = site.listpage.get_each_urlbases()
 

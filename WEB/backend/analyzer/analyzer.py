@@ -31,7 +31,7 @@ class Content:
         id: (mongoDB에 insert 되기 직전에 생성됨)
         created_at: (mongoDB에 insert 되기 직전에 생성됨)
 
-        site_url, thumbnail_url, category, title, contentBody: extracted 에서 추출
+        site_url, thumbnail_url, category, title, contentBody, author: extracted 에서 추출
 
         summarized, positivity, entities: analyze 호출 이후 할당
         """
@@ -43,26 +43,30 @@ class Content:
     
 
     def getSummarized(self):
-        url = SERVER_URL + 'summarize'
-        document = {"document": self.content_dict['contentBody']}
-        document = json.dumps(document)
+        if self.content_dict['category'] == 'news':
+            url = SERVER_URL + 'summarize/extractive'
+            document = {"document": self.content_dict['contentBody']}
+            document = json.dumps(document)
 
-        try:
-            summarized = requests.post(url, data=document, timeout=20)
+            try:
+                summarized = requests.post(url, data=document, timeout=20)
 
-            if summarized.status_code == 200:
-                try:
-                    self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
-                except Exception as e:
-                    print(f"Error occured while summarizing data : {e}")
+                if summarized.status_code == 200:
+                    try:
+                        self.content_dict['summarized'] = json.loads(summarized.text)['summarized'][0]
+                    except Exception as e:
+                        print(f"Error occured while summarizing data : {e}")
+                        self.content_dict['summarized'] = None
+
+                else:
+                    print(f"Error occured while fetching summarized data : {summarized.status_code}")
                     self.content_dict['summarized'] = None
 
-            else:
+            except Exception as e:
                 print(f"Error occured while fetching summarized data : {e}")
                 self.content_dict['summarized'] = None
 
-        except Exception as e:
-            print(f"Error occured while fetching summarized data : {e}")
+        else:
             self.content_dict['summarized'] = None
 
 
@@ -80,7 +84,7 @@ class Content:
                     print(f"Error occured while getting positivity : {e}")
                     self.content_dict['positivity'] = None
             else:
-                print(f"Error occured while fetching positivity data : {e}")
+                print(f"Error occured while fetching positivity data : {positivity.status_code}")
                 self.content_dict['positivity'] = None
 
         except Exception as e:
@@ -103,7 +107,7 @@ class Content:
                     print(f"Error occured while getting entities : {e}")
                     self.content_dict['entities'] = None
             else:
-                print(f"Error occured while fetching entities : {e}")
+                print(f"Error occured while fetching entities : {entities.status_code}")
                 self.content_dict['entities'] = None
 
         except Exception as e:
@@ -157,42 +161,6 @@ class DBHandler:
         result = self.client[db_name][collection_name].find_one_and_update({'_id': counter_name}, {'$inc': {'seq': 1}}, return_document=ReturnDocument.AFTER)
         result = int(result['seq'])
         return result
-
-
-def process_data(res_data):
-    try:
-        res_data["summarized"] = json.loads(res_data["res_text"])["summarized"][0]
-
-    except Exception as e:
-        print(f"Error occured while summarizing data : {e}")
-    
-    return res_data
-
-
-async def post_data(url, session, id, document):
-    result = {"id": id, "res_text": None, "summarized": None}
-
-    try:
-        async with session.post(url, json=document, timeout = 7200) as res:
-            result["res_text"] = await res.text()
-
-    except Exception as e:
-        print(f"Error occured while fetching summarized data : {e}")
-    
-    return result
-
-
-async def process(url, session, pool, id, document):
-    data = await post_data(url, session, id, document)
-    print(data)
-    return await asyncio.wrap_future(pool.submit(process_data, data))
-
-
-async def dispatch(req_list):
-    pool = ProcessPoolExecutor()
-    async with aiohttp.ClientSession() as session:
-        coros = (process(url=req["url"], session=session, pool=pool, id=req["id"], document=req["document"]) for req in req_list)
-        return await asyncio.gather(*coros)
 
 
 def dataRanker(data):
@@ -257,6 +225,7 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
+        extracted['author'] = tup[10]
 
         content = Content(extracted)
         contents.append(content.content_dict)
@@ -277,9 +246,15 @@ def dbInserter(contents):
         hasNone = False
 
         for key in contents[i]:
-            if contents[i][key] is None:
-                hasNone = True
-                break
+            if key in ['summarized', 'title', 'site_url', 'thumbnail_url']:
+                if contents[i]['category'] == 'news' and contents[i][key] == None:
+                    hasNone = True
+                    break
+
+            else:
+                if contents[i][key] is None:
+                    hasNone = True
+                    break
 
         if not hasNone:
             contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')

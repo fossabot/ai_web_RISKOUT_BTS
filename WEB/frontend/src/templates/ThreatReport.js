@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import graphImage from '../images/sub/graph_img.jpg';
 
 function template() {
   return (
     <>
       <section id="sub_contents">
-        <div class="sub01_wrap">
-          <h2 class="h2_tit2">
+        <div className="sub01_wrap">
+          <h2 className="h2_tit2">
             “Hacker” 개요 <em>8월 5일, 2021부터 9월 5일, 2021</em>
           </h2>
-          <div class="text">
+          <div className="text">
             <p>
               오늘의 이야기에는 KISA가 발표한 랜섬웨어 공격과 D-Dos 공격에 대한
               내용이 주로 포함되어 있다. 글로벌 랜섬웨어 공격 증가 트랜드와
@@ -21,9 +22,9 @@ function template() {
             </p>
           </div>
 
-          <div class="period">
+          <div className="period">
             <span>8월 5일부터 주요내용</span>
-            <ul class="clfix">
+            <ul className="clfix">
               <li>
                 <button>1m</button>
               </li>
@@ -42,11 +43,11 @@ function template() {
             </ul>
           </div>
 
-          <div class="content clfix">
-            <div class="img">
-              <img src="images/sub/graph_img.jpg" alt="" />
+          <div className="content clfix">
+            <div className="img">
+              <img src={graphImage} alt="" />
             </div>
-            <div class="text">
+            <div className="text">
               <h4>랜섬웨어 역사</h4>
               <p>
                 1989년 12월 Joseph L.Popp를 통해 작성 배포된 첫 번째 랜섬웨어
