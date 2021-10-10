@@ -46,7 +46,6 @@ const test = styled('.sidebarBackground')(() => ({
 }));
 
 export default function SideNavigation(props) {
-  const [sidebarBackground, setSidebarBackground] = useState("");
   const { drawerWidth } = props;
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -54,12 +53,10 @@ export default function SideNavigation(props) {
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setSidebarBackground("sidebarBackground");
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setSidebarBackground("miniSidebarBackground");
   };
 
   return (
