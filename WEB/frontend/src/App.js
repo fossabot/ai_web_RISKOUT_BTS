@@ -49,29 +49,22 @@ function App() {
   return (
     
     <div className="App">
+          <Layout handleLogout={handleLogout}>
           <Route exact path="/">
-            <Layout handleLogout={handleLogout}>
             <Board />
-            </Layout>
           </Route>
          <Route exact path="/presstrends">
-         <Layout handleLogout={handleLogout}>
            <PressTrends />
-           </Layout>
           </Route>
 
           <Route exact path="/detectionstatus">
-          <Layout handleLogout={handleLogout}>
             <DetectionStatus />
-            </Layout>
             </Route>
 
          <Route exact path="/riskreport">
-         <Layout handleLogout={handleLogout}>
             <RiskReport />
-            </Layout>
           </Route>
-
+          </Layout>
           <Route exact path="/login">
             <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
           </Route>

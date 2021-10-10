@@ -64,7 +64,7 @@ const LoginModal=(props)=>{
                     }
                   })
                   .catch(error => alert(error));
-                }}>{JoinLoign}</Button>
+                }}>로그인</Button>
           <Typography >
           <br></br>
                <Link href="/init" >
