@@ -13,7 +13,6 @@ import LoginModal from './components/Modal/LoginModal';
 import RegisterModal from './components/Modal/RegisterModal';
 import PasswordResetModal from './components/Modal/PasswordResetModal';
 import InitInfo from './components/Modal/InitInfo';
-import FilterTable from './components/FilterTable';
 import Search from './components/Search';
 import DynamicRoutes from "./DynamicRoutes";
 
