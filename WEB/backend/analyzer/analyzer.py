@@ -29,9 +29,8 @@ class Content:
         self.content_dict = extracted
         """
         id: (mongoDB에 insert 되기 직전에 생성됨)
-        created_at: (mongoDB에 insert 되기 직전에 생성됨)
 
-        site_url, thumbnail_url, category, title, contentBody, author: extracted 에서 추출
+        site_url, thumbnail_url, category, title, contentBody, author, created_at: extracted 에서 추출
 
         summarized, positivity, entities: analyze 호출 이후 할당
         """
@@ -253,6 +252,7 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
+        extracted['created_at'] = datetime.strptime(tup[9], "%y_%m_%d")
         extracted['author'] = tup[10]
 
         content = Content(extracted)
@@ -282,7 +282,6 @@ def dbInserter(content):
 
     if not hasNone:
         content['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
-        content['created_at'] = (datetime.utcnow() + timedelta(hours=9))
 
         try:
             mongo.insert_item_one(content, "riskout", "analyzed")
@@ -312,8 +311,6 @@ def main():
     for tup in raw_data:
         if tup[9] not in date_list:
             date_list.append(tup[9])
-    
-    # today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
 
     for date in date_list:
         cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
