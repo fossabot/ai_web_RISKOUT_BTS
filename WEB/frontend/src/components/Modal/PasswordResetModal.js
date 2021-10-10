@@ -40,7 +40,7 @@ const handlePassword2Change = (e) => {
                   e.preventDefault()
                   alert(JSON.stringify(data))
                   if(userpassword !== userpasswordCheck){
-                    alert("비밀번호가 서로 일치하지 않습니다!")
+                    alert("비밀번호가 서로 일치하지 않습니다.")
                   }else{
                     fetch('/api/password-reset/confirm/', {
                       method: 'POST',
