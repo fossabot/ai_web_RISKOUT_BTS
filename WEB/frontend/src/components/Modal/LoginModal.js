@@ -73,7 +73,7 @@ const LoginModal=(props)=>{
           </Typography>
           <Typography >
           <br></br>
-               <Link href="register" >
+               <Link href="/register" >
                   회원가입
           </Link>
           </Typography>
