@@ -114,7 +114,7 @@ export default function SideNavigation(props) {
       >
         <DrawerHeader>
           <Link href="/">
-            <img src="https://riskout.ithosting.repl.co/images/main/logo.png" alt="홈" className="image" />
+            <img src="https://riskout.ithosting.repl.co/images/main/logo_w.png" alt="홈" className="image" />
           </Link>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? (

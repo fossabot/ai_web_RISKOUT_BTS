@@ -44,16 +44,13 @@ body::-webkit-scrollbar {
 }
 
 .sub_header .image {
+  /*로고 크기는 정해진 크기 입력*/
   position: absolute;
   top: 1em;
   left: 1.3em;
-}
-.sub_header .image {
-  /*로고 크기는 정해진 크기 입력*/
   color: #fff;
-  width: 95px;
-  height: 30px;
-  filter: opacity(.5) drop-shdow(0 0 0 gray);
+  width: 105px;
+  height: 22px;
 }
 
 .sub_header .image:hover {
