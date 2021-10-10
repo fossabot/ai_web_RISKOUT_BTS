@@ -6,7 +6,7 @@ urlpatterns = [
     path('trends/', TrendsDataView.as_view(), name='trends'),
     path('wordcloud/', WordcloudDataView.as_view(), name='wordcloud'),
     path('article/volume/', ArticleVolumeDataView.as_view(), name='article_volume'),
-    path('sentiment/bar/', AnalyzedDataView.as_view(), name='sentiment_bar'),
+    path('sentiment/bar/', SentimentBarDataView.as_view(), name='sentiment_bar'),
     path('sentiment/pie/', AnalyzedDataView.as_view(), name='sentiment_pie'),
 
 ]
