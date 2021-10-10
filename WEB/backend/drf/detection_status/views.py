@@ -133,7 +133,7 @@ class AnalyzedDataView(generics.CreateAPIView):
 
     def datetimeFormatter(self, contents):
         for i in range(len(contents)):
-            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
         
         return contents
 
@@ -202,7 +202,7 @@ class TrendsDataView(generics.GenericAPIView):
                         "author": content["author"],
                         "trueScore": round(content["true_score"], 2),
                         "emotionFilled": round(content["positivity"], 2),
-                        "date": content["created_at"][:8]
+                        "date": content["created_at"]
                     }
                     response["response"].append(data)
 
@@ -211,7 +211,7 @@ class TrendsDataView(generics.GenericAPIView):
 
     def datetimeFormatter(self, contents):
         for i in range(len(contents)):
-            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
         
         return contents
     
@@ -296,7 +296,7 @@ class WordcloudDataView(generics.GenericAPIView):
 
     def datetimeFormatter(self, contents):
         for i in range(len(contents)):
-            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
         
         return contents
     
@@ -331,3 +331,119 @@ class WordcloudDataView(generics.GenericAPIView):
             quit()
 
         return keywords
+
+
+class ArticleVolumeDataView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+
+    def get_serializer_class(self):
+        return None
+
+
+    def get(self, request, *args, **kwargs):
+        mongo = DBHandler()
+        db_result = None
+        
+        response = { 
+            "fake": {
+                "id": "fake",
+                "data": [
+                    {
+                        "x": "D-5",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-4",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-3",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-2",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-1",
+                        "y": 0
+                    },
+                    {
+                        "x": "Today",
+                        "y": 0
+                    }
+                ]
+            },
+            "true": {
+                "id": "true",
+                "data": [
+                    {
+                        "x": "D-5",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-4",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-3",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-2",
+                        "y": 0
+                    },
+                    {
+                        "x": "D-1",
+                        "y": 0
+                    },
+                    {
+                        "x": "Today",
+                        "y": 0
+                    }
+                ]
+            },
+        }
+
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+        today = datetime(now.year, now.month, now.day)
+
+        query["created_at"] = {"$gte" : (today - timedelta(days=5))}
+        query["category"] = "news"
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+        dates = []
+
+        for i in range(6):
+            date = (today - timedelta(days=i)).strftime("%y-%m-%d")
+            dates.append(date)
+
+        dates.reverse()
+
+        for idx, date in enumerate(dates):
+            for content in db_filtered:
+                if date == content["created_at"]:
+                    if round(content["positivity"], 1) >= 0.5:
+                        response["true"]["data"][idx]["y"] += 1
+                    else:
+                        response["fake"]["data"][idx]["y"] += 1
+
+        return Response(response)
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
+        
+        return contents
