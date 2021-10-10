@@ -83,6 +83,7 @@ body::-webkit-scrollbar {
 .sub_header .sub_menu .list .link {
   color: #fff;
   display: block;
+  font-size: 1.1em;
 }
 
 .sub_header .sub_menu .list.on *,
