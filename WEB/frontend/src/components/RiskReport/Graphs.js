@@ -5,33 +5,18 @@ import GeoEventPlot from '../Dashboard/GeoEventPlot';
 import WordCloud from '../Dashboard/WordCloud';
 import TrendsCard from '../Dashboard/TrendsCard';
 
-import { Container, Box, Grid } from '@mui/material';
+import { Container, Box, Grid, Stack } from '@mui/material';
 
-export default function Dashboard() {
+export default function Graphs() {
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
-        <h2>대시보드</h2>
-      </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={4}>
-        <WordCloud options={options} />
-      </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={4}>
-        <ArticleVolumeLine colors={options.colors} />
-      </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={4}>
-        <TrendsCard />
-      </Grid>
+    <Stack direction="column" container spacing={2}>
       <Grid item xs={6} sm={6} md={6} lg={4}>
         <SentimentBar colors={options.colors} />
       </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={3}>
+      <Grid item xs={6} sm={6} md={6} lg={4}>
         <SentimentPie colors={options.colors} />
       </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={5}>
-        <GeoEventPlot colors={options.colors} />
-      </Grid>
-    </Grid>
+    </Stack>
   );
 }
 
