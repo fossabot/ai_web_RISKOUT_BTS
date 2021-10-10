@@ -10,8 +10,8 @@ from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
-SERVER_URL = 'http://localhost:8000/'
-# SERVER_URL = 'http://host.docker.internal:8000/'
+# SERVER_URL = 'http://localhost:8000/'
+SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -145,8 +145,8 @@ class Content:
 
 class DBHandler:
     def __init__(self):
-        host = "localhost"
-        # host = "host.docker.internal"
+        # host = "localhost"
+        host = "host.docker.internal"
         port = "8001"
         self.client = MongoClient(host, int(port))
 
