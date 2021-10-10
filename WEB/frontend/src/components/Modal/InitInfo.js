@@ -29,7 +29,7 @@ const InitInfo = (props) => {
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
                   alert(JSON.stringify(data))
-                    fetch('/api/password_reset/', {
+                    fetch('/api/password-reset/', {
                       method: 'POST',
                       headers:{
                         'Content-Type': 'application/json'
