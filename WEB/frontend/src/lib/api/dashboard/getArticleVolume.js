@@ -1,6 +1,6 @@
-import client from '../client'
+import client from '../client';
 
 export async function getArticleVolume() {
-  const response = await client.get('/api/article/volume')
-  return response.data
+  const response = await client.get('data/articleVolume.json');
+  return response.data;
 }
