@@ -50,6 +50,7 @@ function App() {
     
     <div className="App">
           <Layout handleLogout={handleLogout}>
+  
           <Route exact path="/">
             <Board />
           </Route>
