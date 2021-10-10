@@ -64,7 +64,7 @@ export default function SideNavigation(props) {
 
   return (
     <>
-      <Box sx={{ background: 'rgb(29, 28, 26)', height: '500vh'}}>
+      <Box sx={{ position:'fixed', background: 'rgb(29, 28, 26)', minHeight: '100%'}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"

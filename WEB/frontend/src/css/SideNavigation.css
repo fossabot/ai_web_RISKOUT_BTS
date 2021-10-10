@@ -65,7 +65,7 @@ body::-webkit-scrollbar {
 
 /*미니 사이드바 메뉴 버튼과 아이콘 위치*/
 .sub_header .sub_menu {
-  padding: 6em 1em 0em;
+  padding: 6.0em 1em 0em;
 }
 
 .sub_header .sub_menu .list {
