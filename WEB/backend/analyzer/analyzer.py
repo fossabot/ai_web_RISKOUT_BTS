@@ -10,8 +10,8 @@ from pymongo.collection import ReturnDocument
 from pymongo.cursor import CursorType
 
 
-# SERVER_URL = 'http://localhost:8000/'
-SERVER_URL = 'http://host.docker.internal:8000/'
+SERVER_URL = 'http://localhost:8000/'
+# SERVER_URL = 'http://host.docker.internal:8000/'
 
 current_abs_path= os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(os.path.dirname(current_abs_path), "crawler", "crawler", "database.db")
@@ -145,8 +145,8 @@ class Content:
 
 class DBHandler:
     def __init__(self):
-        # host = "localhost"
-        host = "host.docker.internal"
+        host = "localhost"
+        # host = "host.docker.internal"
         port = "8001"
         self.client = MongoClient(host, int(port))
 
@@ -252,24 +252,15 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
-
-        try:
-            extracted['created_at'] = datetime.strptime(tup[9], "%y_%m_%d")
-        except Exception as e:
-            print(f"Error occured while converting created_at data : {e}")
-            extracted['created_at'] = None
-
+        extracted['created_at'] = datetime.strptime(tup[9].strip(), "%y_%m_%d")
         extracted['author'] = tup[10]
 
         content = Content(extracted)
         cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
         conn.commit()
 
-        if content.content_dict["created_at"]:
-            if dbInserter(content.content_dict):
-                print(f"[+] Extractor: {idx + 1}/{len(data)}")
-        else:
-            print(f"[!] Extractor: {idx + 1}/{len(data)}")
+        if dbInserter(content.content_dict):
+            print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
     return None
 
