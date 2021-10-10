@@ -5,34 +5,28 @@ import {
   CardHeader,
   CardContent,
   Box,
-  Button,
+  Skeleton,
   Divider,
+  LinearProgress,
 } from '@mui/material';
-import useFetch from '../../hooks/useFetch';
+import { getArticleVolume } from '../../lib/api/dashboard/getArticleVolume';
 
 const ArticleVolumeLine = () => {
-  const { data, error, isPending } = useFetch(
-    `https://playff-osamhack2021-ai-web-riskout-bts-45v7rgwx3j4vq-8000.githubpreview.dev/article-volume`
-  );
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const { data } = getArticleVolume();
 
   return (
     <Card style={{ height: '400px' }}>
       <CardHeader title="기사 변화량" />
       <Divider />
-      <CardContent>
-        <Box
-          sx={{
-            height: 300,
-            position: 'relative',
-          }}
-        >
-          {error && <div>{error} </div>}
-          {isPending && <div>Loading...</div>}
-          {data && (
+
+      {data ? (
+        <CardContent>
+          <Box
+            sx={{
+              height: 300,
+              position: 'relative',
+            }}
+          >
             <ResponsiveLine
               data={data}
               margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
@@ -99,9 +93,13 @@ const ArticleVolumeLine = () => {
                 },
               ]}
             />
-          )}
+          </Box>
+        </CardContent>
+      ) : (
+        <Box sx={{ width: '100%', color: 'grey.500' }}>
+          <LinearProgress color="inherit" />
         </Box>
-      </CardContent>
+      )}
     </Card>
   );
 };
