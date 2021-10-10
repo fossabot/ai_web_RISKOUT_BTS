@@ -97,7 +97,7 @@ export default function SideNavigation(props) {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            background: 'rgb(29, 28, 26)',
+            background: 'rgb(40, 40, 40)',
             left: 0,
             top: 0,
             width: drawerWidth,
@@ -105,18 +105,18 @@ export default function SideNavigation(props) {
           },
         }}
       >
-        <DrawerHeader>
+        <Box className="closeButton">
           <Link href="/">
             <img src="https://riskout.ithosting.repl.co/images/main/logo_w.png" alt="홈" className="image" />
           </Link>
-          <IconButton onClick={handleDrawerClose} >
+          <IconButton onClick={handleDrawerClose}  >
             {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon sx={{ color: 'white' }} className="closeButton" />
+              <ChevronLeftIcon sx={{ color: 'white' }}  />
             ) : (
               <ChevronRightIcon sx={{ color: 'red' }} />
             )}
           </IconButton>
-        </DrawerHeader>
+        </Box>
         <List className="sub_menu">
           <SidebarLink icon={InfoIcon} text="언론동향" href="/presstrends" />
           <SidebarLink
