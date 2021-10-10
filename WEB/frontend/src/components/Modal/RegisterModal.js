@@ -53,7 +53,7 @@ const LoginModal=(props)=>{
                   }else if(userpassword !== userpasswordCheck){
                     alert("비밀번호를 확인해 주세요.")
                   }else{
-                    fetch('/api/register/', {
+                    fetch('/api/user/register/', {
                       method: 'POST',
                       headers:{
                         'Content-Type': 'application/json'

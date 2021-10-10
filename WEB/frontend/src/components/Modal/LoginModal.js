@@ -45,7 +45,7 @@ const LoginModal=(props)=>{
           <TextField label='비밀번호' placeholder='비밀번호를 입력해 주세요.' type='password' fullWidth required  onChange={handlePasswordChange}/>
           <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth className="JoinLoign-button" onClick={(e)=>{
                   e.preventDefault()
-                  fetch('/api/login/', {
+                  fetch('/api/user/login/', {
                   method: 'POST',
                     headers: {
                       'Content-Type': 'application/json'
