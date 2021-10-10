@@ -36,7 +36,7 @@ class AnalyzedDataView(generics.CreateAPIView):
 
             # Check category
             
-            if serializer.data.get("category") not in ["news", "sns", "community"]:
+            if serializer.data.get("category") not in ["news", "sns", "community", "all"]:
                 return Response({"category": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 category = serializer.data.get("category")
@@ -89,15 +89,15 @@ class AnalyzedDataView(generics.CreateAPIView):
         now = datetime.utcnow() + timedelta(hours=9)
 
         if period != 0:
-            query["created_at"] = {"$gte" : (now - timedelta(hours=period))}
+            query["created_at"] = {"$gte": (now - timedelta(hours=period))}
 
-        query["category"] = category
+        if category != "all":
+            query["category"] = category
 
         if search_text:
             query["$text"] = {"$search": search_text}
         
         db_result = mongo.find_item(query, "riskout", "analyzed")
-
         db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
 
         if tags:
