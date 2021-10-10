@@ -58,9 +58,18 @@ const RiskReport = () => {
   useEffect(() => {
     const searchUrl = `/api/nlp/analyze/`;
     async function fetchSearch() {
-      axios.get(searchUrl).then((data) => {
-        console.log(data.data);
-      });
+      axios
+        .post(searchUrl, {
+          category: 'news',
+          period: 72,
+          tags: { PER: ['김정은'], LOC: ['북한'] },
+          search_text: '노동신문',
+          limit: 5,
+          offset: 0,
+        })
+        .then((data) => {
+          console.log(data.data);
+        });
     }
     fetchSearch();
   }, []);
