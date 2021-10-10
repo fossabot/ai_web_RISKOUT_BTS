@@ -4,4 +4,4 @@ site_list = {
     'Twitter': 'twitter'
 }
 
-DEBUG = False
+DEBUG = True

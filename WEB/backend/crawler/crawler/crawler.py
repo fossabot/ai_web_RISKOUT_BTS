@@ -122,7 +122,7 @@ async def crawl(site):
     db = database.DB()
 
     if site.hasAPI:
-        await site.crawl(db)
+        site.crawl(db)
         db.close()
         return
 
