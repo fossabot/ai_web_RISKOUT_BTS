@@ -130,7 +130,7 @@ export default function PersistentDrawerLeft(props) {
             isOn={true}
           />
           <SidebarLink icon={AssessmentIcon} text="리포트" href="/riskreport" />
-          <SidebarLink icon={LogoutIcon} text="로그아웃" href="/logout" />
+          <SidebarLink icon={LogoutIcon} text="로그아웃" href="/"/>
         </List>
         <ListItem>
           <ListItemText
