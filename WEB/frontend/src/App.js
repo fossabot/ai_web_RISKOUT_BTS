@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
-import Layout from './layout';
+import Layout from './components/Layout';
 
 import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
-import PressTrends from './pages/PressTrends';
 import Dashboard from './pages/Dashboard';
 import RiskReport from './pages/RiskReport';
 
@@ -126,7 +125,7 @@ export default function App() {
         </Route>
 
         <Route exact path="/presstrends">
-          <PressTrends />
+          <Dashboard />
         </Route>
 
         <Route exact path="/detectionstatus">

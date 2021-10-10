@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Grid, Paper, Typography, Divider } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Divider,
+} from '@mui/material';
 
 import AppliedFilters from '../components/DetectionStatus/AppliedFilter';
 import DetectionTable from '../components/DetectionStatus/DetectionTable';
@@ -90,62 +97,45 @@ export default function DetectionStatus() {
   };
 
   return (
-    <Box
-      m={2}
-      sx={{
-        backgroundColor: 'inherit',
-        minHeight: '100%',
-        py: 0,
-      }}
-    >
-      <Grid container spacing={3}>
-        <Grid
-          item
-          xs={12}
-          md={10}
-          container
-          spacing={3}
-          direction="column"
-          style={{ paddingLeft: '70px' }}
-        >
-          <Grid width="100%" item>
-            <Typography mb={2} variant="h6">
-              탐지 현황
-            </Typography>
-            <Search />
-            <Typography mt={3} color="primary">
-              {searchResults.contentsLength}개 결과 | {appliedFilters.length}개
-              필터 적용중
-            </Typography>
-          </Grid>
-          <Grid width="100%" item justify="center">
-            <AppliedFilters
-              appliedFilters={appliedFilters}
-              handleDelete={handleDelete}
-            />
-          </Grid>
-          <Grid item justify="center">
-            <DetectionTable
-              data={searchResults}
-              showDetailModal={showDetailModal}
-              scrapArticle={scrapArticle}
-            />
-          </Grid>
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={10} container spacing={3} direction="column">
+        <Grid width="100%" item>
+          <Typography mt={1} variant="h5" sx={{ fontWeight: 'bold' }}>
+            탐지 현황
+          </Typography>
+          <Search />
+          <Typography mt={3} color="primary">
+            {searchResults.contentsLength}개 결과 | {appliedFilters.length}개
+            필터 적용중
+          </Typography>
         </Grid>
-        <Grid item xs={0} md={2} display={{ xs: 'none', md: 'block' }}>
-          <FilterBar
-            search={searchResults}
-            filter={appliedFilters}
-            toggleFilter={toggleFilter}
+        <Grid width="100%" item justify="center">
+          <AppliedFilters
+            appliedFilters={appliedFilters}
+            handleDelete={handleDelete}
           />
         </Grid>
-        <SecretsDetailModal
-          isOpen={isDetailModalOpen}
-          setOpen={setDetailModalOpen}
-          scrapArticle={scrapArticle}
-          data={detailModalData}
+        <Grid item justify="center">
+          <DetectionTable
+            data={searchResults}
+            showDetailModal={showDetailModal}
+            scrapArticle={scrapArticle}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={0} md={2} display={{ xs: 'none', md: 'block' }}>
+        <FilterBar
+          search={searchResults}
+          filter={appliedFilters}
+          toggleFilter={toggleFilter}
         />
       </Grid>
-    </Box>
+      <SecretsDetailModal
+        isOpen={isDetailModalOpen}
+        setOpen={setDetailModalOpen}
+        scrapArticle={scrapArticle}
+        data={detailModalData}
+      />
+    </Grid>
   );
 }

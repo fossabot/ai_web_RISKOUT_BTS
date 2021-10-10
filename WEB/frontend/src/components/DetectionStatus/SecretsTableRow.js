@@ -8,8 +8,19 @@ import {
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DescriptionIcon from '@mui/icons-material/Description';
 
+import ScrapButton from './ScrapButton';
+
 export default function SecretsTableRow(props) {
-  const { id, title, preview, author, href, showDetailModal } = props;
+  const {
+    id,
+    title,
+    preview,
+    author,
+    href,
+    showDetailModal,
+    scrapArticle,
+    isAlreadyScrapped,
+  } = props;
 
   return (
     <TableRow
@@ -35,9 +46,10 @@ export default function SecretsTableRow(props) {
       </TableCell>
       <TableCell align="center">{author}</TableCell>
       <TableCell align="center">
-        <IconButton>
-          <AddBoxIcon />
-        </IconButton>
+        <ScrapButton
+          handleScrap={() => scrapArticle(id)}
+          isAlreadyScrapped={isAlreadyScrapped}
+        />
       </TableCell>
     </TableRow>
   );

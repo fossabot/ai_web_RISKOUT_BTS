@@ -9,8 +9,8 @@ import Helmet from 'react-helmet';
 
 // MUI Styles
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import SideNavigation from '../components/Modal/SideNavigation';
+import { Box, Container } from '@mui/material';
+import SideNavigation from './Modal/SideNavigation';
 
 const drawerWidth = 240;
 
@@ -50,7 +50,19 @@ export default class MainLayout extends React.Component {
             handleLogout={handleLogout}
           ></SideNavigation>
 
-          <Main open={open}>{children}</Main>
+          <Main open={open}>
+            <Box
+              m={2}
+              sx={{
+                backgroundColor: 'inherit',
+                minHeight: '100%',
+                py: 3,
+                paddingLeft: '20px',
+              }}
+            >
+              <Container maxWidth={false}>{children}</Container>
+            </Box>
+          </Main>
         </Box>
       </Box>
     );

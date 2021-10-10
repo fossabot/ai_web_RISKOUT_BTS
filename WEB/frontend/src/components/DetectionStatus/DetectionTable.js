@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-import SecretsTableRow from '../SecretsTableRow';
+import SecretsTableRow from './SecretsTableRow';
 
 export default function DetectionTable({
   data,
@@ -16,7 +16,7 @@ export default function DetectionTable({
   scrapArticle,
 }) {
   return (
-    <TableContainer component={Paper} elevation={5}>
+    <TableContainer component={Paper} elevation={1}>
       <Table>
         <TableHead>
           <TableRow>
@@ -42,6 +42,7 @@ export default function DetectionTable({
               author={article.author}
               href={article.href}
               showDetailModal={showDetailModal}
+              scrapArticle={scrapArticle}
             />
           ))}
         </TableBody>
