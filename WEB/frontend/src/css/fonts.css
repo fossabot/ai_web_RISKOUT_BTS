@@ -1,6 +1,55 @@
+/* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: local('Noto Sans KR'),
+    url(../fonts/Noto_Sans_KR/NotoSansKR-Regular.otf) format('opentype');
+  unicoderange: U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: bold;
+  src: local('Noto Sans KR'),
+    url(../fonts/Noto_Sans_KR/NotoSansKR-Bold.otf) format('opentype');
+  unicoderange: U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: italic;
+  src: local('Noto Sans KR'),
+    url(../fonts/Noto_Sans_KR/NotoSansKR-Light.otf) format('opentype');
+  unicoderange: U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: bold;
+  font-style: italic;
+  src: local('Noto Sans KR'),
+    url(../fonts/Noto_Sans_KR/NotoSansKR-Black.otf) format('opentype');
+  unicoderange: U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
+}
+
 @font-face {
   font-family: 'Black Han Sans';
   src: local('Black Han Sans'),
-    url(./BlackHanSans-Regular.ttf) format('truetype');
-  /* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+    url(../fonts/BlackHanSans-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Black Han Sans';
+  font-weight: bold;
+  src: local('Black Han Sans'),
+    url(../fonts/BlackHanSans-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Black Han Sans';
+  font-style: italic;
+  src: local('Black Han Sans'),
+    url(../fonts/BlackHanSans-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Black Han Sans';
+  font-weight: bold;
+  font-style: italic;
+  src: local('Black Han Sans'),
+    url(../fonts/BlackHanSans-Regular.ttf) format('truetype');
 }

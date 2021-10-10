@@ -17,7 +17,11 @@ import Search from './components/Search';
 import './App.css';
 // import './css/style.css';
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  typography: {
+    fontFamily: '"Noto Sans KR" ,"Black Han Sans", Arial',
+  },
+});
 
 export default function App() {
   const [modal, setModal] = useState(false);

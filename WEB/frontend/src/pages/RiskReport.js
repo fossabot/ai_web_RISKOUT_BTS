@@ -131,7 +131,7 @@ const RiskReport = () => {
           id="sub_contents"
           ref={pdfExportComponent}
           style={{
-            fontFamily: "'Black Han Sans'",
+            fontFamily: "'Noto Sans KR'",
           }}
         >
           <PdfExportButton exportTarget={pdfExportComponent} />
