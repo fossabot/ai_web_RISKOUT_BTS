@@ -252,15 +252,24 @@ def extractor(data):
         extracted['thumbnail_url'] = tup[2]
         extracted['contentBody'] = unicodedata.normalize('NFKC', tup[3]) # 공백 문자가 \xa0 로 인식되는 문제 해결
         extracted['category'] = tup[4]
-        extracted['created_at'] = datetime.strptime(tup[9], "%y_%m_%d")
+
+        try:
+            extracted['created_at'] = datetime.strptime(tup[9], "%y_%m_%d")
+        except Exception as e:
+            print(f"Error occured while converting created_at data : {e}")
+            extracted['created_at'] = None
+
         extracted['author'] = tup[10]
 
         content = Content(extracted)
         cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
         conn.commit()
 
-        if dbInserter(content.content_dict):
-            print(f"[+] Extractor: {idx + 1}/{len(data)}")
+        if content.content_dict["created_at"]:
+            if dbInserter(content.content_dict):
+                print(f"[+] Extractor: {idx + 1}/{len(data)}")
+        else:
+            print(f"[!] Extractor: {idx + 1}/{len(data)}")
 
     return None
 
