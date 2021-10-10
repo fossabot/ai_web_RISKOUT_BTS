@@ -33,11 +33,6 @@ body::-webkit-scrollbar {
   color: #3e90ff;
 }
 
-/* side bar를 열었을 때 background color */
-.sidebarBackground {
-  background: gray;
-}
-
 .sub_header .image {
   /*로고 크기는 정해진 크기 입력*/
   position: absolute;
@@ -84,6 +79,9 @@ body::-webkit-scrollbar {
 .iconMenuBox .inconMenuLink.on * {
   /*현재 사이트 경로의 메뉴 버튼 css*/
   color: #3e90ff;
+}
+
+.closeButton{
 }
 
 .sub_header .sub_menu .css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root {

@@ -109,9 +109,9 @@ export default function SideNavigation(props) {
           <Link href="/">
             <img src="https://riskout.ithosting.repl.co/images/main/logo_w.png" alt="홈" className="image" />
           </Link>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} >
             {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon sx={{ color: 'white' }} />
+              <ChevronLeftIcon sx={{ color: 'white' }} className="closeButton" />
             ) : (
               <ChevronRightIcon sx={{ color: 'red' }} />
             )}
