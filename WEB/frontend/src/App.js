@@ -11,7 +11,6 @@ import Dashboard from './pages/Dashboard';
 import RiskReport from './pages/RiskReport';
 
 import LoginModal from './components/Modal/LoginModal';
-import FilterTable from './components/FilterTable';
 import InitInfo from './components/Modal/InitInfo';
 import Search from './components/Search';
 
