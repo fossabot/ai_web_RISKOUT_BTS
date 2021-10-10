@@ -18,14 +18,17 @@ export default function ThreatMediaCard(props) {
     sourceTime,
     href,
   } = props;
+
+  const imgWidth = 300;
+  const imgHeight = 150;
   return (
-    <Card variant="outlined" sx="width: 400px">
+    <Card variant="outlined" sx={`width: ${imgWidth}px`}>
       <a href={href} style={{ padding: 0, margin: 0 }}>
         <CardMedia
           component="img"
-          height="150"
+          height={`${imgHeight}`}
           image={imageUrl}
-          sx={{ height: '150px', width: '400px' }}
+          sx={{ height: `${imgHeight}px`, width: `${imgWidth}px` }}
         />
         <CardContent>
           <Typography

@@ -16,14 +16,14 @@ import {
   CardContent,
 } from '@mui/material';
 import axios from 'axios';
-import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import '../css/fonts.css';
 
-import ExclusiveSelect from '../components/ExclusiveSelect';
+import ExclusiveSelect from '../components/RiskReport/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
 import useFetch from '../hooks/useFetch';
 import { getLineBreakText, useSessionStorage } from '../js/util';
-import ThreatMediaCard from '../components/ThreatMediaCard';
+import ThreatMediaCard from '../components/RiskReport/ThreatMediaCard';
+import PdfExportButton from '../components/RiskReport/PdfExportButton';
 
 const timeBefore = (today: Date, timelength: String) => {
   const [d, m, y] = [today.getDate(), today.getMonth(), today.getFullYear()];
@@ -75,9 +75,6 @@ const RiskReport = () => {
   }, []);
 
   const pdfExportComponent = useRef(null);
-  const handleExportWithFunction = (event) => {
-    savePDF(pdfExportComponent.current, { paperSize: 'A2' });
-  };
 
   /*
     // if using POST request with request options
@@ -136,6 +133,7 @@ const RiskReport = () => {
             fontFamily: "'Black Han Sans'",
           }}
         >
+          <PdfExportButton exportTarget={pdfExportComponent} />
           <div className="sub01_wrap">
             <h2 className="h2_tit2">
               Report
@@ -145,11 +143,7 @@ const RiskReport = () => {
                 }).format(new Date())}{' '}
                 (24h)
               </em>
-              <button onClick={handleExportWithFunction}>
-                Export with Method
-              </button>
             </h2>
-
             <div className="text">{getLineBreakText(data.overview)}</div>
 
             <div className="period">
@@ -226,7 +220,7 @@ const RiskReport = () => {
               <Grid
                 container
                 direction="row"
-                justifyContent="space-between"
+                justifyContent="space-evenly"
                 alignItems="center"
                 sx={{ mt: '1rem' }}
               >
