@@ -13,9 +13,9 @@ import LoginModal from './components/Modal/LoginModal';
 import RegisterModal from './components/Modal/RegisterModal';
 import PasswordResetModal from './components/Modal/PasswordResetModal';
 import InitInfo from './components/Modal/InitInfo';
-import FilterTable from './components/FilterTable';
+/*import FilterTable from './components/FilterTable';
 import Search from './components/Search';
-import DynamicRoutes from "./DynamicRoutes";
+import DynamicRoutes from "./DynamicRoutes";*/
 
 import './App.css';
 // import './css/style.css';
@@ -49,49 +49,44 @@ export default function App() {
   return (
     <ThemeProvider theme={mdTheme}>
       <CssBaseline />
-      <Layout handleLogout={handleLogout}>
         <Route exact path="/">
+        <Layout handleLogout={handleLogout}>
           <Board />
+          </Layout>
         </Route>
-
-        <Route exact path="/login">
-          <LoginModal
-            setModal={setModal}
-            userHasAuthenticated={userHasAuthenticated}
-          />
-        </Route>
-
-        <Route exact path="/init">
-          <InitInfo />
-        </Route>
-
         <Route exact path="/presstrends">
+        <Layout handleLogout={handleLogout}>
           <Dashboard />
+        </Layout>
         </Route>
 
         <Route exact path="/detectionstatus">
+        <Layout handleLogout={handleLogout}>
           <DetectionStatus />
+        </Layout>
         </Route>
 
         <Route exact path="/riskreport">
+        <Layout handleLogout={handleLogout}>
           <RiskReport />
+        </Layout>
         </Route>
 
         <Route exact path="/login">
-              <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-            </Route>
-            <Route exact path="/register">
-              <RegisterModal setModal={setModal}/>
-            </Route>
+            <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+        </Route>
+        <Route exact path="/register">
+          <RegisterModal setModal={setModal}/>
+        </Route>
   
-            <Route exact path="/init">
-              <InitInfo setModal={setModal}/>
-            </Route>
+        <Route exact path="/init">
+            <InitInfo setModal={setModal}/>
+        </Route>
   
-            <Route exact path="/password_reset">
-              <PasswordResetModal setModal={setModal}/>
-            </Route>
-      </Layout>
+        <Route exact path="/password_reset">
+            <PasswordResetModal setModal={setModal}/>
+        </Route>
+
     </ThemeProvider>
   );
 }
