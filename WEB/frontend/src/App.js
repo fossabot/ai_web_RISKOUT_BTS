@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
-import Layout from './layout';
+import Layout from './components/Layout';
 
 import Board from './pages/Board';
 import DetectionStatus from './pages/DetectionStatus';
-import PressTrends from './pages/PressTrends';
 import Dashboard from './pages/Dashboard';
 import RiskReport from './pages/RiskReport';
 
@@ -18,9 +18,11 @@ import Search from './components/Search';
 import DynamicRoutes from "./DynamicRoutes";
 
 import './App.css';
-import './css/style.css';
+// import './css/style.css';
 
-function App() {
+const mdTheme = createTheme();
+
+export default function App() {
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState([])
 
@@ -45,34 +47,37 @@ function App() {
 
 
   return (
-    <>
-    <div className="App">
+    <ThemeProvider theme={mdTheme}>
+      <CssBaseline />
+      <Layout handleLogout={handleLogout}>
+        <Route exact path="/">
+          <Board />
+        </Route>
 
-  
-          <Route exact path="/">
-          <Layout handleLogout={handleLogout}>
-            <Board />
-            </Layout>
-          </Route>
-         <Route exact path="/presstrends">
-         <Layout handleLogout={handleLogout}>
-           <PressTrends />
-           </Layout>
-          </Route>
+        <Route exact path="/login">
+          <LoginModal
+            setModal={setModal}
+            userHasAuthenticated={userHasAuthenticated}
+          />
+        </Route>
 
-          <Route exact path="/detectionstatus">
-          <Layout handleLogout={handleLogout}>
-            <DetectionStatus />
-            </Layout>
-            </Route>
+        <Route exact path="/init">
+          <InitInfo />
+        </Route>
 
-         <Route exact path="/riskreport">
-         <Layout handleLogout={handleLogout}>
-            <RiskReport />
-          </Layout>
-          </Route>
+        <Route exact path="/presstrends">
+          <Dashboard />
+        </Route>
 
-          <Route exact path="/login">
+        <Route exact path="/detectionstatus">
+          <DetectionStatus />
+        </Route>
+
+        <Route exact path="/riskreport">
+          <RiskReport />
+        </Route>
+
+        <Route exact path="/login">
               <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
             </Route>
             <Route exact path="/register">
@@ -86,10 +91,7 @@ function App() {
             <Route exact path="/password_reset">
               <PasswordResetModal setModal={setModal}/>
             </Route>
-    </div>
-
-      </>
+      </Layout>
+    </ThemeProvider>
   );
 }
-
-export default App;
