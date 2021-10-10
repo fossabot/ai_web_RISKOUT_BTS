@@ -65,6 +65,7 @@ function App() {
             <RiskReport />
           </Route>
           </Layout>
+          
           <Route exact path="/login">
             <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
           </Route>
