@@ -8,7 +8,11 @@ from .mongo import DBHandler
 from pymongo import TEXT as mongoText
 
 from datetime import datetime, timedelta
+import requests
+import json
 
+# SERVER_URL = 'http://localhost:8000/'
+SERVER_URL = 'http://host.docker.internal:8000/'
 
 class AnalyzedDataView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -153,3 +157,92 @@ class AnalyzedDataView(generics.CreateAPIView):
                 tags[tag] = None
 
         return tags
+
+
+class TrendsDataView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+
+    def get_serializer_class(self):
+        return None
+
+
+    def get(self, request, *args, **kwargs):
+        mongo = DBHandler()
+        db_result = None
+        
+        response = { "response": [] }
+
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+
+        query["created_at"] = {"$gte" : (now - timedelta(hours=24))}
+        query["category"] = "news"
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+        key_sentences = self.getKeysentences(db_filtered)
+
+        idx = 0
+        for content in db_filtered:
+            for key_sentence in key_sentences:
+                if content["title"] == key_sentence:
+                    idx += 1
+                    data = {
+                        "id": idx,
+                        "title": key_sentence,
+                        "author": content["author"],
+                        "trueScore": round(content["true_score"], 2),
+                        "emotionFilled": round(content["positivity"], 2),
+                        "date": content["created_at"][:8]
+                    }
+                    response["response"].append(data)
+
+        return Response(response)
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d %H:%M:%S')
+        
+        return contents
+    
+
+    def getKeysentences(self, contents):
+        url = SERVER_URL + 'keysentences'
+        document = {"document": []}
+        sentences = []
+
+        for content in contents:
+            document["document"].append(content["title"])
+        
+        document = json.dumps(document)
+
+        try:
+            ranked = requests.post(url, data=document, timeout=20)
+
+            if ranked.status_code == 200:
+                try:
+                    for sentence in json.loads(ranked.text)['keysentences']:
+                        sentences.append(sentence["sentence"])
+
+                except Exception as e:
+                    print(f"Error occured while ranking data : {e}")
+                    quit()
+            else:
+                print(f"Error occured while fetching ranking data : http status code : {ranked.status_code}")
+                quit()
+
+        except Exception as e:
+            print(f"Error occured while fetching ranking data : {e}")
+            quit()
+
+        return sentences[:3]
