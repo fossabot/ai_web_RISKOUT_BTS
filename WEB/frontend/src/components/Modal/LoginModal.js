@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
 const LoginModal=(props)=>{
-  let [JoinLoign,setJoinLogin] = useState('로그인')
   const history = useHistory()
 
 
@@ -39,7 +38,7 @@ const LoginModal=(props)=>{
       <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
                <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-              <h2>{JoinLoign}</h2>
+              <h2>로그인</h2>
           </Grid>
           <TextField label='ID' placeholder='아이디를 입력해 주세요.' fullWidth required onChange={handleNameChange}/>
           <TextField label='비밀번호' placeholder='비밀번호를 입력해 주세요.' type='password' fullWidth required  onChange={handlePasswordChange}/>
