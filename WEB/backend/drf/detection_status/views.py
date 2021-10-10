@@ -3,13 +3,14 @@ from rest_framework import generics, permissions, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serializers import AnalyzedDataSerializer
+from .serializers import AnalyzedDataSerializer, ReportDataSerializer
 from .mongo import DBHandler
 from pymongo import TEXT as mongoText
 
 from datetime import datetime, timedelta
 import requests
 import json
+import random
 
 # SERVER_URL = 'http://localhost:8000/'
 SERVER_URL = 'http://host.docker.internal:8000/'
@@ -587,3 +588,156 @@ class SentimentPieDataView(generics.GenericAPIView):
         
         return contents
 
+
+class ReportDataView(generics.CreateAPIView):
+    SECRET_KEYWORDS = ["출항", "KNCCS", "KJCCS", "KNTDS", "전투세부시행규칙", "작전", "함정", "잠수함", "SLBM", "ICBM", "DDG",
+    "DDH", "FFG", "PKG", "PGM", "PKMM", "LPH", "LST", "LSM", "참수리", "참모", "총장", "사령관", "부석종", "김정은", "대통령", 
+    "문재인", "서욱"]
+
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ReportDataSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        articleIds = None
+        period = None
+
+        if serializer.is_valid():
+
+            # Check period
+            if type(serializer.data.get("period")) != int or not (0 <= serializer.data.get("period") <= (24 * 7)):
+                return Response({"period": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                period = serializer.data.get("period")
+            
+            articleIds = serializer.data.get("articleIds")
+            
+            return Response(self.getAnalyzedData(articleIds, period))
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def getAnalyzedData(self, articleIds, period):
+        mongo = DBHandler()
+        db_result = None
+        response = {
+            "overview": None,
+            "period" : 0,
+            "briefingGraphData": 
+            {
+                "secretsCount": 0,
+                "fakeNewsCount": 0,
+                "negativeSentiment": 0.0,
+                "tagRatio": 
+                {
+                    "악의성": 0.0,
+                    "클릭베이트": 0.0,
+                    "허위성": 0.0
+                }
+            },
+            "briefingContents": [],
+            "majorEvents": []
+        }
+
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+        today_datetime = datetime(now.year, now.month, now.day)
+
+        today = datetime(now.year, now.month, now.day).strftime('%y-%m-%d')
+
+        yesterday = today_datetime - timedelta(days=1)
+        yesterday = datetime(yesterday.year, yesterday.month, yesterday.day).strftime('%y-%m-%d')
+
+        the_day_yesterday = today_datetime - timedelta(days=2)
+        the_day_yesterday = datetime(the_day_yesterday.year, the_day_yesterday.month, the_day_yesterday.day).strftime('%y-%m-%d')
+        
+        query["category"] = "news"
+
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+
+        for articleId in articleIds:
+            for content in db_filtered:
+                if content["_id"] == articleId:
+                    data = {
+                            "id": content["_id"],
+                            "title": content["title"],
+                            "summary": content["summarized"],
+                            "characteristics": random.choice(["악의성", "클릭베이트", "욕설", "성차별", "인종차별", "선정적"]),
+                            "sourceName": "네이버 뉴스 - " + content["author"],
+                            "url": content["site_url"],
+                            "datetime": today
+                    }
+                    response["briefingContents"].append(data)
+
+        date_list = [today, yesterday, the_day_yesterday]
+
+        for date in date_list:
+            contents = []
+            for content in db_filtered:
+                if content["created_at"] == date:
+                    contents.append(content)
+
+            key_sentence = self.getKeysentences(contents)
+
+            for content in db_filtered:
+                if content["title"] == key_sentence:
+                    data = {
+                            "imageUrl": content["thumbnail_url"],
+                            "title":  content["title"],
+                            "threatType": random.choice(["허위뉴스", "대외비 기밀", "1급 비밀", "2급 비밀", "3급 비밀"]),
+                            "sourceName": "네이버 뉴스 - " + content["author"],
+                            "url": content["site_url"],
+                            "datetime": today
+                    }
+            
+            response["majorEvents"].append(data)
+
+        return response
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
+        
+        return contents
+
+
+    def getKeysentences(self, contents):
+        url = SERVER_URL + 'keysentences'
+        document = {"document": []}
+        sentences = []
+
+        for content in contents:
+            document["document"].append(content["title"])
+        
+        document = json.dumps(document)
+
+        try:
+            ranked = requests.post(url, data=document, timeout=20)
+
+            if ranked.status_code == 200:
+                try:
+                    for sentence in json.loads(ranked.text)['keysentences']:
+                        sentences.append(sentence["sentence"])
+
+                except Exception as e:
+                    print(f"Error occured while ranking data : {e}")
+                    quit()
+            else:
+                print(f"Error occured while fetching ranking data : http status code : {ranked.status_code}")
+                quit()
+
+        except Exception as e:
+            print(f"Error occured while fetching ranking data : {e}")
+            quit()
+
+        return sentences[0]
