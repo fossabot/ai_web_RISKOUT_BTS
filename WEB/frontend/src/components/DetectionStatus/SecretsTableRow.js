@@ -6,6 +6,7 @@ import {
   TableRow,
 } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ForumIcon from '@mui/icons-material/Forum';
 import DescriptionIcon from '@mui/icons-material/Description';
 
 import ScrapButton from './ScrapButton';
@@ -29,7 +30,7 @@ export default function SecretsTableRow(props) {
     >
       <TableCell component="th" scope="row">
         <Link href={href} underline="hover">
-          <DescriptionIcon />
+          <DescriptionIcon color="action" />
         </Link>
       </TableCell>
       <TableCell
