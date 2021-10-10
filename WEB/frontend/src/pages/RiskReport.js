@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import icon01 from '../images/sub/btn_icon01.png';
 import icon02 from '../images/sub/btn_icon02.png';
 import icon03 from '../images/sub/btn_icon03.png';
@@ -15,6 +15,9 @@ import {
   CardMedia,
   CardContent,
 } from '@mui/material';
+import axios from 'axios';
+import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
+import '../css/fonts.css';
 
 import ExclusiveSelect from '../components/ExclusiveSelect';
 import graphImage from '../images/sub/graph_img.jpg';
@@ -50,6 +53,22 @@ const RiskReport = () => {
       '&articleIds=' +
       JSON.stringify(getCart()) // fetch occurs whenever dateRange changes
   );
+
+  // => search
+  useEffect(() => {
+    const searchUrl = `/api/nlp/analyze/`;
+    async function fetchSearch() {
+      axios.get(searchUrl).then((data) => {
+        console.log(data.data);
+      });
+    }
+    fetchSearch();
+  }, []);
+
+  const pdfExportComponent = useRef(null);
+  const handleExportWithFunction = (event) => {
+    savePDF(pdfExportComponent.current, { paperSize: 'A2' });
+  };
 
   /*
     // if using POST request with request options
@@ -101,16 +120,25 @@ const RiskReport = () => {
       ) : error ? (
         errorScreen
       ) : (
-        <section id="sub_contents">
+        <section
+          id="sub_contents"
+          ref={pdfExportComponent}
+          style={{
+            fontFamily: "'Black Han Sans'",
+          }}
+        >
           <div className="sub01_wrap">
             <h2 className="h2_tit2">
               Report
               <em>
-                {new Intl.DateTimeFormat('ko-KR', { dateStyle: 'full' }).format(
-                  new Date()
-                )}{' '}
+                {new Intl.DateTimeFormat('ko-KR', {
+                  dateStyle: 'full',
+                }).format(new Date())}{' '}
                 (24h)
               </em>
+              <button onClick={handleExportWithFunction}>
+                Export with Method
+              </button>
             </h2>
 
             <div className="text">{getLineBreakText(data.overview)}</div>
