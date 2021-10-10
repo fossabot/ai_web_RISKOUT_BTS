@@ -47,42 +47,50 @@ function App() {
 
 
   return (
-    
+    <>
     <div className="App">
-          <Layout handleLogout={handleLogout}>
+
   
           <Route exact path="/">
+          <Layout handleLogout={handleLogout}>
             <Board />
+            </Layout>
           </Route>
          <Route exact path="/presstrends">
+         <Layout handleLogout={handleLogout}>
            <PressTrends />
+           </Layout>
           </Route>
 
           <Route exact path="/detectionstatus">
+          <Layout handleLogout={handleLogout}>
             <DetectionStatus />
+            </Layout>
             </Route>
 
          <Route exact path="/riskreport">
+         <Layout handleLogout={handleLogout}>
             <RiskReport />
-          </Route>
           </Layout>
-          
+          </Route>
+
           <Route exact path="/login">
-            <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
-          </Route>
-          <Route exact path="/register">
-            <RegisterModal setModal={setModal}/>
-          </Route>
-
-          <Route exact path="/init">
-            <InitInfo setModal={setModal}/>
-          </Route>
-
-          <Route exact path="/password_reset">
-            <PasswordResetModal setModal={setModal}/>
-          </Route>
+              <LoginModal setModal={setModal} userHasAuthenticated={userHasAuthenticated} />
+            </Route>
+            <Route exact path="/register">
+              <RegisterModal setModal={setModal}/>
+            </Route>
+  
+            <Route exact path="/init">
+              <InitInfo setModal={setModal}/>
+            </Route>
+  
+            <Route exact path="/password_reset">
+              <PasswordResetModal setModal={setModal}/>
+            </Route>
     </div>
 
+      </>
   );
 }
 
