@@ -146,6 +146,7 @@ class Content:
 
 class DBHandler:
     def __init__(self):
+        # host = "localhost"
         host = "host.docker.internal"
         port = "8001"
         self.client = MongoClient(host, int(port))
@@ -245,8 +246,6 @@ def extractor(data):
         conn.close()
         quit()
 
-    contents = []
-
     for idx, tup in enumerate(data):
         extracted = {}
         extracted['title'] = tup[0]
@@ -257,47 +256,46 @@ def extractor(data):
         extracted['author'] = tup[10]
 
         content = Content(extracted)
-        contents.append(content.content_dict)
-        
         cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE id = ?", (tup[7], ))
         conn.commit()
 
-        print(f"[+] Extractor: {idx + 1}/{len(data)}")
+        if dbInserter(content.content_dict):
+            print(f"[+] Extractor: {idx + 1}/{len(data)}")
 
-    return contents
+    return None
 
 
-def dbInserter(contents):
-    validated_contents= []
+def dbInserter(content):
     mongo = DBHandler()
+    hasNone = False
 
-    for i in range(len(contents)):
-        hasNone = False
+    for key in content:
+        if key in ['title', 'site_url', 'thumbnail_url', 'summarized', 'true_score']:
+            if content['category'] == 'news' and content[key] == None:
+                hasNone = True
+                break
 
-        for key in contents[i]:
-            if key in ['title', 'site_url', 'thumbnail_url', 'summarized', 'true_score']:
-                if contents[i]['category'] == 'news' and contents[i][key] == None:
-                    hasNone = True
-                    break
+        else:
+            if content[key] is None:
+                hasNone = True
+                break
 
-            else:
-                if contents[i][key] is None:
-                    hasNone = True
-                    break
+    if not hasNone:
+        content['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
+        content['created_at'] = (datetime.utcnow() + timedelta(hours=9))
 
-        if not hasNone:
-            contents[i]['_id'] = mongo.get_next_sequence('analyzed_counter', 'riskout', 'counter')
-            contents[i]['created_at'] = (datetime.utcnow() + timedelta(hours=9))
-            validated_contents.append(contents[i])
-
-    try:
-        mongo.insert_item_many(validated_contents, "riskout", "analyzed")
-        print('DB insertion success')
-        mongo.client.close()
-        return True
+        try:
+            mongo.insert_item_one(content, "riskout", "analyzed")
+            mongo.client.close()
+            return True
+        
+        except Exception as e:
+            print("DB insert error occured :", e)
+            mongo.client.close()
+            return False
     
-    except Exception as e:
-        print("DB insert error occured :", e)
+    else:
+        print("DB insert error occured : null found!")
         mongo.client.close()
         return False
         
@@ -319,20 +317,17 @@ def main():
 
     for date in date_list:
         cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
-        if date != today:
-            important_data_list.extend(dataRanker(cur.fetchall()))
-            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
-            conn.commit()
-        else:
-            important_data_list.extend(dataRanker(cur.fetchall()))
+        important_data_list.extend(dataRanker(cur.fetchall()))
+        cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
+        conn.commit()
     
-    cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND created_at = ?", (date,)) # news는 이미 analyzed 되었기 때문에 sns와 community만 남는다
+    cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0") # news는 이미 analyzed 되었기 때문에 sns와 community만 남는다
     important_data_list.extend(cur.fetchall())
+
 
     print(f"[*] Serving {len(important_data_list)} pages to Extractor...")
 
     contents = extractor(important_data_list)
-    dbInserter(contents)
 
     cur.close()
     conn.close()

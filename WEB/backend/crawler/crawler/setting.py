@@ -1,7 +1,7 @@
 site_list = {
     'NaverNews': 'naver_news',
-    # 'DCinside': 'dcinside',
+    'DCinside': 'dcinside',
     'Twitter': 'twitter'
 }
 
-DEBUG = False
+DEBUG = True
