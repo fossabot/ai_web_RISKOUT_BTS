@@ -42,11 +42,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const test = styled('.sidebarBackground')(() => ({
-  background: "gray"
+  background: 'gray',
 }));
 
 export default function SideNavigation(props) {
-  const [sidebarBackground, setSidebarBackground] = useState("");
+  const [sidebarBackground, setSidebarBackground] = useState('');
   const { drawerWidth } = props;
   let [userprofile, setUserprofile] = useState(false);
   let [userPhoto, setUserPhoto] = useState();
@@ -91,17 +91,23 @@ export default function SideNavigation(props) {
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setSidebarBackground("sidebarBackground");
+    setSidebarBackground('sidebarBackground');
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setSidebarBackground("miniSidebarBackground");
+    setSidebarBackground('miniSidebarBackground');
   };
 
   return (
     <>
-      <Box sx={{ background: 'rgb(29, 28, 26)', height: '500vh'}}>
+      <Box
+        sx={{
+          background: 'rgb(29, 28, 26)',
+          minHeight: '100%',
+          position: 'fixed',
+        }}
+      >
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -110,10 +116,15 @@ export default function SideNavigation(props) {
           sx={{ mr: 2 }}
           className="hamburgerMenu"
         >
-          <MenuIcon sx={{ color: '#fff', fontSize:'1.3em', position:'fixed'}} />
+          <MenuIcon sx={{ color: '#fff', fontSize: '1.3em' }} />
         </IconButton>
-        <Box sx={{position: 'fixed'}}>
-          <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" className="a" />
+        <Box sx={{ position: 'fixed' }}>
+          <SidebarLinkMini
+            icon={InfoIcon}
+            text="언론 동향"
+            href="/presstrends"
+            className="a"
+          />
           <SidebarLinkMini
             icon={SearchIcon}
             text="탐지현황"
@@ -127,7 +138,12 @@ export default function SideNavigation(props) {
             href="/riskreport"
             className="c"
           />
-          <SidebarLinkMini icon={LogoutIcon} text="로그아웃" href="/logout" className="d" />
+          <SidebarLinkMini
+            icon={LogoutIcon}
+            text="로그아웃"
+            href="/logout"
+            className="d"
+          />
         </Box>
       </Box>
 
