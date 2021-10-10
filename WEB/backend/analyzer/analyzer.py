@@ -313,7 +313,7 @@ def main():
         if tup[9] not in date_list:
             date_list.append(tup[9])
     
-    today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
+    # today = (datetime.utcnow() + timedelta(hours=9)).strftime('%y_%m_%d')
 
     for date in date_list:
         cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
@@ -327,7 +327,7 @@ def main():
 
     print(f"[*] Serving {len(important_data_list)} pages to Extractor...")
 
-    contents = extractor(important_data_list)
+    extractor(important_data_list)
 
     cur.close()
     conn.close()
