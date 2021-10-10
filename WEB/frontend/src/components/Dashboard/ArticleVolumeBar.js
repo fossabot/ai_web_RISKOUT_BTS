@@ -10,7 +10,7 @@ import {
 import useFetch from '../../hooks/useFetch';
 
 const ArticleVolumeBar = ({ colors }) => {
-  const { data, error, isPending } = useFetch(`/article-volume`);
+  const { data, error, isPending } = useFetch(`data/articleVolume.json`);
 
   return (
     <Card style={{ height: '400px' }}>
