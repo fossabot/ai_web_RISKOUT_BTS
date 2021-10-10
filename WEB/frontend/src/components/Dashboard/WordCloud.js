@@ -8,19 +8,27 @@ import {
   Divider,
 } from '@mui/material';
 import useFetch from '../../hooks/useFetch';
-import { getWordCloud } from '../../lib/api/dashboard/getWordCloud';
 
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
+import { useEffect } from 'react';
 
 const WordCloud = ({ options }) => {
-  const { data } = getWordCloud();
+  const { data, isPending, error } = useFetch(`/data/wordCloud.json`);
 
   return (
     <Card style={{ height: '400px' }}>
       <CardHeader title="오늘의 키워드" />
       <Divider />
-      {data ? (
+      {isPending ? (
+        <Box sx={{ width: '100%', color: 'grey.500' }}>
+          <LinearProgress color="inherit" />
+        </Box>
+      ) : error ? (
+        <Box sx={{ width: '100%', color: 'grey.500' }}>
+          <LinearProgress color="inherit" />
+        </Box>
+      ) : (
         <CardContent>
           <Box
             sx={{
@@ -28,13 +36,9 @@ const WordCloud = ({ options }) => {
               position: 'relative',
             }}
           >
-            <ReactWordcloud options={options} words={data} />
+            <ReactWordcloud options={options} words={data.response} />
           </Box>
         </CardContent>
-      ) : (
-        <Box sx={{ width: '100%', color: 'grey.500' }}>
-          <LinearProgress color="inherit" />
-        </Box>
       )}
     </Card>
   );

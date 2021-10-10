@@ -6,27 +6,15 @@ export const searchSettingState = selector({
   key: 'searchSettingState',
   get: ({ get }) => {
     const filter = get(filterListState);
-    const dateRange = {
-      startDate: {
-        year: 1985,
-        month: 1,
-      },
-      endDate: (() => {
-        const d = new Date();
-        return {
-          year: d.getFullYear(),
-          month: d.getMonth() + 1,
-        };
-      })(),
-    };
+    const dateRange = 24; // 시간 단위(init은 24시간)
     return { filter: filter, dateRange: dateRange };
   },
 });
 
 export const dateRangeState = selector({
   key: 'dateRangeState',
-  get: ({ get }) => {
-    const searchSetting = get(searchSettingState);
-    return searchSetting.dateRange;
+  get: ({ get }) => get(searchSettingState).dateRange,
+  set: ({ set }, newValue) => {
+    set(searchSettingState, newValue);
   },
 });

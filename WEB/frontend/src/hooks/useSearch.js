@@ -8,6 +8,7 @@ import { filterListState } from '../atoms/filterListState';
 export default function useSeacrh() {
   const [searchList, setSearchList] = useRecoilState(searchListState);
   const filterList = useRecoilValue(filterListState);
+  /* TODO searchSetting 을 이용해서 params 넘겨주는 코드 작성 */
   useEffect(() => {
     //TODO: API 서버 배포시 수정
     const searchUrl = `/static/SecretData.example.json`;

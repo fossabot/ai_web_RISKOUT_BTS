@@ -9,17 +9,24 @@ import {
   Divider,
   LinearProgress,
 } from '@mui/material';
-import { getArticleVolume } from '../../lib/api/dashboard/getArticleVolume';
+import useFetch from '../../hooks/useFetch';
 
 const ArticleVolumeLine = () => {
-  const { data } = getArticleVolume();
+  const { data, isPending, error } = useFetch(`/data/articleVolume.json`);
 
   return (
     <Card style={{ height: '400px' }}>
       <CardHeader title="기사 변화량" />
       <Divider />
-
-      {data ? (
+      {isPending ? (
+        <Box sx={{ width: '100%', color: 'grey.500' }}>
+          <LinearProgress color="inherit" />
+        </Box>
+      ) : error ? (
+        <Box sx={{ width: '100%', color: 'grey.500' }}>
+          <LinearProgress color="inherit" />
+        </Box>
+      ) : (
         <CardContent>
           <Box
             sx={{
@@ -28,7 +35,7 @@ const ArticleVolumeLine = () => {
             }}
           >
             <ResponsiveLine
-              data={data}
+              data={data.response}
               margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
               xScale={{ type: 'point' }}
               yScale={{
@@ -95,10 +102,6 @@ const ArticleVolumeLine = () => {
             />
           </Box>
         </CardContent>
-      ) : (
-        <Box sx={{ width: '100%', color: 'grey.500' }}>
-          <LinearProgress color="inherit" />
-        </Box>
       )}
     </Card>
   );
