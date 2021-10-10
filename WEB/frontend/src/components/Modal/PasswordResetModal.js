@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
 const PasswordResetModal=(props)=>{
-  let [JoinLoign,setJoinLogin] = useState('비밀번호 찾기')
   let [userpassword, setUserPassword] = useState()
   let [userpasswordCheck, setUserPasswordCheck] = useState();
   let usertoken = document.URL.split("=")[1];
@@ -32,7 +31,7 @@ const handlePassword2Change = (e) => {
       <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
                <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-              <h2>{JoinLoign}</h2>
+              <h2>비밀번호 찾기</h2>
           </Grid>
           <TextField label='새 비밀번호' placeholder='새 비밀번호를 입력해 주세요.' type='password' fullWidth required  onChange={handlePassword1Change}/>
           <TextField label='새 비밀번호 확인' placeholder='새 비밀번호를 다시 입력해 주세요.' type='password' fullWidth required  onChange={handlePassword2Change}/>
