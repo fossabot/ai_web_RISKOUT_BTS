@@ -17,7 +17,7 @@ export default function AppliedFilter({ appliedFilters, handleDelete }) {
         <Grid item>
           <Chip
             key={id}
-            color="primary"
+            sx={{ borderRadius: '5px' }}
             label={data}
             onDelete={handleDelete(data)}
           />
