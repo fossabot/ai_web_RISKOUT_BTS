@@ -76,7 +76,7 @@ export default function SideNavigation(props) {
           <MenuIcon sx={{ color: '#fff', fontSize:'1.3em', position:'fixed'}} />
         </IconButton>
         <Box sx={{position: 'fixed'}}>
-          <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" className="a" />
+          <SidebarLinkMini icon={InfoIcon} text="언론동향" href="/presstrends" className="a" />
           <SidebarLinkMini
             icon={SearchIcon}
             text="탐지현황"
@@ -125,7 +125,7 @@ export default function SideNavigation(props) {
           </IconButton>
         </DrawerHeader>
         <List className="sub_menu">
-          <SidebarLink icon={InfoIcon} text="언론 동향" href="/presstrends" />
+          <SidebarLink icon={InfoIcon} text="언론동향" href="/presstrends" />
           <SidebarLink
             icon={SearchIcon}
             text="탐지현황"

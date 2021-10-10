@@ -95,7 +95,7 @@ body::-webkit-scrollbar {
   /*메뉴*/
   bottom: 1.1em;
   right: 0.4em;
-  padding: 2.0em 1.9em 0em;
+  padding: 2.0em 2.2em 0em;
 }
 
 .sub_header .sub_menu [class$='MuiTypography-root'] {
