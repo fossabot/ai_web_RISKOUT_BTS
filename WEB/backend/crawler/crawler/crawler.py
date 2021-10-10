@@ -18,9 +18,9 @@ import crawler.db as database
 
 # error
 from crawler.error import HTMLElementsNotFoundError as notfound_error
-from crawler.error import contentLengthError
-from crawler.error import englishContentError
-from crawler.error import daterangeError
+from crawler.error import contentLengthError as length_error
+from crawler.error import englishContentError as english_ban
+from crawler.error import daterangeError as date_error
 
 # import setting values
 from crawler.setting import DEBUG
@@ -95,21 +95,19 @@ async def get_contents(site, contents_url, urlinfo, db):
                 content_soup = bs(text, 'html.parser')
                 try:
                     news_content = Content.contents_factory(site, contents_url, urlinfo, content_soup)
-                except englishContentError as detail:
+                except english_ban as detail:
                     if(DEBUG):
                         print("english contents")
                         print(detail)
-                except contentLengthError as detail:
+                except length_error as detail:
                     if(DEBUG):
                         print("contents does not valid by following exception")
                         print(detail)
                 else:
-                    # news_content를 쿼리로 쏘는 코드
                     if news_content.contents_id not in db.select_id():
                         db.put_content(news_content)
-                    # print(db.select_id())
-    except daterangeError:
-        raise daterangeError
+    except date_error:
+        raise date_error
     except Exception as detail:
         if(DEBUG):
             print("an exception occured when getting information of contentsPage")
@@ -124,7 +122,7 @@ async def crawl(site):
     db = database.DB()
 
     if site.hasAPI:
-        site.crawl(db)
+        await site.crawl(db)
         db.close()
         return
 
@@ -199,7 +197,7 @@ async def crawl(site):
                 test_breaker += 1
                 prev_page = now_page
                 now_page += 1
-        except daterangeError as detail:
+        except date_error as detail:
             if(DEBUG):
                 print("crawling over date by following exception")
                 print(detail)
