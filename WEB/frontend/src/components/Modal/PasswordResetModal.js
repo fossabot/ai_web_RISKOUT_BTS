@@ -27,6 +27,10 @@ const handlePassword2Change = (e) => {
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'10px 0'}
     return(
+      <>
+      <br></br>
+      <br></br>
+      <br></br>
       <Grid>
       <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
@@ -69,6 +73,7 @@ const handlePassword2Change = (e) => {
           </Typography>
       </Paper>
   </Grid>
+  </>
     )
 }
 

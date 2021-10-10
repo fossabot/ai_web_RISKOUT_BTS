@@ -19,6 +19,10 @@ const InitInfo = (props) => {
   const btnstyle={margin:'10px 0'}
   const history = useHistory();
   return (
+    <>
+    <br></br>
+    <br></br>
+    <br></br>
      <Grid>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
@@ -48,6 +52,7 @@ const InitInfo = (props) => {
                 </Typography>
             </Paper>
         </Grid>
+        </>
   );
 };
 
