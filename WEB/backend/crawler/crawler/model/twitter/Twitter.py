@@ -1,5 +1,8 @@
 import tweepy
 
+# for multiprocess
+import asyncio
+
 from crawler.model.twitter.const import *
 from crawler.model.twitter.secrets import *
 from crawler.setting import DEBUG
@@ -34,7 +37,7 @@ class Twitter():
 
         self.hasAPI = True
 
-    def crawl(self, db):
+    async def crawl(self, db):
 
         for keyword in KEYWORD:
             tweets = tweepy.Cursor(self.api.search_tweets, q = keyword + ' -filter:retweets', result_type = 'recent').items(1000)
@@ -57,7 +60,7 @@ class Twitter():
                 if content.contents_id not in db.select_id():
                     db.put_content(content)
             
-            time.sleep(const.CRAWLING_LIST_INTERVAL)
+            await asyncio.sleep(const.CRAWLING_LIST_INTERVAL)
 
     def define_created_at(self, created_at):
         created_at = str(created_at)[2:10]
