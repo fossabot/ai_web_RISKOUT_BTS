@@ -72,13 +72,9 @@ const RiskReport = () => {
         <h2 className="h2_tit2">Loading...</h2>
       </div>
       <div className="content clfix">
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
-        <Skeleton></Skeleton>
+        {Array.from({ length: 20 }).map((_, i) => (
+          <Skeleton key={i} />
+        ))}
       </div>
     </section>
   );
