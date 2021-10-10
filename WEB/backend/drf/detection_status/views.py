@@ -32,7 +32,7 @@ class AnalyzedDataView(generics.CreateAPIView):
 
             # Check category
             
-            if serializer.data.get("category") not in ["news", "social"]:
+            if serializer.data.get("category") not in ["news", "sns", "community"]:
                 return Response({"category": ["Invalid parameter."]}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 category = serializer.data.get("category")
