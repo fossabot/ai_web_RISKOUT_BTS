@@ -5,10 +5,11 @@ import {
   CardHeader,
   CardContent,
   Divider,
+  Stack,
 } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-import FilterCheckbox from '../components/FilterCheckbox';
+import FilterCheckbox from './FilterCheckbox';
 
 export default function FilterBar({ search, filter, toggleFilter }) {
   return (
@@ -41,9 +42,15 @@ export default function FilterBar({ search, filter, toggleFilter }) {
             const filterTags = Object.entries(search.filterTags[filterCode]);
             return (
               <div className="filter_con">
-                <h5>글에서 찾은 {filterLabel}</h5>
-                <span>{filterTags.length}</span>
-                <ul className="keyword">
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <h5>글에서 찾은 {filterLabel}</h5>
+                  <span>{filterTags.length}</span>
+                </Stack>
+                <Box>
                   {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
                   {filterTags
                     .sort(([_, a], [__, b]) => (a < b ? 1 : -1))
@@ -56,7 +63,7 @@ export default function FilterBar({ search, filter, toggleFilter }) {
                         checked={filter.includes(hashtag)}
                       />
                     ))}
-                </ul>
+                </Box>
                 <button className="more_btn">더보기</button>
               </div>
             );

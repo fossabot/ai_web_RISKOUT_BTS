@@ -99,7 +99,15 @@ export default function DetectionStatus() {
       }}
     >
       <Grid container spacing={3}>
-        <Grid item xs={12} md={10} container spacing={3} direction="column">
+        <Grid
+          item
+          xs={12}
+          md={10}
+          container
+          spacing={3}
+          direction="column"
+          style={{ paddingLeft: '70px' }}
+        >
           <Grid width="100%" item>
             <Typography mb={2} variant="h6">
               탐지 현황
