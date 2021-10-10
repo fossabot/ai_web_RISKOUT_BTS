@@ -1,6 +1,15 @@
 import { Chip, Grid } from '@mui/material';
 
-export default function AppliedFilter({ appliedFilters, handleDelete }) {
+import { useRecoilState } from 'recoil';
+import { filterListState } from '../../atoms/filterListState';
+
+export default function AppliedFilter() {
+  const [filterList, setFilterList] = useRecoilState(filterListState);
+
+  const handleDelete = (filterToDelete) => () => {
+    setFilterList(filterList.filter((filter) => filter !== filterToDelete));
+  };
+
   return (
     <Grid
       container
@@ -13,7 +22,7 @@ export default function AppliedFilter({ appliedFilters, handleDelete }) {
       }}
       spacing={1}
     >
-      {appliedFilters.map((data, id) => (
+      {filterList.map((data, id) => (
         <Grid item>
           <Chip
             key={id}

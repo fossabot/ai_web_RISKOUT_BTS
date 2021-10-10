@@ -1,11 +1,21 @@
 import { Grid, Stack } from '@mui/material';
 import { Box } from '@mui/system';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { filterListState } from '../../atoms/filterListState';
 
-export default function filterCheckbox(props) {
-  const { count, hashtag, checked, onToggle } = props;
-  const onChange = (e) => {
-    onToggle(hashtag);
-  };
+export default function FilterCheckbox(props) {
+  const { count, hashtag, checked } = props;
+  const [filterList, setFilterList] = useRecoilState(filterListState);
+
+  const onChange = useCallback((e) => {
+    if (filterList.includes(hashtag)) {
+      setFilterList(filterList.filter((val) => val !== hashtag));
+    } else {
+      setFilterList([...filterList, hashtag]);
+    }
+  });
+
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Stack direction="row" justifyContent="space-between" spacing={0.5}>
