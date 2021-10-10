@@ -41,10 +41,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const test = styled('.sidebarBackground')(() => ({
-  background: "gray"
-}));
-
 export default function SideNavigation(props) {
   const { drawerWidth } = props;
   const theme = useTheme();
