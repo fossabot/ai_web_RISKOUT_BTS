@@ -13,7 +13,11 @@ import FilterCheckbox from './FilterCheckbox';
 
 export default function FilterBar({ search, filter, toggleFilter }) {
   return (
-    <Card sx={{ right: 0, marginTop: '38px' }} elevation={1} spacing={3}>
+    <Card
+      sx={{ right: 0, marginTop: '38px', minHeight: '100%' }}
+      elevation={1}
+      spacing={3}
+    >
       <CardHeader
         action={
           <Button
