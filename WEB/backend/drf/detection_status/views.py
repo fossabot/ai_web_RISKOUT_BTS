@@ -447,3 +447,143 @@ class ArticleVolumeDataView(generics.GenericAPIView):
             contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
         
         return contents
+
+
+class SentimentBarDataView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+
+    def get_serializer_class(self):
+        return None
+
+
+    def get(self, request, *args, **kwargs):
+        mongo = DBHandler()
+        db_result = None
+        
+        response = { 
+            "response": [
+                {
+                    "category": "News",
+                    "positive": 0,
+                    "neutral": 0,
+                    "negative": 0
+                },
+                {
+                    "category": "Twitter",
+                    "positive": 0,
+                    "neutral": 0,
+                    "negative": 0
+                },
+                {
+                    "category": "DC",
+                    "positive": 0,
+                    "neutral": 0,
+                    "negative": 0
+                }
+            ]
+        }
+
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+
+        query["created_at"] = {"$gte" : (now - timedelta(days=5))}
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+        
+        categories = ["news", "sns", "community"]
+
+        for idx, category in enumerate(categories):
+            for content in db_filtered:
+                if category == content["category"]:
+                    if round(content["positivity"], 1) <= 0.4:
+                        response["response"][idx]["negative"] += 1
+                    elif 0.4 < round(content["positivity"], 1) <= 0.6:
+                        response["response"][idx]["neutral"] += 1
+                    else:
+                        response["response"][idx]["positive"] += 1
+
+        return Response(response)
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
+        
+        return contents
+
+
+class SentimentPieDataView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+
+    def get_serializer_class(self):
+        return None
+
+
+    def get(self, request, *args, **kwargs):
+        mongo = DBHandler()
+        db_result = None
+        
+        response = { 
+            "response": [
+                {
+                    "id": "positive",
+                    "label": "positive",
+                    "value": 0
+                },
+                {
+                    "id": "neutral",
+                    "label": "neutral",
+                    "value": 0
+                },
+                {
+                    "id": "negative",
+                    "label": "negative",
+                    "value": 0
+                }
+            ]
+        }
+
+        db = mongo.client.riskout
+        col = db.analyzed
+        index_info = list(col.index_information())
+
+        if "title_text_contentBody_text_summarized_text" not in index_info:
+            col.create_index([("title", mongoText), ("contentBody", mongoText), ("summarized", mongoText)])
+
+        query = {}
+        
+        now = datetime.utcnow() + timedelta(hours=9)
+
+        query["created_at"] = {"$gte" : (now - timedelta(days=5))}
+        
+        db_result = mongo.find_item(query, "riskout", "analyzed")
+        db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
+
+        for content in db_filtered:
+            if round(content["positivity"], 1) <= 0.4:
+                response["response"][2]["value"] += 1
+            elif 0.4 < round(content["positivity"], 1) <= 0.6:
+                response["response"][1]["value"] += 1
+            else:
+                response["response"][0]["value"] += 1
+
+        return Response(response)
+
+
+    def datetimeFormatter(self, contents):
+        for i in range(len(contents)):
+            contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
+        
+        return contents
+
