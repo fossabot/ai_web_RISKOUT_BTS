@@ -1,7 +1,5 @@
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
@@ -46,7 +44,6 @@ const RegisterModal=(props)=>{
           <TextField label='비밀번호 확인' placeholder='비밀번호를 다시 입력해 주세요.' type='password' fullWidth required onChange={handlePasswordCheckChange}/>
           <TextField label='이메일' placeholder='이메일을 입력해 주세요.' fullWidth required onChange={handleEmailChange}/>
           <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth className="JoinLoign-button" onClick={(e)=>{
-                  alert(JSON.stringify(data))
                   e.preventDefault()
                   if(!useremail.indexOf("@")){
                     alert("이메일 형식이 올바르지 않습니다.")
