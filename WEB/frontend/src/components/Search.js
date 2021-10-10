@@ -17,11 +17,6 @@ export default function Search() {
     <Box>
       <form onSubmit={onSubmit} style={{display: 'flex'}}>
         <AutocompleteInSearch tableData={sampleData} options={sampleOptions} />
-        <Button
-          sx={{ width: "", height: '5.1em' }}
-          variant="contained"
-          type="submit"
-        ><SearchIcon /></Button>
       </form>
     </Box>
   );
