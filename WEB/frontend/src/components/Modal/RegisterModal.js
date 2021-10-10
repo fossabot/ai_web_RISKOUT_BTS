@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
-const LoginModal=(props)=>{
+const RegisterModal=(props)=>{
   let [JoinLoign,setJoinLogin] = useState('회원가입')
   const history = useHistory()
 
@@ -81,4 +81,4 @@ const LoginModal=(props)=>{
     )
 }
 
-export default LoginModal
+export default RegisterModal
