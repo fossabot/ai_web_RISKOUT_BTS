@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import Layout from './components/Layout';
 
 import Board from './pages/Board';

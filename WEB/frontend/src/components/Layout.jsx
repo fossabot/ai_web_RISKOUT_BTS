@@ -1,5 +1,4 @@
 import React from 'react';
-import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import Helmet from 'react-helmet';
 // import '../css//normalize.css';
