@@ -8,10 +8,16 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import CachedIcon from '@mui/icons-material/Cached';
 import FilterCheckbox from './FilterCheckbox';
 
-export default function FilterBar({ search, filter, toggleFilter }) {
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { filterListState } from '../../atoms/filterListState';
+import { searchListState } from '../../atoms/searchListState';
+
+export default function FilterBar() {
+  const filterList = useRecoilValue(filterListState);
+  const searchList = useRecoilValue(searchListState);
+
   return (
     <Card
       sx={{ right: 0, marginTop: '38px', minHeight: '100%' }}
@@ -20,11 +26,7 @@ export default function FilterBar({ search, filter, toggleFilter }) {
     >
       <CardHeader
         action={
-          <Button
-            style={{ fontSize: '10px', marginTop: '10px' }}
-            // endIcon={<CachedIcon />}
-            size="small"
-          >
+          <Button style={{ fontSize: '10px', marginTop: '10px' }} size="small">
             RESET
           </Button>
         }
@@ -33,12 +35,8 @@ export default function FilterBar({ search, filter, toggleFilter }) {
       />
       <Divider />
 
-      {[
-        ['단체', 'ORG'],
-        ['인물', 'CVL'],
-        ['시간대', 'TIM'],
-      ].map(([filterLabel, filterCode]) => {
-        const filterTags = Object.entries(search.filterTags[filterCode]);
+      {Object.entries(namedEntityMap).map(([filterLabel, filterCode]) => {
+        const filterTags = Object.entries(searchList.filterTags[filterCode]);
         return (
           <CardContent style={{ marginBottom: '16px' }}>
             <Box className="filter_con">
@@ -59,8 +57,7 @@ export default function FilterBar({ search, filter, toggleFilter }) {
                       count={freq}
                       hashtag={hashtag}
                       key={hashtag}
-                      onToggle={toggleFilter}
-                      checked={filter.includes(hashtag)}
+                      checked={filterList.includes(hashtag)}
                     />
                   ))}
                 <Button
@@ -77,3 +74,5 @@ export default function FilterBar({ search, filter, toggleFilter }) {
     </Card>
   );
 }
+
+const namedEntityMap = { 단체: 'ORG', 인물: 'CVL', 시간대: 'TIM' };

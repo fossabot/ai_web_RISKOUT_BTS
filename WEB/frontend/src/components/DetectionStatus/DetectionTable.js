@@ -7,14 +7,14 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-
 import SecretsTableRow from './SecretsTableRow';
 
-export default function DetectionTable({
-  data,
-  showDetailModal,
-  scrapArticle,
-}) {
+import { useRecoilValue } from 'recoil';
+import { searchListState } from '../../atoms/searchListState';
+
+export default function DetectionTable({ showDetailModal, scrapArticle }) {
+  const searchList = useRecoilValue(searchListState);
+
   return (
     <TableContainer component={Paper} elevation={1}>
       <Table>
@@ -33,7 +33,7 @@ export default function DetectionTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.contents.map((article, id) => (
+          {searchList.contents.map((article, id) => (
             <SecretsTableRow
               key={id}
               id={article.id}
