@@ -9,15 +9,15 @@ import SecretsDetailModal from '../components/Modal/SecretsDetailModal';
 import { useSessionStorage } from '../js/util';
 
 import { useRecoilValue } from 'recoil';
-import { filterListState } from '../atoms/filterListState';
-import { searchListState } from '../atoms/searchListState';
-import useSeacrh from '../hooks/useSearch';
+import { searchState } from '../atoms/searchState';
+import useSeacrhEffect from '../hooks/useSearchEffect';
+import { appliedFilterMapState } from '../atoms/appliedFilterMapState';
 
 export default function DetectionStatus() {
-  useSeacrh(); // filterList 변경될 때마다 검색.
+  useSeacrhEffect(); // filterMap 변경될 때마다 검색.
 
-  const filterList = useRecoilValue(filterListState);
-  const searchList = useRecoilValue(searchListState);
+  const search = useRecoilValue(searchState);
+  const appliedFilterMap = useRecoilValue(appliedFilterMapState);
   const [isDetailModalOpen, setDetailModalOpen] = useState(false);
   const [detailModalData, setDetailModalData] = useState({
     id: 0,
@@ -33,11 +33,11 @@ export default function DetectionStatus() {
   });
 
   const showDetailModal = (id) => {
-    const data = searchList.contents.filter((x) => x.id == id).pop(0); // popping doesn't affect original array
+    const data = search.contents.filter((x) => x.id == id).pop(0); // popping doesn't affect original array
     console.log(
       data,
-      searchList.contents.filter((x) => x.id == id),
-      searchList
+      search.contents.filter((x) => x.id == id),
+      search
     );
     setDetailModalData(data);
     setDetailModalOpen(true);
@@ -65,8 +65,12 @@ export default function DetectionStatus() {
           </Typography>
           <Search />
           <Typography mt={3} color="primary">
-            {searchList.contentsLength}개 결과 | {filterList.length}개 필터
-            적용중
+            {search.totalContentsLength}개 결과 |
+            {/* {
+              Array.prototype.concat([...Object.values(appliedFilterMap)])
+                .length
+            } */}
+            개 필터 적용중
           </Typography>
         </Grid>
         <Grid width="100%" item justify="center">

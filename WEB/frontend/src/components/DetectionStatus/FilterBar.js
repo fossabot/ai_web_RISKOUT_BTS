@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -11,12 +12,15 @@ import {
 import FilterCheckbox from './FilterCheckbox';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { filterListState } from '../../atoms/filterListState';
-import { searchListState } from '../../atoms/searchListState';
+import {
+  appliedFilterMapState,
+  useAppliedFilterMapActions,
+} from '../../atoms/appliedFilterMapState';
+import { useFilterTags } from '../../atoms/searchState';
 
 export default function FilterBar() {
-  const filterList = useRecoilValue(filterListState);
-  const searchList = useRecoilValue(searchListState);
+  const filterTags = useFilterTags();
+  const { includes } = useAppliedFilterMapActions();
 
   return (
     <Card
@@ -35,8 +39,39 @@ export default function FilterBar() {
       />
       <Divider />
 
-      {Object.entries(namedEntityMap).map(([filterLabel, filterCode]) => {
-        const filterTags = Object.entries(searchList.filterTags[filterCode]);
+      {filterTags &&
+        Object.entries(filterTags).map(
+          ([label, wordCount]) =>
+            Object.keys(wordCount).length && (
+              <CardContent style={{ marginBottom: '16px' }}>
+                <Box className="filter_con">
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Typography>글에서 찾은 {labelToKorMap[label]}</Typography>
+                    <Typography>{Object.keys(wordCount).length}</Typography>
+                  </Stack>
+                  <Box>
+                    {Object.entries(wordCount)
+                      .sort(([, a], [, b]) => b - a)
+                      .map(([word, count]) => (
+                        <FilterCheckbox
+                          label={label}
+                          count={count}
+                          hashtag={word}
+                          key={word}
+                          checked={includes(label, word)}
+                        />
+                      ))}
+                  </Box>
+                </Box>
+              </CardContent>
+            )
+        )}
+      {/* 
+      {Object.entries(namedEntityMap).map(([korLabel, codeLabel]) => {
         return (
           <CardContent style={{ marginBottom: '16px' }}>
             <Box className="filter_con">
@@ -44,12 +79,8 @@ export default function FilterBar() {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
-              >
-                <Typography>글에서 찾은 {filterLabel}</Typography>
-                <Typography>{filterTags.length}</Typography>
-              </Stack>
+              ></Stack>
               <Box>
-                {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
                 {filterTags
                   .sort(([_, a], [__, b]) => (a < b ? 1 : -1))
                   .map(([hashtag, freq], i) => (
@@ -57,7 +88,7 @@ export default function FilterBar() {
                       count={freq}
                       hashtag={hashtag}
                       key={hashtag}
-                      checked={filterList.includes(hashtag)}
+                      checked={appliedFilterList.includes(hashtag)}
                     />
                   ))}
                 <Button
@@ -70,9 +101,24 @@ export default function FilterBar() {
             </Box>
           </CardContent>
         );
-      })}
+      })} */}
     </Card>
   );
 }
 
-const namedEntityMap = { 단체: 'ORG', 인물: 'CVL', 시간대: 'TIM' };
+const labelToKorMap = {
+  PER: '인물',
+  FLD: '이론',
+  AFW: '인공물',
+  ORG: '단체',
+  LOC: '장소',
+  CVL: '문화',
+  DAT: '날짜',
+  TIM: '시간',
+  NUM: '숫자',
+  EVN: '사건',
+  ANM: '동물',
+  PLT: '식물',
+  MAT: '물질',
+  TRM: '용어',
+};
