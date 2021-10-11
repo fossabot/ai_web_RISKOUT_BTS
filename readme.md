@@ -124,26 +124,6 @@
 
 ![techstack](https://user-images.githubusercontent.com/55467050/136718715-29a72910-3edf-4b2a-93ce-0f567d166a65.PNG)
 
-### AI
-
-- [Jupiter Notebook](https://jupyter.org/)을 통한 모델 학습:
-  - `KoGPT` — 보고서 생성을 위한 자연어 생성 모델.
-  - `KoBERT` — 요약기능을 위한 자연어 요약 모델.
-
-### Backend
-
-- [Django REST framework](https://www.django-rest-framework.org/)를 통한 웹 백엔드 구축
-  - [`net/http`](https://restfulapi.net/) — Simple REST API와 CRUD, 그리고 JWT 인증.
-- [Maria DB](https://mariadb.org/)를 통한 데이터베이스 구축:
-  - [`SQL`](https://searchdatamanagement.techtarget.com/definition/SQL#:~:text=SQL%20(Structured%20Query%20Language)%20is,on%20the%20data%20in%20them.&text=SQL%20became%20the%20de%20facto,late%201970s%20and%20early%201980s.) — SQL로 관계형 데이터베이스 관리.
-
-### Frontend
-
-- [React](https://reactjs.org/)를 통한 프론트엔드 구축:
-  - `react` — 리액트앱을 이용한 템플릿 생성.
-  - `SPA` — 리액트앱을 이용한 SPA(Single-Page-Application) 제작.
-
-
 <h2 id="install"> :file_folder: 설치 안내 (Installation Process)</h2>
 
 ```bash
