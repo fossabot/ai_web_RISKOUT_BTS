@@ -7,11 +7,13 @@ import TrendsCard from '../components/Dashboard/TrendsCard';
 
 import { Container, Box, Grid } from '@mui/material';
 
+import '../css/pageStyle.css'
+
 export default function Dashboard() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={12} md={12} lg={12}>
-        <h2>대시보드</h2>
+        <h2 style={{fontFamily: "Noto sans KR", fontSize: "2rem" }}>대시보드</h2>
       </Grid>
       <Grid item xs={6} sm={6} md={6} lg={4}>
         <WordCloud options={options} />
