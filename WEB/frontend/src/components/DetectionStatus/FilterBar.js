@@ -26,12 +26,13 @@ export default function FilterBar() {
     >
       <CardHeader
         action={
-          <Button style={{ fontSize: '10px', marginTop: '10px' }} size="small">
+          <Button style={{ fontSize: '11px', fontWeight: '800', fontFamily: 'Noto sans KR', marginTop: '-20px', marginRight: '-8px', marginBottom: '-6px' }} size="small">
             RESET
           </Button>
         }
         titleTypographyProps={{ variant: 'body1' }}
         title="FILTER"
+        sx={{ fontFamily: "Noto sans KR", fontSize: "1.5em", fontWeight: "600"}}
       />
       <Divider />
 
@@ -45,8 +46,8 @@ export default function FilterBar() {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Typography>글에서 찾은 {filterLabel}</Typography>
-                <Typography>{filterTags.length}</Typography>
+                <Typography sx={{ fontFamily: "Noto sans KR", fontSize: "1.0rem" }}>글에서 찾은 {filterLabel}</Typography>
+                <Typography sx={{ fontFamily: "Noto sans KR", fontSize: "1.0rem" }}>{filterTags.length}</Typography>
               </Stack>
               <Box>
                 {/* <FilterCheckbox count={10} hashtag="myHashtag" key="myHashtag" onToggle={toggleFilter} /> */}
@@ -62,7 +63,7 @@ export default function FilterBar() {
                   ))}
                 <Button
                   size="small"
-                  sx={{ float: 'right', marginRight: '-15px' }}
+                  sx={{ float: 'right', marginRight: '-15px', fontFamily: "Noto sans KR" }}
                 >
                   더보기
                 </Button>

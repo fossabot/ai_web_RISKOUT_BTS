@@ -1,33 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { search, shapeData, sort } from "./searchTable";
 
-export default function AutocompleteInSearch({ tableData, options }){
-  const [searchState, setSearchState] = useState({
-    isActive: false,
-    query: null
-  });
-
+export default function AutocompleteInSearch(){
   const searchInputRef = useRef(null);
-  
-  const handleSearchBtnClick = () => {
-    const searchInput = document.getElementById("search-query-input");
-    setSearchState((prevState) => {
-      return {
-        ...prevState,
-        query: searchInput.value
-      };
-    });
-
-    const formattedSearchResults = search(
-      shapeData(tableData, options.headers),
-      searchInput.value
-    );
-    setData(formattedSearchResults);
-  };
-
-  const [data, setData] = useState(shapeData(tableData, options.headers));
 
   return(    
     <Autocomplete

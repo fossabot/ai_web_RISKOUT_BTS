@@ -60,11 +60,11 @@ export default function DetectionStatus() {
     <Grid container spacing={3}>
       <Grid item xs={12} md={10} container spacing={3} direction="column">
         <Grid width="100%" item>
-          <Typography mt={1} variant="h5" sx={{ fontWeight: 'bold' }}>
+          <Typography mt={1} variant="h5" sx={{ fontFamily: "Noto sans KR", fontSize: "2rem", fontWeight: "600"}}>
             탐지 현황
           </Typography>
           <Search />
-          <Typography mt={3} color="primary">
+          <Typography mt={3} color="primary" sx={{ fontFamily: "Noto sans KR", fontWeight: "400"}}>
             {searchList.contentsLength}개 결과 | {filterList.length}개 필터
             적용중
           </Typography>

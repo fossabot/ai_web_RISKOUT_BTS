@@ -7,8 +7,6 @@ import TrendsCard from '../components/Dashboard/TrendsCard';
 
 import { Container, Box, Grid } from '@mui/material';
 
-import '../css/pageStyle.css'
-
 export default function Dashboard() {
   return (
     <Grid container spacing={2}>
