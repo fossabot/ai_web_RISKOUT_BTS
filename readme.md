@@ -52,7 +52,7 @@
     <li><a href="#Install"> ➤ 설치 안내 (Installation Process)</a></li>
     <li><a href="#getstarted"> ➤ 프로젝트 사용법 (Getting Started)</a></li>
     <li><a href="#team"> ➤ 팀 정보 (Team Information)</a></li>
-    <li><a href="#license"> ➤ 저작권 및 사용권 정보 (Copyleft / End User License</a></li>
+    <li><a href="#license"> ➤ 저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
   </ol>
 </details>
 
