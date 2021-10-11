@@ -56,7 +56,7 @@ export default function ToggleButtons({
       className="period-select"
     >
       {selectOptions.map((val) => (
-        <ToggleButton value={val} aria-label={'last ' + val}>
+        <ToggleButton value={val} key={val} aria-label={'last ' + val}>
           {val}
         </ToggleButton>
       ))}

@@ -43,31 +43,38 @@ const timeBefore = (today: Date, timelength: String) => {
   }
 };
 
-const RiskReport = () => {
+const RiskReport = (props) => {
   const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
   const [dateRange, setDateRange] = React.useState('all'); // for period select
-  const { data, isPending, error } = useFetch(
-    '/static/ReportData.example.json?dateRange=' +
-      dateRange +
-      '&articleIds=' +
-      JSON.stringify(getCart()) // fetch occurs whenever dateRange changes
-  );
+  const [data, setData] = React.useState({});
+  const [isPending, setPending] = React.useState(true);
+  const error = false;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      articleIds: getCart().length ? getCart() : [30, 40, 50, 60],
+      period: 24,
+    }),
+  };
+  // const { data, isPending, error } = useFetch('/api/nlp/report/', options);
 
   // => search
   useEffect(() => {
-    const searchUrl = `/api/nlp/analyze/`;
+    const searchUrl = '/api/nlp/report/';
     async function fetchSearch() {
+      setPending(true);
       axios
         .post(searchUrl, {
-          category: 'news',
-          period: 72,
-          tags: { PER: ['김정은'], LOC: ['북한'] },
-          search_text: '노동신문',
-          limit: 5,
-          offset: 0,
+          articleIds: getCart().length ? getCart() : [30, 40, 50, 60],
+          period: 24,
         })
         .then((data) => {
           console.log(data.data);
+          setData(data.data);
+          setPending(false);
         });
     }
     fetchSearch();
@@ -168,12 +175,14 @@ const RiskReport = () => {
                 alignItems="flex-start"
               >
                 <Grid item xs={12} md={6}>
-                  <Graphs />
+                  {/* <Graphs /> */}
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Grid container direction="column" spacing={3}>
-                    {data.briefingContents.map((props) => {
-                      return <ScrappedArticle {...props} />;
+                    {data.briefingContents.map((props, i) => {
+                      return (
+                        <ScrappedArticle key={'scrapped' + i} {...props} />
+                      );
                     })}
                   </Grid>
                 </Grid>
@@ -198,9 +207,26 @@ const RiskReport = () => {
                 alignItems="center"
                 sx={{ mt: '1rem' }}
               >
-                {data.majorEvents.map((props) => (
-                  <ThreatMediaCard {...props} />
-                ))}
+                {data.majorEvents.map(
+                  ({
+                    imageUrl,
+                    title,
+                    threatType,
+                    sourceName,
+                    url,
+                    datetime,
+                  }) => (
+                    <ThreatMediaCard
+                      imageUrl={imageUrl}
+                      title={title}
+                      threatType={threatType}
+                      sourceName={sourceName}
+                      url={url}
+                      datetime={datetime}
+                      key={title}
+                    />
+                  )
+                )}
               </Grid>
             </Grid>
           </Box>
