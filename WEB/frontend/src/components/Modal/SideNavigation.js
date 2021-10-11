@@ -41,12 +41,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const test = styled('.sidebarBackground')(() => ({
-  background: "gray"
-}));
-
 export default function SideNavigation(props) {
-  const [sidebarBackground, setSidebarBackground] = useState("");
   const { drawerWidth } = props;
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -54,17 +49,15 @@ export default function SideNavigation(props) {
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setSidebarBackground("sidebarBackground");
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setSidebarBackground("miniSidebarBackground");
   };
 
   return (
     <>
-      <Box sx={{ background: 'rgb(29, 28, 26)', height: '500vh'}}>
+      <Box sx={{ position:'fixed', background: 'rgb(29, 28, 26)', minHeight: '100%'}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -76,7 +69,7 @@ export default function SideNavigation(props) {
           <MenuIcon sx={{ color: '#fff', fontSize:'1.3em', position:'fixed'}} />
         </IconButton>
         <Box sx={{position: 'fixed'}}>
-          <SidebarLinkMini icon={InfoIcon} text="언론 동향" href="/presstrends" className="a" />
+          <SidebarLinkMini icon={InfoIcon} text="언론동향" href="/presstrends" className="a" />
           <SidebarLinkMini
             icon={SearchIcon}
             text="탐지현황"
@@ -104,7 +97,7 @@ export default function SideNavigation(props) {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            background: 'rgb(29, 28, 26)',
+            background: 'rgb(40, 40, 40)',
             left: 0,
             top: 0,
             width: drawerWidth,
@@ -112,20 +105,20 @@ export default function SideNavigation(props) {
           },
         }}
       >
-        <DrawerHeader>
+        <Box className="closeButton">
           <Link href="/">
-            <img src={logoImage} alt="홈" className="image" />
+            <img src="https://riskout.ithosting.repl.co/images/main/logo_w.png" alt="홈" className="image" />
           </Link>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose}  >
             {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon sx={{ color: 'white' }} />
+              <ChevronLeftIcon sx={{ color: 'white' }}  />
             ) : (
               <ChevronRightIcon sx={{ color: 'red' }} />
             )}
           </IconButton>
-        </DrawerHeader>
+        </Box>
         <List className="sub_menu">
-          <SidebarLink icon={InfoIcon} text="언론 동향" href="/presstrends" />
+          <SidebarLink icon={InfoIcon} text="언론동향" href="/presstrends" />
           <SidebarLink
             icon={SearchIcon}
             text="탐지현황"
