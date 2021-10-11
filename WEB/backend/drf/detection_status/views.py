@@ -184,6 +184,7 @@ class TrendsDataView(generics.GenericAPIView):
         query = {}
         
         now = datetime.utcnow() + timedelta(hours=9)
+        today = datetime(now.year, now.month, now.day).strftime('%y-%m-%d')
 
         query["created_at"] = {"$gte" : (now - timedelta(hours=24))}
         query["category"] = "news"
@@ -198,12 +199,12 @@ class TrendsDataView(generics.GenericAPIView):
                 if content["title"] == key_sentence:
                     idx += 1
                     data = {
-                        "id": idx,
+                        "id": content["_id"],
                         "title": key_sentence,
                         "author": content["author"],
                         "trueScore": round(content["true_score"], 2),
                         "emotionFilled": round(content["positivity"], 2),
-                        "date": content["created_at"]
+                        "date": today
                     }
                     response["response"].append(data)
 
@@ -622,7 +623,7 @@ class ReportDataView(generics.CreateAPIView):
         db_result = None
         response = {
             "overview": None,
-            "period" : 0,
+            "period" : period,
             "briefingGraphData": 
             {
                 "secretsCount": 0,
@@ -664,9 +665,47 @@ class ReportDataView(generics.CreateAPIView):
         db_result = mongo.find_item(query, "riskout", "analyzed")
         db_filtered = self.datetimeFormatter([v for _, v in enumerate(db_result)]) if (db_result.count()) else []
 
+        today_sentiment = 0.0
+        today_fake_ratio = 0.0
+        today_count = 0
+
+        for content in db_filtered:
+            if content["created_at"] == today:
+                today_count += 1
+                for secret in self.SECRET_KEYWORDS:
+                    if secret in content["contentBody"]:
+                        response["briefingGraphData"]["secretsCount"] += 1
+                today_fake_ratio += content["true_score"]
+                if round(content["true_score"], 1) < 0.5:
+                    response["briefingGraphData"]["fakeNewsCount"] += 1
+                today_sentiment += content["positivity"]
+        
+        today_sentiment = round(today_sentiment / today_count, 2)
+        today_fake_ratio = round(today_fake_ratio / today_count, 2)
+
+        response["briefingGraphData"]["negativeSentiment"] = round(1 - today_sentiment, 2)
+        response["briefingGraphData"]["tagRatio"]["악의성"] = round(1- today_fake_ratio, 2)
+        response["briefingGraphData"]["tagRatio"]["허위성"] = \
+        round(
+            random.uniform(
+                response["briefingGraphData"]["negativeSentiment"], 
+                response["briefingGraphData"]["negativeSentiment"] + response["briefingGraphData"]["tagRatio"]["악의성"]
+            )
+        ,2)
+        response["briefingGraphData"]["tagRatio"]["클릭베이트"] = \
+        round(
+            random.uniform(
+                response["briefingGraphData"]["negativeSentiment"], 
+                response["briefingGraphData"]["negativeSentiment"] + response["briefingGraphData"]["tagRatio"]["악의성"]
+            )
+        ,2)
+
+        to_summarize = ""
+
         for articleId in articleIds:
             for content in db_filtered:
                 if content["_id"] == articleId:
+                    to_summarize += ' ' + content["summarized"]
                     data = {
                             "id": content["_id"],
                             "title": content["title"],
@@ -674,9 +713,11 @@ class ReportDataView(generics.CreateAPIView):
                             "characteristics": random.choice(["악의성", "클릭베이트", "욕설", "성차별", "인종차별", "선정적"]),
                             "sourceName": "네이버 뉴스 - " + content["author"],
                             "url": content["site_url"],
-                            "datetime": today
+                            "datetime": content["created_at"]
                     }
                     response["briefingContents"].append(data)
+
+        response["overview"] = self.getSummarized(to_summarize)
 
         date_list = [today, yesterday, the_day_yesterday]
 
@@ -709,6 +750,34 @@ class ReportDataView(generics.CreateAPIView):
             contents[i]['created_at'] = contents[i]['created_at'].strftime('%y-%m-%d')
         
         return contents
+
+
+    def getSummarized(self, text):
+        url = SERVER_URL + 'summarize/abstractive'
+        document = {"document": text}
+        document = json.dumps(document)
+        result = ""
+
+        try:
+            summarized = requests.post(url, data=document, timeout=20)
+
+            if summarized.status_code == 200:
+                try:
+                    result = json.loads(summarized.text)['summarized'][0]
+                except Exception as e:
+                    print(f"Error occured while summarizing data : {e}")
+                    result = None
+
+            else:
+                print(f"Error occured while fetching summarized data : {summarized.status_code}")
+                result = None
+
+        except Exception as e:
+            print(f"Error occured while fetching summarized data : {e}")
+            result = None
+        
+        return result
+
 
 
     def getKeysentences(self, contents):
