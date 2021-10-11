@@ -165,7 +165,7 @@ $ yarn start or npm run start
 <tr>
 <td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719709-4d184f89-ba47-4db8-be91-ea50456b4bb5.png" width="60" height="60"></td>
 <td width="100" align="center">이민석</td>
-<td width="250">Product Manager(팀장)<br>AI Developer</td>
+<td width="250">Product Manager (팀장)<br>AI Developer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/mslee300">
 	<img src="https://img.shields.io/badge/mslee300-655ced?style=social&logo=github"/>
