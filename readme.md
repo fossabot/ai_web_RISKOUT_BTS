@@ -162,6 +162,18 @@ $ yarn start or npm run start
 </thead>
 <tbody>
 	
+<tr>
+<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center">이민석</td>
+<td width="250">Product Manager<br>AI Developer</td>
+<td width="150" align="center">	
+	<a href="https://github.com/mslee300">
+	<img src="https://img.shields.io/badge/mslee300-655ced?style=social&logo=github"/>
+	</a>
+</td>
+<td width="300" align="center">
+<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
+</tr>
 	
 <tr>
 <td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
@@ -240,25 +252,6 @@ $ yarn start or npm run start
 <td width="300" align="center">
 <a href="mailto:dswhdcks@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=dswhdcks@gmail.com&color=lightblue&style=flat-square&logo=gmail"></a>
 </tr>
-	
-<tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
-<td width="100" align="center">이민석</td>
-<td width="250">Product Manager<br>AI Developer</td>
-<td width="150" align="center">	
-	<a href="https://github.com/mslee300">
-	<img src="https://img.shields.io/badge/mslee300-655ced?style=social&logo=github"/>
-	</a>
-</td>
-<td width="300" align="center">
-<a href="mailto:mslee300@bu.edu"><img src="https://img.shields.io/static/v1?label=&message=mslee300@bu.edu&color=lightblue&style=flat-square&logo=gmail"></a>
-</tr>
-	
-
-	
-	
-
-	
 	
 </tr>
 </tbody>
