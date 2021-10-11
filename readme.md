@@ -168,7 +168,7 @@ $ yarn start or npm run start
 - 📺 Full 영상: https://riskout.ithosting.repl.co
 
 
-<h2 id="team"> :technologist: 팀 정보 (Team Information)</h2>
+<h2 id="team"> 💁🏻‍♀️💁🏻‍♂️ 팀 정보 (Team Information)</h2>
 
 <table width="900">
 <thead>
@@ -287,13 +287,5 @@ $ yarn start or npm run start
 <h2 id="license"> :warning: 저작권 및 사용권 정보 (Copyleft / End User License)</h2>
 
 프로젝트 RISKOUT은 [MIT License](https://en.wikipedia.org/wiki/MIT_License) 를 따르고 있습니다.
-
-<br />
-
----
-
-# 🤖 
-
-장관상 주떼염~
 
 <br />
