@@ -10,10 +10,10 @@ import { Container, Box, Grid, Stack } from '@mui/material';
 export default function Graphs() {
   return (
     <Stack direction="column" container spacing={2}>
-      <Grid item xs={6} sm={6} md={6} lg={4}>
+      <Grid item xs={12}>
         <SentimentBar colors={options.colors} />
       </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={4}>
+      <Grid item xs={12}>
         <SentimentPie colors={options.colors} />
       </Grid>
     </Stack>

@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import icon01 from '../images/sub/btn_icon01.png';
-import icon02 from '../images/sub/btn_icon02.png';
-import icon03 from '../images/sub/btn_icon03.png';
-import Box from '@mui/material/Box';
-import Search from '../components/Search';
 import {
+  Box,
   Chip,
   Stack,
   Link,
@@ -25,6 +21,8 @@ import { getLineBreakText, useSessionStorage } from '../js/util';
 import ThreatMediaCard from '../components/RiskReport/ThreatMediaCard';
 import PdfExportButton from '../components/RiskReport/PdfExportButton';
 import Graphs from '../components/RiskReport/Graphs';
+import ScrappedArticle from '../components/RiskReport/ScrappedArticle';
+// import { Box } from '@mui/system';
 
 const timeBefore = (today: Date, timelength: String) => {
   const [d, m, y] = [today.getDate(), today.getMonth(), today.getFullYear()];
@@ -135,86 +133,58 @@ const RiskReport = () => {
           }}
         >
           <PdfExportButton exportTarget={pdfExportComponent} />
-          <div className="sub01_wrap">
-            <h2 className="h2_tit2">
-              Report
-              <em>
-                {new Intl.DateTimeFormat('ko-KR', {
-                  dateStyle: 'full',
-                }).format(new Date())}{' '}
-                (24h)
-              </em>
-            </h2>
-            <div className="text">{getLineBreakText(data.overview)}</div>
+          <Box className="sub01_wrap">
+            <Grid container spacing={1} direction="column">
+              <Grid item>
+                <Typography variant="h2">
+                  Risk Report{' '}
+                  <em style={{ fontSize: '0.5em' }}>
+                    {new Intl.DateTimeFormat('ko-KR', {
+                      dateStyle: 'full',
+                    }).format(new Date())}{' '}
+                    (24h)
+                  </em>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography>{getLineBreakText(data.overview)}</Typography>
+              </Grid>
+            </Grid>
 
-            <div className="period">
-              <h2 style={{ display: 'inline-block' }}>리스크 브리핑</h2>
-              <ExclusiveSelect
-                selectOptions={['1d', '1wk', '1m', '1yr', 'all']}
-                selectedValue={dateRange}
-                setSelectedValue={setDateRange}
-                selectHandler={selectHandler}
-              />
-            </div>
+            <Grid container spacing={1} mt={3} direction="column">
+              <Grid item>
+                <Typography variant="h3">리스크 브리핑</Typography>
+              </Grid>
+              <Grid item>
+                <ExclusiveSelect
+                  selectOptions={['1d', '1wk', '1m', '1yr', 'all']}
+                  selectedValue={dateRange}
+                  setSelectedValue={setDateRange}
+                  selectHandler={selectHandler}
+                />
+              </Grid>
 
-            <div className="content clfix">
-              <div className="img">
-                <Graphs />
-              </div>
-
-              <div className="text">
-                {data.briefingContents.map(
-                  ({
-                    title,
-                    summary,
-                    characteristics,
-                    sourceName,
-                    url,
-                    datetime,
-                  }) => {
-                    return (
-                      <article>
-                        <Link
-                          href={url}
-                          target="_blank"
-                          rel="noopener"
-                          underline="hover"
-                        >
-                          <h3>{title}</h3>
-                        </Link>
-                        {getLineBreakText(summary)}
-                        <Grid
-                          container
-                          direction="row"
-                          justifyContent="space-between"
-                          alignItems="center"
-                          sx={{ mt: '1rem' }}
-                        >
-                          <Stack direction="row" spacing={1}>
-                            {characteristics.map((c) => (
-                              <Chip
-                                label={c}
-                                variant="outlined"
-                                size="medium"
-                                sx={{ height: '2.4rem', fontSize: '1rem' }}
-                              />
-                            ))}
-                          </Stack>
-                          <Link
-                            href={url}
-                            target="_blank"
-                            rel="noopener"
-                            underline="hover"
-                          >
-                            <em>원본:</em> {sourceName} {datetime}
-                          </Link>
-                        </Grid>
-                      </article>
-                    );
-                  }
-                )}
-              </div>
-            </div>
+              <Grid
+                item
+                container
+                spacing={5}
+                mt={1}
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
+                <Grid item xs={12} md={6}>
+                  <Graphs />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Grid container direction="column" spacing={3}>
+                    {data.briefingContents.map((props) => {
+                      return <ScrappedArticle {...props} />;
+                    })}
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
 
             <div className="content clfix">
               <h2>중대 위협</h2>
@@ -246,7 +216,7 @@ const RiskReport = () => {
                 )}
               </Grid>
             </div>
-          </div>
+          </Box>
         </section>
       )}
     </>
