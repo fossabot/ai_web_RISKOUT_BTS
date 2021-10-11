@@ -706,11 +706,16 @@ class ReportDataView(generics.CreateAPIView):
             for content in db_filtered:
                 if content["_id"] == articleId:
                     to_summarize += ' ' + content["summarized"]
+                    random.seed(content["_id"])
                     data = {
                             "id": content["_id"],
                             "title": content["title"],
                             "summary": content["summarized"],
-                            "characteristics": random.choice(["악의성", "클릭베이트", "욕설", "성차별", "인종차별", "선정적"]),
+                            "characteristics": self.tagSelector(
+                                seed=content["_id"],
+                                arr=["악의성", "클릭베이트", "욕설", "성차별", "인종차별", "선정적"], 
+                                n=2
+                            ),
                             "sourceName": "네이버 뉴스 - " + content["author"],
                             "url": content["site_url"],
                             "datetime": content["created_at"]
@@ -731,10 +736,15 @@ class ReportDataView(generics.CreateAPIView):
 
             for content in db_filtered:
                 if content["title"] == key_sentence:
+                    random.seed(content["_id"])
                     data = {
                             "imageUrl": content["thumbnail_url"],
                             "title":  content["title"],
-                            "threatType": random.choice(["허위뉴스", "대외비 기밀", "1급 비밀", "2급 비밀", "3급 비밀"]),
+                            "threatType": self.tagSelector(
+                                seed=content["_id"],
+                                arr=["허위뉴스", "대외비 기밀", "1급 비밀", "2급 비밀", "3급 비밀"], 
+                                n=1
+                            ),
                             "sourceName": "네이버 뉴스 - " + content["author"],
                             "url": content["site_url"],
                             "datetime": today
@@ -810,3 +820,21 @@ class ReportDataView(generics.CreateAPIView):
             quit()
 
         return sentences[0]
+    
+
+    def tagSelector(self, seed, arr, n):
+        result = []
+
+        if n == 1:
+            random.seed(seed)
+            return random.choice(arr)
+
+        for _ in range(n):
+            while True:
+                random.seed(seed)
+                data = random.choice(arr)
+                if data not in result:
+                    result.append(data)
+                    break
+        
+        return result
