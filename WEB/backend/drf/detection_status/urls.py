@@ -8,4 +8,5 @@ urlpatterns = [
     path('article/volume/', ArticleVolumeDataView.as_view(), name='article_volume'),
     path('sentiment/bar/', SentimentBarDataView.as_view(), name='sentiment_bar'),
     path('sentiment/pie/', SentimentPieDataView.as_view(), name='sentiment_pie'),
+    path('report/', ReportDataView.as_view(), name='report'),
 ]
