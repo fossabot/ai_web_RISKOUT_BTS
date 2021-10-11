@@ -195,7 +195,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/dev-taewon-kim">
-	<img src="https://img.shields.io/badge/devtaewon-655ced?style=social&logo=github"/>
+	<img src="https://img.shields.io/badge/devtaewonkim-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -208,7 +208,7 @@ $ yarn start or npm run start
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/liboto00">
-	![wonbin](https://user-images.githubusercontent.com/55467050/136719703-84288e35-1269-4dc7-a510-c65a41c09346.png)
+	<img src="https://img.shields.io/badge/liboto00-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
@@ -221,7 +221,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/flydog98">
-	![yongjun](https://user-images.githubusercontent.com/55467050/136719700-f2e9120e-1250-4d6c-9935-a89af62d3b64.png)
+	<img src="https://img.shields.io/badge/flydog98-655ced?style=social&logo=github"/>
 	</a>
 </td>
 <td width="300" align="center">
