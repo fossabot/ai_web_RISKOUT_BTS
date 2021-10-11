@@ -41,34 +41,26 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const test = styled('.sidebarBackground')(() => ({
-  background: 'gray',
-}));
-
 export default function SideNavigation(props) {
-  const [sidebarBackground, setSidebarBackground] = useState('');
   const { drawerWidth } = props;
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-
   const handleDrawerOpen = () => {
     setOpen(true);
-    setSidebarBackground('sidebarBackground');
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setSidebarBackground('miniSidebarBackground');
   };
 
   return (
     <>
       <Box
         sx={{
-          background: 'rgb(29, 28, 26)',
-          height: '100vh',
           position: 'fixed',
+          background: 'rgb(29, 28, 26)',
+          minHeight: '100%',
         }}
       >
         <IconButton
@@ -86,7 +78,7 @@ export default function SideNavigation(props) {
         <Box sx={{ position: 'fixed' }}>
           <SidebarLinkMini
             icon={InfoIcon}
-            text="언론 동향"
+            text="언론동향"
             href="/presstrends"
             className="a"
           />
@@ -122,7 +114,7 @@ export default function SideNavigation(props) {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            background: 'rgb(29, 28, 26)',
+            background: 'rgb(40, 40, 40)',
             left: 0,
             top: 0,
             width: drawerWidth,
@@ -130,9 +122,13 @@ export default function SideNavigation(props) {
           },
         }}
       >
-        <DrawerHeader>
+        <Box className="closeButton">
           <Link href="/">
-            <img src={logoImage} alt="홈" className="image" />
+            <img
+              src="https://riskout.ithosting.repl.co/images/main/logo_w.png"
+              alt="홈"
+              className="image"
+            />
           </Link>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? (
@@ -141,9 +137,9 @@ export default function SideNavigation(props) {
               <ChevronRightIcon sx={{ color: 'red' }} />
             )}
           </IconButton>
-        </DrawerHeader>
+        </Box>
         <List className="sub_menu">
-          <SidebarLink icon={InfoIcon} text="언론 동향" href="/presstrends" />
+          <SidebarLink icon={InfoIcon} text="언론동향" href="/presstrends" />
           <SidebarLink
             icon={SearchIcon}
             text="탐지현황"
@@ -151,7 +147,7 @@ export default function SideNavigation(props) {
             isOn={true}
           />
           <SidebarLink icon={AssessmentIcon} text="리포트" href="/riskreport" />
-          <SidebarLink icon={LogoutIcon} text="로그아웃" href="/"/>
+          <SidebarLink icon={LogoutIcon} text="로그아웃" href="/" />
         </List>
         <ListItem>
           <ListItemText
