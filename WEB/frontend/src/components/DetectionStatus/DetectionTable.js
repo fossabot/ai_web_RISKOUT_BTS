@@ -16,7 +16,7 @@ export default function DetectionTable({ showDetailModal, scrapArticle }) {
   const searchList = useRecoilValue(searchListState);
 
   return (
-    <TableContainer component={Paper} elevation={1} style={{fontFamily: "Noto sans KR"}}>
+    <TableContainer component={Paper} elevation={1}>
       <Table>
         <TableHead>
           <TableRow>
