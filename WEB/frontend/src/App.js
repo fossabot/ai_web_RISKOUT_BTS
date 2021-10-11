@@ -12,6 +12,7 @@ import RiskReport from './pages/RiskReport';
 import LoginModal from './components/Modal/LoginModal';
 import RegisterModal from './components/Modal/RegisterModal';
 import PasswordResetModal from './components/Modal/PasswordResetModal';
+import PasswordChangeModal from './components/Modal/PasswordChangeModal';
 import InitInfo from './components/Modal/InitInfo';
 /*import FilterTable from './components/FilterTable';
 import Search from './components/Search';
@@ -85,6 +86,9 @@ export default function App() {
   
         <Route exact path="/password_reset">
             <PasswordResetModal setModal={setModal}/>
+        </Route>
+        <Route exact path="/password_change">
+            <PasswordChangeModal setModal={setModal}/>
         </Route>
 
     </ThemeProvider>

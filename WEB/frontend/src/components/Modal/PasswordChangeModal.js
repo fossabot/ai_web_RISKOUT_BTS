@@ -4,23 +4,21 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router'
 
 const PasswordChangeModal=(props)=>{
-  let [userpassword, setUserPassword] = useState()
-  let [userpasswordCheck, setUserPasswordCheck] = useState();
-  let token = localStorage.getItem("token");
-
-
-  const data = {old_password : useroldpassword, new_password : usernewpassword}
-
-const handlePassword1Change = (e) => {
-  setUserPassword(e.target.value)
-}
-
-const handlePassword2Change = (e) => {
-  setUserPasswordCheck(e.target.value)
-}
-
-    const history = useHistory()
-
+    let [useroldpassword, setUserOldPassword] = useState()
+    let [usernewpassword, setUserNewPassword] = useState();
+    let token = localStorage.getItem("token");
+  
+    const data = {old_password : useroldpassword, new_password : usernewpassword}
+  
+  const handlePassword1Change = (e) => {
+    setUserOldPassword(e.target.value)
+  }
+  
+  const handlePassword2Change = (e) => {
+    setUserNewPassword(e.target.value)
+  }
+  
+      const history = useHistory()
     const paperStyle={padding :40,height:'70vh',width:800, margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'10px 0'}
