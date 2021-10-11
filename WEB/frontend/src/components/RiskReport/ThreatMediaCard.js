@@ -10,20 +10,13 @@ import {
 } from '@mui/material';
 
 export default function ThreatMediaCard(props) {
-  const {
-    imageUrl,
-    title,
-    threatType,
-    sourceChannel,
-    sourceTime,
-    href,
-  } = props;
+  const { imageUrl, title, threatType, sourceName, url, datetime } = props;
 
   const imgWidth = 300;
   const imgHeight = 150;
   return (
     <Card variant="outlined" sx={`width: ${imgWidth}px`}>
-      <a href={href} style={{ padding: 0, margin: 0 }}>
+      <a href={url} style={{ padding: 0, margin: 0 }}>
         <CardMedia
           component="img"
           height={`${imgHeight}`}
@@ -63,8 +56,8 @@ export default function ThreatMediaCard(props) {
                 sx={{ height: '2.4rem', fontSize: '1rem' }}
               />
             </Stack>
-            <Link href={href} target="_blank" rel="noopener" underline="hover">
-              {sourceChannel} {sourceTime}
+            <Link href={url} target="_blank" rel="noopener" underline="hover">
+              {sourceName} {datetime}
             </Link>
           </Grid>
         </CardContent>

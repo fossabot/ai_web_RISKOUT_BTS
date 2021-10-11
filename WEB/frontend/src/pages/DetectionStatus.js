@@ -46,13 +46,14 @@ export default function DetectionStatus() {
   };
 
   const [getCart, addCart] = useSessionStorage('riskoutShoppingCart');
+  const { enqueueSnackbar } = useSnackbar();
   const scrapArticle = (id) => {
     addCart(id);
-    const article = searchResults.contents.filter((x) => x.id == id).pop();
-    enqueueSnackbar('Scrapped article | ' + article.title, {
-      variant: 'success',
-      autoHideDuration: 10000,
-    });
+    // const article = searchResults.contents.filter((x) => x.id == id).pop();
+    // enqueueSnackbar('Scrapped article | ' + article.title, {
+    //   variant: 'success',
+    //   autoHideDuration: 10000,
+    // });
   };
 
   const analyzePage = (id) => {

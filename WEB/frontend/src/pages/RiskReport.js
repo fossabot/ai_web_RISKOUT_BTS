@@ -125,13 +125,7 @@ const RiskReport = () => {
       ) : error ? (
         errorScreen
       ) : (
-        <section
-          id="sub_contents"
-          ref={pdfExportComponent}
-          style={{
-            fontFamily: "'Noto Sans KR'",
-          }}
-        >
+        <section id="sub_contents" ref={pdfExportComponent}>
           <PdfExportButton exportTarget={pdfExportComponent} />
           <Box className="sub01_wrap">
             <Grid container spacing={1} direction="column">
@@ -186,36 +180,29 @@ const RiskReport = () => {
               </Grid>
             </Grid>
 
-            <div className="content clfix">
-              <h2>중대 위협</h2>
+            <Grid
+              container
+              className="content clfix"
+              direction="column"
+              spacing={3}
+              mt={1}
+            >
+              <Grid item>
+                <Typography variant="h3">중대 위협</Typography>
+              </Grid>
               <Grid
+                item
                 container
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="center"
                 sx={{ mt: '1rem' }}
               >
-                {data.majorEvents.map(
-                  ({
-                    imageUrl,
-                    title,
-                    threatType,
-                    sourceName,
-                    url,
-                    datetime,
-                  }) => (
-                    <ThreatMediaCard
-                      imageUrl={imageUrl}
-                      title={title}
-                      threatType={threatType}
-                      sourceChannel={sourceName}
-                      sourceTime={datetime}
-                      href={url}
-                    />
-                  )
-                )}
+                {data.majorEvents.map((props) => (
+                  <ThreatMediaCard {...props} />
+                ))}
               </Grid>
-            </div>
+            </Grid>
           </Box>
         </section>
       )}
