@@ -163,7 +163,7 @@ $ yarn start or npm run start
 <tbody>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719709-4d184f89-ba47-4db8-be91-ea50456b4bb5.png" width="60" height="60"></td>
 <td width="100" align="center">이민석</td>
 <td width="250">Product Manager<br>AI Developer</td>
 <td width="150" align="center">	
@@ -176,7 +176,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719707-7ded6f27-5360-4f8e-bf25-f1217da6e068.png" width="60" height="60"></td>
 <td width="100" align="center">조정환</td>
 <td width="250">AI Developer</td>
 <td width="150" align="center">	
@@ -189,7 +189,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719706-de01f100-7f5b-4a9e-ad89-899764c9949f.png" width="60" height="60"></td>
 <td width="100" align="center">서명근</td>
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
@@ -202,7 +202,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719704-ea182337-b327-41c9-a7d7-9b26957ef01c.png" width="60" height="60"></td>
 <td width="100" align="center">김태원</td>
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
@@ -215,7 +215,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719703-84288e35-1269-4dc7-a510-c65a41c09346.png" width="60" height="60"></td>
 <td width="100" align="center">이원빈</td>
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
@@ -228,7 +228,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719700-f2e9120e-1250-4d6c-9935-a89af62d3b64.png" width="60" height="60"></td>
 <td width="100" align="center">박용준</td>
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
@@ -241,7 +241,7 @@ $ yarn start or npm run start
 </tr>
 	
 <tr>
-<td width="100" align="center"><img src="/image/PROFILE1.png" width="60" height="60"></td>
+<td width="100" align="center"><img src="https://user-images.githubusercontent.com/55467050/136719708-dfea5244-8922-4c1c-879e-23aa58689de8.png" width="60" height="60"></td>
 <td width="100" align="center">서종찬</td>
 <td width="250">Frontend Engineer</td>
 <td width="150" align="center">	
