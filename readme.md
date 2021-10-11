@@ -120,7 +120,7 @@
 | :---------: | :---------: | :---------: | :---------: | :---------: |
 | Yes | 11+ | Yes | Yes | Yes |
 
-<h2 id="techniques"> :gear: 기술 스택 (Technique Used)</h2>
+<h2 id="techniques"> 🧱 기술 스택 (Technique Used)</h2>
 
 <p align="center">
   <img src="https://gdurl.com/YNdz" />
