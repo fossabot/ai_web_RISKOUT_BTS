@@ -57,7 +57,7 @@ export default function DetectionStatus() {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{marginLeft: "2em"}}>
       <Grid item xs={12} md={10} container spacing={3} direction="column">
         <Grid width="100%" item>
           <Typography mt={1} variant="h5" sx={{ fontFamily: "Noto sans KR", fontSize: "2rem", fontWeight: "600"}}>

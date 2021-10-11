@@ -20,7 +20,7 @@ import {
   
     return (
       <Card
-        sx={{ right: 0, marginTop: '38px', minHeight: '100%' }}
+        sx={{ right: 0, marginTop: '38px', minHeight: '100%', marginRight: '5em' }}
         elevation={1}
         spacing={3}
       >
@@ -39,8 +39,8 @@ import {
         {Object.entries(namedEntityMap).map(([filterLabel, filterCode]) => {
           const filterTags = Object.entries(searchList.filterTags[filterCode]);
           return (
-            <CardContent style={{ marginBottom: '16px' }}>
-              <Box className="filter_con">
+            <CardContent style={{ marginBottom: '35px' }}>
+              <Box className="filter_con" sx={{lineHeight: "2.8"}}>
                 <Stack
                   direction="row"
                   alignItems="center"
