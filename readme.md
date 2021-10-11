@@ -1,4 +1,3 @@
-
 # RISKOUT - 국방 리스크 관리 플랫폼 
 
 <div align='center'>
@@ -29,6 +28,7 @@
 <a href='https://riskout.ithosting.repl.co/'>
 <img src='https://img.shields.io/badge/VIDEO-blue?style=for-the-badge'>
 </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fosamhack2021%2Fai_web_RISKOUT_BTS?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fosamhack2021%2Fai_web_RISKOUT_BTS.svg?type=shield"/></a>
   
 <a href='https://riskout.ithosting.repl.co/'>
 <img src='https://img.shields.io/badge/BLOG-lightgrey?style=for-the-badge'>
@@ -125,6 +125,9 @@
 <p align="center">
   <img src="https://gdurl.com/YNdz" />
 </p>
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fosamhack2021%2Fai_web_RISKOUT_BTS.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fosamhack2021%2Fai_web_RISKOUT_BTS?ref=badge_large)
 
 ### AI
 
