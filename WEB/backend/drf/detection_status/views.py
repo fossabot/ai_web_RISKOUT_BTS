@@ -16,7 +16,7 @@ import random
 SERVER_URL = 'http://host.docker.internal:8000/'
 
 class AnalyzedDataView(generics.CreateAPIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = AnalyzedDataSerializer
 
     def post(self, request, *args, **kwargs):
@@ -161,7 +161,7 @@ class AnalyzedDataView(generics.CreateAPIView):
 
 
 class TrendsDataView(generics.GenericAPIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
 
     def get_serializer_class(self):
@@ -251,7 +251,7 @@ class TrendsDataView(generics.GenericAPIView):
 
 
 class WordcloudDataView(generics.GenericAPIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
 
     def get_serializer_class(self):
@@ -336,7 +336,7 @@ class WordcloudDataView(generics.GenericAPIView):
 
 
 class ArticleVolumeDataView(generics.GenericAPIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
 
     def get_serializer_class(self):
