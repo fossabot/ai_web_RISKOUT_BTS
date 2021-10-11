@@ -16,12 +16,12 @@ export default function ThreatMediaCard(props) {
   const imgHeight = 150;
   return (
     <Card variant="outlined" sx={{ width: `${imgWidth}px` }}>
-      {/* <a href={url} style={{ padding: 0, margin: 0 }}> */}
       <CardMedia
         component="img"
         height={`${imgHeight}`}
         image={imageUrl}
         sx={{ height: `${imgHeight}px`, width: `${imgWidth}px` }}
+        // crossorigin="use-credentials"
       />
       <CardContent>
         <Typography
@@ -56,12 +56,28 @@ export default function ThreatMediaCard(props) {
               sx={{ height: '2.4rem', fontSize: '1rem' }}
             />
           </Stack>
-          <Link href={url} target="_blank" rel="noopener" underline="hover">
-            {sourceName} {datetime}
+          <Link
+            href={url}
+            target="_blank"
+            rel="noopener"
+            underline="hover"
+            style={{ textAlign: 'end' }}
+          >
+            <span
+              style={{
+                width: '160px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                display: 'block',
+              }}
+            >
+              {sourceName}
+            </span>
+            <span>{datetime}</span>
           </Link>
         </Grid>
       </CardContent>
-      {/* </a> */}
     </Card>
   );
 }
