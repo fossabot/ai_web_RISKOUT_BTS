@@ -13,12 +13,8 @@ export default function FilterCheckbox(props) {
   const appliedFilterMap = useRecoilValue(appliedFilterMapState);
 
   const onChange = useCallback((e) => {
-    console.log('OLD', appliedFilterMap);
-
     if (includes(label, hashtag)) remove(label, hashtag);
     else append(label, hashtag);
-
-    console.log('NEW', appliedFilterMap);
   });
 
   return (

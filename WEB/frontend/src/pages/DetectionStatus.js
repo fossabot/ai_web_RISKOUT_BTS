@@ -11,13 +11,13 @@ import { useSessionStorage } from '../js/util';
 import { useRecoilValue } from 'recoil';
 import { searchState } from '../atoms/searchState';
 import useSeacrhEffect from '../hooks/useSearchEffect';
-import { appliedFilterMapState } from '../atoms/appliedFilterMapState';
+import { appliedFilterListState } from '../atoms/appliedFilterMapState';
 
 export default function DetectionStatus() {
   useSeacrhEffect(); // filterMap 변경될 때마다 검색.
 
   const search = useRecoilValue(searchState);
-  const appliedFilterMap = useRecoilValue(appliedFilterMapState);
+  const appliedFilterList = useRecoilValue(appliedFilterListState);
   const [isDetailModalOpen, setDetailModalOpen] = useState(false);
   const [detailModalData, setDetailModalData] = useState({
     id: 0,
@@ -65,12 +65,8 @@ export default function DetectionStatus() {
           </Typography>
           <Search />
           <Typography mt={3} color="primary">
-            {search.totalContentsLength}개 결과 |
-            {/* {
-              Array.prototype.concat([...Object.values(appliedFilterMap)])
-                .length
-            } */}
-            개 필터 적용중
+            {search.totalContentsLength}개 결과 | {appliedFilterList.length}개
+            필터 적용중
           </Typography>
         </Grid>
         <Grid width="100%" item justify="center">

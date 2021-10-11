@@ -20,7 +20,7 @@ import { useFilterTags } from '../../atoms/searchState';
 
 export default function FilterBar() {
   const filterTags = useFilterTags();
-  const { includes } = useAppliedFilterMapActions();
+  const { reset, includes } = useAppliedFilterMapActions();
 
   return (
     <Card
@@ -30,7 +30,11 @@ export default function FilterBar() {
     >
       <CardHeader
         action={
-          <Button style={{ fontSize: '10px', marginTop: '10px' }} size="small">
+          <Button
+            onClick={() => reset()}
+            style={{ fontSize: '10px', marginTop: '10px' }}
+            size="small"
+          >
             RESET
           </Button>
         }
@@ -70,38 +74,6 @@ export default function FilterBar() {
               </CardContent>
             )
         )}
-      {/* 
-      {Object.entries(namedEntityMap).map(([korLabel, codeLabel]) => {
-        return (
-          <CardContent style={{ marginBottom: '16px' }}>
-            <Box className="filter_con">
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              ></Stack>
-              <Box>
-                {filterTags
-                  .sort(([_, a], [__, b]) => (a < b ? 1 : -1))
-                  .map(([hashtag, freq], i) => (
-                    <FilterCheckbox
-                      count={freq}
-                      hashtag={hashtag}
-                      key={hashtag}
-                      checked={appliedFilterList.includes(hashtag)}
-                    />
-                  ))}
-                <Button
-                  size="small"
-                  sx={{ float: 'right', marginRight: '-15px' }}
-                >
-                  더보기
-                </Button>
-              </Box>
-            </Box>
-          </CardContent>
-        );
-      })} */}
     </Card>
   );
 }
