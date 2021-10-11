@@ -30,7 +30,7 @@ export default function FilterBar() {
             RESET
           </Button>
         }
-        titleTypographyProps={{ variant: 'body1' }}
+        titleTypographyProps={{ variant: 'body1', fontSize: '1.5rem', fontFamily: "Noto sans KR", fontWeight: 600 }}
         title="FILTER"
       />
       <Divider />
