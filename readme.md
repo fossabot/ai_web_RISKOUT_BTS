@@ -2,7 +2,7 @@
 # RISKOUT - 국방 리스크 관리 플랫폼 
 
 <div align='center'>
-<img src="https://gdurl.com/YNdz"/>
+![dashboard](https://user-images.githubusercontent.com/55467050/136731593-c5206924-6d2d-42dd-a470-4dd9bf0660aa.png)
 <p>&nbsp;</p>
 <img src='https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge&logo'>
   
@@ -78,7 +78,7 @@
 <h3 id="feature1">여론 현황 대시보드</h3>
 
 <p align="center">
-  <img src="https://gdurl.com/YNdz" />
+  <img src="https://user-images.githubusercontent.com/55467050/136731593-c5206924-6d2d-42dd-a470-4dd9bf0660aa.png" />
 </p>
 
 여론 현황 대시보드는 여론 및 언론의 최근 동향을 실시간으로 확인할 수 있도록 다양한 **차트**로 시각화시킨 페이지입니다. 차트는 총 5가지의 형태로 표현됩니다.
@@ -92,7 +92,7 @@
 <h3 id="feature2">위협 탐지</h3>
 
 <p align="center">
-  <img src="https://gdurl.com/YNdz" />
+  <img src="https://user-images.githubusercontent.com/55467050/136731593-c5206924-6d2d-42dd-a470-4dd9bf0660aa.png" />
 </p>
 
 **기밀 유출 탐지 + 허위 기사 탐지**
@@ -106,7 +106,7 @@
 <h3 id="feature3">맞춤형 보고서 생성</h3>
 
 <p align="center">
-  <img src="https://gdurl.com/YNdz" />
+  <img src="https://user-images.githubusercontent.com/55467050/136731593-c5206924-6d2d-42dd-a470-4dd9bf0660aa.png" />
 </p>
 
 * **기밀 유출 보고** : 기밀 유출 현황을 각종 수치로 시각화시킨 브리핑 보드.
