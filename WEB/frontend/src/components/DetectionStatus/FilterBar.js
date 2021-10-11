@@ -38,7 +38,7 @@ export default function FilterBar() {
       {Object.entries(namedEntityMap).map(([filterLabel, filterCode]) => {
         const filterTags = Object.entries(searchList.filterTags[filterCode]);
         return (
-          <CardContent style={{ marginBottom: '16px' }}>
+          <CardContent style={{ marginBottom: '16px', fontFamily: "Noto sans KR" }}>
             <Box className="filter_con">
               <Stack
                 direction="row"
