@@ -195,7 +195,7 @@ $ yarn start or npm run start
 <td width="250">Backend Engineer</td>
 <td width="150" align="center">	
 	<a href="https://github.com/dev-taewon-kim">
-	<img src="https://img.shields.io/badge/devtaewonkim-655ced?style=social&logo=github"/>
+	<img src="https://user-images.githubusercontent.com/55467050/136719703-84288e35-1269-4dc7-a510-c65a41c09346.png"/>
 	</a>
 </td>
 <td width="300" align="center">
