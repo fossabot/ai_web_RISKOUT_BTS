@@ -314,9 +314,12 @@ def main():
 
     for date in date_list:
         cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
-        important_data_list.extend(dataRanker(cur.fetchall()))
-        cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
-        conn.commit()
+        ranked_list = dataRanker(cur.fetchall())
+        
+        if ranked_list:
+            important_data_list.extend(ranked_list)
+            cur.execute("UPDATE CrawlContents SET isAnalyzed = 1 WHERE isAnalyzed = 0 AND category = 'news' AND created_at = ?", (date,))
+            conn.commit()
     
     cur.execute("SELECT * FROM CrawlContents WHERE isAnalyzed = 0") # news는 이미 analyzed 되었기 때문에 sns와 community만 남는다
     important_data_list.extend(cur.fetchall())
